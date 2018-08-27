@@ -7,7 +7,7 @@
         "i": "yarn install --frozen-lockfile",
         "a": "yarn add -T -D",
         "r": "yarn remove",
-        "precommit": "lint-staged",
+        "precommit": "yarn check --integrity && lint-staged",
         "postcommit": "git update-index --again"
     },
     "lint-staged": {
