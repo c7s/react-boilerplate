@@ -7,6 +7,8 @@
         "i": "yarn install --frozen-lockfile",
         "a": "yarn add -T -D",
         "r": "yarn remove",
+        "preparecommitmsg": "node ./git/hooks/prepare-commit-msg",
+        "commitmsg": "node ./git/hooks/commit-msg",
         "precommit": "yarn check --integrity && lint-staged",
         "postcommit": "git update-index --again"
     },
