@@ -2,5 +2,10 @@
   "name": "c7s-react-boilerplate",
   "version": "0.0.0",
   "author": "c7s",
-  "private": true
+  "private": true,
+  "scripts": {
+    "i": "yarn install --frozen-lockfile",
+    "a": "yarn add -T -D",
+    "r": "yarn remove"
+  }
 }
