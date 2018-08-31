@@ -1,15 +1,12 @@
 {
     "compilerOptions": {
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "lib": ["es7", "esnext", "dom"],
-        "module": "ES6",
+        "target": "esnext",
         "moduleResolution": "node",
+        "noEmit": true,
         "strict": true,
-        "noImplicitReturns": true,
-        "noUnusedLocals": true,
-        "sourceMap": true,
-        "target": "ES6"
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "jsx": "react"
     },
-    "exclude": ["node_modules"]
+    "include": ["src"]
 }

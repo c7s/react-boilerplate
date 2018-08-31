@@ -19,13 +19,21 @@
         "./src/**/*.{ts,tsx}": [
             "tslint -t stylish --project tsconfig.json"
         ],
+        "./src/**/*.{tsx,ts}": [
+            "tsc"
+        ],
         "{*.{js,ts,tsx,json,graphql,md},**/.*rc}": [
             "prettier --write",
             "git add"
         ]
     },
     "devDependencies": {
+        "@babel/core": "~7.0.0",
+        "@babel/preset-env": "~7.0.0",
+        "@babel/preset-react": "~7.0.0",
+        "@babel/preset-typescript": "~7.0.0",
         "@types/react": "~16.4.13",
+        "babel-plugin-add-react-displayname": "~0.0.5",
         "eslint": "~5.4.0",
         "eslint-config-airbnb": "~17.1.0",
         "eslint-config-prettier": "~3.0.1",

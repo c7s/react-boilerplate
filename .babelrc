@@ -1,0 +1,21 @@
+{
+    "presets": [
+        ["@babel/env", {
+            "targets": {
+                "browsers": ["last 1 version"],
+                "safari": "9",
+                "ie": "11",
+                "ios": "9",
+                "android": "4"
+            }
+        }],
+        "@babel/react",
+        "@babel/typescript"
+    ],
+    "env": {
+        "development": {
+            "plugins": ["add-react-displayname"]
+        },
+        "production": {}
+    }
+}
