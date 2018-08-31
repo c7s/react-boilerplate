@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "lib": ["es7", "esnext", "dom"],
+        "module": "ES6",
+        "moduleResolution": "node",
+        "strict": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "sourceMap": true,
+        "target": "ES6"
+    },
+    "exclude": ["node_modules"]
+}
