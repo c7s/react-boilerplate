@@ -1,6 +1,7 @@
 {
     "presets": [
         ["@babel/env", {
+            "modules": false,
             "targets": {
                 "browsers": ["last 1 version"],
                 "safari": "9",
@@ -14,7 +15,7 @@
     ],
     "env": {
         "development": {
-            "plugins": ["add-react-displayname"]
+            "plugins": ["react-hot-loader/babel", "add-react-displayname"]
         },
         "production": {}
     }
