@@ -14,13 +14,13 @@
         "postcommit": "git update-index --again"
     },
     "lint-staged": {
-        "./**/*.js": [
+        "*.js": [
             "eslint"
         ],
-        "./src/**/*.{ts,tsx}": [
+        "*.{ts,tsx}": [
             "tslint -t stylish --project tsconfig.json"
         ],
-        "{*.{js,ts,tsx,json,graphql,md},**/.*rc}": [
+        "*.{js,ts,tsx,json,graphql,md,*rc}": [
             "prettier --write",
             "git add"
         ]
