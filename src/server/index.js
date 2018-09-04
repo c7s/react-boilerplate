@@ -9,10 +9,12 @@ const app = express();
 
 const compiler = webpack(config);
 
-app.use(webpackDevMiddleware(compiler, {
-    serverSideRender: true,
-    noInfo: true,
-}));
+app.use(
+    webpackDevMiddleware(compiler, {
+        serverSideRender: true,
+        noInfo: true,
+    })
+);
 app.use(webpackHotMiddleware(compiler.compilers.find(compilerInner => compilerInner.name === 'client')));
 app.use(webpackHotServerMiddleware(compiler));
 

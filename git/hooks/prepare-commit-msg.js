@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {execSync} = require('child_process');
+const { execSync } = require('child_process');
 
 const msgPrefixMatch = /([A-Z]+-\d+)/.exec(execSync('git symbolic-ref --short HEAD', { encoding: 'utf-8' }));
 

@@ -8,6 +8,7 @@
         "a": "yarn add -T -D",
         "r": "yarn remove",
         "start": "node ./src/server",
+        "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
         "preparecommitmsg": "node ./git/hooks/prepare-commit-msg",
         "commitmsg": "node ./git/hooks/commit-msg",
         "precommit": "yarn check --integrity && tsc --project tsconfig.json && lint-staged",
