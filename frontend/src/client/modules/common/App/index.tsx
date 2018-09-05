@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import * as React from 'react';
-import { hot } from 'react-hot-loader';
+import { Query } from 'react-apollo';
+import { Licenses } from './AppGraphql';
 
 export interface Props {
     name: string;
@@ -40,12 +41,20 @@ class App extends React.Component<Props, State> {
 
     render() {
         return (
-            <div>
-                Greetings, {this.props.name}:{this.state.counter}
-                <button onClick={this.onClick}>Droppy</button>
-            </div>
+            <Query query={Licenses}>
+                {result => (
+                    <div>
+                        Greetings, {this.props.name}:{this.state.counter}
+                        <button onClick={this.onClick}>Droppy</button>
+                        <div>
+                            {JSON.stringify(result.data)}, {JSON.stringify(result.error)},{' '}
+                            {JSON.stringify(result.loading)}
+                        </div>
+                    </div>
+                )}
+            </Query>
         );
     }
 }
 
-export const HotApp = hot(module)(App);
+export { App };

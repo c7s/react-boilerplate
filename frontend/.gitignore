@@ -1,7 +1,25 @@
 # Project-specific (define your stuff here!)
 
-### Webpack output ###
+# Local configs
+config/local/*
+!config/local/README.md
+
+# Webpack output
 dist/
+
+# Apollo types and asembled files are generated
+*ApolloType.ts
+*.assembled.graphql
+*Graphql.d.ts
+
+# Yarn is used instead of npm, so tracking this file makes no sense
+package-lock.json
+
+# GraphQL schema is generated from endpoint
+graphql.schema.json
+
+# JS GraphQL plugin config is generated from endpoint
+graphql.config.json
 
 
 # Created by https://www.gitignore.io/api/node,macos,linux,windows,webstorm,visualstudiocode

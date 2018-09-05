@@ -1,0 +1,11 @@
+query Licenses {
+    licenses {
+        nickname
+    }
+}
+
+query Dummy {
+    licenses {
+        nickname
+    }
+}

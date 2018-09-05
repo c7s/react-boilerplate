@@ -1,7 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const TimeFixPlugin = require('time-fix-plugin');
+const config = require('./config');
 
+const completeConfig = config.getCompleteConfig();
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 const commonPart = {
@@ -17,12 +19,27 @@ const commonPart = {
                 ],
                 exclude: [nodeModulesPath],
             },
+            {
+                test: /Graphql\.graphql$/,
+                exclude: /node_modules/,
+                loader: 'graphql-tag/loader',
+            },
         ],
     },
-    plugins: [new webpack.HotModuleReplacementPlugin(), new TimeFixPlugin()],
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new TimeFixPlugin(),
+        new webpack.DefinePlugin({
+            GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
+            GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
+        }),
+    ],
     devtool: 'source-map',
     resolve: {
-        extensions: ['.js', '.ts', '.tsx'],
+        extensions: ['.js', '.ts', '.tsx', '.graphql'],
+        alias: {
+            'node-fetch$': 'node-fetch/lib/index.js',
+        },
     },
 };
 
@@ -30,7 +47,7 @@ module.exports = [
     {
         name: 'client',
         target: 'web',
-        entry: ['webpack-hot-middleware/client?reload=true', './src/client/client.ts'],
+        entry: ['webpack-hot-middleware/client?reload=true', './src/client/client.tsx'],
         output: {
             filename: 'client.bundle.js',
         },
@@ -39,7 +56,7 @@ module.exports = [
     {
         name: 'server',
         target: 'node',
-        entry: './src/client/server.ts',
+        entry: './src/client/server.tsx',
         output: {
             filename: 'server.bundle.js',
             libraryTarget: 'commonjs2',
