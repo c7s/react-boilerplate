@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const TimeFixPlugin = require('time-fix-plugin');
 
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
@@ -18,7 +19,7 @@ const commonPart = {
             },
         ],
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()],
+    plugins: [new webpack.HotModuleReplacementPlugin(), new TimeFixPlugin()],
     devtool: 'source-map',
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
