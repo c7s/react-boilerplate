@@ -18,6 +18,6 @@ app.use(
 app.use(webpackHotMiddleware(compiler.compilers.find(compilerInner => compilerInner.name === 'client')));
 app.use(webpackHotServerMiddleware(compiler));
 
-app.listen(8080);
+app.listen(3005);
 
-console.log('Listen at localhost:8080'); // eslint-disable-line no-console
+console.log('Dev server is up at http://localhost:3005'); // eslint-disable-line no-console
