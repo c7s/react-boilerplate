@@ -2,9 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const msgPrefixMatch = /([A-Z]+-\d+)/.exec(execSync('git symbolic-ref --short HEAD', { encoding: 'utf-8' }));
+const msgPrefixMatch = /([A-Z]+-\d+)/.exec(
+    execSync('git --git-dir ../.git symbolic-ref --short HEAD', { encoding: 'utf-8' })
+);
 
-const msgFilePath = path.resolve(process.env.GIT_PARAMS.split(' ')[0]);
+const msgFilePath = path.resolve('..', process.env.GIT_PARAMS.split(' ')[0]);
 const msgFileContent = fs.readFileSync(msgFilePath, { encoding: 'utf-8' });
 
 const isAlreadyWithPrefix = /^[A-Z]+-\d+: /.test(msgFileContent);

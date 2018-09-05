@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const msgFilePath = path.resolve(process.env.GIT_PARAMS.split(' ')[0]);
+const msgFilePath = path.resolve('..', process.env.GIT_PARAMS.split(' ')[0]);
 const msgFileContent = fs.readFileSync(msgFilePath, { encoding: 'utf-8' });
 
 const isMsgFormattedCorrectly = /^[A-Z]+-\d+: [A-Z]/.test(msgFileContent) || /^Merge/.test(msgFileContent);

@@ -18,4 +18,6 @@ app.use(
 app.use(webpackHotMiddleware(compiler.compilers.find(compilerInner => compilerInner.name === 'client')));
 app.use(webpackHotServerMiddleware(compiler));
 
-app.listen(6060);
+app.listen(8080);
+
+console.log('Listen at localhost:8080'); // eslint-disable-line no-console

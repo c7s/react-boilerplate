@@ -1,5 +1,5 @@
 {
-    "name": "c7s-react-boilerplate",
+    "name": "react-boilerplate-frontend",
     "version": "0.0.0",
     "author": "c7s",
     "private": true,
@@ -8,6 +8,8 @@
         "a": "yarn add -T -D",
         "r": "yarn remove",
         "start": "node ./src/server",
+        "build": "webpack",
+        "prepare": "webpack",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
         "preparecommitmsg": "node ./git/hooks/prepare-commit-msg",
         "commitmsg": "node ./git/hooks/commit-msg",
@@ -15,6 +17,7 @@
         "postcommit": "git update-index --again"
     },
     "lint-staged": {
+        "gitDir": "../",
         "*.js": [
             "eslint"
         ],

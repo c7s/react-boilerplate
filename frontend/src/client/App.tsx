@@ -42,7 +42,7 @@ class App extends React.Component<Props, State> {
         return (
             <div>
                 Greetings, {this.props.name}:{this.state.counter}
-                <button onClick={this.onClick}>Drop</button>
+                <button onClick={this.onClick}>Droppy</button>
             </div>
         );
     }
