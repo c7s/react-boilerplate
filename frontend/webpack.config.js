@@ -29,6 +29,7 @@ const commonPart = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new TimeFixPlugin(),
+        new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
         new webpack.DefinePlugin({
             GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
             GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
