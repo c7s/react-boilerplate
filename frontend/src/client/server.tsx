@@ -5,6 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { createHttpLink } from 'apollo-link-http';
 import fetch from 'node-fetch';
+import { StaticRouter } from 'react-router';
 import { App } from './App';
 
 export default function serverRenderer() {
@@ -19,9 +20,13 @@ export default function serverRenderer() {
             cache: new InMemoryCache(),
         });
 
+        const context = {};
+
         const AppWithProvider = (
             <ApolloProvider client={client}>
-                <App name={'Name2'} />
+                <StaticRouter location={req.url} context={context}>
+                    <App />
+                </StaticRouter>
             </ApolloProvider>
         );
 

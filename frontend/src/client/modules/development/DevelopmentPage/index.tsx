@@ -1,16 +1,16 @@
 import autobind from 'autobind-decorator';
 import * as React from 'react';
 import { Query } from 'react-apollo';
-import { Licenses } from './AppGraphql';
+import { Link } from 'react-router-dom';
+import { Licenses } from './DevelopmentPageGraphql';
 
-export interface Props {
-    name: string;
-}
+export interface Props {}
+
 export interface State {
     counter: number;
 }
 
-class App extends React.Component<Props, State> {
+class DevelopmentPage extends React.Component<Props, State> {
     timer: number | null;
     constructor(props: Props) {
         super(props);
@@ -44,12 +44,14 @@ class App extends React.Component<Props, State> {
             <Query query={Licenses}>
                 {result => (
                     <div>
-                        Greetings, {this.props.name}:{this.state.counter}
+                        Greetings:
+                        {this.state.counter}
                         <button onClick={this.onClick}>Droppy</button>
                         <div>
                             {JSON.stringify(result.data)}, {JSON.stringify(result.error)},{' '}
                             {JSON.stringify(result.loading)}
                         </div>
+                        <Link to={'/'}>Root</Link>
                     </div>
                 )}
             </Query>
@@ -57,4 +59,4 @@ class App extends React.Component<Props, State> {
     }
 }
 
-export { App };
+export { DevelopmentPage };
