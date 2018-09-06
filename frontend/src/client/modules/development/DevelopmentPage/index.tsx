@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import { routes } from '../../../routes';
 import { Licenses } from './DevelopmentPageGraphql';
 
 export interface Props {}
@@ -51,7 +52,7 @@ class DevelopmentPage extends React.Component<Props, State> {
                             {JSON.stringify(result.data)}, {JSON.stringify(result.error)},{' '}
                             {JSON.stringify(result.loading)}
                         </div>
-                        <Link to={'/'}>Root</Link>
+                        <Link to={routes.ROOT.path}>Root</Link>
                     </div>
                 )}
             </Query>

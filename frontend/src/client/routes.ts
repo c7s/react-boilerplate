@@ -3,7 +3,7 @@ import { RouteProps } from 'react-router';
 import { DevelopmentPage } from './modules/development/DevelopmentPage';
 import { RootPage } from './modules/root/RootPage';
 
-export const routes: Dictionary<RouteProps & { name: string }> = {
+export const routes: Dictionary<RouteProps & { name: string } & { path: string }> = {
     ROOT: {
         path: '/',
         name: 'ROOT',
