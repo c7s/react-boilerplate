@@ -48,7 +48,7 @@ module.exports = [
     {
         name: 'client',
         target: 'web',
-        entry: ['webpack-hot-middleware/client?reload=true', './src/client/client.tsx'],
+        entry: ['webpack-hot-middleware/client?reload=true', './src/client/client.ts'],
         output: {
             filename: 'client.bundle.js',
         },
@@ -57,7 +57,7 @@ module.exports = [
     {
         name: 'server',
         target: 'node',
-        entry: './src/client/server.tsx',
+        entry: './src/client/server.ts',
         output: {
             filename: 'server.bundle.js',
             libraryTarget: 'commonjs2',
