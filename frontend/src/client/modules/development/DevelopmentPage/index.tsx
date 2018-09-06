@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { routes } from '../../../routes';
 import { Licenses } from './DevelopmentPageGraphql';
 
@@ -45,7 +46,7 @@ class DevelopmentPage extends React.Component<Props, State> {
             <Query query={Licenses}>
                 {result => (
                     <div>
-                        Greetings:
+                        <Greeting>Greetings:</Greeting>
                         {this.state.counter}
                         <button onClick={this.onClick}>Droppy</button>
                         <div>
@@ -59,5 +60,10 @@ class DevelopmentPage extends React.Component<Props, State> {
         );
     }
 }
+
+const Greeting = styled.div`
+    color: orange;
+    font-weight: bold;
+`;
 
 export { DevelopmentPage };

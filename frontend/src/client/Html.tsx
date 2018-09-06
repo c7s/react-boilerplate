@@ -1,16 +1,15 @@
 import * as React from 'react';
 
 export interface HtmlProps {
+    styleTags: string;
     content: string;
     state: object;
 }
 
-export const Html: React.StatelessComponent<HtmlProps> = ({ content, state }) => {
+export const Html: React.StatelessComponent<HtmlProps> = ({ styleTags, content, state }) => {
     return (
         <html>
-            <head>
-                <title>App</title>
-            </head>
+            <head dangerouslySetInnerHTML={{ __html: `<title>App</title>${styleTags}` }} />
             <body>
                 <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
                 <script

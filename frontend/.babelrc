@@ -21,6 +21,12 @@
             "plugins": [
                 ["@babel/plugin-proposal-decorators", { "legacy": true }],
                 "react-hot-loader/babel",
+                [
+                    "babel-plugin-styled-components",
+                    {
+                        "ssr": true
+                    }
+                ],
                 "add-react-displayname"
             ]
         },
