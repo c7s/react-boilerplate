@@ -22,7 +22,7 @@ export default function serverRenderer() {
 
         getDataFromTree(App)
             .then(() => {
-                const content = renderToString(App);
+                const content = renderToString(sheet.collectStyles(App));
 
                 if (context.url) {
                     res.status(301)
