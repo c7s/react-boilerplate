@@ -1,3 +1,4 @@
+import { ApolloLink } from 'apollo-link';
 import * as React from 'react';
 import { ApolloProvider, renderToStringWithData } from 'react-apollo';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -6,9 +7,11 @@ import { StaticRouter } from 'react-router';
 import { App } from './App';
 import { isomorphicApolloClientFactory } from './modules/common/lib/apollo';
 
-export default function serverRenderer() {
+export default function serverRenderer(link?: ApolloLink) {
     return (req: any, res: any) => {
-        const backendApolloClient = isomorphicApolloClientFactory({ ssrMode: true, fetch: fetch as any });
+        const backendApolloClient = link
+            ? isomorphicApolloClientFactory({ link, ssrMode: true })
+            : isomorphicApolloClientFactory({ ssrMode: true, fetch: fetch as any });
 
         const context = {};
 
