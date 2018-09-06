@@ -7,35 +7,31 @@ const completeConfig = config.getCompleteConfig();
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 const commonPart = {
-    mode: 'development',
+    mode: completeConfig.root.env === config.ENV.DEV ? 'development' : 'production',
+    devtool: completeConfig.root.env === config.ENV.DEV && 'cheap-module-source-map',
     module: {
         rules: [
             {
                 test: /\.[tj]sx?$/,
-                loaders: [
-                    {
-                        loader: 'babel-loader',
-                    },
-                ],
+                loader: 'babel-loader',
                 exclude: [nodeModulesPath],
             },
             {
                 test: /Graphql\.graphql$/,
-                exclude: /node_modules/,
                 loader: 'graphql-tag/loader',
+                exclude: [nodeModulesPath],
             },
         ],
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
+        completeConfig.root.env === config.ENV.DEV && new webpack.HotModuleReplacementPlugin(),
         new TimeFixPlugin(),
         new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
         new webpack.DefinePlugin({
             GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
             GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
         }),
-    ],
-    devtool: 'source-map',
+    ].filter(Boolean),
     resolve: {
         extensions: ['.js', '.ts', '.tsx', '.graphql'],
         alias: {
@@ -48,7 +44,10 @@ module.exports = [
     {
         name: 'client',
         target: 'web',
-        entry: ['webpack-hot-middleware/client?reload=true', './src/client/client.ts'],
+        entry: [
+            completeConfig.root.env === config.ENV.DEV && 'webpack-hot-middleware/client?reload=true',
+            './src/client/client.ts',
+        ].filter(Boolean),
         output: {
             filename: 'client.bundle.js',
         },
