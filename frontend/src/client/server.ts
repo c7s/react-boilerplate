@@ -10,7 +10,7 @@ export default function serverRenderer() {
     return (req: any, res: any) => {
         const backendApolloClient = isomorphicApolloClientFactory({ ssrMode: true, fetch: fetch as any });
 
-        const context = {};
+        const context: { url?: string } = {};
 
         renderToStringWithData(
             React.createElement(IsomorphicApp, {
@@ -21,10 +21,16 @@ export default function serverRenderer() {
             }),
         )
             .then(content => {
-                const state = backendApolloClient.extract();
-                const html = React.createElement(Html, { content, state });
+                if (context.url) {
+                    res.status(301)
+                        .header('Location', context.url)
+                        .send();
+                } else {
+                    const state = backendApolloClient.extract();
+                    const html = React.createElement(Html, { content, state });
 
-                res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
+                    res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
+                }
             })
             .catch(error => {
                 res.status(500).send(error);
