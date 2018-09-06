@@ -12,7 +12,13 @@ const compiler = webpack(config);
 app.use(
     webpackDevMiddleware(compiler, {
         serverSideRender: true,
-        noInfo: true,
+        quiet: false,
+        noInfo: false,
+        stats: {
+            all: false,
+            colors: true,
+            timings: true,
+        },
     })
 );
 app.use(webpackHotMiddleware(compiler.compilers.find(compilerInner => compilerInner.name === 'client')));
