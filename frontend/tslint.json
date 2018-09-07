@@ -4,6 +4,7 @@
         "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
         "import-name": false,
         "comment-format": [true, "check-space", "check-uppercase"],
-        "ordered-imports": true
+        "ordered-imports": true,
+        "no-unused-variable": false
     }
 }

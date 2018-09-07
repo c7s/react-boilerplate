@@ -7,7 +7,9 @@
         "isolatedModules": true,
         "esModuleInterop": true,
         "jsx": "react",
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
     },
     "include": ["src", "@types", "config"]
 }
