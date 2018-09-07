@@ -6,6 +6,7 @@ import fetch from 'node-fetch';
 import { ServerStyleSheet } from 'styled-components';
 import { IsomorphicApp } from './IsomorphicApp';
 import { Html } from './Html';
+import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import { isomorphicApolloClientFactory } from './modules/common/lib/apollo';
 
 export default function serverRenderer(stats?: { link?: ApolloLink }) {
@@ -34,8 +35,9 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
                         .send();
                 } else {
                     const styleTags = sheet.getStyleTags();
+                    const spriteContent = sprite.stringify();
                     const state = backendApolloClient.extract();
-                    const html = React.createElement(Html, { styleTags, content, state });
+                    const html = React.createElement(Html, { styleTags, spriteContent, content, state });
 
                     res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
                 }

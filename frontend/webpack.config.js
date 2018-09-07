@@ -22,6 +22,19 @@ const commonConfig = {
                 loader: 'graphql-tag/loader',
                 exclude: [nodeModulesPath],
             },
+            {
+                test: /Icon\.svg$/,
+                loaders: [
+                    'babel-loader',
+                    {
+                        loader: 'svg-sprite-loader',
+                        options: {
+                            runtimeGenerator: require.resolve('./generators/svg-to-icon-component'),
+                            symbolId: '[name]_[hash]',
+                        },
+                    },
+                ],
+            },
         ],
     },
     plugins: [
@@ -34,7 +47,8 @@ const commonConfig = {
         }),
     ].filter(Boolean),
     resolve: {
-        extensions: ['.js', '.ts', '.tsx', '.graphql', '.jpg', '.jpeg', '.png'],
+        modules: ['node_modules', path.resolve(`./src/client`)],
+        extensions: ['.js', '.ts', '.tsx', '.graphql', '.jpg', '.jpeg', '.png', '.svg'],
         alias: {
             'node-fetch$': 'node-fetch/lib/index.js',
         },
