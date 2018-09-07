@@ -1,0 +1,17 @@
+{
+    "processors": ["stylelint-processor-styled-components"],
+    "extends": ["stylelint-config-standard", "stylelint-config-styled-components"],
+    "rules": {
+        "indentation": 4,
+        "declaration-property-value-blacklist": {
+            "/.*/": ["unset", "initial"]
+        },
+        "property-blacklist": ["all", "letter-spacing"],
+        "shorthand-property-no-redundant-values": true,
+        "declaration-no-important": true,
+        "color-no-invalid-hex": true,
+        "color-hex-case": "lower",
+        "color-hex-length": "long",
+        "color-named": "never"
+    }
+}

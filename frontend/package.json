@@ -29,6 +29,9 @@
         "*.{ts,tsx}": [
             "tslint -t stylish --project tsconfig.json"
         ],
+        "./src/**/*.{tsx,ts}": [
+            "stylelint"
+        ],
         "*.{js,ts,tsx,json,graphql,md,*rc}": [
             "prettier --write",
             "git add"
@@ -71,6 +74,10 @@
         "react-hot-loader": "~4.3.5",
         "react-router-dom": "~4.3.1",
         "styled-components": "~3.4.5",
+        "stylelint": "~9.5.0",
+        "stylelint-config-standard": "~18.2.0",
+        "stylelint-config-styled-components": "~0.1.1",
+        "stylelint-processor-styled-components": "~1.3.2",
         "time-fix-plugin": "~2.0.3",
         "tslint": "~5.11.0",
         "tslint-config-airbnb": "~5.10.0",
