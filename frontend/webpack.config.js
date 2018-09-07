@@ -40,6 +40,7 @@ const commonConfig = {
     plugins: [
         completeConfig.root.env === config.ENV.DEV && new webpack.HotModuleReplacementPlugin(),
         new TimeFixPlugin(),
+        // TODO: sort out issue with iconv-loader
         new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
         new webpack.DefinePlugin({
             GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
