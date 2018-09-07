@@ -2,6 +2,7 @@
     "extends": ["airbnb", "prettier"],
     "rules": {
         "no-console": ["error", { "allow": ["warn", "error"] }],
-        "no-use-before-define": ["error", "nofunc"]
+        "no-use-before-define": ["error", "nofunc"],
+        "capitalized-comments": ["error", "always"]
     }
 }

@@ -10,6 +10,7 @@
             "allow-string",
             "allow-number",
             "allow-mix"
-        ]
+        ],
+        "comment-format": [true, "check-space", "check-uppercase"]
     }
 }
