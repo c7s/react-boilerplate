@@ -9,7 +9,7 @@
             "allow-undefined-union",
             "allow-string",
             "allow-number",
-            "allow-mix"
+            "allow-boolean-or-undefined"
         ],
         "comment-format": [true, "check-space", "check-uppercase"]
     }
