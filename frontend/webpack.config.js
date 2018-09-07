@@ -1,4 +1,5 @@
 const path = require('path');
+const merge = require('webpack-merge');
 const webpack = require('webpack');
 const TimeFixPlugin = require('time-fix-plugin');
 const config = require('./config');
@@ -6,7 +7,7 @@ const config = require('./config');
 const completeConfig = config.getCompleteConfig();
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
-const commonPart = {
+const commonConfig = {
     mode: completeConfig.root.env === config.ENV.DEV ? 'development' : 'production',
     devtool: completeConfig.root.env === config.ENV.DEV && 'cheap-module-source-map',
     module: {
@@ -33,35 +34,54 @@ const commonPart = {
         }),
     ].filter(Boolean),
     resolve: {
-        extensions: ['.js', '.ts', '.tsx', '.graphql'],
+        extensions: ['.js', '.ts', '.tsx', '.graphql', '.jpg', '.jpeg', '.png'],
         alias: {
             'node-fetch$': 'node-fetch/lib/index.js',
         },
     },
+    output: {
+        publicPath: '/static/',
+    },
 };
 
-module.exports = [
-    {
-        name: 'client',
-        target: 'web',
-        entry: [
-            completeConfig.root.env === config.ENV.DEV && 'webpack-hot-middleware/client?reload=true',
-            './src/client/client.ts',
-        ].filter(Boolean),
-        output: {
-            filename: 'client.bundle.js',
-            path: path.resolve(__dirname, 'dist', 'static'),
-        },
-        ...commonPart,
+const clientConfig = {
+    name: 'client',
+    target: 'web',
+    entry: [
+        completeConfig.root.env === config.ENV.DEV && 'webpack-hot-middleware/client?reload=true',
+        './src/client/client.ts',
+    ].filter(Boolean),
+    module: {
+        rules: [
+            {
+                test: /Image\.(jpg|jpeg|png)$/,
+                loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client`,
+            },
+        ],
     },
-    {
-        name: 'server',
-        target: 'node',
-        entry: './src/client/server.ts',
-        output: {
-            filename: 'server.bundle.js',
-            libraryTarget: 'commonjs2',
-        },
-        ...commonPart,
+    output: {
+        filename: 'client.bundle.js',
+        path: path.resolve(__dirname, 'dist', 'static'),
     },
-];
+};
+
+const serverConfig = {
+    name: 'server',
+    target: 'node',
+    entry: './src/client/server.ts',
+    module: {
+        rules: [
+            {
+                test: /Image\.(jpg|jpeg|png)$/,
+                loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
+            },
+        ],
+    },
+    output: {
+        filename: 'server.bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        libraryTarget: 'commonjs2',
+    },
+};
+
+module.exports = [merge(clientConfig, commonConfig), merge(serverConfig, commonConfig)];

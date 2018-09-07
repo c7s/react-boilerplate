@@ -8,11 +8,12 @@ import { IsomorphicApp } from './IsomorphicApp';
 import { Html } from './Html';
 import { isomorphicApolloClientFactory } from './modules/common/lib/apollo';
 
-export default function serverRenderer({ link }: { link?: ApolloLink }) {
+export default function serverRenderer(stats?: { link?: ApolloLink }) {
     return (req: any, res: any) => {
-        const backendApolloClient = link
-            ? isomorphicApolloClientFactory({ link, ssrMode: true })
-            : isomorphicApolloClientFactory({ ssrMode: true, fetch: fetch as any });
+        const backendApolloClient =
+            stats && stats.link
+                ? isomorphicApolloClientFactory({ ssrMode: true, link: stats.link })
+                : isomorphicApolloClientFactory({ ssrMode: true, fetch: fetch as any });
         const context: { url?: string } = {};
         const sheet = new ServerStyleSheet();
 
