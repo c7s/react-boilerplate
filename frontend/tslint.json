@@ -3,14 +3,6 @@
     "rules": {
         "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
         "import-name": false,
-        "strict-boolean-expressions": [
-            true,
-            "allow-null-union",
-            "allow-undefined-union",
-            "allow-string",
-            "allow-number",
-            "allow-boolean-or-undefined"
-        ],
         "comment-format": [true, "check-space", "check-uppercase"]
     }
 }

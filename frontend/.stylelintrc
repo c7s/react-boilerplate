@@ -13,6 +13,6 @@
         "color-hex-case": "lower",
         "color-hex-length": "long",
         "color-named": "never",
-        "block-no-empty": false
+        "block-no-empty": null
     }
 }

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { routes } from '../../../routes';
 import { Licenses } from './DevelopmentPageGraphql';
-import cs7Image from './cs7Image';
+import c7sImage from './c7sImage';
 import C7sIcon from './C7sIcon';
 
 export interface Props {}
@@ -56,7 +56,7 @@ class DevelopmentPage extends React.Component<Props, State> {
                             {JSON.stringify(result.loading)}
                         </div>
                         <Link to={routes.ROOT.path}>Root</Link>
-                        <Image src={cs7Image} />
+                        <Image src={c7sImage} />
                         <C7sIcon />
                     </div>
                 )}
