@@ -2,6 +2,8 @@ const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const TimeFixPlugin = require('time-fix-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const config = require('./config');
 
 const completeConfig = config.getCompleteConfig();
@@ -46,6 +48,29 @@ const commonConfig = {
             GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
             GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
         }),
+        new CleanWebpackPlugin(['dist'], {
+            dry: false,
+            verbose: false,
+        }),
+        completeConfig.root.env === config.ENV.DEV &&
+            new UnusedWebpackPlugin({
+                directories: [path.resolve(`./src/client`)],
+                exclude: [
+                    // Readme files are fine
+                    'README.md',
+                    // Unpredictable d.ts or ts, now it's always ts and it's fine
+                    '*ApolloType.ts',
+                    // Assembled graphql is for developer only
+                    '*.assembled.graphql',
+                    // These files are ignored due to babel usage (instead of tsc)
+                    '*.d.ts',
+                    // Entry points
+                    'client.ts',
+                    'server.ts',
+                    'Html.tsx',
+                ],
+                root: path.resolve(`./src/client`),
+            }),
     ].filter(Boolean),
     resolve: {
         modules: ['node_modules', path.resolve(`./src/client`)],
