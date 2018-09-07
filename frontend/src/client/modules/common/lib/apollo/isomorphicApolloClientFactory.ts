@@ -1,7 +1,7 @@
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
 
 /**
  * The idea is to replace either fetch (in case we need network to fetch on backend) or the whole link

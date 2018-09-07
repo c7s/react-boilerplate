@@ -4,9 +4,9 @@ import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { routes } from '../../../routes';
-import { Licenses } from './DevelopmentPageGraphql';
-import c7sImage from './c7sImage';
 import C7sIcon from './C7sIcon';
+import c7sImage from './c7sImage';
+import { Licenses } from './DevelopmentPageGraphql';
 
 export interface Props {}
 

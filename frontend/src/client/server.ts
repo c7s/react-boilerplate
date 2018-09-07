@@ -1,12 +1,12 @@
 import { ApolloLink } from 'apollo-link';
+import fetch from 'node-fetch';
 import * as React from 'react';
 import { getDataFromTree } from 'react-apollo';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
-import fetch from 'node-fetch';
 import { ServerStyleSheet } from 'styled-components';
-import { IsomorphicApp } from './IsomorphicApp';
-import { Html } from './Html';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
+import { Html } from './Html';
+import { IsomorphicApp } from './IsomorphicApp';
 import { isomorphicApolloClientFactory } from './modules/common/lib/apollo';
 
 export default function serverRenderer(stats?: { link?: ApolloLink }) {
