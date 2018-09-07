@@ -17,7 +17,7 @@
         "generate:apollo-types": "node ./generators/apollo/types",
         "generate:apollo-assembled": "node ./generators/apollo/assembled",
         "lint:js": "eslint .",
-        "lint:ts": "tslint -t codeFrame --project tsconfig.json ./src/**/*.{ts,tsx}",
+        "lint:ts": "tslint -t codeFrame --project tsconfig.json ./src/**/*.{ts,tsx} && tsc --project tsconfig.json",
         "lint:css": "stylelint ./src/**/*.{ts,tsx}",
         "preparecommitmsg": "node ./git/hooks/prepare-commit-msg",
         "commitmsg": "node ./git/hooks/commit-msg",
