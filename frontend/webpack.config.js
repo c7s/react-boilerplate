@@ -50,6 +50,7 @@ module.exports = [
         ].filter(Boolean),
         output: {
             filename: 'client.bundle.js',
+            path: path.resolve(__dirname, 'dist', 'static'),
         },
         ...commonPart,
     },

@@ -26,7 +26,7 @@ export const Html: React.StatelessComponent<HtmlProps> = ({ styleTags, content, 
                         __html: `window.APOLLO_STATE=${JSON.stringify(state)};`,
                     }}
                 />
-                <script src="/client.bundle.js" />
+                <script src="/static/client.bundle.js" />
             </body>
         </html>
     );
