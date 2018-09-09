@@ -5,10 +5,17 @@ export interface HtmlProps {
     styleTags: string;
     spriteContent: string;
     content: string;
-    state: object;
+    apolloState: object;
+    reduxState: object;
 }
 
-export const Html: React.StatelessComponent<HtmlProps> = ({ styleTags, spriteContent, content, state }) => {
+export const Html: React.StatelessComponent<HtmlProps> = ({
+    styleTags,
+    spriteContent,
+    content,
+    apolloState,
+    reduxState,
+}) => {
     return (
         <html lang="ru">
             <head
@@ -31,7 +38,9 @@ export const Html: React.StatelessComponent<HtmlProps> = ({ styleTags, spriteCon
                             <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
                             <script
                                 dangerouslySetInnerHTML={{
-                                    __html: `window.APOLLO_STATE=${JSON.stringify(state)};`,
+                                    __html: `window.APOLLO_STATE=${JSON.stringify(
+                                        apolloState,
+                                    )};window.REDUX_STATE=${JSON.stringify(reduxState)};`,
                                 }}
                             />
                             <script src="/static/client.bundle.js" />

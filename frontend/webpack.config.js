@@ -37,6 +37,10 @@ const commonConfig = {
                     },
                 ],
             },
+            {
+                test: /\.css$/,
+                loaders: ['css-to-string-loader', 'css-loader'],
+            },
         ],
     },
     plugins: [
@@ -97,8 +101,17 @@ const clientConfig = {
                 test: /Image\.(jpg|jpeg|png)$/,
                 loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client`,
             },
+            {
+                test: /\.(eot|ttf|otf|woff|woff2)$/,
+                loader: `file-loader?name=fonts/[name]_[hash].[ext]&context=./src/client`,
+            },
         ],
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            SSR_MODE: false,
+        }),
+    ],
     output: {
         filename: 'client.bundle.js',
         path: path.resolve(__dirname, 'dist', 'static'),
@@ -115,8 +128,17 @@ const serverConfig = {
                 test: /Image\.(jpg|jpeg|png)$/,
                 loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
             },
+            {
+                test: /\.(eot|ttf|otf|woff|woff2)$/,
+                loader: `file-loader?name=fonts/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
+            },
         ],
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            SSR_MODE: true,
+        }),
+    ],
     output: {
         filename: 'server.bundle.js',
         path: path.resolve(__dirname, 'dist'),

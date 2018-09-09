@@ -4,12 +4,12 @@
         "moduleResolution": "node",
         "noEmit": true,
         "strict": true,
-        "isolatedModules": true,
         "esModuleInterop": true,
         "jsx": "react",
         "experimentalDecorators": true,
         "noUnusedLocals": true,
-        "noUnusedParameters": true
+        "noUnusedParameters": true,
+        "allowSyntheticDefaultImports": true
     },
     "include": ["src", "@types", "config"]
 }

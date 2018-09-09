@@ -3,7 +3,8 @@ import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { routes } from '../../../routes';
+import { FontFamily, fontFamily } from '../../../../fonts';
+import { routes } from '../../../../routes';
 import C7sIcon from './C7sIcon';
 import c7sImage from './c7sImage';
 import { Licenses } from './DevelopmentPageGraphql';
@@ -68,6 +69,7 @@ class DevelopmentPage extends React.Component<Props, State> {
 const Greeting = styled.div`
     color: #ffaa00;
     font-weight: bold;
+    ${fontFamily(FontFamily.BITTER)};
 `;
 
 const Image = styled.img``;

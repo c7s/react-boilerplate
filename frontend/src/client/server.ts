@@ -7,6 +7,7 @@ import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import { Html } from './Html';
 import { IsomorphicApp } from './IsomorphicApp';
+import { IsomorphicStore } from './IsomorphicStore';
 import { isomorphicApolloClientFactory } from './modules/common/lib/apollo';
 
 export default function serverRenderer(stats?: { link?: ApolloLink }) {
@@ -15,6 +16,7 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
             stats && stats.link
                 ? isomorphicApolloClientFactory({ ssrMode: true, link: stats.link })
                 : isomorphicApolloClientFactory({ ssrMode: true, fetch: fetch as any });
+        const backendStore = IsomorphicStore.getStore({ ssrMode: true });
         const context: { url?: string } = {};
         const sheet = new ServerStyleSheet();
 
@@ -22,6 +24,7 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
             context,
             ssrMode: true,
             client: backendApolloClient,
+            store: backendStore,
             location: req.url,
         });
 
@@ -36,8 +39,15 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
                 } else {
                     const styleTags = sheet.getStyleTags();
                     const spriteContent = sprite.stringify();
-                    const state = backendApolloClient.extract();
-                    const html = React.createElement(Html, { styleTags, spriteContent, content, state });
+                    const apolloState = backendApolloClient.extract();
+                    const reduxState = backendStore.getState();
+                    const html = React.createElement(Html, {
+                        styleTags,
+                        spriteContent,
+                        content,
+                        apolloState,
+                        reduxState,
+                    });
 
                     res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
                 }
