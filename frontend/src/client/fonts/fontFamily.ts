@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { LoadedFontStatus } from '../modules/common/store/types';
-import { FontFamily } from './index';
+import { FontFamily, fontFamilyConfig } from './fontFamilyConfig';
 
 function fontFamily<T>(fontFamily: FontFamily) {
     return css`
@@ -11,19 +11,7 @@ function fontFamily<T>(fontFamily: FontFamily) {
 }
 
 function getFontFamilyStack(fontFamily: FontFamily, loadedFontStatus: LoadedFontStatus) {
-    return `${loadedFontStatus[fontFamily] ? `${fontFamily}, ` : ''}${getFallbackStack(fontFamily)}`;
-}
-
-function getFallbackStack(fontFamily: FontFamily): string {
-    let stack = '';
-
-    switch (fontFamily) {
-        case FontFamily.BITTER:
-        default:
-            stack = 'Tahoma, Arial, sans-serif';
-    }
-
-    return stack;
+    return `${loadedFontStatus[fontFamily] ? `${fontFamily}, ` : ''}${fontFamilyConfig[fontFamily].fallbackStack}`;
 }
 
 export { fontFamily };
