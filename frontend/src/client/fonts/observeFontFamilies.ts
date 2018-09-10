@@ -3,6 +3,10 @@ import { IsomorphicStore } from '../IsomorphicStore';
 import { fontLoad } from '../modules/common/store/actions';
 import { FontFamily, fontFamilyConfig } from './fontFamilyConfig';
 
+function observeFontFamilies() {
+    Object.values(FontFamily).map(observeFontFamily);
+}
+
 function observeFontFamily(fontFamily: FontFamily) {
     Promise.all(
         fontFamilyConfig[fontFamily].variants.map(variant =>
@@ -15,4 +19,4 @@ function observeFontFamily(fontFamily: FontFamily) {
         );
 }
 
-export { observeFontFamily };
+export { observeFontFamilies };
