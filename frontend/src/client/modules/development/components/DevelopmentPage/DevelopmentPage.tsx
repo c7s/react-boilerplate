@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { toClass } from 'recompose';
 import styled, { css } from 'styled-components';
 import { FontFamily, fontFamily, withLoadedFontStatus } from '../../../../fonts';
 import { routes } from '../../../../routes';
@@ -9,7 +8,7 @@ import C7sIcon from './C7sIcon';
 import c7sImage from './c7sImage';
 import { DevelopmentPageProps } from './DevelopmentPageTypes';
 
-const DevelopmentPage = toClass(({ counter, onClick, licenses }: DevelopmentPageProps) => (
+const DevelopmentPage = ({ counter, onClick, licenses }: DevelopmentPageProps) => (
     <div>
         <Greeting>Greetings:</Greeting>
         {counter}
@@ -19,7 +18,7 @@ const DevelopmentPage = toClass(({ counter, onClick, licenses }: DevelopmentPage
         <Image src={c7sImage} />
         <C7sIcon />
     </div>
-));
+);
 
 const GreetingMediumCss = css`
     color: #aaff00;

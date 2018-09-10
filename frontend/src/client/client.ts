@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { observeFontFamilies } from './fonts';
-import { IsomorphicApp } from './IsomorphicApp';
+import { HotIsomorphicApp } from './HotIsomorphicApp';
 import { IsomorphicStore } from './IsomorphicStore';
 import { IsomorphicApolloClient } from './modules/common/lib/apollo';
 
@@ -9,7 +9,7 @@ import { IsomorphicApolloClient } from './modules/common/lib/apollo';
 observeFontFamilies();
 
 ReactDOM.hydrate(
-    React.createElement(IsomorphicApp, {
+    React.createElement(HotIsomorphicApp, {
         ssrMode: false,
         client: IsomorphicApolloClient.getClient({ ssrMode: false }),
         store: IsomorphicStore.getStore({ ssrMode: false }),

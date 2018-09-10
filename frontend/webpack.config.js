@@ -73,6 +73,7 @@ const commonConfig = {
                     'client.ts',
                     'server.ts',
                     'Html.tsx',
+                    'HotIsomorphicApp.ts',
                 ],
                 root: path.resolve(`./src/client`),
             }),

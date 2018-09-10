@@ -2,7 +2,6 @@ import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client/ApolloClient';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { Route, StaticRouter, StaticRouterProps, Switch } from 'react-router';
 import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
@@ -26,7 +25,6 @@ class IsomorphicRouter extends React.Component<{ ssrMode: boolean } & (StaticRou
     }
 }
 
-@hot(module)
 export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
     render() {
         return (
