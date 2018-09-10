@@ -51,6 +51,7 @@ const commonConfig = {
         new webpack.DefinePlugin({
             GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
             GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
+            IS_PREVENT_FOIT: completeConfig.root.isPreventFoit,
         }),
         new CleanWebpackPlugin(['dist'], {
             dry: false,

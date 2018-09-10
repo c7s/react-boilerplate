@@ -10,6 +10,7 @@ declare namespace Config {
 
     interface RootConfig {
         env: string | ENV;
+        isPreventFoit: boolean;
     }
 
     interface ApiConfig {
