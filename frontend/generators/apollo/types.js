@@ -119,15 +119,3 @@ declare const ${name}: DocumentNode;
 export = ${name};
 `;
 }
-
-/**
- * @param {string} content
- * @return {string}
- */
-function generateTypesForDirectoryLoader(content) {
-    this.cacheable(true);
-    generateTypesForDirectory(this.context);
-    return content;
-}
-
-module.exports = generateTypesForDirectoryLoader;

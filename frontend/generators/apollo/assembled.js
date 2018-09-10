@@ -34,15 +34,3 @@ ${fs.readFileSync(filePath, { encoding: 'utf-8' })}`
         fs.unlinkSync(assembledFilePath);
     }
 }
-
-/**
- * @param {string} content
- * @return {string}
- */
-function generateAssembledFileLoader(content) {
-    this.cacheable(true);
-    generateAssembledFile(this.resourcePath);
-    return content;
-}
-
-module.exports = generateAssembledFileLoader;
