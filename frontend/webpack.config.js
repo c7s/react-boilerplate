@@ -107,11 +107,6 @@ const clientConfig = {
             },
         ],
     },
-    plugins: [
-        new webpack.DefinePlugin({
-            SSR_MODE: false,
-        }),
-    ],
     output: {
         filename: 'client.bundle.js',
         path: path.resolve(__dirname, 'dist', 'static'),
@@ -134,11 +129,6 @@ const serverConfig = {
             },
         ],
     },
-    plugins: [
-        new webpack.DefinePlugin({
-            SSR_MODE: true,
-        }),
-    ],
     output: {
         filename: 'server.bundle.js',
         path: path.resolve(__dirname, 'dist'),
