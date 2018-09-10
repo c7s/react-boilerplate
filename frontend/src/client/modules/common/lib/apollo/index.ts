@@ -1,3 +1,3 @@
-import { isomorphicApolloClientFactory } from './isomorphicApolloClientFactory';
+import { IsomorphicApolloClient } from './IsomorphicApolloClient';
 
-export { isomorphicApolloClientFactory };
+export { IsomorphicApolloClient };

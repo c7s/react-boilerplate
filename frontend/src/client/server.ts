@@ -8,14 +8,14 @@ import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import { Html } from './Html';
 import { IsomorphicApp } from './IsomorphicApp';
 import { IsomorphicStore } from './IsomorphicStore';
-import { isomorphicApolloClientFactory } from './modules/common/lib/apollo';
+import { IsomorphicApolloClient } from './modules/common/lib/apollo';
 
 export default function serverRenderer(stats?: { link?: ApolloLink }) {
     return (req: any, res: any) => {
         const backendApolloClient =
             stats && stats.link
-                ? isomorphicApolloClientFactory({ ssrMode: true, link: stats.link })
-                : isomorphicApolloClientFactory({ ssrMode: true, fetch: fetch as any });
+                ? IsomorphicApolloClient.getClient({ ssrMode: true, link: stats.link })
+                : IsomorphicApolloClient.getClient({ ssrMode: true, fetch: fetch as any });
         const backendStore = IsomorphicStore.getStore({ ssrMode: true });
         const context: { url?: string } = {};
         const sheet = new ServerStyleSheet();
