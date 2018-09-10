@@ -39,7 +39,7 @@ const commonConfig = {
             },
             {
                 test: /\.css$/,
-                loaders: ['css-to-string-loader', 'css-loader'],
+                loaders: ['to-string-loader', 'css-loader'],
             },
         ],
     },
