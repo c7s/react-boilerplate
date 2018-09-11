@@ -20,11 +20,6 @@ const commonConfig = {
                 exclude: [nodeModulesPath],
             },
             {
-                test: /Graphql\.graphql$/,
-                loader: 'graphql-tag/loader',
-                exclude: [nodeModulesPath],
-            },
-            {
                 test: /Icon\.svg$/,
                 loaders: [
                     'babel-loader',
@@ -63,8 +58,8 @@ const commonConfig = {
                 exclude: [
                     // Readme files are fine
                     'README.md',
-                    // Unpredictable d.ts or ts, now it's always ts and it's fine
-                    '*ApolloType.ts',
+                    // Apollo types are generated
+                    'ApolloTypes',
                     // Assembled graphql is for developer only
                     '*.assembled.graphql',
                     // These files are ignored due to babel usage (instead of tsc)
@@ -80,7 +75,7 @@ const commonConfig = {
     ].filter(Boolean),
     resolve: {
         modules: ['node_modules', path.resolve(`./src/client`)],
-        extensions: ['.js', '.ts', '.tsx', '.graphql', '.jpg', '.jpeg', '.png', '.svg'],
+        extensions: ['.js', '.ts', '.tsx', '.jpg', '.jpeg', '.png', '.svg'],
         alias: {
             'node-fetch$': 'node-fetch/lib/index.js',
         },

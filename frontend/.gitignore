@@ -7,10 +7,8 @@ config/local/*
 # Webpack output
 dist/
 
-# Apollo types and asembled files are generated
-*ApolloType.ts
-*.assembled.graphql
-*Graphql.d.ts
+# Apollo types are generated
+**/ApolloTypes/*
 
 # Yarn is used instead of npm, so tracking this file makes no sense
 package-lock.json

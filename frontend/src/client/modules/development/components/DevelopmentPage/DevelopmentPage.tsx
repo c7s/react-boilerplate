@@ -13,7 +13,7 @@ const DevelopmentPage = ({ counter, onClick, licenses }: DevelopmentPageProps) =
         <Greeting>Greetings:</Greeting>
         {counter}
         <button onClick={onClick}>Droppy</button>
-        {licenses.length ? licenses.map(license => license.nickname) : 'Loading'}
+        {licenses.length ? licenses.map(license => (license ? license.nickname : 'N/A')) : 'Loading'}
         <Link to={routes.ROOT.path}>Root</Link>
         <Image src={c7sImage} />
         <C7sIcon />

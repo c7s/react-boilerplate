@@ -4,16 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const config = require('../../config');
 
-let environment;
-
-require('commander')
-    .arguments('<environment>')
-    .action(environmentName => {
-        environment = environmentName;
-    })
-    .parse(process.argv);
-
-const apiConfig = config.getConfig(config.CONFIG_NAME.API, environment);
+const apiConfig = config.getConfig(config.CONFIG_NAME.API);
 
 fs.writeFileSync(
     path.resolve('./graphql.config.json'),

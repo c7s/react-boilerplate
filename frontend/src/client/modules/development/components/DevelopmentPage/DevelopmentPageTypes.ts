@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Licenses_licenses } from './DevelopmentPageApolloType';
+import { Licenses } from './ApolloTypes/Licenses';
 
 /** Props */
 
@@ -14,7 +14,7 @@ export interface MapProps {}
 export interface DispatchProps {}
 
 export interface ApolloProps {
-    licenses: Licenses_licenses[];
+    licenses: Licenses['licenses'];
 }
 
 export type DevelopmentPageBehaviourProps = DevelopmentPageOuterProps & DispatchProps & MapProps & ApolloProps;
@@ -26,7 +26,7 @@ export interface DevelopmentPageBehaviourState {
 export interface DevelopmentPageProps {
     counter: number;
     onClick: React.MouseEventHandler<HTMLButtonElement>;
-    licenses: Licenses_licenses[];
+    licenses: Licenses['licenses'];
 }
 
 /** Inner props */

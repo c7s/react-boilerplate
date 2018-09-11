@@ -1,29 +1,15 @@
 #!/usr/bin/env node
 
-const { downloadSchema } = require('apollo-codegen');
+const { run } = require('apollo');
 const config = require('../../config');
 
-let environment;
+const apiConfig = config.getConfig(config.CONFIG_NAME.API);
 
-require('commander')
-    .arguments('<environment>')
-    .action(environmentName => {
-        environment = environmentName;
-    })
-    .parse(process.argv);
-
-const apiConfig = config.getConfig(config.CONFIG_NAME.API, environment);
-
-downloadSchema(
-    apiConfig.graphqlBuildEndpoint || apiConfig.graphqlEndpoint,
+run([
+    'schema:download',
     'graphql.schema.json',
-    { Authorization: `bearer ${apiConfig.githubToken}` },
-    false,
-    'post'
-)
-    .then(result => (result ? console.log(result) : null)) // eslint-disable-line no-console
-    .catch(error => {
-        console.error('Host is unreachable (check VPN)\n', error);
-
-        process.exit(1);
-    });
+    '--endpoint',
+    apiConfig.graphqlBuildEndpoint || apiConfig.graphqlEndpoint,
+    '--header',
+    `Authorization: bearer ${apiConfig.githubToken}`,
+]).catch(error => console.error(error));
