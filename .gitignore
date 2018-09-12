@@ -1,6 +1,7 @@
 /*
 /*/
 !/frontend/
+!/frontend-server/
 !/backend/
 !.gitignore
 !README.md
