@@ -1,6 +1,6 @@
 import { Dictionary } from 'lodash';
 import { withTheme } from '../../../common/lib/withTheme';
-import { ThemeType, Theme } from './TestType';
+import { Theme, ThemeType } from './TestType';
 
 const baseTheme: Theme = {};
 

@@ -1,21 +1,19 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { State } from '../../../../IsomorphicStore';
-import { Store, StoreUpdaters, PropsExternal } from './TestType';
+import { OuterPropsStore, Store, StoreUpdaters } from './TestType';
 
-const TestStore = connect<Store, StoreUpdaters, OuterProps, State>(
+const TestStore = connect<Store, StoreUpdaters, OuterPropsStore, State>(
     mapStateToProps,
     mapDispatchToProps,
 );
 
-function mapStateToProps(state: State, ownProps: OuterProps): Store {
+function mapStateToProps(state: State, ownProps: OuterPropsStore): Store {
     return {};
 }
 
-function mapDispatchToProps(dispatch: Dispatch, ownProps: OuterProps): StoreUpdaters {
+function mapDispatchToProps(dispatch: Dispatch, ownProps: OuterPropsStore): StoreUpdaters {
     return bindActionCreators({}, dispatch);
 }
-
-type OuterProps = PropsExternal;
 
 export { TestStore };

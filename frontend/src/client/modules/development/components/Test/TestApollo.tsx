@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Licenses } from './ApolloTypes/Licenses';
-import { PropsApollo, PropsExternal, PropsStore } from './TestType';
+import { OuterPropsApollo, PropsApollo } from './TestType';
 
 const LICENSE_FRAGMENT = gql`
     fragment License on License {
@@ -20,10 +20,12 @@ const LICENSES_QUERY = gql`
     ${LICENSE_FRAGMENT}
 `;
 
-export function TestApollo(Component: React.ComponentClass<OuterProps & PropsApollo>): React.ComponentType<OuterProps> {
-    return (props: OuterProps) => (
-        <Query<Licenses> query={LICENSES_QUERY}>{licenses => <Component {...props} licenses={licenses} />}</Query>
-    );
-}
+/** Здесь может быть несколько вложенных Query/Mutation */
 
-type OuterProps = PropsExternal & PropsStore;
+const TestApollo = (
+    Component: React.ComponentClass<OuterPropsApollo & PropsApollo>,
+): React.ComponentType<OuterPropsApollo> => (props: OuterPropsApollo) => (
+    <Query<Licenses> query={LICENSES_QUERY}>{licenses => <Component {...props} licenses={licenses} />}</Query>
+);
+
+export { TestApollo };

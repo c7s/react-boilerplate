@@ -1,21 +1,15 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { CurrentStyledComponentsInnerProps, PropsApollo, PropsBehaviour, PropsExternal, PropsStore } from './TestType';
+import { InnerProps } from './TestType';
 
-const Test: React.StatelessComponent<OuterProps> = ({ className, licenses }) => (
+const Test: React.StatelessComponent<InnerProps> = ({ className, licenses, onClick }) => (
     <Root className={className}>
-        {JSON.stringify(licenses)}
+        Test
         {JSON.stringify(licenses.data)}
+        <button onClick={onClick}>Click</button>
     </Root>
 );
 
-const Root = styled.div`
-    /* internal styles here */
-`;
-
-type OuterProps = Omit<
-    PropsExternal & PropsStore & PropsApollo & PropsBehaviour & CurrentStyledComponentsInnerProps,
-    'themeType'
->;
+const Root = styled.div``;
 
 export { Test };

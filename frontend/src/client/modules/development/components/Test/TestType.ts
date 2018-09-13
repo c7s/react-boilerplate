@@ -1,6 +1,9 @@
+import * as React from 'react';
 import { QueryResult } from 'react-apollo';
-import { StyledComponentsOuterProps, StyledComponentsInnerProps } from '../../../common/lib/BaseProps';
+import { StyledComponentsInnerProps, StyledComponentsOuterProps } from '../../../common/lib/BaseProps';
 import { Licenses } from './ApolloTypes/Licenses';
+
+/** Эти типы - кусочки пропсов, получаемые от каждого слоя */
 
 /** Props passed from outside. The only predefined interface that can extend anything */
 export interface PropsExternal extends CurrentStyledComponentsOuterProps {}
@@ -20,11 +23,10 @@ export interface PropsApollo {
 /** Local Component State Props */
 export interface State {}
 
-/** Local Component State Updaters. Must return void. Are called asynchronously and can't contain asynchronous code */
-export interface StateUpdaters {}
-
 /** Handlers. Must return void. Are called synchronously and can contain asynchronous code */
-export interface Handlers {}
+export interface Handlers {
+    onClick: React.MouseEventHandler;
+}
 
 /** Theme object inside stateless component and each styled-component */
 export interface Theme {}
@@ -34,10 +36,21 @@ export enum ThemeType {
     DEFAULT = 'default',
 }
 
+/** Это генерируемый бойлерплейт, в который не надо смотреть. Он нужен для поддержания чистоты в остальных файлах */
+
 export type PropsStore = Store & StoreUpdaters & { dispatch?<A extends { type: string }>(action: A): A };
-export type PropsBehaviour = State & StateUpdaters & Handlers;
+export type PropsBehaviour = State & Handlers;
 export type CurrentStyledComponentsOuterProps = StyledComponentsOuterProps<ThemeType>;
 export type CurrentStyledComponentsInnerProps = StyledComponentsInnerProps<Theme>;
+
+export type OuterPropsStore = PropsExternal;
+export type OuterPropsApollo = PropsExternal & PropsStore;
+export type OuterPropsBehaviour = PropsExternal & PropsStore & PropsApollo;
+export type OuterPropsTheme = PropsExternal & PropsStore & PropsApollo & PropsBehaviour;
+export type InnerProps = Omit<
+    PropsExternal & PropsStore & PropsApollo & PropsBehaviour & CurrentStyledComponentsInnerProps,
+    'themeType'
+>;
 
 /** Define interfaces for inner components props here. They must extend CurrentStyledComponentsInnerProps
  *  I.e. interface RootProps extends CurrentStyledComponentsInnerProps {rootSpecificValue: string};
