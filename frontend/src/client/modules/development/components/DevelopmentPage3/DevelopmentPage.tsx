@@ -2,19 +2,27 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { FontFamily, fontFamily, withLoadedFontStatus } from '../../../../fonts';
+import { LoadedFontStatus } from '../../../common/store/types';
 import { size } from '../../../common/styles';
+import { Licenses } from '../Test/ApolloTypes/Licenses';
 import C7sIcon from './C7sIcon';
 import c7sImage from './c7sImage';
-import { ComponentOuterProps } from './DevelopmentPageTypes';
+import { SCInnerProps, SCOuterProps } from './DevelopmentPageTypes';
+
+export interface Props extends SCOuterProps, SCInnerProps {
+    onClick: React.MouseEventHandler<HTMLButtonElement>;
+    counter: number;
+    licenses: Licenses['licenses'];
+    loadedFontStatus: LoadedFontStatus;
+    rootVisit(): void;
+    name?: string;
+    id: string;
+
+    children?: React.ReactNode;
+}
 
 /** Assume this file includes theme HOC that uses ThemeOuterProps */
-const DevelopmentPage: React.StatelessComponent<ComponentOuterProps> = ({
-    counter,
-    onClick,
-    licenses,
-    loadedFontStatus,
-    match,
-}) => (
+const DevelopmentPage: React.StatelessComponent<Props> = ({ counter, onClick, licenses, loadedFontStatus, id }) => (
     <div>
         <div>
             Loaded font status:
@@ -22,7 +30,7 @@ const DevelopmentPage: React.StatelessComponent<ComponentOuterProps> = ({
         </div>
         <div>
             id:
-            {match.params.id}
+            {id}
         </div>
         <Greeting>Greetings:</Greeting>
         {counter}

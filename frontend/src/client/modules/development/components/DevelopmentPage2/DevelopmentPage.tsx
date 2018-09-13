@@ -6,14 +6,13 @@ import { size } from '../../../common/styles';
 import C7sIcon from './C7sIcon';
 import c7sImage from './c7sImage';
 import { ComponentOuterProps } from './DevelopmentPageTypes';
-
 /** Assume this file includes theme HOC that uses ThemeOuterProps */
 const DevelopmentPage: React.StatelessComponent<ComponentOuterProps> = ({
     counter,
     onClick,
     licenses,
     loadedFontStatus,
-    match,
+    id,
 }) => (
     <div>
         <div>
@@ -22,7 +21,7 @@ const DevelopmentPage: React.StatelessComponent<ComponentOuterProps> = ({
         </div>
         <div>
             id:
-            {match.params.id}
+            {id}
         </div>
         <Greeting>Greetings:</Greeting>
         {counter}

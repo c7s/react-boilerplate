@@ -32,7 +32,13 @@ const DevelopmentPageConnect = withRouter(
         mapDispatchToProps,
     )((props: ApolloOuterProps) => (
         <Query<Licenses> query={LICENSES_QUERY}>
-            {result => <DevelopmentPageBehaviour {...props} licenses={(result.data && result.data.licenses) || []} />}
+            {result => (
+                <DevelopmentPageBehaviour
+                    {...props}
+                    id={props.match.params.id}
+                    licenses={(result.data && result.data.licenses) || []}
+                />
+            )}
         </Query>
     )),
 );

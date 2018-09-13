@@ -1,9 +1,9 @@
 import autobind from 'autobind-decorator';
 import * as React from 'react';
 import { DevelopmentPage } from './DevelopmentPage';
-import { BehaviourOuterProps, FromBehaviourStateProps } from './DevelopmentPageTypes';
+import { BehaviourOuterProps, BehaviourState } from './DevelopmentPageTypes';
 
-class DevelopmentPageBehaviour extends React.Component<BehaviourOuterProps, FromBehaviourStateProps> {
+class DevelopmentPageBehaviour extends React.Component<BehaviourOuterProps, BehaviourState> {
     timer: number | null;
     constructor(props: BehaviourOuterProps) {
         super(props);

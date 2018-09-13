@@ -1,6 +1,6 @@
 import { Dictionary } from 'lodash';
 import { RouteProps } from 'react-router';
-import { DevelopmentPage } from './modules/development/components/DevelopmentPage';
+import { Test } from './modules/development/components/Test';
 import { RootPage } from './modules/root/components/RootPage';
 
 export const routes: Dictionary<RouteProps & { name: string } & { path: string }> = {
@@ -10,9 +10,9 @@ export const routes: Dictionary<RouteProps & { name: string } & { path: string }
         exact: true,
         component: RootPage,
     },
-    DEVELOPMENT: {
-        path: '/development',
-        name: 'DEVELOPMENT',
-        component: DevelopmentPage,
+    GENERATOR: {
+        path: '/gen',
+        name: 'GENERATOR',
+        component: Test,
     },
 };
