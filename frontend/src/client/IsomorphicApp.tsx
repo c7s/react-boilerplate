@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { Route, StaticRouter, StaticRouterProps, Switch } from 'react-router';
 import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
 import { Store } from 'redux';
-import { State } from './IsomorphicStore';
+import { StoreState } from './IsomorphicStore';
 import { routes } from './routes';
 
 // Import assets here (such as external css, html, etc)
@@ -14,7 +14,7 @@ import { routes } from './routes';
 export interface IsomorphicAppProps {
     ssrMode: boolean;
     client: ApolloClient<NormalizedCacheObject>;
-    store: Store<State>;
+    store: Store<StoreState>;
     location?: string;
     context?: object;
 }

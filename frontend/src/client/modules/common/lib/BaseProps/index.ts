@@ -1,6 +1,9 @@
-export interface StyledComponentsOuterProps<THEME_TYPE extends string = never> {
+import * as React from 'react';
+
+export interface StyledComponentsProps<THEME_NAME extends string = never> {
     className?: string;
-    themeType?: THEME_TYPE;
+    themeName?: THEME_NAME;
+    children?: React.ReactNode;
 }
 
 export interface StyledComponentsInnerProps<THEME extends object = never> {

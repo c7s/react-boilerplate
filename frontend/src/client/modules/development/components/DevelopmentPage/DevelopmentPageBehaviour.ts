@@ -1,11 +1,26 @@
 import autobind from 'autobind-decorator';
 import * as React from 'react';
-import { DevelopmentPage } from './DevelopmentPage';
-import { BehaviourOuterProps, FromBehaviourStateProps } from './DevelopmentPageTypes';
+import { QueryResult } from 'react-apollo';
+import { StyledComponentsProps } from '../../../common/lib/BaseProps';
+import { LoadedFontStatus } from '../../../common/store/types';
+import { Licenses } from './ApolloTypes/Licenses';
+import { DevelopmentPage, ThemeName } from './DevelopmentPage';
 
-class DevelopmentPageBehaviour extends React.Component<BehaviourOuterProps, FromBehaviourStateProps> {
+export interface Props extends StyledComponentsProps<ThemeName> {
+    licenses: QueryResult<Licenses>;
+    loadedFontStatus: LoadedFontStatus;
+    onRootVisit(): void;
+    name?: string;
+    id: string;
+}
+
+export interface State {
+    counter: number;
+}
+
+class DevelopmentPageBehaviour extends React.Component<Props, State> {
     timer: number | null;
-    constructor(props: BehaviourOuterProps) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             counter: 0,

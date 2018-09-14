@@ -1,6 +1,7 @@
 import { Dictionary } from 'lodash';
+import * as React from 'react';
 import { RouteProps } from 'react-router';
-import { Test } from './modules/development/components/Test';
+import { DevelopmentPage, DevelopmentPageThemeName } from './modules/development/components/DevelopmentPage';
 import { RootPage } from './modules/root/components/RootPage';
 
 export const routes: Dictionary<RouteProps & { name: string } & { path: string }> = {
@@ -11,8 +12,8 @@ export const routes: Dictionary<RouteProps & { name: string } & { path: string }
         component: RootPage,
     },
     GENERATOR: {
-        path: '/gen',
+        path: '/development/:id',
         name: 'GENERATOR',
-        component: Test,
+        render: () => <DevelopmentPage themeName={DevelopmentPageThemeName.ALTER} />,
     },
 };

@@ -2,13 +2,31 @@ import gql from 'graphql-tag';
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
-import { State } from '../../../../IsomorphicStore';
-import { rootVisit } from '../../../common/store/actions';
+import { StoreState } from '../../../../IsomorphicStore';
+import { StyledComponentsProps } from '../../../common/lib/BaseProps';
+import { onRootVisit } from '../../../common/store/actions';
+import { LoadedFontStatus } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
+import { ThemeName } from './DevelopmentPage';
 import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
-import { ApolloOuterProps, FromReduxDispatchProps, FromReduxStateProps, ReduxOuterProps } from './DevelopmentPageTypes';
+
+export interface Props extends StyledComponentsProps<ThemeName> {
+    name?: string;
+}
+
+export type ReduxProps = Props & RouteComponentProps<{ id: string }> & StyledComponentsProps<ThemeName>;
+
+export interface MapProps {
+    loadedFontStatus: LoadedFontStatus;
+}
+
+export interface DispatchProps {
+    onRootVisit(): void;
+}
+
+export type ApolloProps = Props & ReduxProps & MapProps & DispatchProps & StyledComponentsProps<ThemeName>;
 
 const LICENSE_FRAGMENT = gql`
     fragment License on License {
@@ -30,25 +48,25 @@ const DevelopmentPageConnect = withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps,
-    )((props: ApolloOuterProps) => (
+    )((props: ApolloProps) => (
         <Query<Licenses> query={LICENSES_QUERY}>
-            {result => <DevelopmentPageBehaviour {...props} licenses={(result.data && result.data.licenses) || []} />}
+            {licenses => <DevelopmentPageBehaviour {...props} id={props.match.params.id} licenses={licenses} />}
         </Query>
     )),
 );
 
-function mapStateToProps(state: State, ownProps: ReduxOuterProps): FromReduxStateProps {
+function mapStateToProps(state: StoreState, ownProps: ReduxProps): MapProps {
     console.log(`${ownProps.name} could also be used`);
     return {
         loadedFontStatus: state.common.loadedFontStatus,
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch, ownProps: ReduxOuterProps): FromReduxDispatchProps {
+function mapDispatchToProps(dispatch: Dispatch, ownProps: ReduxProps): DispatchProps {
     console.log(`${ownProps.name} could also be used`);
     return bindActionCreators(
         {
-            rootVisit,
+            onRootVisit,
         },
         dispatch,
     );

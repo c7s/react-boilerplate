@@ -1,2 +1,2 @@
-export { DevelopmentPageConnect as DevelopmentPage } from './DevelopmentPageConnect';
-export { FromOuterProps as DevelopmentPageProps } from './DevelopmentPageTypes';
+export { DevelopmentPageConnect as DevelopmentPage, Props as DevelopmentPageProps } from './DevelopmentPageConnect';
+export { ThemeName as DevelopmentPageThemeName } from './DevelopmentPage';

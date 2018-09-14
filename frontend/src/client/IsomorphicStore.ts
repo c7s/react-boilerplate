@@ -5,14 +5,14 @@ import { getLocalStorage } from './getLocalStorage';
 import { CommonState } from './modules/common/store/types/index';
 import { reducers } from './reducers';
 
-interface State {
+interface StoreState {
     common: CommonState;
 }
 
 class IsomorphicStore {
-    private static store: Store<State> | null;
+    private static store: Store<StoreState> | null;
 
-    public static getStore({ ssrMode }: { ssrMode: boolean }): Store<State> {
+    public static getStore({ ssrMode }: { ssrMode: boolean }): Store<StoreState> {
         if (ssrMode) {
             return createStore(
                 combineReducers({
@@ -49,4 +49,4 @@ class IsomorphicStore {
     }
 }
 
-export { IsomorphicStore, State };
+export { IsomorphicStore, StoreState };

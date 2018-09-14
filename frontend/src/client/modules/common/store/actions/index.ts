@@ -5,4 +5,4 @@ const actionCreator = actionCreatorFactory('COMMON');
 
 export const fontLoad = actionCreator<FontFamily>('FONT_LOAD');
 
-export const rootVisit = actionCreator('ROOT_VISIT');
+export const onRootVisit = actionCreator('ON_ROOT_VISIT');
