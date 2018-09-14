@@ -1,8 +1,8 @@
 import { Dictionary } from 'lodash';
 import * as React from 'react';
 import { RouteProps } from 'react-router';
-import { DevelopmentPage, DevelopmentPageThemeName } from './modules/development/components/DevelopmentPage';
-import { RootPage } from './modules/root/components/RootPage';
+import { DevelopmentPage, DevelopmentPageThemeName } from '../modules/development/components/DevelopmentPage';
+import { RootPage } from '../modules/root/components/RootPage';
 
 export const routes: Dictionary<RouteProps & { name: string } & { path: string }> = {
     ROOT: {

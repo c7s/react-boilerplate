@@ -1,8 +1,8 @@
 import { combineReducers, compose, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import persistState, { mergePersistedState } from 'redux-localstorage';
+import { CommonState } from '../modules/common/store/types/index';
 import { getLocalStorage } from './getLocalStorage';
-import { CommonState } from './modules/common/store/types/index';
 import { reducers } from './reducers';
 
 interface StoreState {
