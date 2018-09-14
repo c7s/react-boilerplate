@@ -106,8 +106,17 @@ const clientConfig = {
     module: {
         rules: [
             {
-                test: /Image\.(jpg|jpeg|png)$/,
-                loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client`,
+                test: /\.(jpg|jpeg|png|ico)$/,
+                oneOf: [
+                    {
+                        test: /Image\.(jpg|jpeg|png)$/,
+                        loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client`,
+                    },
+                    {
+                        test: /\.(png|ico)$/,
+                        loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client`,
+                    },
+                ],
             },
             {
                 test: /\.(eot|ttf|otf|woff|woff2)$/,
@@ -128,8 +137,17 @@ const serverConfig = {
     module: {
         rules: [
             {
-                test: /Image\.(jpg|jpeg|png)$/,
-                loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
+                test: /\.(jpg|jpeg|png|ico)$/,
+                oneOf: [
+                    {
+                        test: /Image\.(jpg|jpeg|png)$/,
+                        loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
+                    },
+                    {
+                        test: /\.(png|ico)$/,
+                        loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
+                    },
+                ],
             },
             {
                 test: /\.(eot|ttf|otf|woff|woff2)$/,
