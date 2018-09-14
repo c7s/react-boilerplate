@@ -11,9 +11,9 @@ export const routes: Dictionary<RouteProps & { name: string } & { path: string }
         exact: true,
         component: RootPage,
     },
-    GENERATOR: {
+    DEVELOPMENT: {
         path: '/development/:id',
-        name: 'GENERATOR',
-        render: () => <DevelopmentPage themeName={DevelopmentPageThemeName.ALTER} />,
+        name: 'DEVELOPMENT',
+        render: () => <DevelopmentPage name={'User'} themeName={DevelopmentPageThemeName.ALTER} />,
     },
 };

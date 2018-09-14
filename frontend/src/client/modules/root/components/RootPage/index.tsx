@@ -4,6 +4,6 @@ import { Link } from 'react-router-dom';
 export const RootPage: React.StatelessComponent = () => (
     <div>
         <h1>React-boilerplate</h1>
-        <Link to={'/'}>Development</Link>
+        <Link to={'/development/3'}>Development</Link>
     </div>
 );

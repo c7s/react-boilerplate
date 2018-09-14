@@ -4,6 +4,7 @@ import { QueryResult } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { FontFamily, fontFamily, withLoadedFontStatus } from '../../../../fonts';
+import { routes } from '../../../../routes';
 import { StyledComponentsInnerProps, StyledComponentsProps } from '../../../common/lib/BaseProps';
 import { withTheme } from '../../../common/lib/withTheme';
 import { LoadedFontStatus } from '../../../common/store/types';
@@ -15,7 +16,7 @@ import c7sImage from './c7sImage';
 export interface Props extends StyledComponentsProps<ThemeName>, StyledComponentsInnerProps<Theme> {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     counter: number;
-    licenses: QueryResult<Licenses>;
+    licenses: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
     onRootVisit(): void;
     name?: string;
@@ -41,28 +42,42 @@ export const THEME_DICT: Dictionary<Theme> = {
 };
 
 const DevelopmentPage = withTheme<ThemeName, Props, Theme>(THEME_DICT)(
-    ({ counter, onClick, licenses, loadedFontStatus, id }) => (
-        <div>
-            <div>
-                Loaded font status:
-                {JSON.stringify(loadedFontStatus)}
-            </div>
-            <div>id: {id}</div>
-            <Greeting>Greetings:</Greeting>
-            {counter}
+    ({ className, counter, onClick, licenses, loadedFontStatus, id, name, theme }) => (
+        <Root className={className}>
+            <Greeting>Greetings, {name ? name : 'Unknown'}</Greeting>
+            <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
+            <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
+            <PageId>Page id: {id}</PageId>
+            <StateCounter>State counter: {counter}</StateCounter>
             <button onClick={onClick}>Droppy</button>
-            {licenses.data
-                ? licenses.data.licenses.map(license => (license ? license.nickname : 'No nickname'))
-                : 'No data'}
-            <Link to="/development/3">Root</Link>
+            <LicensesDisplay>
+                Licenses:{' '}
+                {licenses.data && licenses.data.licenses
+                    ? licenses.data.licenses.map(license => (license ? license.nickname : 'No nickname'))
+                    : 'No data'}
+            </LicensesDisplay>
+            <Link to={routes.ROOT.path}>Root</Link>
             <Image src={c7sImage} />
             <C7sIcon />
-        </div>
+        </Root>
     ),
 );
 
+const Root = styled.div``;
+
+const ThemeDisplay = styled.div``;
+
+const LoadedFontStatusDisplay = styled.div``;
+
+const PageId = styled.div``;
+
+const StateCounter = styled.div``;
+
+const LicensesDisplay = styled.div``;
+
 const GreetingMediumCss = css`
-    color: #aaff00;
+    font-weight: normal;
+    font-style: italic;
 `;
 
 const Greeting = withLoadedFontStatus(styled.div`
@@ -72,6 +87,8 @@ const Greeting = withLoadedFontStatus(styled.div`
     ${size.medium`${GreetingMediumCss};`};
 `);
 
-const Image = styled.img``;
+const Image = styled.img`
+    display: block;
+`;
 
 export { DevelopmentPage };

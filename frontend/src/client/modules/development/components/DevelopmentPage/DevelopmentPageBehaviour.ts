@@ -7,7 +7,7 @@ import { Licenses } from './ApolloTypes/Licenses';
 import { DevelopmentPage, ThemeName } from './DevelopmentPage';
 
 export interface Props extends StyledComponentsProps<ThemeName> {
-    licenses: QueryResult<Licenses>;
+    licenses: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
     onRootVisit(): void;
     name?: string;
