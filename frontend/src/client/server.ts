@@ -6,9 +6,9 @@ import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import { Html } from './Html';
+import { IsomorphicApolloClient } from './IsomorphicApolloClient';
 import { IsomorphicApp } from './IsomorphicApp';
 import { IsomorphicStore } from './IsomorphicStore';
-import { IsomorphicApolloClient } from './modules/common/lib/apollo';
 
 export default function serverRenderer(stats?: { link?: ApolloLink }) {
     return (req: any, res: any) => {
