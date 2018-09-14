@@ -14,11 +14,7 @@ app.use(
         serverSideRender: true,
         quiet: false,
         noInfo: false,
-        stats: {
-            all: false,
-            colors: true,
-            timings: true,
-        },
+        stats: config[0].stats,
     })
 );
 app.use(webpackHotMiddleware(compiler.compilers.find(compilerInner => compilerInner.name === 'client')));

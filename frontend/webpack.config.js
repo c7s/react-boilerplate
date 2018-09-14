@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const TimeFixPlugin = require('time-fix-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const config = require('./config');
 
 const completeConfig = config.getCompleteConfig();
@@ -72,6 +73,10 @@ const commonConfig = {
                 ],
                 root: path.resolve(`./src/client`),
             }),
+        // https://github.com/babel/babel/issues/8361
+        new FilterWarningsPlugin({
+            exclude: /export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+'/,
+        }),
     ].filter(Boolean),
     resolve: {
         modules: ['node_modules', path.resolve(`./src/client`)],
@@ -82,6 +87,11 @@ const commonConfig = {
     },
     output: {
         publicPath: '/static/',
+    },
+    stats: {
+        all: false,
+        colors: true,
+        timings: true,
     },
 };
 
