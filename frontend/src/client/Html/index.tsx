@@ -4,6 +4,7 @@ import appleTouchIcon from './favicon/apple-touch-icon.png';
 import favicon16x16 from './favicon/favicon-16x16.png';
 import favicon32x32 from './favicon/favicon-32x32.png';
 import favicon from './favicon/favicon.ico';
+import safariPinnedTab from './favicon/safari-pinned-tab.svg';
 
 export interface HtmlProps {
     styleTags: string;
@@ -35,7 +36,7 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                             <link rel="icon" type="image/png" sizes="32x32" href={favicon32x32} />
                             <link rel="icon" type="image/png" sizes="16x16" href={favicon16x16} />
                             {/*<link rel="manifest" href="/site.webmanifest" />*/}
-                            {/*<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />*/}
+                            <link rel="mask-icon" href={safariPinnedTab} color="#5bbad5" />
                             <link rel="shortcut icon" href={favicon} />
                             <meta name="apple-mobile-web-app-title" content="React Boilerplate" />
                             <meta name="application-name" content="React Boilerplate" />

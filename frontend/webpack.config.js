@@ -10,6 +10,20 @@ const config = require('./config');
 const completeConfig = config.getCompleteConfig();
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
+const svgIconRule = {
+    test: /Icon\.svg$/,
+    loaders: [
+        'babel-loader',
+        {
+            loader: 'svg-sprite-loader',
+            options: {
+                runtimeGenerator: require.resolve('./generators/svg-to-icon-component'),
+                symbolId: '[name]_[hash]',
+            },
+        },
+    ],
+};
+
 const commonConfig = {
     mode: completeConfig.root.env === config.ENV.DEV ? 'development' : 'production',
     devtool: completeConfig.root.env === config.ENV.DEV && 'cheap-module-source-map',
@@ -19,19 +33,6 @@ const commonConfig = {
                 test: /\.[tj]sx?$/,
                 loader: 'babel-loader',
                 exclude: [nodeModulesPath],
-            },
-            {
-                test: /Icon\.svg$/,
-                loaders: [
-                    'babel-loader',
-                    {
-                        loader: 'svg-sprite-loader',
-                        options: {
-                            runtimeGenerator: require.resolve('./generators/svg-to-icon-component'),
-                            symbolId: '[name]_[hash]',
-                        },
-                    },
-                ],
             },
             {
                 test: /\.css$/,
@@ -119,6 +120,16 @@ const clientConfig = {
                 ],
             },
             {
+                test: /\.svg$/,
+                oneOf: [
+                    svgIconRule,
+                    {
+                        test: /\.svg$/,
+                        loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client`,
+                    },
+                ],
+            },
+            {
                 test: /\.(eot|ttf|otf|woff|woff2)$/,
                 loader: `file-loader?name=fonts/[name]_[hash].[ext]&context=./src/client`,
             },
@@ -145,6 +156,16 @@ const serverConfig = {
                     },
                     {
                         test: /\.(png|ico)$/,
+                        loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
+                    },
+                ],
+            },
+            {
+                test: /\.svg$/,
+                oneOf: [
+                    svgIconRule,
+                    {
+                        test: /\.svg$/,
                         loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
                     },
                 ],
