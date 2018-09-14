@@ -48,6 +48,8 @@ const commonConfig = {
             GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
             GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
             IS_PREVENT_FOIT: completeConfig.root.isPreventFoit,
+            CLIENT_BUNDLE_NAME: JSON.stringify(completeConfig.root.clientBundleName),
+            STATIC_DIRECTORY_NAME: JSON.stringify(completeConfig.root.staticDirectoryName),
         }),
         new CleanWebpackPlugin(['dist'], {
             dry: false,
@@ -86,7 +88,7 @@ const commonConfig = {
         },
     },
     output: {
-        publicPath: '/static/',
+        publicPath: `/${completeConfig.root.staticDirectoryName}/`,
     },
     stats: {
         all: false,
@@ -115,8 +117,8 @@ const clientConfig = {
         ],
     },
     output: {
-        filename: 'client.bundle.js',
-        path: path.resolve(__dirname, 'dist', 'static'),
+        filename: completeConfig.root.clientBundleName,
+        path: path.resolve(__dirname, 'dist', completeConfig.root.staticDirectoryName),
     },
 };
 
@@ -137,7 +139,7 @@ const serverConfig = {
         ],
     },
     output: {
-        filename: 'server.bundle.js',
+        filename: completeConfig.root.serverBundleName,
         path: path.resolve(__dirname, 'dist'),
         libraryTarget: 'commonjs2',
     },

@@ -11,6 +11,9 @@ declare namespace Config {
     interface RootConfig {
         env: string | ENV;
         isPreventFoit: boolean;
+        serverBundleName: string;
+        clientBundleName: string;
+        staticDirectoryName: string;
     }
 
     interface ApiConfig {
