@@ -14,6 +14,6 @@ export const routes: Dictionary<RouteProps & { name: string } & { path: string }
     DEVELOPMENT: {
         path: '/development/:id',
         name: 'DEVELOPMENT',
-        render: () => <DevelopmentPage name={'User'} themeName={DevelopmentPageThemeName.ALTER} />,
+        render: () => React.createElement(DevelopmentPage, { name: 'User', themeName: DevelopmentPageThemeName.ALTER }),
     },
 };
