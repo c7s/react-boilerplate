@@ -6,11 +6,11 @@ import { Provider } from 'react-redux';
 import { Route, StaticRouter, StaticRouterProps, Switch } from 'react-router';
 import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
 import { Store } from 'redux';
+import { StoreState } from '../IsomorphicStore';
+import { routes } from '../routes';
 import './external-and-global-styles';
-import { StoreState } from './IsomorphicStore';
-import { routes } from './routes';
 
-// Import assets here (such as external css, html, etc)
+// Import global scripts here (such as external-and-global-styles)
 
 export interface IsomorphicAppProps {
     ssrMode: boolean;
