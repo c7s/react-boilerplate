@@ -14,8 +14,8 @@ import favicon from '../favicon/favicon.ico';
 import safariPinnedTab from '../favicon/safari-pinned-tab.svg';
 import { StoreState } from '../IsomorphicStore';
 import { routes } from '../routes';
-import '../server-templates';
 /** Just to generate files */
+import '../server-templates';
 import './external-and-global-styles';
 
 // Import global scripts here (such as external-and-global-styles)
