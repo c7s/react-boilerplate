@@ -24,6 +24,38 @@ const svgIconRule = {
     ],
 };
 
+function commonFileLoaders(isEmit) {
+    return [
+        {
+            test: /\.(jpg|jpeg|png|ico)$/,
+            oneOf: [
+                {
+                    test: /Image\.(jpg|jpeg|png)$/,
+                    loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=${isEmit}`,
+                },
+                {
+                    test: /\.(png|ico)$/,
+                    loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${isEmit}`,
+                },
+            ],
+        },
+        {
+            test: /\.svg$/,
+            oneOf: [
+                svgIconRule,
+                {
+                    test: /\.svg$/,
+                    loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${isEmit}`,
+                },
+            ],
+        },
+        {
+            test: /\.(eot|ttf|otf|woff|woff2)$/,
+            loader: `file-loader?name=fonts/[name]_[hash].[ext]&context=./src/client&emitFile=${isEmit}`,
+        },
+    ];
+}
+
 const commonConfig = {
     mode: completeConfig.root.env === config.ENV.DEV ? 'development' : 'production',
     devtool: completeConfig.root.env === config.ENV.DEV && 'cheap-module-source-map',
@@ -107,35 +139,7 @@ const clientConfig = {
         './src/client/client.ts',
     ].filter(Boolean),
     module: {
-        rules: [
-            {
-                test: /\.(jpg|jpeg|png|ico)$/,
-                oneOf: [
-                    {
-                        test: /Image\.(jpg|jpeg|png)$/,
-                        loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client`,
-                    },
-                    {
-                        test: /\.(png|ico)$/,
-                        loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client`,
-                    },
-                ],
-            },
-            {
-                test: /\.svg$/,
-                oneOf: [
-                    svgIconRule,
-                    {
-                        test: /\.svg$/,
-                        loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client`,
-                    },
-                ],
-            },
-            {
-                test: /\.(eot|ttf|otf|woff|woff2)$/,
-                loader: `file-loader?name=fonts/[name]_[hash].[ext]&context=./src/client`,
-            },
-        ],
+        rules: commonFileLoaders(true),
     },
     output: {
         filename: completeConfig.root.clientBundleName,
@@ -148,35 +152,7 @@ const serverConfig = {
     target: 'node',
     entry: './src/client/server.ts',
     module: {
-        rules: [
-            {
-                test: /\.(jpg|jpeg|png|ico)$/,
-                oneOf: [
-                    {
-                        test: /Image\.(jpg|jpeg|png)$/,
-                        loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
-                    },
-                    {
-                        test: /\.(png|ico)$/,
-                        loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
-                    },
-                ],
-            },
-            {
-                test: /\.svg$/,
-                oneOf: [
-                    svgIconRule,
-                    {
-                        test: /\.svg$/,
-                        loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
-                    },
-                ],
-            },
-            {
-                test: /\.(eot|ttf|otf|woff|woff2)$/,
-                loader: `file-loader?name=fonts/[name]_[hash].[ext]&context=./src/client&emitFile=false`,
-            },
-        ],
+        rules: commonFileLoaders(false),
     },
     output: {
         filename: completeConfig.root.serverBundleName,
