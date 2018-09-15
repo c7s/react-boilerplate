@@ -15,6 +15,7 @@ declare namespace Config {
         clientBundleName: string;
         staticDirectoryName: string;
         webManifestPath: string;
+        browserConfigPath: string;
     }
 
     interface ApiConfig {

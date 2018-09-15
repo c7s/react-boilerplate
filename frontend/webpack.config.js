@@ -52,6 +52,7 @@ const commonConfig = {
             CLIENT_BUNDLE_NAME: JSON.stringify(completeConfig.root.clientBundleName),
             STATIC_DIRECTORY_NAME: JSON.stringify(completeConfig.root.staticDirectoryName),
             WEB_MANIFEST_PATH: JSON.stringify(completeConfig.root.webManifestPath),
+            BROWSER_CONFIG_PATH: JSON.stringify(completeConfig.root.browserConfigPath),
         }),
         new CleanWebpackPlugin(['dist'], {
             dry: false,

@@ -8,7 +8,7 @@ import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import { IsomorphicApolloClient } from './IsomorphicApolloClient';
 import { IsomorphicApp } from './IsomorphicApp';
 import { IsomorphicStore } from './IsomorphicStore';
-import { Html, webManifest } from './server-templates';
+import { browserConfig, Html, webManifest } from './server-templates';
 
 export default function serverRenderer(stats?: { link?: ApolloLink }) {
     return (req: any, res: any) => {
@@ -16,6 +16,10 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
             res.status(200)
                 .header('Content-Type', 'application/manifest+json')
                 .send(JSON.stringify(webManifest));
+        } else if (req.path === BROWSER_CONFIG_PATH) {
+            res.status(200)
+                .header('Content-Type', 'application/xml')
+                .send(browserConfig);
         } else {
             const backendApolloClient =
                 stats && stats.link

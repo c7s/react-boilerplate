@@ -41,7 +41,7 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                             <meta name="apple-mobile-web-app-title" content="React Boilerplate" />
                             <meta name="application-name" content="React Boilerplate" />
                             <meta name="msapplication-TileColor" content="#da532c" />
-                            {/*<meta name="msapplication-config" content="/static/browserconfig.xml">*/}
+                            <meta name="msapplication-config" content={BROWSER_CONFIG_PATH} />
                             <meta name="theme-color" content="#ffffff" />
 
                             <title>App</title>

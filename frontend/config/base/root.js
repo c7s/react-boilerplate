@@ -5,4 +5,5 @@ module.exports = {
     clientBundleName: 'client.bundle.js',
     staticDirectoryName: 'static',
     webManifestPath: '/static/manifest.json',
+    browserConfigPath: '/static/browserconfig.xml',
 };
