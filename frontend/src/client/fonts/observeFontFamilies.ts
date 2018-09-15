@@ -1,9 +1,13 @@
 import FontFaceObserver from 'fontfaceobserver';
 import { IsomorphicStore } from '../IsomorphicStore';
-import { onFontLoad } from '../modules/common/store/actions';
+import { onFontLoad, onFontsLoadTimeout } from '../modules/common/store/actions';
 import { FontFamily, fontFamilyConfig } from './fontFamilyConfig';
 
 function observeFontFamilies() {
+    window.setTimeout(() => {
+        IsomorphicStore.getStore({ ssrMode: false }).dispatch(onFontsLoadTimeout());
+    }, FONTS_LOAD_TIMEOUT_MS);
+
     Object.values(FontFamily).map(observeFontFamily);
 }
 

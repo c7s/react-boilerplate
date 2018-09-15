@@ -80,7 +80,7 @@ const commonConfig = {
         new webpack.DefinePlugin({
             GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
             GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
-            IS_PREVENT_FOIT: completeConfig.root.isPreventFoit,
+            FONTS_LOAD_TIMEOUT_MS: completeConfig.root.fontsLoadTimeoutMs,
             CLIENT_BUNDLE_NAME: JSON.stringify(completeConfig.root.clientBundleName),
             STATIC_DIRECTORY_NAME: JSON.stringify(completeConfig.root.staticDirectoryName),
             WEB_MANIFEST_PATH: JSON.stringify(completeConfig.root.webManifestPath),
