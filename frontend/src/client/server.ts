@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import * as React from 'react';
 import { getDataFromTree } from 'react-apollo';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
+import Helmet from 'react-helmet';
 import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import { IsomorphicApolloClient } from './IsomorphicApolloClient';
@@ -46,11 +47,13 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
                             .header('Location', context.url)
                             .send();
                     } else {
+                        const helmet = Helmet.renderStatic();
                         const styleTags = sheet.getStyleTags();
                         const spriteContent = sprite.stringify();
                         const apolloState = backendApolloClient.extract();
                         const reduxState = backendStore.getState();
                         const html = React.createElement(Html, {
+                            helmet,
                             styleTags,
                             spriteContent,
                             content,
