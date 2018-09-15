@@ -56,7 +56,7 @@ const DevelopmentPage = withTheme<ThemeName, Props, Theme>(THEME_DICT)(
                     ? licenses.data.licenses.map(license => (license ? license.nickname : 'No nickname'))
                     : 'No data'}
             </LicensesDisplay>
-            <Link to={routes.ROOT.path}>Root</Link>
+            <Link to={routes.ROOT.url.raw()}>Root</Link>
             <Image src={c7sImage} />
             <C7sIcon />
         </Root>

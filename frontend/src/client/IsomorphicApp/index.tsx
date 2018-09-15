@@ -39,7 +39,7 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
                     >
                         <Switch>
                             {Object.values(routes).map(route => (
-                                <Route key={route.name} {...route} />
+                                <Route key={route.name} path={route.url.raw()} {...route} />
                             ))}
                         </Switch>
                     </IsomorphicRouter>
