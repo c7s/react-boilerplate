@@ -1,6 +1,7 @@
 import { Dictionary } from 'lodash';
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
+import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { FontFamily, fontFamily, withLoadedFontStatus } from '../../../../fonts';
@@ -44,6 +45,9 @@ export const THEME_DICT: Dictionary<Theme> = {
 const DevelopmentPage = withTheme<ThemeName, Props, Theme>(THEME_DICT)(
     ({ className, counter, onClick, licenses, loadedFontStatus, id, name, theme }) => (
         <Root className={className}>
+            <Helmet>
+                <title>{`${counter} Development page`}</title>
+            </Helmet>
             <Greeting>Greetings, {name ? name : 'Unknown'}</Greeting>
             <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
             <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
