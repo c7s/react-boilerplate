@@ -35,7 +35,7 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                             <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon} />
                             <link rel="icon" type="image/png" sizes="32x32" href={favicon32x32} />
                             <link rel="icon" type="image/png" sizes="16x16" href={favicon16x16} />
-                            {/*<link rel="manifest" href="/site.webmanifest" />*/}
+                            <link rel="manifest" href={WEB_MANIFEST_PATH} />
                             <link rel="mask-icon" href={safariPinnedTab} color="#5bbad5" />
                             <link rel="shortcut icon" href={favicon} />
                             <meta name="apple-mobile-web-app-title" content="React Boilerplate" />

@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import { Route, StaticRouter, StaticRouterProps, Switch } from 'react-router';
 import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
 import { Store } from 'redux';
-import '../Html';
 import { StoreState } from '../IsomorphicStore';
 import { routes } from '../routes';
+import '../server-templates';
 import './external-and-global-styles';
 
 // Import global scripts here (such as external-and-global-styles)

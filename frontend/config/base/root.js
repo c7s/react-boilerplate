@@ -4,4 +4,5 @@ module.exports = {
     serverBundleName: 'server.bundle.js',
     clientBundleName: 'client.bundle.js',
     staticDirectoryName: 'static',
+    webManifestPath: '/static/manifest.json',
 };
