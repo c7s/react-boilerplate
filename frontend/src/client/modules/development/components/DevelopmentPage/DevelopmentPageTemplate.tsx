@@ -80,7 +80,7 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
                     ? licenses.data.licenses.map(license => (license ? license.nickname : 'No nickname'))
                     : 'No data'}
             </LicensesDisplay>
-            <Link to={routes.ROOT.url.raw()}>Root</Link>
+            <Link to={routes.ROOT.path}>Root</Link>
             <Image src={c7sImage} />
             <C7sIcon />
         </Root>
