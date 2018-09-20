@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { FontFamily, fontFamily, withLoadedFontStatus } from '../../../../fonts';
 import { routes } from '../../../../routes';
-import { StyledComponentsInnerProps, StyledComponentsProps } from '../../../common/lib/BaseProps';
+import { CommonInnerProps, CommonProps } from '../../../common/lib/CommonProps';
 import { size } from '../../../common/lib/styles';
 import { withTheme } from '../../../common/lib/withTheme';
 import { LoadedFontStatus } from '../../../common/store/types';
@@ -14,7 +14,9 @@ import { Licenses } from './ApolloTypes/Licenses';
 import C7sIcon from './C7sIcon';
 import c7sImage from './c7sImage';
 
-export interface Props extends StyledComponentsProps<ThemeName>, StyledComponentsInnerProps<Theme> {
+/** Props to render component template. Don't forget to extend CurrentCommonProps */
+
+interface Props extends CurrentCommonProps {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     counter: number;
     licenses: QueryResult<Partial<Licenses>>;
@@ -24,16 +26,31 @@ export interface Props extends StyledComponentsProps<ThemeName>, StyledComponent
     id: string;
 }
 
-export interface Theme {
-    greetingColor: string;
-}
+/** Shortcuts for current common (inner) props (could also be just Common(Inner)Props without generic part) */
 
-export enum ThemeName {
+type CurrentCommonProps = CommonProps<ThemeName>;
+type CurrentInnerCommonProps = CommonInnerProps<Theme>;
+
+/** Interfaces for inner styled components. Inner styled components could be moved to separate file */
+
+interface GreetingProps extends CurrentInnerCommonProps {}
+
+/** In case of theme */
+
+enum ThemeName {
     DEFAULT = 'default',
     ALTER = 'alter',
 }
 
-export const THEME_DICT: Dictionary<Theme> = {
+/** In case of theme, theme object type */
+
+interface Theme {
+    greetingColor: string;
+}
+
+/** In case of theme, mapping between theme name and theme object */
+
+const THEME_DICT: Dictionary<Theme> = {
     [ThemeName.DEFAULT]: {
         greetingColor: '#aaff00',
     },
@@ -42,8 +59,11 @@ export const THEME_DICT: Dictionary<Theme> = {
     },
 };
 
-const DevelopmentPage = withTheme<ThemeName, Props, Theme>(THEME_DICT)(
-    ({ className, counter, onClick, licenses, loadedFontStatus, id, name, theme }) => (
+/** In case of theme, withTheme is added, ensuring that outer 'themeName' converts to inner 'theme' (types included) */
+
+const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<ThemeName, Theme, Props>(THEME_DICT)(
+    ({ className, counter, onClick, licenses, loadedFontStatus, id, name, theme /** can't get 'themeName' here*/ }) => (
+        /** It's mandatory to pass className to root element */
         <Root className={className}>
             <Helmet>
                 <title>{`${counter} Development page`}</title>
@@ -67,6 +87,8 @@ const DevelopmentPage = withTheme<ThemeName, Props, Theme>(THEME_DICT)(
     ),
 );
 
+/** Styled components */
+
 const Root = styled.div``;
 
 const ThemeDisplay = styled.div``;
@@ -79,13 +101,17 @@ const StateCounter = styled.div``;
 
 const LicensesDisplay = styled.div``;
 
+/** Responsive styling example */
+
 const GreetingMediumCss = css`
     font-weight: normal;
     font-style: italic;
 `;
 
+/** It's mandatory to wrap component with fontFamily to withLoadedFontStatus */
+
 const Greeting = withLoadedFontStatus(styled.div`
-    color: ${({ theme }: StyledComponentsInnerProps<Theme>) => theme!.greetingColor};
+    color: ${({ theme }: GreetingProps) => theme!.greetingColor};
     font-weight: bold;
     ${fontFamily(FontFamily.BITTER)};
     ${size.medium`${GreetingMediumCss};`};
@@ -95,4 +121,6 @@ const Image = styled.img`
     display: block;
 `;
 
-export { DevelopmentPage };
+/** Single export is mandatory */
+
+export { DevelopmentPageTemplate, Props, CurrentCommonProps, CurrentInnerCommonProps, ThemeName };

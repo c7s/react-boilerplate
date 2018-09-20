@@ -1,12 +1,13 @@
 import autobind from 'autobind-decorator';
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
-import { StyledComponentsProps } from '../../../common/lib/BaseProps';
 import { LoadedFontStatus } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
-import { DevelopmentPage, ThemeName } from './DevelopmentPage';
+import { CurrentCommonProps, DevelopmentPageTemplate } from './DevelopmentPageTemplate';
 
-export interface Props extends StyledComponentsProps<ThemeName> {
+/** Props to render component behaviour. Don't forget to extend CurrentCommonProps */
+
+interface Props extends CurrentCommonProps {
     licenses: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
     onRootVisit(): void;
@@ -14,7 +15,7 @@ export interface Props extends StyledComponentsProps<ThemeName> {
     id: string;
 }
 
-export interface State {
+interface State {
     counter: number;
 }
 
@@ -48,12 +49,16 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
     }
 
     render() {
-        return React.createElement(DevelopmentPage, {
+        return React.createElement(DevelopmentPageTemplate, {
             onClick: this.onClick,
+            /** It may be handy to just pass everything forward */
             ...this.state,
             ...this.props,
+            /** Can't specify 'theme' here */
         });
     }
 }
 
-export { DevelopmentPageBehaviour };
+/** Single export is mandatory */
+
+export { DevelopmentPageBehaviour, Props };

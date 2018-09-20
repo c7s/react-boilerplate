@@ -5,28 +5,37 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
 import { StoreState } from '../../../../IsomorphicStore';
-import { StyledComponentsProps } from '../../../common/lib/BaseProps';
 import { onRootVisit } from '../../../common/store/actions';
 import { LoadedFontStatus } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
-import { ThemeName } from './DevelopmentPage';
 import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
+import { CurrentCommonProps } from './DevelopmentPageTemplate';
 
-export interface Props extends StyledComponentsProps<ThemeName> {
+/** Props to render component connect. Don't forget to extend CurrentCommonProps */
+
+interface Props extends CurrentCommonProps {
     name?: string;
 }
 
-export type ReduxProps = Props & RouteComponentProps<{ id: string }> & StyledComponentsProps<ThemeName>;
+/** Props to render Redux layer */
 
-export interface MapProps {
+type ReduxProps = Props & RouteComponentProps<{ id: string }>;
+
+/** Types for Redux */
+
+interface MapProps {
     loadedFontStatus: LoadedFontStatus;
 }
 
-export interface DispatchProps {
+interface DispatchProps {
     onRootVisit(): void;
 }
 
-export type ApolloProps = Props & ReduxProps & MapProps & DispatchProps & StyledComponentsProps<ThemeName>;
+/** Props to render Apollo layer. The most tricky part, so pay attention while adding/deleting Redux & Router */
+
+type ApolloProps = ReduxProps & MapProps & DispatchProps;
+
+/** Graphql code could be in 'DevelopmentPageGraphql.ts' */
 
 const LICENSE_FRAGMENT = gql`
     fragment License on License {
@@ -43,6 +52,8 @@ const LICENSES_QUERY = gql`
     }
     ${LICENSE_FRAGMENT}
 `;
+
+/** HOC order is mandatory. Don't forget to make query result Partial<> (like Query<Partial<Licenses>>) */
 
 const DevelopmentPageConnect = withRouter(
     connect(
@@ -72,4 +83,6 @@ function mapDispatchToProps(dispatch: Dispatch, ownProps: ReduxProps): DispatchP
     );
 }
 
-export { DevelopmentPageConnect };
+/** Single export is mandatory */
+
+export { DevelopmentPageConnect, Props };

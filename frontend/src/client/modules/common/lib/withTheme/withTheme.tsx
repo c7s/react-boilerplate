@@ -2,24 +2,30 @@ import { Dictionary } from 'lodash';
 import * as React from 'react';
 import { compose } from 'recompose';
 import { ThemeProvider, withTheme as withThemeStyledComponents } from 'styled-components';
-import { StyledComponentsProps } from '../BaseProps';
+import { CommonInnerProps, CommonProps } from '../CommonProps';
 
-type WithThemeProviderEnhancer<Props> = (Component: React.ComponentType<Props>) => React.ComponentType<Props>;
+type WithThemeProviderEnhancer<
+    THEME_NAME extends string,
+    THEME extends object,
+    Props extends CommonProps<THEME_NAME>
+> = (
+    Component: React.StatelessComponent<Omit<Props, 'themeName'> & CommonInnerProps<THEME>>,
+) => React.StatelessComponent<Props>;
 
-function withTheme<THEME_NAME extends string, Props extends StyledComponentsProps<THEME_NAME>, THEME extends object>(
+// TODO: Remove any
+function withTheme<THEME_NAME extends string, THEME extends object, Props extends CommonProps<THEME_NAME>>(
     themeDict: Dictionary<THEME>,
-): WithThemeProviderEnhancer<Props> {
+): WithThemeProviderEnhancer<THEME_NAME, THEME, Props> {
     return compose(
-        (Component: React.ComponentClass<Props>) => {
-            return ({ themeName, ...restProps }: StyledComponentsProps<THEME_NAME>) => (
+        (Component: React.ComponentType<Props>) => {
+            return ({ themeName, ...restProps }: CommonProps<THEME_NAME>) => (
                 <ThemeProvider theme={themeName ? themeDict[themeName] : Object.values(themeDict)[0]}>
-                    {/* TODO: remove any */}
                     {React.createElement(Component as any, restProps)}
                 </ThemeProvider>
             );
         },
         withThemeStyledComponents,
-    );
+    ) as any;
 }
 
 export { withTheme };
