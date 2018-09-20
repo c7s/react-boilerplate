@@ -12,7 +12,10 @@ function fontFamily<T>(fontFamily: FontFamily) {
 
 function getFontFamilyStack(fontFamily: FontFamily, loadedFontStatus: LoadedFontStatus) {
     return `${
-        loadedFontStatus.fakeAllLoaded.isAllVariantsAvailable || loadedFontStatus[fontFamily] ? `${fontFamily}, ` : ''
+        loadedFontStatus.fakeAllLoaded.isAllVariantsAvailable ||
+        (loadedFontStatus[fontFamily] && loadedFontStatus[fontFamily].isAllVariantsAvailable)
+            ? `${fontFamily}, `
+            : ''
     }${fontFamilyConfig[fontFamily].fallbackStack}`;
 }
 
