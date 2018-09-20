@@ -1,4 +1,2 @@
-import { CommonState } from './CommonState';
-import { LoadedFontStatus } from './LoadedFontStatus';
-
-export { CommonState, LoadedFontStatus };
+export { CommonState } from './CommonState';
+export { LoadedFontStatus, FontVariant, FontData } from './LoadedFontStatus';

@@ -1,6 +1,6 @@
 import FontFaceObserver from 'fontfaceobserver';
 import { IsomorphicStore } from '../IsomorphicStore';
-import { onFontLoad, onFontsLoadTimeout } from '../modules/common/store/actions';
+import { onFontLoad, onFontsLoadTimeout, onFontVariantLoad } from '../modules/common/store/actions';
 import { FontFamily, fontFamilyConfig } from './fontFamilyConfig';
 
 function observeFontFamilies() {
@@ -14,7 +14,18 @@ function observeFontFamilies() {
 function observeFontFamily(fontFamily: FontFamily) {
     Promise.all(
         fontFamilyConfig[fontFamily].variants.map(variant =>
-            new FontFaceObserver(fontFamily, variant).load(fontFamilyConfig[fontFamily].testString, 60000),
+            new FontFaceObserver(fontFamily, variant).load(fontFamilyConfig[fontFamily].testString, 60000).then(() =>
+                IsomorphicStore.getStore({ ssrMode: false }).dispatch(
+                    onFontVariantLoad({
+                        fontFamily,
+                        fontVariant: {
+                            weight: variant.weight || 'normal',
+                            style: variant.style || 'normal',
+                            stretch: variant.stretch || 'normal',
+                        },
+                    }),
+                ),
+            ),
         ),
     )
         .then(() => IsomorphicStore.getStore({ ssrMode: false }).dispatch(onFontLoad(fontFamily)))

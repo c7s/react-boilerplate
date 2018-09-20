@@ -11,9 +11,9 @@ function fontFamily<T>(fontFamily: FontFamily) {
 }
 
 function getFontFamilyStack(fontFamily: FontFamily, loadedFontStatus: LoadedFontStatus) {
-    return `${loadedFontStatus.fakeAllLoaded || loadedFontStatus[fontFamily] ? `${fontFamily}, ` : ''}${
-        fontFamilyConfig[fontFamily].fallbackStack
-    }`;
+    return `${
+        loadedFontStatus.fakeAllLoaded.isAllVariantsAvailable || loadedFontStatus[fontFamily] ? `${fontFamily}, ` : ''
+    }${fontFamilyConfig[fontFamily].fallbackStack}`;
 }
 
 export { fontFamily };
