@@ -11,8 +11,8 @@ import { size } from '../../../common/lib/styles';
 import { withTheme } from '../../../common/lib/withTheme';
 import { LoadedFontStatus } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
-import C7sIcon from './C7sIcon';
-import c7sImage from './c7sImage';
+import C7sIcon from './C7sIcon.svg';
+import c7sImage from './c7sImage.png';
 
 /** Props to render component template. Don't forget to extend CurrentCommonProps */
 

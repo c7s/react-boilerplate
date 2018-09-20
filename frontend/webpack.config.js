@@ -116,7 +116,7 @@ const commonConfig = {
     ].filter(Boolean),
     resolve: {
         modules: ['node_modules', path.resolve(`./src/client`)],
-        extensions: ['.js', '.ts', '.tsx', '.jpg', '.jpeg', '.png', '.svg'],
+        extensions: ['.js', '.ts', '.tsx'],
         alias: {
             'node-fetch$': 'node-fetch/lib/index.js',
         },
