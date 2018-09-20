@@ -1,7 +1,7 @@
 import { Dictionary } from 'async';
 import { FontVariant } from 'fontfaceobserver';
 import { injectGlobal } from 'styled-components';
-import bitter from './Bitter/index.css';
+import { bitter } from './Bitter';
 
 injectGlobal`
     ${bitter};
