@@ -9,6 +9,7 @@ const isDoublePrefix = /^[A-Z]+-\d+: [A-Z]+-\d+/.test(msgFileContent);
 const isLongLines = /^.{73,}$/m.test(msgFileContent);
 const isHasBody = /^.+\n+.+/.test(msgFileContent);
 const isBlankLineAfterSubject = /^.+\n\n.+/.test(msgFileContent);
+const isSubjectEndsWithDot = /^.+\.\s*(?:\n|$)/.test(msgFileContent);
 
 if (isDoublePrefix) {
     terminateWithError("You've specified prefix in wrong format while being on task branch");
@@ -18,6 +19,8 @@ if (isDoublePrefix) {
     terminateWithError('Message lines must not exceed 72 characters');
 } else if (isHasBody && !isBlankLineAfterSubject) {
     terminateWithError('There must be exactly one blank line between subject and body');
+} else if (isSubjectEndsWithDot) {
+    terminateWithError('Subject must not end with dot');
 }
 
 /**
