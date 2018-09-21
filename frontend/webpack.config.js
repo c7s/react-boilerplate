@@ -85,6 +85,7 @@ const commonConfig = {
             STATIC_DIRECTORY_NAME: JSON.stringify(completeConfig.root.staticDirectoryName),
             WEB_MANIFEST_PATH: JSON.stringify(completeConfig.root.webManifestPath),
             BROWSER_CONFIG_PATH: JSON.stringify(completeConfig.root.browserConfigPath),
+            BUILD_TIMESTAMP: Date.now(),
         }),
         new CleanWebpackPlugin(['dist'], {
             dry: false,

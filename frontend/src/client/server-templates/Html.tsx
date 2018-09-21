@@ -47,7 +47,7 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                                     )};window.REDUX_STATE=${JSON.stringify(reduxState)};`,
                                 }}
                             />
-                            <script src={`/${STATIC_DIRECTORY_NAME}/${CLIENT_BUNDLE_NAME}`} />
+                            <script src={`/${STATIC_DIRECTORY_NAME}/${CLIENT_BUNDLE_NAME}?${BUILD_TIMESTAMP}`} />
                         </React.Fragment>,
                     )}`,
                 }}
