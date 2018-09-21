@@ -1,10 +1,13 @@
 import { css, SimpleInterpolation, ThemedCssFunction } from 'styled-components';
 
+/** Sizes are mobile-first */
+
 // Pixels
 export enum Size {
     SMALL = 0,
-    MEDIUM = 375,
-    LARGE = 414,
+    MEDIUM = 768,
+    LARGE = 1024,
+    EXTRA_LAGGE = 1440,
 }
 
 export interface MediaSizeTemplate {
@@ -27,6 +30,10 @@ export const size = Object.keys(Size)
     }, {}) as MediaSizeTemplate;
 
 export function getSize(viewportWidth: number): Size {
+    if (viewportWidth >= Size.EXTRA_LAGGE) {
+        return Size.EXTRA_LAGGE;
+    }
+
     if (viewportWidth >= Size.LARGE) {
         return Size.LARGE;
     }
