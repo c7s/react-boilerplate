@@ -11,19 +11,19 @@ const isHasBody = /^.+\n+.+/.test(msgFileContent);
 const isBlankLineAfterSubject = /^.+\n\n.+/.test(msgFileContent);
 
 if (isDoublePrefix) {
-    terminateWithWarning("You've specified prefix in wrong format while being on task branch");
+    terminateWithError("You've specified prefix in wrong format while being on task branch");
 } else if (!isMsgFormattedCorrectly) {
-    terminateWithWarning(`Message must look like 'KP-00: Makes stuff' or 'Merge ...', instead got: ${msgFileContent}`);
+    terminateWithError(`Message must look like 'KP-00: Makes stuff' or 'Merge ...', instead got: ${msgFileContent}`);
 } else if (isLongLines) {
-    terminateWithWarning('Message lines must not exceed 72 characters');
+    terminateWithError('Message lines must not exceed 72 characters');
 } else if (isHasBody && !isBlankLineAfterSubject) {
-    terminateWithWarning('There must be exactly one blank line between subject and body');
+    terminateWithError('There must be exactly one blank line between subject and body');
 }
 
 /**
  * @param {string} warning
  */
-function terminateWithWarning(warning) {
-    console.warn(`[WARN] ${warning}`);
+function terminateWithError(warning) {
+    console.error(`[ERROR] ${warning}`);
     process.exit(1);
 }
