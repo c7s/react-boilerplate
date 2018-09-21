@@ -22,5 +22,5 @@ try {
 
     fs.writeFileSync(msgFilePath, `${msgPrefix}${msgFileContent}`);
 } catch (error) {
-    console.warn('Something unusual is happening, commit message will not be prepared');
+    console.warn('[WARN] Something unusual is happening, commit message will not be prepared');
 }
