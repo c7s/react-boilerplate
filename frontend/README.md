@@ -6,6 +6,16 @@
 -   Node v8.11.1 (with npm v5.6.0)
 -   Latest WebStorm or Visual Studio Code
 
+## Configuration
+
+In order to run the project you need to override [`githubToken`](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) and `graphqlEndpoint` via `config/local/api.js`:
+```
+module.exports = {
+    githubToken: 'yourPersonalAccessToken',
+    graphqlEndpoint: 'https://api.github.com/graphql'
+};
+```
+
 ## Yarn scripts
 
 ### Package management
