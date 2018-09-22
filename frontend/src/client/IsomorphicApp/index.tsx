@@ -22,16 +22,15 @@ import { hot } from './isomorphicHot';
 // Import global scripts here (such as external-and-global-styles)
 
 export interface IsomorphicAppProps {
-    ssrMode: boolean;
     client: ApolloClient<NormalizedCacheObject>;
     store: Store<StoreState>;
     location?: string;
     context?: object;
 }
 
-class IsomorphicRouter extends React.Component<{ ssrMode: boolean } & (StaticRouterProps | BrowserRouterProps)> {
+class IsomorphicRouter extends React.Component<StaticRouterProps | BrowserRouterProps> {
     render() {
-        return this.props.ssrMode ? <StaticRouter {...this.props} /> : <BrowserRouter {...this.props} />;
+        return SSR_MODE ? <StaticRouter {...this.props} /> : <BrowserRouter {...this.props} />;
     }
 }
 
@@ -64,11 +63,7 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
 
                             <title>React Boilerplate</title>
                         </Helmet>
-                        <IsomorphicRouter
-                            ssrMode={this.props.ssrMode}
-                            location={this.props.location}
-                            context={this.props.context}
-                        >
+                        <IsomorphicRouter location={this.props.location} context={this.props.context}>
                             <Switch>
                                 {Object.values(routes).map(route => (
                                     <Route key={route.name} {...route} />

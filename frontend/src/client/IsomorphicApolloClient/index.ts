@@ -8,7 +8,6 @@ import { createHttpLink } from 'apollo-link-http';
  * {@link https://www.apollographql.com/docs/react/features/server-side-rendering.html#local-queries}
  */
 interface ClientConfig {
-    ssrMode: boolean;
     link?: ApolloLink;
     fetch?: GlobalFetch['fetch'];
 }
@@ -16,25 +15,26 @@ interface ClientConfig {
 class IsomorphicApolloClient {
     private static client: ApolloClient<NormalizedCacheObject> | null;
 
-    public static getClient({ ssrMode, link, fetch }: ClientConfig): ApolloClient<NormalizedCacheObject> {
-        if (!ssrMode || link || fetch) {
-            if (ssrMode) {
-                return IsomorphicApolloClient.createClient({ ssrMode, link, fetch });
+    public static getClient(clientConfig?: ClientConfig): ApolloClient<NormalizedCacheObject> {
+        const { link, fetch } = clientConfig || { link: undefined, fetch: undefined };
+
+        if (!SSR_MODE || link || fetch) {
+            if (SSR_MODE) {
+                return IsomorphicApolloClient.createClient({ link, fetch });
             }
 
             if (IsomorphicApolloClient.client) {
                 return IsomorphicApolloClient.client;
             }
 
-            return (IsomorphicApolloClient.client = IsomorphicApolloClient.createClient({ ssrMode, link, fetch }));
+            return (IsomorphicApolloClient.client = IsomorphicApolloClient.createClient({ link, fetch }));
         }
 
         throw new Error('In SSR mode either link or fetch is required');
     }
 
-    private static createClient({ ssrMode, link, fetch }: ClientConfig) {
+    private static createClient({ link, fetch }: ClientConfig) {
         return new ApolloClient({
-            ssrMode,
             link: link
                 ? link
                 : createHttpLink({
@@ -42,7 +42,7 @@ class IsomorphicApolloClient {
                       uri: GRAPHQL_ENDPOINT,
                       headers: { Authorization: `bearer ${GITHUB_TOKEN}` },
                   }),
-            cache: ssrMode ? new InMemoryCache() : new InMemoryCache().restore(APOLLO_STATE),
+            cache: SSR_MODE ? new InMemoryCache() : new InMemoryCache().restore(APOLLO_STATE),
             defaultOptions: {
                 watchQuery: {
                     errorPolicy: 'all',

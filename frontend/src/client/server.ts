@@ -24,15 +24,14 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
         } else {
             const backendApolloClient =
                 stats && stats.link
-                    ? IsomorphicApolloClient.getClient({ ssrMode: true, link: stats.link })
-                    : IsomorphicApolloClient.getClient({ ssrMode: true, fetch: fetch as any });
-            const backendStore = IsomorphicStore.getStore({ ssrMode: true });
+                    ? IsomorphicApolloClient.getClient({ link: stats.link })
+                    : IsomorphicApolloClient.getClient({ fetch: fetch as any });
+            const backendStore = IsomorphicStore.getStore();
             const context: { url?: string } = {};
             const sheet = new ServerStyleSheet();
 
             const App = React.createElement(IsomorphicApp, {
                 context,
-                ssrMode: true,
                 client: backendApolloClient,
                 store: backendStore,
                 location: req.url,

@@ -12,8 +12,8 @@ interface StoreState {
 class IsomorphicStore {
     private static store: Store<StoreState> | null;
 
-    public static getStore({ ssrMode }: { ssrMode: boolean }): Store<StoreState> {
-        if (ssrMode) {
+    public static getStore(): Store<StoreState> {
+        if (SSR_MODE) {
             return createStore(
                 combineReducers({
                     ...reducers,

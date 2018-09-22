@@ -10,9 +10,8 @@ observeFontFamilies();
 
 ReactDOM.hydrate(
     React.createElement(IsomorphicApp, {
-        ssrMode: false,
-        client: IsomorphicApolloClient.getClient({ ssrMode: false }),
-        store: IsomorphicStore.getStore({ ssrMode: false }),
+        client: IsomorphicApolloClient.getClient(),
+        store: IsomorphicStore.getStore(),
     }),
     document.getElementById('root'),
 );
