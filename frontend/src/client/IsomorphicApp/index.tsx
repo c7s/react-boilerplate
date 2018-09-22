@@ -11,15 +11,18 @@ import favicon16x16 from '../favicon/favicon-16x16.png';
 import favicon32x32 from '../favicon/favicon-32x32.png';
 import favicon from '../favicon/favicon.ico';
 import safariPinnedTab from '../favicon/safari-pinned-tab.svg';
+/** Start client-side fonts observing */
+import '../fonts';
 import { StoreState } from '../IsomorphicStore';
 import { routes } from '../routes';
-/** Just to generate files */
+/** Generate files for manifest favicon */
 import '../server-templates';
+/** Inject external and global styles */
 import './external-and-global-styles';
 import { isomorphicHot } from './isomorphicHot';
 import { IsomorphicRouter } from './IsomorphicRouter';
 
-// Import global scripts here (such as external-and-global-styles)
+/** Import global scripts here (such as external-and-global-styles) */
 
 export interface IsomorphicAppProps {
     client: ApolloClient<NormalizedCacheObject>;
