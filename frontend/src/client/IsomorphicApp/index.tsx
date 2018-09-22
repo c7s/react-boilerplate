@@ -4,8 +4,7 @@ import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import Helmet from 'react-helmet';
 import { Provider } from 'react-redux';
-import { Route, StaticRouter, StaticRouterProps, Switch } from 'react-router';
-import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
+import { Route, Switch } from 'react-router';
 import { Store } from 'redux';
 import appleTouchIcon from '../favicon/apple-touch-icon.png';
 import favicon16x16 from '../favicon/favicon-16x16.png';
@@ -18,6 +17,7 @@ import { routes } from '../routes';
 import '../server-templates';
 import './external-and-global-styles';
 import { hot } from './isomorphicHot';
+import { IsomorphicRouter } from './IsomorphicRouter';
 
 // Import global scripts here (such as external-and-global-styles)
 
@@ -26,12 +26,6 @@ export interface IsomorphicAppProps {
     store: Store<StoreState>;
     location?: string;
     context?: object;
-}
-
-class IsomorphicRouter extends React.Component<StaticRouterProps | BrowserRouterProps> {
-    render() {
-        return SSR_MODE ? <StaticRouter {...this.props} /> : <BrowserRouter {...this.props} />;
-    }
 }
 
 @hot(module)
