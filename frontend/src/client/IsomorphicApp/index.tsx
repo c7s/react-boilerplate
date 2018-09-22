@@ -9,8 +9,6 @@ import { Store } from 'redux';
 import '../fonts';
 import { StoreState } from '../IsomorphicStore';
 import { routes } from '../routes';
-/** Generate files for manifest favicon */
-import '../server-templates';
 /** Inject external and global styles */
 import './external-and-global-styles';
 import { InitialHelmet } from './InitialHelmet';

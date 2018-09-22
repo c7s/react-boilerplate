@@ -5,6 +5,8 @@ import favicon16x16 from '../favicon/favicon-16x16.png';
 import favicon32x32 from '../favicon/favicon-32x32.png';
 import favicon from '../favicon/favicon.ico';
 import safariPinnedTab from '../favicon/safari-pinned-tab.svg';
+/** Generate files for manifest and msapplication-config favicon */
+import '../server-templates';
 
 export const InitialHelmet: React.StatelessComponent = () => (
     <Helmet>
