@@ -17,6 +17,7 @@ import { routes } from '../routes';
 /** Just to generate files */
 import '../server-templates';
 import './external-and-global-styles';
+import { hot } from './isomorphicHot';
 
 // Import global scripts here (such as external-and-global-styles)
 
@@ -34,6 +35,7 @@ class IsomorphicRouter extends React.Component<{ ssrMode: boolean } & (StaticRou
     }
 }
 
+@hot(module)
 export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
     render() {
         return (

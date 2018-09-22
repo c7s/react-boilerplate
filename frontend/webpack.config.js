@@ -142,6 +142,7 @@ const clientConfig = {
     module: {
         rules: commonFileLoaders(true),
     },
+    plugins: [new webpack.DefinePlugin({ SSR_MODE: false })],
     output: {
         filename: completeConfig.root.clientBundleName,
         path: path.resolve(__dirname, 'dist', completeConfig.root.staticDirectoryName),
@@ -155,6 +156,7 @@ const serverConfig = {
     module: {
         rules: commonFileLoaders(false),
     },
+    plugins: [new webpack.DefinePlugin({ SSR_MODE: true })],
     output: {
         filename: completeConfig.root.serverBundleName,
         path: path.resolve(__dirname, 'dist'),
