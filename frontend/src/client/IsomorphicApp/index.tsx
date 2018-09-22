@@ -16,7 +16,7 @@ import { routes } from '../routes';
 /** Just to generate files */
 import '../server-templates';
 import './external-and-global-styles';
-import { hot } from './isomorphicHot';
+import { isomorphicHot } from './isomorphicHot';
 import { IsomorphicRouter } from './IsomorphicRouter';
 
 // Import global scripts here (such as external-and-global-styles)
@@ -28,7 +28,7 @@ export interface IsomorphicAppProps {
     context?: object;
 }
 
-@hot(module)
+@isomorphicHot(module)
 export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
     render() {
         return (
