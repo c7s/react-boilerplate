@@ -1,7 +1,7 @@
 const { stringifyRequest } = require('loader-utils');
 
 /**
- * @param {Object} symbol // TODO: expand type definition
+ * @param {Object} symbol
  * @return {string}
  */
 function stringifySymbol(symbol) {
