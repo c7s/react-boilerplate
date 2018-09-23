@@ -4,16 +4,17 @@ import { css, SimpleInterpolation, ThemedCssFunction } from 'styled-components';
 
 // Pixels
 export enum Size {
-    SMALL = 0,
-    MEDIUM = 768,
-    LARGE = 1024,
-    EXTRA_LARGE = 1440,
+    S = 0,
+    M = 768,
+    L = 1024,
+    XL = 1440,
 }
 
 export interface MediaSizeTemplate {
-    small: ThemedCssFunction<any>;
-    medium: ThemedCssFunction<any>;
-    large: ThemedCssFunction<any>;
+    s: ThemedCssFunction<{}>;
+    m: ThemedCssFunction<{}>;
+    l: ThemedCssFunction<{}>;
+    xl: ThemedCssFunction<{}>;
 }
 
 // TODO: remove any
@@ -30,17 +31,17 @@ export const size = Object.keys(Size)
     }, {}) as MediaSizeTemplate;
 
 export function getSize(viewportWidth: number): Size {
-    if (viewportWidth >= Size.EXTRA_LARGE) {
-        return Size.EXTRA_LARGE;
+    if (viewportWidth >= Size.XL) {
+        return Size.XL;
     }
 
-    if (viewportWidth >= Size.LARGE) {
-        return Size.LARGE;
+    if (viewportWidth >= Size.L) {
+        return Size.L;
     }
 
-    if (viewportWidth >= Size.MEDIUM) {
-        return Size.MEDIUM;
+    if (viewportWidth >= Size.M) {
+        return Size.M;
     }
 
-    return Size.SMALL;
+    return Size.S;
 }

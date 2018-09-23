@@ -112,7 +112,7 @@ const GreetingMediumCss = css`
 const Greeting = styled.div`
     color: ${({ theme }: GreetingProps) => theme!.greetingColor};
     font-weight: bold;
-    ${size.medium`${GreetingMediumCss};`};
+    ${size.xl`${GreetingMediumCss};`};
 `;
 
 const Image = styled.img`
