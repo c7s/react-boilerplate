@@ -1,6 +1,6 @@
 import { Dictionary } from 'lodash';
 import * as React from 'react';
-import { compose } from 'recompose';
+import { compose } from 'redux';
 import { ThemeProvider, withTheme as withThemeStyledComponents } from 'styled-components';
 import { CommonInnerProps, CommonProps } from '../CommonProps';
 
