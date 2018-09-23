@@ -1,4 +1,5 @@
 import { ApolloLink } from 'apollo-link';
+import { Request, Response } from 'express';
 import fetch from 'node-fetch';
 import * as React from 'react';
 import { getDataFromTree } from 'react-apollo';
@@ -12,7 +13,7 @@ import { IsomorphicStore } from './IsomorphicStore';
 import { browserConfig, Html, webManifest } from './server-templates';
 
 export default function serverRenderer(stats?: { link?: ApolloLink }) {
-    return (req: any, res: any) => {
+    return (req: Request, res: Response) => {
         if (req.path === WEB_MANIFEST_PATH) {
             res.status(200)
                 .header('Content-Type', 'application/manifest+json')
