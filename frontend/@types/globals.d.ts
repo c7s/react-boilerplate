@@ -2,7 +2,6 @@ declare const GRAPHQL_ENDPOINT: string;
 declare const GITHUB_TOKEN: string;
 declare const APOLLO_STATE: any;
 declare const REDUX_STATE: any;
-declare const FONTS_LOAD_TIMEOUT_MS: boolean;
 declare const CLIENT_BUNDLE_NAME: string;
 declare const STATIC_DIRECTORY_NAME: string;
 declare const WEB_MANIFEST_PATH: string;

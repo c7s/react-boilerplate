@@ -9,6 +9,4 @@ export const onFontVariantLoad = actionCreator<{ fontFamily: FontFamily; fontVar
     'ON_FONT_VARIANT_LOAD',
 );
 
-export const onFontsLoadTimeout = actionCreator('ON_FONT_LOAD_TIMEOUT');
-
 export const onRootVisit = actionCreator('ON_ROOT_VISIT');

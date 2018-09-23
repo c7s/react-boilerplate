@@ -1,6 +1,5 @@
 module.exports = {
     env: process.env.REACT_BOILERPLATE_ENV || 'dev',
-    fontsLoadTimeoutMs: 2000,
     serverBundleName: 'server.bundle.js',
     clientBundleName: 'client.bundle.js',
     staticDirectoryName: 'static',

@@ -10,7 +10,6 @@ declare namespace Config {
 
     interface RootConfig {
         env: string | ENV;
-        fontsLoadTimeoutMs: boolean;
         serverBundleName: string;
         clientBundleName: string;
         staticDirectoryName: string;

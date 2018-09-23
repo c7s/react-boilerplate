@@ -1,20 +1,19 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers/dist';
 import { FontFamily } from '../../../../fonts';
-import { onFontLoad, onFontsLoadTimeout, onFontVariantLoad } from '../actions';
+import { onFontLoad, onFontVariantLoad } from '../actions';
 import { FontVariant, LoadedFontStatus } from '../types';
 
-export const loadedFontStatusReducer = reducerWithInitialState<LoadedFontStatus>({
-    fakeAllLoaded: { isAllVariantsAvailable: true, availableVariants: [] },
-})
+export const loadedFontStatusReducer = reducerWithInitialState<LoadedFontStatus>({})
     .case(onFontLoad, onFontLoadHandler)
-    .case(onFontVariantLoad, onFontVariantLoadHandler)
-    .case(onFontsLoadTimeout, onFontsLoadTimeoutHandler);
+    .case(onFontVariantLoad, onFontVariantLoadHandler);
 
 function onFontLoadHandler(state: LoadedFontStatus, loadedFontFamily: FontFamily): LoadedFontStatus {
+    const currentStatus = state[loadedFontFamily];
+
     return {
         ...state,
         [loadedFontFamily]: {
-            ...state[loadedFontFamily],
+            availableVariants: currentStatus ? currentStatus.availableVariants : [],
             isAllVariantsAvailable: true,
         },
     };
@@ -29,18 +28,11 @@ function onFontVariantLoadHandler(
     return {
         ...state,
         [loadedFontVariant.fontFamily]: {
-            ...currentStatus,
             availableVariants: [
                 ...(currentStatus ? currentStatus.availableVariants : []),
                 loadedFontVariant.fontVariant,
             ],
+            isAllVariantsAvailable: currentStatus ? currentStatus.isAllVariantsAvailable : false,
         },
-    };
-}
-
-function onFontsLoadTimeoutHandler(state: LoadedFontStatus): LoadedFontStatus {
-    return {
-        ...state,
-        fakeAllLoaded: { isAllVariantsAvailable: false, availableVariants: [] },
     };
 }

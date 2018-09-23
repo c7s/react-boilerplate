@@ -4,7 +4,7 @@ import { QueryResult } from 'react-apollo';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { FontFamily, fontFamily, withLoadedFontStatus } from '../../../../fonts';
+import { FontFamily, fontFamily } from '../../../../fonts';
 import { routes } from '../../../../routes';
 import { CommonInnerProps, CommonProps } from '../../../common/lib/CommonProps';
 import { size } from '../../../common/lib/styles';
@@ -110,12 +110,12 @@ const GreetingMediumCss = css`
 
 /** It's mandatory to wrap component with fontFamily to withLoadedFontStatus */
 
-const Greeting = withLoadedFontStatus(styled.div`
+const Greeting = styled.div`
     color: ${({ theme }: GreetingProps) => theme!.greetingColor};
     font-weight: bold;
     ${fontFamily(FontFamily.BITTER)};
     ${size.medium`${GreetingMediumCss};`};
-`);
+`;
 
 const Image = styled.img`
     display: block;

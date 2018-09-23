@@ -1,22 +1,10 @@
 import { css } from 'styled-components';
-import { LoadedFontStatus } from '../modules/common/store/types';
 import { FontFamily, fontFamilyConfig } from './fontFamilyConfig';
 
-function fontFamily<T>(fontFamily: FontFamily) {
+function fontFamily(fontFamily: FontFamily) {
     return css`
-        /* stylelint-disable declaration-colon-newline-after, value-list-max-empty-lines */
-        font-family: ${({ loadedFontStatus }: T & { loadedFontStatus: LoadedFontStatus }) =>
-            getFontFamilyStack(fontFamily, loadedFontStatus)};
+        font-family: ${fontFamily}, ${fontFamilyConfig[fontFamily].fallbackStack};
     `;
-}
-
-function getFontFamilyStack(fontFamily: FontFamily, loadedFontStatus: LoadedFontStatus) {
-    return `${
-        loadedFontStatus.fakeAllLoaded.isAllVariantsAvailable ||
-        (loadedFontStatus[fontFamily] && loadedFontStatus[fontFamily].isAllVariantsAvailable)
-            ? `${fontFamily}, `
-            : ''
-    }${fontFamilyConfig[fontFamily].fallbackStack}`;
 }
 
 export { fontFamily };

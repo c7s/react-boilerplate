@@ -9,7 +9,6 @@ export interface FontData {
     availableVariants: FontVariant[];
 }
 
-export type LoadedFontStatus = {
-    fakeAllLoaded: FontData;
-    [key: string]: FontData;
-};
+export interface LoadedFontStatus {
+    [key: string]: FontData | undefined;
+}
