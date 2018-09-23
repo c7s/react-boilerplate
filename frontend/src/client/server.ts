@@ -26,7 +26,7 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
             const backendApolloClient =
                 stats && stats.link
                     ? IsomorphicApolloClient.getClient({ link: stats.link })
-                    : IsomorphicApolloClient.getClient({ fetch: fetch as any });
+                    : IsomorphicApolloClient.getClient({ fetch });
             const backendStore = IsomorphicStore.getStore();
             const context: { url?: string } = {};
             const sheet = new ServerStyleSheet();
