@@ -17,7 +17,7 @@ export interface MediaSizeTemplate {
     xl: ThemedCssFunction<{}>;
 }
 
-// TODO: remove any
+/** Unavoidable any */
 export const size = Object.keys(Size)
     .map(key => key.toLowerCase())
     .reduce((acc: any, label: any) => {
