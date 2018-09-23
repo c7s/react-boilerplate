@@ -12,20 +12,23 @@ type WithThemeProviderEnhancer<
     Component: React.StatelessComponent<Omit<Props, 'themeName'> & CommonInnerProps<THEME>>,
 ) => React.StatelessComponent<Props>;
 
-// TODO: Remove any
 function withTheme<THEME_NAME extends string, THEME extends object, Props extends CommonProps<THEME_NAME>>(
     themeDict: Dictionary<THEME>,
 ): WithThemeProviderEnhancer<THEME_NAME, THEME, Props> {
     return compose(
-        (Component: React.ComponentType<Props>) => {
-            return ({ themeName, ...restProps }: CommonProps<THEME_NAME>) => (
+        (Component: React.StatelessComponent<Omit<Props, 'themeName'>>) => {
+            /**
+             * Should be Props instead of { themeName: THEME_NAME }, but
+             * https://github.com/Microsoft/TypeScript/issues/10727
+             */
+            return ({ themeName, ...restProps }: { themeName: THEME_NAME }) => (
                 <ThemeProvider theme={themeName ? themeDict[themeName] : Object.values(themeDict)[0]}>
-                    {React.createElement(Component as any, restProps)}
+                    {React.createElement(Component, restProps as Omit<Props, 'themeName'>)}
                 </ThemeProvider>
             );
         },
         withThemeStyledComponents,
-    ) as any;
+    ) as any; /* Unavoidable any */
 }
 
 export { withTheme };
