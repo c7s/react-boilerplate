@@ -10,48 +10,98 @@ const config = require('./config');
 const completeConfig = config.getCompleteConfig();
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
-const svgIconRule = {
-    test: /Icon\.svg$/,
-    loaders: [
-        'babel-loader',
-        {
-            loader: 'svg-sprite-loader',
-            options: {
-                runtimeGenerator: require.resolve('./generators/svg-to-icon-component'),
-                symbolId: '[name]_[hash]',
-            },
-        },
-    ],
-};
+// https://github.com/webpack/webpack/issues/2121
+process.env.NODE_ENV = completeConfig.root.env === config.ENV.DEV ? 'development' : 'production';
 
-function commonFileLoaders(isEmit) {
+function getBabelOptions(ssrMode) {
+    return {
+        cacheDirectory: true,
+        babelrc: false,
+        presets: [
+            [
+                '@babel/env',
+                {
+                    modules: false,
+                    targets: {
+                        browsers: ['last 1 version'],
+                        safari: '9',
+                        ie: '11',
+                        ios: '9',
+                        android: '4',
+                    },
+                },
+            ],
+            '@babel/react',
+            '@babel/typescript',
+        ],
+        plugins: [
+            ['@babel/plugin-proposal-decorators', { legacy: true }],
+            process.env.NODE_ENV === 'development' && !ssrMode && 'react-hot-loader/babel',
+            [
+                'babel-plugin-styled-components',
+                {
+                    ssr: true,
+                    displayName: process.env.NODE_ENV === 'development',
+                },
+            ],
+            process.env.NODE_ENV === 'development' && 'add-react-displayname',
+        ].filter(Boolean),
+    };
+}
+
+function commonLoaders(ssrMode) {
     return [
+        {
+            test: /\.[tj]sx?$/,
+            loader: 'babel-loader',
+            options: getBabelOptions(ssrMode),
+            exclude: [nodeModulesPath],
+        },
+        {
+            test: /\.css$/,
+            loaders: ['to-string-loader', 'css-loader'],
+        },
         {
             test: /\.(jpg|jpeg|png|ico)$/,
             oneOf: [
                 {
                     test: /Image\.(jpg|jpeg|png)$/,
-                    loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=${isEmit}`,
+                    loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
                 },
                 {
                     test: /\.(png|ico)$/,
-                    loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${isEmit}`,
+                    loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
                 },
             ],
         },
         {
             test: /\.svg$/,
             oneOf: [
-                svgIconRule,
+                {
+                    test: /Icon\.svg$/,
+                    loaders: [
+                        {
+                            loader: 'babel-loader',
+                            options: getBabelOptions(ssrMode),
+                        },
+                        {
+                            loader: 'svg-sprite-loader',
+                            options: {
+                                runtimeGenerator: require.resolve('./generators/svg-to-icon-component'),
+                                symbolId: '[name]_[hash]',
+                            },
+                        },
+                    ],
+                },
                 {
                     test: /\.svg$/,
-                    loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${isEmit}`,
+                    loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
                 },
             ],
         },
         {
             test: /\.(eot|ttf|otf|woff|woff2)$/,
-            loader: `file-loader?name=fonts/[name]_[hash].[ext]&context=./src/client&emitFile=${isEmit}`,
+            loader: `file-loader?name=fonts/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
         },
     ];
 }
@@ -59,19 +109,6 @@ function commonFileLoaders(isEmit) {
 const commonConfig = {
     mode: completeConfig.root.env === config.ENV.DEV ? 'development' : 'production',
     devtool: completeConfig.root.env === config.ENV.DEV && 'cheap-module-source-map',
-    module: {
-        rules: [
-            {
-                test: /\.[tj]sx?$/,
-                loader: 'babel-loader',
-                exclude: [nodeModulesPath],
-            },
-            {
-                test: /\.css$/,
-                loaders: ['to-string-loader', 'css-loader'],
-            },
-        ],
-    },
     plugins: [
         completeConfig.root.env === config.ENV.DEV && new webpack.HotModuleReplacementPlugin(),
         new TimeFixPlugin(),
@@ -139,7 +176,7 @@ const clientConfig = {
         './src/client/client.ts',
     ].filter(Boolean),
     module: {
-        rules: commonFileLoaders(true),
+        rules: commonLoaders(false),
     },
     plugins: [new webpack.DefinePlugin({ SSR_MODE: false })],
     output: {
@@ -153,7 +190,7 @@ const serverConfig = {
     target: 'node',
     entry: './src/client/server.ts',
     module: {
-        rules: commonFileLoaders(false),
+        rules: commonLoaders(true),
     },
     plugins: [new webpack.DefinePlugin({ SSR_MODE: true })],
     output: {
