@@ -1,5 +1,5 @@
-import * as pathToRegexp from 'path-to-regexp';
-import * as queryString from 'querystring';
+import pathToRegexp from 'path-to-regexp';
+import queryString from 'query-string';
 import { RouteProps } from 'react-router';
 
 type PathData<PATH extends string = never, QUERY extends string = never> = { [key in PATH]: string } & {

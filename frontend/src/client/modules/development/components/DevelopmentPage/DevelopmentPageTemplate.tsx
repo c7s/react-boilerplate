@@ -23,6 +23,7 @@ interface Props extends CurrentCommonProps {
     onRootVisit(): void;
     name?: string;
     id: string;
+    queryFirst?: string;
 }
 
 /** Shortcuts for current common (inner) props (could also be just Common(Inner)Props without generic part) */
@@ -61,7 +62,17 @@ const THEME_DICT: Dictionary<Theme> = {
 /** In case of theme, withTheme is added, ensuring that outer 'themeName' converts to inner 'theme' (types included) */
 
 const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<ThemeName, Theme, Props>(THEME_DICT)(
-    ({ className, counter, onClick, licenses, loadedFontStatus, id, name, theme /** can't get 'themeName' here*/ }) => (
+    ({
+        className,
+        counter,
+        onClick,
+        licenses,
+        loadedFontStatus,
+        id,
+        queryFirst,
+        name,
+        theme /** can't get 'themeName' here*/,
+    }) => (
         /** It's mandatory to pass className to root element */
         <Root className={className}>
             <Helmet>
@@ -70,7 +81,8 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
             <Greeting>Greetings, {name ? name : 'Unknown'}</Greeting>
             <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
             <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
-            <PageId>Page id: {id}</PageId>
+            <UrlData>Page id: {id}</UrlData>
+            <UrlData>QueryFirst: {queryFirst}</UrlData>
             <StateCounter>State counter: {counter}</StateCounter>
             <button onClick={onClick}>Droppy</button>
             <LicensesDisplay>
@@ -94,7 +106,7 @@ const ThemeDisplay = styled.div``;
 
 const LoadedFontStatusDisplay = styled.div``;
 
-const PageId = styled.div``;
+const UrlData = styled.div``;
 
 const StateCounter = styled.div``;
 

@@ -2,9 +2,9 @@ import gql from 'graphql-tag';
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
 import { StoreState } from '../../../../IsomorphicStore';
+import { RouteComponentPropsQuery, withRouterQuery } from '../../../common/lib/withRouterQuery';
 import { onRootVisit } from '../../../common/store/actions';
 import { LoadedFontStatus } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
@@ -19,7 +19,7 @@ interface Props extends CurrentCommonProps {
 
 /** Props to render Redux layer */
 
-type ReduxProps = Props & RouteComponentProps<{ id: string }>;
+type ReduxProps = Props & RouteComponentPropsQuery<{ id: string }, { queryFirst?: string; querySecond?: string }>;
 
 /** Types for Redux */
 
@@ -55,13 +55,20 @@ const LICENSES_QUERY = gql`
 
 /** HOC order is mandatory. Don't forget to make query result Partial<> (like Query<Partial<Licenses>>) */
 
-const DevelopmentPageConnect = withRouter(
+const DevelopmentPageConnect = withRouterQuery(
     connect(
         mapStateToProps,
         mapDispatchToProps,
     )((props: ApolloProps) => (
         <Query<Partial<Licenses>> query={LICENSES_QUERY}>
-            {licenses => <DevelopmentPageBehaviour {...props} id={props.match.params.id} licenses={licenses} />}
+            {licenses => (
+                <DevelopmentPageBehaviour
+                    {...props}
+                    queryFirst={props.queryParams.queryFirst}
+                    id={props.match.params.id}
+                    licenses={licenses}
+                />
+            )}
         </Query>
     )),
 );

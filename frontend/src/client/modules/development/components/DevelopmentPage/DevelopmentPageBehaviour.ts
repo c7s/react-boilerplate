@@ -13,6 +13,7 @@ interface Props extends CurrentCommonProps {
     onRootVisit(): void;
     name?: string;
     id: string;
+    queryFirst?: string;
 }
 
 interface State {
