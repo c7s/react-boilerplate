@@ -135,14 +135,11 @@ const commonConfig = {
                     'README.md',
                     // Apollo types are generated
                     'ApolloTypes',
-                    // Assembled graphql is for developer only
-                    '*.assembled.graphql',
                     // These files are ignored due to babel usage (instead of tsc)
                     '*.d.ts',
                     // Entry points
                     'client.ts',
                     'server.ts',
-                    'HotIsomorphicApp.ts',
                 ],
                 root: path.resolve(`./src/client`),
             }),
