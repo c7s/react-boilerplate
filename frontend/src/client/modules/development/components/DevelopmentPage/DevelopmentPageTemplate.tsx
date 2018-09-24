@@ -100,14 +100,12 @@ const StateCounter = styled.div``;
 
 const LicensesDisplay = styled.div``;
 
-/** Responsive styling example */
+/** Responsive styling example. Separate 'css' variable is mandatory (WebStorm issue) */
 
 const GreetingMediumCss = css`
     font-weight: normal;
     font-style: italic;
 `;
-
-/** It's mandatory to wrap component with fontFamily to withLoadedFontStatus */
 
 const Greeting = styled.div`
     color: ${({ theme }: GreetingProps) => theme!.greetingColor};
