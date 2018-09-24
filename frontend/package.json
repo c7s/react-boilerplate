@@ -22,10 +22,9 @@
         "preparecommitmsg": "node ./git/hooks/prepare-commit-msg",
         "commitmsg": "node ./git/hooks/commit-msg",
         "precommit": "yarn check --integrity && tsc --project tsconfig.json && lint-staged",
-        "postcommit": "git update-index --again"
+        "postcommit": "git --git-dir ../.git update-index --again"
     },
     "lint-staged": {
-        "gitDir": "../",
         "*.js": [
             "eslint"
         ],
