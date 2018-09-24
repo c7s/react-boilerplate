@@ -2,9 +2,10 @@
 
 ## Prerequisites
 
--   Yarn v1.9.4
--   Node v8.11.1 (with npm v5.6.0)
--   Latest WebStorm or Visual Studio Code
+-   Yarn v1.9.4;
+-   Node v8.11.1 (with npm v5.6.0);
+-   Latest WebStorm or Visual Studio Code;
+-   [Configured git](#git-config).
 
 ## Configuration
 
@@ -59,6 +60,10 @@ module.exports = {
 -   `lint:js`: run eslint;
 -   `lint:ts`: run tslint and tsc (typecheck);
 -   `lint:css`: run stylelint.
+
+### Git config
+
+-   `yarn git:configure`: set global git config to conventional.
 
 ### Git hooks (debug only)
 
