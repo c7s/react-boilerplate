@@ -4,7 +4,7 @@
     "author": "c7s",
     "private": true,
     "scripts": {
-        "i": "yarn install --frozen-lockfile",
+        "i": "yarn install --frozen-lockfile && node ./generators/build/create-symlinks",
         "a": "yarn add -T -D",
         "r": "yarn remove",
         "start": "yarn i && start http://localhost:3005 & concurrently \"node ./src/dev-server\" \"yarn generate:apollo --watch\"",
@@ -70,6 +70,7 @@
         "clean-webpack-plugin": "~0.1.19",
         "commander": "~2.17.1",
         "concurrently": "~4.0.1",
+        "create-symlink": "~1.0.0",
         "css-loader": "~1.0.0",
         "del": "~3.0.0",
         "eslint": "~5.4.0",

@@ -9,6 +9,7 @@
 ## Configuration
 
 In order to run the project you need to override [`githubToken`](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) and `graphqlEndpoint` via `config/local/api.js`:
+
 ```
 module.exports = {
     githubToken: 'yourPersonalAccessToken',
@@ -20,7 +21,9 @@ module.exports = {
 
 ### Package management
 
--   `yarn i`: shortcut for `yarn install --frozen-lockfile`;
+> **NOTE**: It's mandatory to use `yarn i` instead of `yarn` or `yarn install`
+
+-   `yarn i`: install dependencies with frozen lockfile and create necessary symlinks;
 -   `yarn a`: shortcut for `yarn add -T -D`;
 -   `yarn r`: shortcut for `yarn remove`.
 
