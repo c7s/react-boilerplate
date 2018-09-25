@@ -5,6 +5,7 @@ const TimeFixPlugin = require('time-fix-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+const CleanTerminalPlugin = require('clean-terminal-webpack-plugin');
 const config = require('./config');
 
 const completeConfig = config.getCompleteConfig();
@@ -148,6 +149,7 @@ const commonConfig = {
         new FilterWarningsPlugin({
             exclude: /export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+'/,
         }),
+        completeConfig.root.env === config.ENV.DEV && new CleanTerminalPlugin(),
     ].filter(Boolean),
     resolve: {
         modules: ['node_modules', path.resolve(`./src/client`)],
