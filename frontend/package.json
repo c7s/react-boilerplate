@@ -8,7 +8,7 @@
         "a": "yarn add -T -D",
         "r": "yarn remove",
         "start": "yarn i && start http://localhost:3005 & concurrently \"node ./src/dev-server\" \"yarn generate:apollo --watch\"",
-        "build": "yarn i && yarn generate:apollo && webpack",
+        "build": "yarn i && webpack",
         "build:final": "yarn build && node ./generators/build/remove-dev-files",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
         "generate:apollo": "node ./generators/apollo/schema && node ./generators/apollo/config && yarn generate:apollo-types",
