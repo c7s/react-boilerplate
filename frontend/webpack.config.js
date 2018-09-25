@@ -36,6 +36,7 @@ function getBabelOptions(ssrMode) {
         ],
         plugins: [
             ['@babel/plugin-proposal-decorators', { legacy: true }],
+            ['@babel/plugin-proposal-class-properties', { loose: true }],
             process.env.NODE_ENV === 'development' && !ssrMode && 'react-hot-loader/babel',
             [
                 'babel-plugin-styled-components',
