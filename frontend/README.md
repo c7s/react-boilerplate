@@ -41,10 +41,7 @@ module.exports = {
 
 > **NOTE**: These scripts are included in start/build process
 
--   `generate:apollo`: generate all apollo stuff;
--   `generate:apollo-initial`: generate apollo schema and config;
--   `generate:apollo-schema`: generate apollo schema;
--   `generate:apollo-config`: generate apollo config (JS GraphQL extension);
+-   `generate:apollo`: generate all apollo stuff (schema, JS GraphQL config and types). This script accepts `--watch` option (types only);
 -   `generate:apollo-types`: generate apollo types. This script accepts `--watch` option.
 
 ### Prettier
