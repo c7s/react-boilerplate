@@ -170,6 +170,7 @@ const clientConfig = {
     name: 'client',
     target: 'web',
     entry: [
+        '@babel/polyfill',
         completeConfig.root.env === config.ENV.DEV && 'webpack-hot-middleware/client?reload=true',
         './src/client/client.ts',
     ].filter(Boolean),
@@ -186,7 +187,7 @@ const clientConfig = {
 const serverConfig = {
     name: 'server',
     target: 'node',
-    entry: './src/client/server.ts',
+    entry: ['@babel/polyfill', './src/client/server.ts'],
     module: {
         rules: commonLoaders(true),
     },
