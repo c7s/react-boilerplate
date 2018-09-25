@@ -104,7 +104,9 @@ const Root = styled.div``;
 
 const ThemeDisplay = styled.div``;
 
-const LoadedFontStatusDisplay = styled.div``;
+const LoadedFontStatusDisplay = styled.div`
+    word-break: break-all;
+`;
 
 const UrlData = styled.div``;
 

@@ -1,10 +1,10 @@
 import { css, SimpleInterpolation, ThemedCssFunction } from 'styled-components';
 
-/** Sizes are mobile-first */
+/** Sizes are mobile-first. First value is minimal body width */
 
 // Pixels
 export enum Size {
-    S = 0,
+    S = 320,
     M = 768,
     L = 1024,
     XL = 1440,
