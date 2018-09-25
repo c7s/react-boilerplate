@@ -40,7 +40,7 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
             <body
                 {...(helmet ? helmet.bodyAttributes.toComponent() : {})}
                 dangerouslySetInnerHTML={{
-                    __html: `${spriteContent}${renderToString(
+                    __html: `${spriteContent ? spriteContent : ''}${renderToString(
                         <React.Fragment>
                             <div id="root" dangerouslySetInnerHTML={{ __html: content ? content : '' }} />
                             <script
