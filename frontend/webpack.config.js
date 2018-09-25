@@ -189,7 +189,7 @@ const clientConfig = {
 const serverConfig = {
     name: 'server',
     target: 'node',
-    entry: ['@babel/polyfill', './src/client/server.ts'],
+    entry: ['@babel/polyfill/noConflict', './src/client/server.ts'],
     module: {
         rules: commonLoaders(true),
     },
