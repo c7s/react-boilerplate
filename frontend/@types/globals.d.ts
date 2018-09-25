@@ -13,6 +13,6 @@ declare namespace NodeJS {
     interface Global {
         APOLLO_STATE: { [key: string]: { [key: string]: object } } | undefined;
         REDUX_STATE: object | undefined;
-        SSR_ERROR: string | undefined;
+        SSR_ERROR: Error | undefined;
     }
 }
