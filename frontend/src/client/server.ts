@@ -64,8 +64,12 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
                         res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
                     }
                 })
-                .catch(error => {
-                    res.status(500).send(error);
+                .catch((error: Error) => {
+                    const html = React.createElement(Html, {
+                        ssrError: error,
+                    });
+
+                    res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
                 });
         }
     };

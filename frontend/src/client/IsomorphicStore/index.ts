@@ -31,7 +31,7 @@ class IsomorphicStore {
                     ...reducers,
                 }),
             ),
-            REDUX_STATE,
+            global.REDUX_STATE || {},
             composeWithDevTools(persistState(getLocalStorage(), 'reduxStoreLocalPart')),
         );
 

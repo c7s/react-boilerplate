@@ -42,7 +42,10 @@ class IsomorphicApolloClient {
                       uri: GRAPHQL_ENDPOINT,
                       headers: { Authorization: `bearer ${GITHUB_TOKEN}` },
                   }),
-            cache: SSR_MODE ? new InMemoryCache() : new InMemoryCache().restore(APOLLO_STATE),
+            cache:
+                !SSR_MODE && global.APOLLO_STATE
+                    ? new InMemoryCache().restore(global.APOLLO_STATE)
+                    : new InMemoryCache(),
             defaultOptions: {
                 watchQuery: {
                     errorPolicy: 'all',

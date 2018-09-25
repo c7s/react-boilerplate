@@ -9,6 +9,8 @@ import { Store } from 'redux';
 import '../fonts';
 import { StoreState } from '../IsomorphicStore';
 import { routes } from '../routes';
+/** Log useful information (development only) */
+import './development-logger.ts';
 /** Inject external and global styles */
 import './external-and-global-styles';
 import { InitialHelmet } from './InitialHelmet';

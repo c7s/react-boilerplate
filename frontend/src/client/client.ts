@@ -4,7 +4,9 @@ import { IsomorphicApolloClient } from './IsomorphicApolloClient';
 import { IsomorphicApp } from './IsomorphicApp';
 import { IsomorphicStore } from './IsomorphicStore';
 
-ReactDOM.hydrate(
+const reactHydrateOrRender = global.SSR_ERROR ? ReactDOM.render : ReactDOM.hydrate;
+
+reactHydrateOrRender(
     React.createElement(IsomorphicApp, {
         client: IsomorphicApolloClient.getClient(),
         store: IsomorphicStore.getStore(),
