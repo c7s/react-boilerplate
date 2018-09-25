@@ -16,6 +16,7 @@ import './external-and-global-styles';
 import { InitialHelmet } from './InitialHelmet';
 import { isomorphicHot } from './isomorphicHot';
 import { IsomorphicRouter } from './IsomorphicRouter';
+import { RootErrorBoundary } from './RootErrorBoundary';
 
 /** Import global scripts here (such as external-and-global-styles) */
 
@@ -32,16 +33,18 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
         return (
             <ApolloProvider client={this.props.client}>
                 <Provider store={this.props.store}>
-                    <React.Fragment>
-                        <InitialHelmet />
-                        <IsomorphicRouter location={this.props.location} context={this.props.context}>
-                            <Switch>
-                                {Object.values(routes).map(route => (
-                                    <Route key={route.name} {...route} />
-                                ))}
-                            </Switch>
-                        </IsomorphicRouter>
-                    </React.Fragment>
+                    <RootErrorBoundary>
+                        <React.Fragment>
+                            <InitialHelmet />
+                            <IsomorphicRouter location={this.props.location} context={this.props.context}>
+                                <Switch>
+                                    {Object.values(routes).map(route => (
+                                        <Route key={route.name} {...route} />
+                                    ))}
+                                </Switch>
+                            </IsomorphicRouter>
+                        </React.Fragment>
+                    </RootErrorBoundary>
                 </Provider>
             </ApolloProvider>
         );

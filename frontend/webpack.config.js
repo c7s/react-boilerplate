@@ -47,6 +47,7 @@ function getBabelOptions(ssrMode) {
                 },
             ],
             process.env.NODE_ENV === 'development' && 'add-react-displayname',
+            process.env.NODE_ENV === 'development' && '@babel/plugin-transform-react-jsx-source',
         ].filter(Boolean),
     };
 }
