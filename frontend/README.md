@@ -1,5 +1,7 @@
 # C7S React Boilerplate
 
+> **NOTE**: Please read our [Frontend GitHub wiki](https://github.com/c7s/react-boilerplate/wiki/Frontend).
+
 ## Prerequisites
 
 -   Yarn v1.9.4;
