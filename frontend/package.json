@@ -24,10 +24,12 @@
     },
     "lint-staged": {
         "*.js": [
-            "eslint"
+            "eslint --fix",
+            "git add"
         ],
         "*.{ts,tsx}": [
-            "tslint -t codeFrame --project tsconfig.json"
+            "tslint -t codeFrame --project tsconfig.json --fix",
+            "git add"
         ],
         "./src/**/*.{tsx,ts}": [
             "stylelint"
