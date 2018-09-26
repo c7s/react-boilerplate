@@ -19,7 +19,6 @@ declare namespace Config {
 
     interface ApiConfig {
         graphqlEndpoint: string;
-        graphqlBuildEndpoint: string;
         githubToken: string;
         restUrl: string;
     }

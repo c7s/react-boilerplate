@@ -8,16 +8,16 @@ const apiConfig = config.getConfig(config.CONFIG_NAME.API);
 
 fs.writeFileSync(
     path.resolve('./graphql.config.json'),
-    jsGraphqlPluginConfig('graphql.schema.json', apiConfig.graphqlBuildEndpoint || apiConfig.graphqlEndpoint)
+    jsGraphqlPluginConfig('graphql.schema.json', apiConfig.graphqlEndpoint)
 );
 
 /**
  * @param {string} schemaFile
- * @param {string} buildEndpoint
+ * @param {string} endpoint
  * @return {string}
  * @constructor
  */
-function jsGraphqlPluginConfig(schemaFile, buildEndpoint) {
+function jsGraphqlPluginConfig(schemaFile, endpoint) {
     return `{
     "schema": {
         "file": "${schemaFile}"
@@ -26,7 +26,7 @@ function jsGraphqlPluginConfig(schemaFile, buildEndpoint) {
     "endpoints": [
         {
             "name": "Default",
-            "url": "${buildEndpoint}",
+            "url": "${endpoint}",
             "options": {
                 "headers": {
                     "user-agent": "JS GraphQL"

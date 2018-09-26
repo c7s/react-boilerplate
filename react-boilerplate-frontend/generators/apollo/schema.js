@@ -9,7 +9,7 @@ run([
     'schema:download',
     'graphql.schema.json',
     '--endpoint',
-    apiConfig.graphqlBuildEndpoint || apiConfig.graphqlEndpoint,
+    apiConfig.graphqlEndpoint,
     '--header',
     `Authorization: bearer ${apiConfig.githubToken}`,
 ]).catch(error => console.error(error));
