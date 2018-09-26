@@ -1,7 +1,7 @@
 /*
 /*/
-!/frontend/
-!/frontend-server/
+!/react-boilerplate-frontend/
+!/react-boilerplate-frontend-server/
 !/backend/
 !.gitignore
 !README.md
