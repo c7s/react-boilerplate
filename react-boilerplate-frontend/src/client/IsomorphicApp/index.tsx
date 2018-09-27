@@ -8,6 +8,8 @@ import { Store } from 'redux';
 /** Start client-side fonts observing */
 import '../fonts';
 import { StoreState } from '../IsomorphicStore';
+/** Media changes observing (i.e. width) */
+import '../media';
 import { routes } from '../routes';
 /** Log useful information (development only) */
 import './development-logger.ts';

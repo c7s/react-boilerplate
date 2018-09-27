@@ -6,7 +6,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { StoreState } from '../../../../IsomorphicStore';
 import { RouteComponentPropsQuery, withRouterQuery } from '../../../common/lib/withRouterQuery';
 import { onRootVisit } from '../../../common/store/actions';
-import { LoadedFontStatus } from '../../../common/store/types';
+import { LoadedFontStatus, Media } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
 import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
 import { CurrentCommonProps } from './DevelopmentPageTemplate';
@@ -25,6 +25,7 @@ type ReduxProps = Props & RouteComponentPropsQuery<{ id: string }, { queryFirst?
 
 interface MapProps {
     loadedFontStatus: LoadedFontStatus;
+    media: Media;
 }
 
 interface DispatchProps {
@@ -77,6 +78,7 @@ function mapStateToProps(state: StoreState, ownProps: ReduxProps): MapProps {
     console.log(`${ownProps.name} could also be used`);
     return {
         loadedFontStatus: state.common.loadedFontStatus,
+        media: state.common.media,
     };
 }
 

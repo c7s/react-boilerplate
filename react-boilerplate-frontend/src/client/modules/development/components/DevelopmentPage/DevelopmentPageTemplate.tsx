@@ -3,12 +3,12 @@ import * as React from 'react';
 import { QueryResult } from 'react-apollo';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { getWidth, mediaWidth, Width } from '../../../../media';
 import { routes } from '../../../../routes';
 import { CommonInnerProps, CommonProps } from '../../../common/lib/CommonProps';
-import { size } from '../../../common/lib/styles';
 import { withTheme } from '../../../common/lib/withTheme';
-import { LoadedFontStatus } from '../../../common/store/types';
+import { LoadedFontStatus, Media } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
 import C7sIcon from './C7sIcon.svg';
 import c7sImage from './c7sImage.png';
@@ -20,6 +20,7 @@ interface Props extends CurrentCommonProps {
     counter: number;
     licenses: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
+    media: Media;
     onRootVisit(): void;
     name?: string;
     id: string;
@@ -68,6 +69,7 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
         onClick,
         licenses,
         loadedFontStatus,
+        media,
         id,
         queryFirst,
         name,
@@ -92,8 +94,7 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
                     : 'No data'}
             </LicensesDisplay>
             <Link to={routes.ROOT.path}>Root</Link>
-            <Image src={c7sImage} />
-            <C7sIcon />
+            {getWidth(media.exactWidth) === Width.S ? <Image src={c7sImage} /> : <C7sIcon />}
         </Root>
     ),
 );
@@ -116,15 +117,14 @@ const LicensesDisplay = styled.div``;
 
 /** Responsive styling example. Separate 'css' variable is mandatory (WebStorm issue) */
 
-const GreetingMediumCss = css`
-    font-weight: normal;
-    font-style: italic;
-`;
-
 const Greeting = styled.div`
     color: ${({ theme }: GreetingProps) => theme!.greetingColor};
     font-weight: bold;
-    ${size.xl`${GreetingMediumCss};`};
+
+    ${/*sc-selector*/ mediaWidth(Width.M)} {
+        font-weight: normal;
+        font-style: italic;
+    }
 `;
 
 const Image = styled.img`
