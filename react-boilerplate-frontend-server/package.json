@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "express": "~4.16.3",
-    "frontend": "file:../frontend"
+    "frontend": "file:../react-boilerplate-frontend"
   }
 }
