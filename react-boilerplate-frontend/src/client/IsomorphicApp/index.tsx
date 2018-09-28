@@ -19,6 +19,7 @@ import { InitialHelmet } from './InitialHelmet';
 import { isomorphicHot } from './isomorphicHot';
 import { IsomorphicRouter } from './IsomorphicRouter';
 import { RootErrorBoundary } from './RootErrorBoundary';
+import { ScrollToTop } from './ScrollToTop';
 
 /** Import global scripts here (such as external-and-global-styles) */
 
@@ -39,11 +40,13 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
                         <React.Fragment>
                             <InitialHelmet />
                             <IsomorphicRouter location={this.props.location} context={this.props.context}>
-                                <Switch>
-                                    {Object.values(routes).map(route => (
-                                        <Route key={route.name} {...route} />
-                                    ))}
-                                </Switch>
+                                <ScrollToTop>
+                                    <Switch>
+                                        {Object.values(routes).map(route => (
+                                            <Route key={route.name} {...route} />
+                                        ))}
+                                    </Switch>
+                                </ScrollToTop>
                             </IsomorphicRouter>
                         </React.Fragment>
                     </RootErrorBoundary>
