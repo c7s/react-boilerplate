@@ -90,7 +90,7 @@ function commonLoaders(ssrMode) {
                         {
                             loader: 'svg-sprite-loader',
                             options: {
-                                runtimeGenerator: require.resolve('./generators/svg-to-icon-component'),
+                                runtimeGenerator: require.resolve('./tools/svg-to-icon-component'),
                                 symbolId: '[name]_[hash]',
                             },
                         },

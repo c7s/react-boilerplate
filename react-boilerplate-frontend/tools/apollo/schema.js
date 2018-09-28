@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { run } = require('apollo');
-const config = require('../../config');
+const config = require('../../config/index');
 
 const apiConfig = config.getConfig(config.CONFIG_NAME.API);
 
