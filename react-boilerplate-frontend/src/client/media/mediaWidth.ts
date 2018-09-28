@@ -8,8 +8,16 @@ enum Width {
     XL = 1440,
 }
 
-function mediaWidth(width: Width) {
-    return `@media (min-width: ${width}px)`;
+interface MediaWidth {
+    s: string;
+    m: string;
+    l: string;
+    xl: string;
 }
+
+const mediaWidth: MediaWidth = Object.assign(
+    {},
+    ...Object.entries(Width).map(([key, value]) => ({ [key.toLowerCase()]: `@media (min-width: ${value}px)` })),
+);
 
 export { mediaWidth, Width };

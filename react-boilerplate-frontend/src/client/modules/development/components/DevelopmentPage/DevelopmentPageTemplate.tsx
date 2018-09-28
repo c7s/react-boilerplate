@@ -115,13 +115,13 @@ const StateCounter = styled.div``;
 
 const LicensesDisplay = styled.div``;
 
-/** Responsive styling example. Separate 'css' variable is mandatory (WebStorm issue) */
+/** Responsive styling example */
 
 const Greeting = styled.div`
     color: ${({ theme }: GreetingProps) => theme!.greetingColor};
     font-weight: bold;
 
-    ${/*sc-selector*/ mediaWidth(Width.M)} {
+    ${mediaWidth.m} {
         font-weight: normal;
         font-style: italic;
     }
