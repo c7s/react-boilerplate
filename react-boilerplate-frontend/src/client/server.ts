@@ -1,18 +1,50 @@
 import { ApolloLink } from 'apollo-link';
 import { Request, Response } from 'express';
+import { uniq } from 'lodash';
 import fetch from 'node-fetch';
 import * as React from 'react';
 import { getDataFromTree } from 'react-apollo';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
+import { getBundles } from 'react-loadable/webpack';
 import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
+import * as url from 'url';
 import { IsomorphicApolloClient } from './IsomorphicApolloClient';
 import { IsomorphicApp } from './IsomorphicApp';
 import { IsomorphicStore } from './IsomorphicStore';
 import { browserConfig, Html, webManifest } from './server-templates';
 
-export default function serverRenderer(stats?: { link?: ApolloLink }) {
+/** Incomplete */
+interface WebpackHotServerMiddlewareStats {
+    clientStats: {
+        publicPath: string | null;
+        chunks: {
+            files: string[];
+            modules: {
+                id: number;
+                name: string;
+                reasons: {
+                    userRequest: string;
+                }[];
+            }[];
+        }[];
+    };
+}
+
+interface FrontendServerStats {
+    reactLoadableStats: ReactLoadableStats;
+    link?: ApolloLink;
+}
+
+export default function serverRenderer(stats: WebpackHotServerMiddlewareStats | FrontendServerStats) {
+    let reactLoadableStats: ReactLoadableStats;
+    if (!isWebpackHotServerMiddlewareStats(stats)) {
+        reactLoadableStats = stats.reactLoadableStats;
+    } else {
+        reactLoadableStats = convertWebpackHotServerMiddlewareStatsToReactLoadableStats(stats);
+    }
+
     return (req: Request, res: Response) => {
         if (req.path === WEB_MANIFEST_PATH) {
             res.status(200)
@@ -23,18 +55,19 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
                 .header('Content-Type', 'application/xml')
                 .send(browserConfig);
         } else {
-            const backendApolloClient =
-                stats && stats.link
-                    ? IsomorphicApolloClient.getClient({ link: stats.link })
-                    : IsomorphicApolloClient.getClient({ fetch });
-            const backendStore = IsomorphicStore.getStore();
+            const client = !isWebpackHotServerMiddlewareStats(stats)
+                ? IsomorphicApolloClient.getClient({ fetch, link: stats.link })
+                : IsomorphicApolloClient.getClient({ fetch });
+            const store = IsomorphicStore.getStore();
             const context: { url?: string } = {};
             const sheet = new ServerStyleSheet();
+            const modules: string[] = [];
 
             const App = React.createElement(IsomorphicApp, {
+                client,
+                store,
+                modules,
                 context,
-                client: backendApolloClient,
-                store: backendStore,
                 location: req.url,
             });
 
@@ -50,8 +83,10 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
                         const helmet = Helmet.renderStatic();
                         const styleTags = sheet.getStyleTags();
                         const spriteContent = sprite.stringify();
-                        const apolloState = backendApolloClient.extract();
-                        const reduxState = backendStore.getState();
+                        const apolloState = client.extract();
+                        const reduxState = store.getState();
+                        // Official type definition error
+                        const bundles = getBundles(reactLoadableStats, uniq(modules)) as ReactLoadableBundle[];
                         const html = React.createElement(Html, {
                             helmet,
                             styleTags,
@@ -59,6 +94,7 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
                             content,
                             apolloState,
                             reduxState,
+                            bundles,
                         });
 
                         res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
@@ -73,4 +109,39 @@ export default function serverRenderer(stats?: { link?: ApolloLink }) {
                 });
         }
     };
+}
+
+function isWebpackHotServerMiddlewareStats(
+    stats: WebpackHotServerMiddlewareStats | FrontendServerStats,
+): stats is WebpackHotServerMiddlewareStats {
+    return (stats as WebpackHotServerMiddlewareStats).clientStats !== undefined;
+}
+
+function convertWebpackHotServerMiddlewareStatsToReactLoadableStats(
+    stats: WebpackHotServerMiddlewareStats,
+): ReactLoadableStats {
+    const manifest: ReactLoadableStats = {};
+
+    if (stats.clientStats.publicPath) {
+        stats.clientStats.chunks.forEach(chunk => {
+            chunk.files.forEach(file => {
+                chunk.modules.forEach(module => {
+                    const id = module.id;
+                    const name = module.name;
+                    const publicPath = url.resolve(stats.clientStats.publicPath!, file);
+                    const request = module.reasons[0].userRequest;
+
+                    if (!manifest[request]) {
+                        manifest[request] = [];
+                    }
+
+                    manifest[request].push({ id, name, file, publicPath });
+                });
+            });
+        });
+
+        return manifest;
+    }
+
+    throw new Error('publicPath is required (specify in webpack.config.js)');
 }

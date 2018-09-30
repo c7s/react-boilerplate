@@ -6,6 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const CleanTerminalPlugin = require('clean-terminal-webpack-plugin');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const config = require('./config');
 
 const completeConfig = config.getCompleteConfig();
@@ -38,6 +39,8 @@ function getBabelOptions(ssrMode) {
         plugins: [
             ['@babel/plugin-proposal-decorators', { legacy: true }],
             ['@babel/plugin-proposal-class-properties', { loose: true }],
+            '@babel/plugin-syntax-dynamic-import',
+            'react-loadable/babel',
             process.env.NODE_ENV === 'development' && !ssrMode && 'react-hot-loader/babel',
             [
                 'babel-plugin-styled-components',
@@ -180,7 +183,14 @@ const clientConfig = {
     module: {
         rules: commonLoaders(false),
     },
-    plugins: [new webpack.DefinePlugin({ SSR_MODE: false })],
+    plugins: [
+        new webpack.DefinePlugin({ SSR_MODE: false }),
+
+        completeConfig.root.env !== config.ENV.DEV &&
+            new ReactLoadablePlugin({
+                filename: './dist/react-loadable.json',
+            }),
+    ].filter(Boolean),
     output: {
         filename: completeConfig.root.clientBundleName,
         path: path.resolve(__dirname, 'dist', completeConfig.root.staticDirectoryName),
@@ -194,7 +204,12 @@ const serverConfig = {
     module: {
         rules: commonLoaders(true),
     },
-    plugins: [new webpack.DefinePlugin({ SSR_MODE: true })],
+    plugins: [
+        new webpack.DefinePlugin({ SSR_MODE: true }),
+        new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1,
+        }),
+    ],
     output: {
         filename: completeConfig.root.serverBundleName,
         path: path.resolve(__dirname, 'dist'),

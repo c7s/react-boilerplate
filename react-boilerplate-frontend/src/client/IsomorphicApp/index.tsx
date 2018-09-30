@@ -17,6 +17,7 @@ import './development-logger.ts';
 import './external-and-global-styles';
 import { InitialHelmet } from './InitialHelmet';
 import { isomorphicHot } from './isomorphicHot';
+import { IsomorphicLoadableCapture } from './IsomorphicLoadableCapture';
 import { IsomorphicRouter } from './IsomorphicRouter';
 import { RootErrorBoundary } from './RootErrorBoundary';
 import { ScrollToTop } from './ScrollToTop';
@@ -26,6 +27,7 @@ import { ScrollToTop } from './ScrollToTop';
 export interface IsomorphicAppProps {
     client: ApolloClient<NormalizedCacheObject>;
     store: Store<StoreState>;
+    modules?: string[];
     location?: string;
     context?: object;
 }
@@ -34,24 +36,26 @@ export interface IsomorphicAppProps {
 export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
     render() {
         return (
-            <ApolloProvider client={this.props.client}>
-                <Provider store={this.props.store}>
-                    <RootErrorBoundary>
-                        <React.Fragment>
-                            <InitialHelmet />
-                            <IsomorphicRouter location={this.props.location} context={this.props.context}>
-                                <ScrollToTop>
-                                    <Switch>
-                                        {Object.values(routes).map(route => (
-                                            <Route key={route.name} {...route} />
-                                        ))}
-                                    </Switch>
-                                </ScrollToTop>
-                            </IsomorphicRouter>
-                        </React.Fragment>
-                    </RootErrorBoundary>
-                </Provider>
-            </ApolloProvider>
+            <IsomorphicLoadableCapture modules={this.props.modules}>
+                <ApolloProvider client={this.props.client}>
+                    <Provider store={this.props.store}>
+                        <RootErrorBoundary>
+                            <React.Fragment>
+                                <InitialHelmet />
+                                <IsomorphicRouter location={this.props.location} context={this.props.context}>
+                                    <ScrollToTop>
+                                        <Switch>
+                                            {Object.values(routes).map(route => (
+                                                <Route key={route.name} {...route} />
+                                            ))}
+                                        </Switch>
+                                    </ScrollToTop>
+                                </IsomorphicRouter>
+                            </React.Fragment>
+                        </RootErrorBoundary>
+                    </Provider>
+                </ApolloProvider>
+            </IsomorphicLoadableCapture>
         );
     }
 }

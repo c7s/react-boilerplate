@@ -7,9 +7,10 @@ export interface HtmlProps {
     styleTags?: string;
     spriteContent?: string;
     content?: string;
+    ssrError?: Error;
     apolloState?: object;
     reduxState?: object;
-    ssrError?: Error;
+    bundles?: ReactLoadableBundle[];
 }
 
 export const Html: React.StatelessComponent<HtmlProps> = ({
@@ -17,9 +18,10 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
     styleTags,
     spriteContent,
     content,
+    ssrError,
     apolloState,
     reduxState,
-    ssrError,
+    bundles,
 }) => {
     return (
         <html {...(helmet ? helmet.htmlAttributes.toComponent() : {})}>
@@ -58,6 +60,11 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                                         (reduxState ? `window.REDUX_STATE=${JSON.stringify(reduxState)};` : ''),
                                 }}
                             />
+                            {bundles
+                                ? bundles.map(bundle => (
+                                      <script key={bundle.id} src={`${bundle.publicPath}?${BUILD_TIMESTAMP}`} />
+                                  ))
+                                : null}
                             <script src={`/${STATIC_DIRECTORY_NAME}/${CLIENT_BUNDLE_NAME}?${BUILD_TIMESTAMP}`} />
                         </React.Fragment>,
                     )}`,
