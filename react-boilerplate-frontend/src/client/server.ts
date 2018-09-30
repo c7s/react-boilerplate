@@ -80,20 +80,14 @@ export default function serverRenderer(
                             .header('Location', context.url)
                             .send();
                     } else {
-                        const helmet = Helmet.renderStatic();
-                        const styleTags = sheet.getStyleTags();
-                        const spriteContent = sprite.stringify();
-                        const apolloState = client.extract();
-                        const reduxState = store.getState();
-                        const bundles = getNormalizedBundles(reactLoadableStats, modules);
                         const html = React.createElement(Html, {
-                            helmet,
-                            styleTags,
-                            spriteContent,
                             content,
-                            apolloState,
-                            reduxState,
-                            bundles,
+                            helmet: Helmet.renderStatic(),
+                            styleTags: sheet.getStyleTags(),
+                            spriteContent: sprite.stringify(),
+                            apolloState: client.extract(),
+                            reduxState: store.getState(),
+                            bundles: getNormalizedBundles(reactLoadableStats, modules),
                         });
 
                         res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
@@ -132,16 +126,17 @@ function convertWebpackHotServerMiddlewareStatsToReactLoadableStats(
         stats.clientStats.chunks.forEach(chunk => {
             chunk.files.forEach(file => {
                 chunk.modules.forEach(module => {
-                    const id = module.id;
-                    const name = module.name;
-                    const publicPath = url.resolve(stats.clientStats.publicPath!, file);
                     const request = module.reasons[0].userRequest;
-
                     if (!manifest[request]) {
                         manifest[request] = [];
                     }
 
-                    manifest[request].push({ id, name, file, publicPath });
+                    manifest[request].push({
+                        file,
+                        id: module.id,
+                        name: module.name,
+                        publicPath: url.resolve(stats.clientStats.publicPath!, file),
+                    });
                 });
             });
         });
