@@ -5,11 +5,9 @@ import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { Store } from 'redux';
-/** Start client-side fonts observing */
-import '../fonts';
+import { observeFontFamilies } from '../fonts';
 import { StoreState } from '../IsomorphicStore';
-/** Media changes observing (i.e. width) */
-import '../media';
+import { observeResize } from '../media';
 import { routes } from '../routes';
 /** Log useful information (development only) */
 import './development-logger.ts';
@@ -34,6 +32,12 @@ export interface IsomorphicAppProps {
 
 @isomorphicHot(module)
 export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
+    componentDidMount() {
+        // These functions must be called client-side only and immediately
+        observeFontFamilies();
+        observeResize();
+    }
+
     render() {
         return (
             <IsomorphicLoadableCapture modules={this.props.modules}>
