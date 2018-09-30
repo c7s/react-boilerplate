@@ -5,6 +5,7 @@
         "import-name": false,
         "comment-format": [true, "check-space", "check-uppercase"],
         "ordered-imports": true,
-        "no-unused-variable": false
+        "no-unused-variable": false,
+        "no-console": [true, "log"]
     }
 }

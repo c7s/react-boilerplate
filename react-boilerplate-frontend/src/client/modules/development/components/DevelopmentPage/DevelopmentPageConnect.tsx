@@ -75,7 +75,7 @@ const DevelopmentPageConnect = withRouterQuery(
 );
 
 function mapStateToProps(state: StoreState, ownProps: ReduxProps): MapProps {
-    console.log(`${ownProps.name} could also be used`);
+    console.warn(`${ownProps.name} could also be used`);
     return {
         loadedFontStatus: state.common.loadedFontStatus,
         media: state.common.media,
@@ -83,7 +83,7 @@ function mapStateToProps(state: StoreState, ownProps: ReduxProps): MapProps {
 }
 
 function mapDispatchToProps(dispatch: Dispatch, ownProps: ReduxProps): DispatchProps {
-    console.log(`${ownProps.name} could also be used`);
+    console.warn(`${ownProps.name} could also be used`);
     return bindActionCreators(
         {
             onRootVisit,
