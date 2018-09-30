@@ -1,6 +1,6 @@
 import { ApolloLink } from 'apollo-link';
 import { Request, Response } from 'express';
-import { uniq } from 'lodash';
+import { filter, uniq } from 'lodash';
 import fetch from 'node-fetch';
 import * as React from 'react';
 import { getDataFromTree } from 'react-apollo';
@@ -85,8 +85,7 @@ export default function serverRenderer(stats: WebpackHotServerMiddlewareStats | 
                         const spriteContent = sprite.stringify();
                         const apolloState = client.extract();
                         const reduxState = store.getState();
-                        // Official type definition error
-                        const bundles = getBundles(reactLoadableStats, uniq(modules)) as ReactLoadableBundle[];
+                        const bundles = getNormalizedBundles(reactLoadableStats, modules);
                         const html = React.createElement(Html, {
                             helmet,
                             styleTags,
@@ -109,6 +108,13 @@ export default function serverRenderer(stats: WebpackHotServerMiddlewareStats | 
                 });
         }
     };
+}
+
+function getNormalizedBundles(reactLoadableStats: ReactLoadableStats, modules: string[]): ReactLoadableBundle[] {
+    return filter(
+        getBundles(reactLoadableStats, uniq(modules)),
+        bundle => !bundle.file.includes('.js.map'),
+    ) as ReactLoadableBundle[]; // Official type definition error
 }
 
 function isWebpackHotServerMiddlewareStats(
