@@ -34,10 +34,12 @@ interface WebpackHotServerMiddlewareStats {
 
 interface FrontendServerStats {
     reactLoadableStats: ReactLoadableStats;
-    link?: ApolloLink;
 }
 
-export default function serverRenderer(stats: WebpackHotServerMiddlewareStats | FrontendServerStats) {
+export default function serverRenderer(
+    stats: WebpackHotServerMiddlewareStats | FrontendServerStats,
+    link?: ApolloLink,
+) {
     let reactLoadableStats: ReactLoadableStats;
     if (!isWebpackHotServerMiddlewareStats(stats)) {
         reactLoadableStats = stats.reactLoadableStats;
@@ -55,9 +57,7 @@ export default function serverRenderer(stats: WebpackHotServerMiddlewareStats | 
                 .header('Content-Type', 'application/xml')
                 .send(browserConfig);
         } else {
-            const client = !isWebpackHotServerMiddlewareStats(stats)
-                ? IsomorphicApolloClient.getClient({ fetch, link: stats.link })
-                : IsomorphicApolloClient.getClient({ fetch });
+            const client = IsomorphicApolloClient.getClient({ fetch, link });
             const store = IsomorphicStore.getStore();
             const context: { url?: string } = {};
             const sheet = new ServerStyleSheet();
