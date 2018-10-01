@@ -12,6 +12,12 @@ const config = require('./config');
 const completeConfig = config.getCompleteConfig();
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
+const SERVER_BUNDLE_NAME = 'server.bundle.js';
+const CLIENT_BUNDLE_NAME = 'client.bundle.js';
+const STATIC_DIRECTORY_NAME = 'static';
+const WEB_MANIFEST_PATH = '/static/manifest.json';
+const BROWSER_CONFIG_PATH = '/static/browserconfig.xml';
+
 // https://github.com/webpack/webpack/issues/2121
 process.env.NODE_ENV = completeConfig.root.env === config.ENV.DEV ? 'development' : 'production';
 
@@ -123,10 +129,10 @@ const commonConfig = {
         new webpack.DefinePlugin({
             GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
             GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
-            CLIENT_BUNDLE_NAME: JSON.stringify(completeConfig.root.clientBundleName),
-            STATIC_DIRECTORY_NAME: JSON.stringify(completeConfig.root.staticDirectoryName),
-            WEB_MANIFEST_PATH: JSON.stringify(completeConfig.root.webManifestPath),
-            BROWSER_CONFIG_PATH: JSON.stringify(completeConfig.root.browserConfigPath),
+            CLIENT_BUNDLE_NAME: JSON.stringify(CLIENT_BUNDLE_NAME),
+            STATIC_DIRECTORY_NAME: JSON.stringify(STATIC_DIRECTORY_NAME),
+            WEB_MANIFEST_PATH: JSON.stringify(WEB_MANIFEST_PATH),
+            BROWSER_CONFIG_PATH: JSON.stringify(BROWSER_CONFIG_PATH),
             BUILD_TIMESTAMP: Date.now(),
         }),
         new CleanWebpackPlugin(['dist'], {
@@ -163,7 +169,7 @@ const commonConfig = {
         },
     },
     output: {
-        publicPath: `/${completeConfig.root.staticDirectoryName}/`,
+        publicPath: `/${STATIC_DIRECTORY_NAME}/`,
     },
     stats: {
         all: false,
@@ -192,8 +198,8 @@ const clientConfig = {
             }),
     ].filter(Boolean),
     output: {
-        filename: completeConfig.root.clientBundleName,
-        path: path.resolve(__dirname, 'dist', completeConfig.root.staticDirectoryName),
+        filename: CLIENT_BUNDLE_NAME,
+        path: path.resolve(__dirname, 'dist', STATIC_DIRECTORY_NAME),
     },
 };
 
@@ -211,7 +217,7 @@ const serverConfig = {
         }),
     ],
     output: {
-        filename: completeConfig.root.serverBundleName,
+        filename: SERVER_BUNDLE_NAME,
         path: path.resolve(__dirname, 'dist'),
         libraryTarget: 'commonjs2',
     },

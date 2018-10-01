@@ -11,11 +11,6 @@ declare namespace Config {
     interface RootConfig {
         env: string | ENV;
         devServerPort: number;
-        serverBundleName: string;
-        clientBundleName: string;
-        staticDirectoryName: string;
-        webManifestPath: string;
-        browserConfigPath: string;
     }
 
     interface ApiConfig {
