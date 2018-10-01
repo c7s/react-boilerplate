@@ -14,9 +14,16 @@ const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 const SERVER_BUNDLE_NAME = 'server.bundle.js';
 const CLIENT_BUNDLE_NAME = 'client.bundle.js';
-const STATIC_DIRECTORY_NAME = 'static';
-const WEB_MANIFEST_PATH = '/static/manifest.json';
-const BROWSER_CONFIG_PATH = '/static/browserconfig.xml';
+
+/** May be relative directory like '/static' or absolute url like 'https://static.domain.com' */
+const PUBLIC_PATH = completeConfig.root.publicPath;
+
+/** Bundle is also static, so it must be accessible from publicPath */
+const BUNDLE_PATH = `${PUBLIC_PATH}/${CLIENT_BUNDLE_NAME}`;
+
+/** These paths are handled by frontend server, so they must be relative */
+const WEB_MANIFEST_PATH = '/manifest.json';
+const BROWSER_CONFIG_PATH = '/browserconfig.xml';
 
 // https://github.com/webpack/webpack/issues/2121
 process.env.NODE_ENV = completeConfig.root.env === config.ENV.DEV ? 'development' : 'production';
@@ -129,8 +136,7 @@ const commonConfig = {
         new webpack.DefinePlugin({
             GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
             GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
-            CLIENT_BUNDLE_NAME: JSON.stringify(CLIENT_BUNDLE_NAME),
-            STATIC_DIRECTORY_NAME: JSON.stringify(STATIC_DIRECTORY_NAME),
+            BUNDLE_PATH: JSON.stringify(BUNDLE_PATH),
             WEB_MANIFEST_PATH: JSON.stringify(WEB_MANIFEST_PATH),
             BROWSER_CONFIG_PATH: JSON.stringify(BROWSER_CONFIG_PATH),
             BUILD_TIMESTAMP: Date.now(),
@@ -169,7 +175,7 @@ const commonConfig = {
         },
     },
     output: {
-        publicPath: `/${STATIC_DIRECTORY_NAME}/`,
+        publicPath: `${PUBLIC_PATH}/`,
     },
     stats: {
         all: false,
@@ -199,7 +205,7 @@ const clientConfig = {
     ].filter(Boolean),
     output: {
         filename: CLIENT_BUNDLE_NAME,
-        path: path.resolve(__dirname, 'dist', STATIC_DIRECTORY_NAME),
+        path: path.resolve(__dirname, 'dist', 'static'),
     },
 };
 

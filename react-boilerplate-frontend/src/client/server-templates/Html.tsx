@@ -65,7 +65,7 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                                       <script key={bundle.id} src={`${bundle.publicPath}?${BUILD_TIMESTAMP}`} />
                                   ))
                                 : null}
-                            <script src={`/${STATIC_DIRECTORY_NAME}/${CLIENT_BUNDLE_NAME}?${BUILD_TIMESTAMP}`} />
+                            <script src={`${BUNDLE_PATH}?${BUILD_TIMESTAMP}`} />
                         </React.Fragment>,
                     )}`,
                 }}
