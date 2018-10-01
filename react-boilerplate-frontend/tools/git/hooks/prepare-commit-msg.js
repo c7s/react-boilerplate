@@ -7,11 +7,13 @@ try {
         execSync('git --git-dir ../.git symbolic-ref --short HEAD', { encoding: 'utf-8' })
     );
 
-    const msgFilePath = path.resolve('..', process.env.GIT_PARAMS.split(' ')[0]);
+    const messageFileName = process.env.GIT_PARAMS.split(' ')[0];
+    const msgFilePath = path.resolve('..', messageFileName);
+
     const msgFileContent = fs.readFileSync(msgFilePath, { encoding: 'utf-8' });
 
+    const isMerge = messageFileName === 'MERGE_MSG';
     const isAlreadyWithPrefix = /^[A-Z]+-\d+: /.test(msgFileContent);
-    const isMerge = /^Merge/.test(msgFileContent);
 
     let msgPrefix = '';
     if (msgPrefixMatch && !isAlreadyWithPrefix && !isMerge) {
