@@ -25,8 +25,12 @@ function implicitScSelector(options) {
  * @param {string} selector
  */
 function processSelector(input, selector) {
-    const selectorRegExp = RegExp(`{ *${selector}`, 'g');
-    return input.replace(selectorRegExp, `{/*sc-selector*/${selector}`);
+    const selectorRegExp = RegExp(`\\\${ *${selector}`, 'g');
+    return input.replace(
+        selectorRegExp,
+        `/* stylelint-disable-next-line no-duplicate-selectors */
+    \${/*sc-selector*/${selector}`
+    );
 }
 
 module.exports = implicitScSelector;
