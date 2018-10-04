@@ -81,40 +81,26 @@ function commonLoaders(ssrMode) {
             loaders: ['to-string-loader', 'css-loader'],
         },
         {
-            test: /\.(jpg|jpeg|png|ico)$/,
-            oneOf: [
-                {
-                    test: /Image\.(jpg|jpeg|png)$/,
-                    loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
-                },
-                {
-                    test: /\.(png|ico)$/,
-                    loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
-                },
-            ],
+            test: /favicon\\[^\\]+\.(png|ico|svg)$/,
+            loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
         },
         {
-            test: /\.svg$/,
-            oneOf: [
+            test: /[a-z][A-Za-z0-9]*Image\.(jpg|jpeg|png)$/,
+            loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
+        },
+        {
+            test: /[A-Z][A-Za-z0-9]*Icon\.svg$/,
+            loaders: [
                 {
-                    test: /Icon\.svg$/,
-                    loaders: [
-                        {
-                            loader: 'babel-loader',
-                            options: getBabelOptions(ssrMode),
-                        },
-                        {
-                            loader: 'svg-sprite-loader',
-                            options: {
-                                runtimeGenerator: require.resolve('./tools/svg-to-icon-component'),
-                                symbolId: '[name]_[hash]',
-                            },
-                        },
-                    ],
+                    loader: 'babel-loader',
+                    options: getBabelOptions(ssrMode),
                 },
                 {
-                    test: /\.svg$/,
-                    loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
+                    loader: 'svg-sprite-loader',
+                    options: {
+                        runtimeGenerator: require.resolve('./tools/svg-to-icon-component'),
+                        symbolId: '[name]_[hash]',
+                    },
                 },
             ],
         },
