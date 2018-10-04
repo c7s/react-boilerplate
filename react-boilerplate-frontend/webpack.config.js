@@ -116,6 +116,7 @@ const commonConfig = {
     devtool: completeConfig.root.env === config.ENV.DEV && 'cheap-module-source-map',
     plugins: [
         completeConfig.root.env === config.ENV.DEV && new webpack.HotModuleReplacementPlugin(),
+        // https://github.com/webpack/webpack-dev-middleware#multiple-successive-builds
         new TimeFixPlugin(),
         // TODO: sort out issue with iconv-loader
         new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
