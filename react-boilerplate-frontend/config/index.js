@@ -15,8 +15,9 @@ const CONFIG_NAME = {
  */
 const ENV = {
     DEV: 'dev',
-    PROD: 'prod',
     QA: 'qa',
+    RT: 'rt',
+    PROD: 'prod',
 };
 
 const configBuilder = new configBuilderLib.ConfigBuilder(path.join(__dirname, '../config'));
@@ -75,8 +76,8 @@ function validateConfigName(configName) {
     const configNameList = lodash.values(CONFIG_NAME);
 
     if (configNameList.indexOf(validConfigName) === -1) {
-        console.warn(`[WARN] Invalid config name '${validConfigName}', assuming it's '${CONFIG_NAME.FRONTIK}'`);
-        validConfigName = CONFIG_NAME.FRONTIK;
+        console.warn(`[WARN] Invalid config name '${validConfigName}', assuming it's '${CONFIG_NAME.ROOT}'`);
+        validConfigName = CONFIG_NAME.ROOT;
     }
 
     return validConfigName;

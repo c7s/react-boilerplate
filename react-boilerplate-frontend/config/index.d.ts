@@ -27,8 +27,9 @@ declare namespace Config {
 
     enum ENV {
         DEV = 'dev',
-        PROD = 'prod',
         QA = 'qa',
+        RT = 'rt',
+        PROD = 'prod',
     }
 
     function getConfig(configName: string | CONFIG_NAME, customEnv?: string | ENV): Config;
