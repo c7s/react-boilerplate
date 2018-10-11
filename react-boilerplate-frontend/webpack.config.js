@@ -81,7 +81,7 @@ function commonLoaders(ssrMode) {
             loaders: ['to-string-loader', 'css-loader'],
         },
         {
-            test: /favicon\\[^\\]+\.(png|ico|svg)$/,
+            test: /favicon[\\/][^\\/]+\.(png|ico|svg)$/,
             loader: `file-loader?name=favicon/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
         },
         {
