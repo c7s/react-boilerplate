@@ -4,7 +4,7 @@ import { QueryResult } from 'react-apollo';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getWidth, mediaWidth, Width } from '../../../../media';
+import { displayAt, mediaWidth, Width } from '../../../../media';
 import { routes } from '../../../../routes';
 import { CommonInnerProps, CommonProps } from '../../../common/lib/CommonProps';
 import { withTheme } from '../../../common/lib/withTheme';
@@ -69,7 +69,6 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
         onClick,
         licenses,
         loadedFontStatus,
-        media,
         id,
         queryFirst,
         name,
@@ -94,7 +93,8 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
                     : 'No data'}
             </LicensesDisplay>
             <Link to={routes.ROOT.path}>Root</Link>
-            {getWidth(media.exactWidth) === Width.S ? <Image src={c7sImage} /> : <C7sIcon />}
+            <Image src={c7sImage} />
+            <PositionedC7sIcon />
         </Root>
     ),
 );
@@ -129,6 +129,11 @@ const Greeting = styled.div`
 
 const Image = styled.img`
     display: block;
+    ${displayAt(Width.S, Width.M)};
+`;
+
+const PositionedC7sIcon = styled(C7sIcon)`
+    ${displayAt(Width.M)};
 `;
 
 /** Single export is mandatory */

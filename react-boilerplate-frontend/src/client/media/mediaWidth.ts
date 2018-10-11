@@ -1,12 +1,20 @@
-/** Sizes are mobile-first. First value is minimal body width */
+/** Sizes are mobile-first */
 
-// Pixels
+/** Pixels
+ * [S,M): s width
+ * [M,L): m width
+ * [L,XL): l width
+ * [XL,+∞): xl width
+ */
 enum Width {
-    S = 320,
+    S = 0,
     M = 768,
     L = 1024,
     XL = 1440,
 }
+
+/** Must be between S and M. Minimal supported width */
+const MIN_WIDTH = 320; // Pixels
 
 interface MediaWidth {
     s: string;
@@ -20,4 +28,4 @@ const mediaWidth: MediaWidth = Object.assign(
     ...Object.entries(Width).map(([key, value]) => ({ [key.toLowerCase()]: `@media (min-width: ${value}px)` })),
 );
 
-export { mediaWidth, Width };
+export { mediaWidth, Width, MIN_WIDTH };
