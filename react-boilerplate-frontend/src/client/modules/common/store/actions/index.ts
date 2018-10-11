@@ -10,5 +10,3 @@ export const onFontVariantLoad = actionCreator<{ fontFamily: FontFamily; fontVar
 );
 
 export const onMediaExactWidthChange = actionCreator<number>('ON_MEDIA_EXACT_WIDTH_CHANGE');
-
-export const onRootVisit = actionCreator('ON_ROOT_VISIT');

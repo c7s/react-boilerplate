@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { StoreState } from '../../../../IsomorphicStore';
 import { RouteComponentPropsQuery, withRouterQuery } from '../../../common/lib/withRouterQuery';
-import { onRootVisit } from '../../../common/store/actions';
 import { LoadedFontStatus, Media } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
 import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
@@ -28,9 +27,7 @@ interface MapProps {
     media: Media;
 }
 
-interface DispatchProps {
-    onRootVisit(): void;
-}
+interface DispatchProps {}
 
 /** Props to render Apollo layer. The most tricky part, so pay attention while adding/deleting Redux & Router */
 
@@ -84,12 +81,7 @@ function mapStateToProps(state: StoreState, ownProps: ReduxProps): MapProps {
 
 function mapDispatchToProps(dispatch: Dispatch, ownProps: ReduxProps): DispatchProps {
     console.warn(`${ownProps.name} could also be used`);
-    return bindActionCreators(
-        {
-            onRootVisit,
-        },
-        dispatch,
-    );
+    return bindActionCreators({}, dispatch);
 }
 
 /** Single export is mandatory */

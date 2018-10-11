@@ -21,7 +21,6 @@ interface Props extends CurrentCommonProps {
     licenses: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
     media: Media;
-    onRootVisit(): void;
     name?: string;
     id: string;
     queryFirst?: string;
