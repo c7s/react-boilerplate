@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { routes } from '../../../../routes';
-import { CommonInnerProps, CommonProps } from '../../../common/lib/CommonProps';
+import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
 
 interface Props extends CurrentCommonProps {}
 

@@ -2,7 +2,7 @@ import { Dictionary } from 'lodash';
 import * as React from 'react';
 import { compose } from 'redux';
 import { ThemeProvider, withTheme as withThemeStyledComponents } from 'styled-components';
-import { CommonInnerProps, CommonProps } from '../CommonProps';
+import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
 
 type WithThemeProviderEnhancer<
     THEME_NAME extends string,
