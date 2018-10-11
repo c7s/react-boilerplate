@@ -69,6 +69,7 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
         onClick,
         licenses,
         loadedFontStatus,
+        media,
         id,
         queryFirst,
         name,
@@ -84,6 +85,7 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
             <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
             <UrlData>Page id: {id}</UrlData>
             <UrlData>QueryFirst: {queryFirst}</UrlData>
+            <MediaDisplay>Media: {JSON.stringify(media)}</MediaDisplay>
             <StateCounter>State counter: {counter}</StateCounter>
             <button onClick={onClick}>Droppy</button>
             <LicensesDisplay>
@@ -110,6 +112,8 @@ const LoadedFontStatusDisplay = styled.div`
 `;
 
 const UrlData = styled.div``;
+
+const MediaDisplay = styled.div``;
 
 const StateCounter = styled.div``;
 
