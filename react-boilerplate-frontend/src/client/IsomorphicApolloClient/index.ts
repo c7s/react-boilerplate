@@ -1,7 +1,10 @@
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
+import { ErrorResponse, onError } from 'apollo-link-error';
 import { createHttpLink } from 'apollo-link-http';
+import { IsomorphicStore } from '../IsomorphicStore';
+import { onMessageAdd } from '../modules/common/store/actions';
 
 /**
  * The idea is to replace either fetch (in case we need network to fetch on backend) or the whole link
@@ -33,15 +36,9 @@ class IsomorphicApolloClient {
         throw new Error('In SSR mode either link or fetch is required');
     }
 
-    private static createClient({ link, fetch }: ClientConfig) {
+    private static createClient(config: ClientConfig) {
         return new ApolloClient({
-            link: link
-                ? link
-                : createHttpLink({
-                      fetch,
-                      uri: GRAPHQL_ENDPOINT,
-                      headers: { Authorization: `bearer ${GITHUB_TOKEN}` },
-                  }),
+            link: onError(IsomorphicApolloClient.onError).concat(IsomorphicApolloClient.createLink(config)),
             cache:
                 !SSR_MODE && global.APOLLO_STATE
                     ? new InMemoryCache().restore(global.APOLLO_STATE)
@@ -59,6 +56,22 @@ class IsomorphicApolloClient {
                 },
             },
         });
+    }
+
+    private static createLink({ link, fetch }: ClientConfig): ApolloLink {
+        return link
+            ? link
+            : createHttpLink({
+                  fetch,
+                  uri: GRAPHQL_ENDPOINT,
+                  headers: { Authorization: `bearer ${GITHUB_TOKEN}` },
+              });
+    }
+
+    private static onError(error: ErrorResponse) {
+        if (error.networkError) {
+            IsomorphicStore.getStore().dispatch(onMessageAdd(error));
+        }
     }
 }
 

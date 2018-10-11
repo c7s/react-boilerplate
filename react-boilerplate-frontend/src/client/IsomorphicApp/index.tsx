@@ -17,6 +17,7 @@ import { InitialHelmet } from './InitialHelmet';
 import { isomorphicHot } from './isomorphicHot';
 import { IsomorphicLoadableCapture } from './IsomorphicLoadableCapture';
 import { IsomorphicRouter } from './IsomorphicRouter';
+import { Notificator } from './Notificator';
 import { RootErrorBoundary } from './RootErrorBoundary';
 import { ScrollToTop } from './ScrollToTop';
 
@@ -46,6 +47,7 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
                         <RootErrorBoundary>
                             <React.Fragment>
                                 <InitialHelmet />
+                                <Notificator />
                                 <IsomorphicRouter location={this.props.location} context={this.props.context}>
                                     <ScrollToTop>
                                         <Switch>

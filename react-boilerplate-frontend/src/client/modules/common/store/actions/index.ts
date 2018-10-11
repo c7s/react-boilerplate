@@ -1,6 +1,6 @@
 import { actionCreatorFactory } from 'typescript-fsa';
 import { FontFamily } from '../../../../fonts';
-import { FontVariant } from '../types';
+import { FontVariant, Message } from '../types';
 
 const actionCreator = actionCreatorFactory('COMMON');
 
@@ -10,3 +10,7 @@ export const onFontVariantLoad = actionCreator<{ fontFamily: FontFamily; fontVar
 );
 
 export const onMediaExactWidthChange = actionCreator<number>('ON_MEDIA_EXACT_WIDTH_CHANGE');
+
+export const onMessageAdd = actionCreator<Message>('ON_MESSAGE_ADD');
+
+export const onMessageRemove = actionCreator<string>('ON_MESSAGE_REMOVE');
