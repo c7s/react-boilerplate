@@ -1,6 +1,6 @@
 import { throttle } from 'lodash';
+import { onMediaExactWidthChange } from '../../store/actions';
 import { IsomorphicStore } from '../IsomorphicStore';
-import { onMediaExactWidthChange } from '../modules/common/store/actions';
 
 export function observeResize() {
     const throttledDispatch = throttle(IsomorphicStore.getStore().dispatch, 500);

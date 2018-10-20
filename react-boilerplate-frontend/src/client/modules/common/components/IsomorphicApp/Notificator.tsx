@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import styled from 'styled-components';
-import { StoreState } from '../IsomorphicStore';
-import { onMessageRemove } from '../modules/common/store/actions';
-import { Messages } from '../modules/common/store/types';
+import { StoreState } from '../../lib/IsomorphicStore';
+import { onMessageRemove } from '../../store/actions';
+import { Messages } from '../../store/types';
 
 interface MapProps {
     messages: Messages;

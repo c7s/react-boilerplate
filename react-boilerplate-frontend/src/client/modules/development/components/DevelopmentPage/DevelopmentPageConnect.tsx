@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Query } from 'react-apollo';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { StoreState } from '../../../../IsomorphicStore';
+import { StoreState } from '../../../common/lib/IsomorphicStore';
 import { RouteComponentPropsQuery, withRouterQuery } from '../../../common/lib/withRouterQuery';
 import { LoadedFontStatus, Media } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';

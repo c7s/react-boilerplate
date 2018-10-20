@@ -1,4 +1,4 @@
-import { commonReducer } from '../modules/common/store/reducers';
+import { commonReducer } from '../../store/reducers';
 
 const reducers = {
     common: commonReducer,

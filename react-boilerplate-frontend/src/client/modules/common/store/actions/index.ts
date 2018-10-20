@@ -1,5 +1,5 @@
 import { actionCreatorFactory } from 'typescript-fsa';
-import { FontFamily } from '../../../../fonts';
+import { FontFamily } from '../../lib/fonts';
 import { FontVariant, Message } from '../types';
 
 const actionCreator = actionCreatorFactory('COMMON');

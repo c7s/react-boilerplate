@@ -5,10 +5,10 @@ import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { Store } from 'redux';
-import { observeFontFamilies } from '../fonts';
-import { StoreState } from '../IsomorphicStore';
-import { observeResize } from '../media';
-import { routes } from '../routes';
+import { observeFontFamilies } from '../../lib/fonts';
+import { StoreState } from '../../lib/IsomorphicStore';
+import { observeResize } from '../../lib/media';
+import { routes } from '../../lib/routes';
 /** Log useful information (development only) */
 import './development-logger.ts';
 /** Inject external and global styles */

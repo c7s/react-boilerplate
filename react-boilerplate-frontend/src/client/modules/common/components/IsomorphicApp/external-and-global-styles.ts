@@ -1,7 +1,7 @@
 import normalize from 'normalize.css';
 import { css, injectGlobal } from 'styled-components';
-import { fontFamily, FontFamily } from '../fonts';
-import { MIN_WIDTH } from '../media';
+import { fontFamily, FontFamily } from '../../lib/fonts';
+import { MIN_WIDTH } from '../../lib/media';
 
 const globalCss = css`
     /* Default font and min-width */

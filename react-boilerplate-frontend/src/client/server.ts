@@ -10,10 +10,10 @@ import { getBundles } from 'react-loadable/webpack';
 import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import * as url from 'url';
-import { IsomorphicApolloClient } from './IsomorphicApolloClient';
-import { IsomorphicApp } from './IsomorphicApp';
-import { IsomorphicStore } from './IsomorphicStore';
-import { browserConfig, Html, webManifest } from './server-templates';
+import { IsomorphicApp } from './modules/common/components/IsomorphicApp';
+import { IsomorphicApolloClient } from './modules/common/lib/IsomorphicApolloClient';
+import { IsomorphicStore } from './modules/common/lib/IsomorphicStore';
+import { browserConfig, Html, webManifest } from './modules/common/lib/server-templates';
 
 /** Incomplete */
 interface WebpackHotServerMiddlewareStats {

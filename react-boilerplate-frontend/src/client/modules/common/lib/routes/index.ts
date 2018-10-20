@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { NotFoundPage } from '../modules/common/pages/NotFoundPage';
-import { DevelopmentPage, DevelopmentPageThemeName } from '../modules/development/components/DevelopmentPage';
-import { RootPage } from '../modules/root/components/RootPage';
+import { DevelopmentPage, DevelopmentPageThemeName } from '../../../development/components/DevelopmentPage/index';
+import { RootPage } from '../../../root/components/RootPage';
+import { NotFoundPage } from '../../pages/NotFoundPage/index';
 import { route } from './route';
 
 export const routes = {

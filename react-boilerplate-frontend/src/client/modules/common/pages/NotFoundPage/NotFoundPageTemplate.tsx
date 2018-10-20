@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { routes } from '../../../../routes';
+import { routes } from '../../lib/routes';
 import { CommonProps } from '../../types/CommonProps';
 
 interface Props extends CommonProps {}

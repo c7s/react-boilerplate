@@ -1,5 +1,5 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers/dist';
-import { FontFamily } from '../../../../fonts';
+import { FontFamily } from '../../lib/fonts';
 import { onFontLoad, onFontVariantLoad } from '../actions';
 import { FontVariant, LoadedFontStatus } from '../types';
 

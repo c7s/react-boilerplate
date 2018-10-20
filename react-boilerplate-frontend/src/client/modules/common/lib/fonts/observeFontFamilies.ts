@@ -1,6 +1,6 @@
 import FontFaceObserver from 'fontfaceobserver';
+import { onFontLoad, onFontVariantLoad } from '../../store/actions';
 import { IsomorphicStore } from '../IsomorphicStore';
-import { onFontLoad, onFontVariantLoad } from '../modules/common/store/actions';
 import { FontFamily, fontFamilyConfig } from './fontFamilyConfig';
 
 function observeFontFamilies() {

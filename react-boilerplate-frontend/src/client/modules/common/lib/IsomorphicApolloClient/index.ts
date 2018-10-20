@@ -3,8 +3,8 @@ import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { ErrorResponse, onError } from 'apollo-link-error';
 import { createHttpLink } from 'apollo-link-http';
+import { onMessageAdd } from '../../store/actions';
 import { IsomorphicStore } from '../IsomorphicStore';
-import { onMessageAdd } from '../modules/common/store/actions';
 
 /**
  * The idea is to replace either fetch (in case we need network to fetch on backend) or the whole link
