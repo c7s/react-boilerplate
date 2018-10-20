@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import './isomorphic-globals-init';
-/* tslint:disable-next-line */
 import { IsomorphicApp } from './modules/common/components/IsomorphicApp';
 import { IsomorphicApolloClient } from './modules/common/lib/IsomorphicApolloClient';
 import { IsomorphicStore } from './modules/common/lib/IsomorphicStore';
