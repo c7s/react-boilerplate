@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { HelmetData } from 'react-helmet';
+import { Config } from '../../../../../../config';
 
 export interface HtmlProps {
+    config: Config;
     helmet?: HelmetData;
     styleTags?: string;
     spriteContent?: string;
@@ -14,6 +16,7 @@ export interface HtmlProps {
 }
 
 export const Html: React.StatelessComponent<HtmlProps> = ({
+    config,
     helmet,
     styleTags,
     spriteContent,
@@ -47,25 +50,32 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                             <div id="root" dangerouslySetInnerHTML={{ __html: content ? content : '' }} />
                             <script
                                 dangerouslySetInnerHTML={{
-                                    __html:
-                                        `window.SSR_ERROR=${
-                                            ssrError
-                                                ? JSON.stringify(
-                                                      ssrError,
-                                                      [...Object.getOwnPropertyNames(ssrError), 'name'],
-                                                  )
-                                                : 'undefined'
-                                        };` +
-                                        (apolloState ? `window.APOLLO_STATE=${JSON.stringify(apolloState)};` : '') +
-                                        (reduxState ? `window.REDUX_STATE=${JSON.stringify(reduxState)};` : ''),
+                                    __html: Object.entries({
+                                        /** Config part */
+                                        GRAPHQL_ENDPOINT: JSON.stringify(config.api.graphqlEndpoint),
+                                        GITHUB_TOKEN: JSON.stringify(config.api.githubToken),
+                                        PUBLIC_PATH: JSON.stringify(config.root.publicPath),
+                                        /** Dynamic server data part */
+                                        APOLLO_STATE: JSON.stringify(apolloState),
+                                        REDUX_STATE: JSON.stringify(reduxState),
+                                        SSR_ERROR: JSON.stringify(ssrError, [
+                                            ...Object.getOwnPropertyNames(ssrError || {}),
+                                            'name',
+                                        ]),
+                                    })
+                                        .map(([key, value]) => `window.${key}=${value};`)
+                                        .join(''),
                                 }}
                             />
                             {bundles
                                 ? bundles.map(bundle => (
-                                      <script key={bundle.id} src={`${bundle.publicPath}?${BUILD_TIMESTAMP}`} />
+                                      <script
+                                          key={bundle.id}
+                                          src={`${global.PUBLIC_PATH}${bundle.file}?${BUILD_TIMESTAMP}`}
+                                      />
                                   ))
                                 : null}
-                            <script src={`${BUNDLE_PATH}?${BUILD_TIMESTAMP}`} />
+                            <script src={`${global.PUBLIC_PATH}${CLIENT_BUNDLE_NAME}?${BUILD_TIMESTAMP}`} />
                         </React.Fragment>,
                     )}`,
                 }}

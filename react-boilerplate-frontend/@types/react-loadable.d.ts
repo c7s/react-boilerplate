@@ -4,7 +4,6 @@ interface ReactLoadableBundle {
     id: number;
     name: string;
     file: string;
-    publicPath: string;
 }
 
 interface ReactLoadableStats {

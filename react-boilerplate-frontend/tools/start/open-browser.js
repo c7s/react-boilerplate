@@ -1,6 +1,4 @@
 const { exec } = require('child_process');
-const config = require('../../config');
+const { config } = require('../../config');
 
-const completeConfig = config.getCompleteConfig();
-
-exec(`start http://localhost:${completeConfig.root.devServerPort}`);
+exec(`start http://localhost:${config.root.devServerPort}`);

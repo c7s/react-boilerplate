@@ -63,8 +63,8 @@ class IsomorphicApolloClient {
             ? link
             : createHttpLink({
                   fetch,
-                  uri: GRAPHQL_ENDPOINT,
-                  headers: { Authorization: `bearer ${GITHUB_TOKEN}` },
+                  uri: global.GRAPHQL_ENDPOINT,
+                  headers: { Authorization: `bearer ${global.GITHUB_TOKEN}` },
               });
     }
 

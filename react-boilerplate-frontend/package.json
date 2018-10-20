@@ -9,7 +9,7 @@
         "r": "yarn remove",
         "start": "yarn i && yarn start:no-install",
         "start:no-install": "node ./tools/start/open-browser & concurrently \"node ./src/dev-server\" \"yarn generate:apollo --watch\"",
-        "build": "yarn i && webpack",
+        "build": "yarn i && webpack --env.build",
         "build:final": "yarn build && node ./tools/build/remove-dev-files",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
         "generate:apollo": "node ./tools/apollo/schema && node ./tools/apollo/config && yarn generate:apollo-types",

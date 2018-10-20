@@ -3,10 +3,10 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
-const webpackConfig = require('../../webpack.config');
-const config = require('../../config');
+const getWebpackConfig = require('../../webpack.config');
+const { config } = require('../../config');
 
-const completeConfig = config.getCompleteConfig();
+const webpackConfig = getWebpackConfig({});
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(
 app.use(webpackHotMiddleware(compiler.compilers.find(compilerInner => compilerInner.name === 'client')));
 app.use(webpackHotServerMiddleware(compiler));
 
-app.listen(completeConfig.root.devServerPort);
+app.listen(config.root.devServerPort);
 
 // eslint-disable-next-line no-console
-console.log(`Dev server is up at http://localhost:${completeConfig.root.devServerPort}`);
+console.log(`Dev server is up at http://localhost:${config.root.devServerPort}`);

@@ -1,8 +1,7 @@
 # Project-specific (define your stuff here!)
 
-# Local configs
-config/local/*
-!config/local/README.md
+# Local config
+config/local.js
 
 # Webpack output
 dist/

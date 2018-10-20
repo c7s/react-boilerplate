@@ -2,13 +2,11 @@
 
 const path = require('path');
 const fs = require('fs');
-const config = require('../../config/index');
-
-const apiConfig = config.getConfig(config.CONFIG_NAME.API);
+const { config } = require('../../config/index');
 
 fs.writeFileSync(
     path.resolve('./graphql.config.json'),
-    jsGraphqlPluginConfig('graphql.schema.json', apiConfig.graphqlEndpoint)
+    jsGraphqlPluginConfig('graphql.schema.json', config.api.graphqlEndpoint)
 );
 
 /**

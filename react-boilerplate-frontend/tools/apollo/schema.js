@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
 const { run } = require('apollo');
-const config = require('../../config/index');
-
-const apiConfig = config.getConfig(config.CONFIG_NAME.API);
+const { config } = require('../../config');
 
 run([
     'schema:download',
     'graphql.schema.json',
     '--endpoint',
-    apiConfig.graphqlEndpoint,
+    config.api.graphqlEndpoint,
     '--header',
-    `Authorization: bearer ${apiConfig.githubToken}`,
+    `Authorization: bearer ${config.api.githubToken}`,
 ]).catch(error => console.error(error));

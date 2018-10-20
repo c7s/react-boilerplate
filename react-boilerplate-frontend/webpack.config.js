@@ -7,26 +7,15 @@ const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const CleanTerminalPlugin = require('clean-terminal-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
-const config = require('./config');
 
-const completeConfig = config.getCompleteConfig();
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 const SERVER_BUNDLE_NAME = 'server.bundle.js';
 const CLIENT_BUNDLE_NAME = 'client.bundle.js';
 
-/** May be relative directory like '/static' or absolute url like 'https://static.domain.com' */
-const PUBLIC_PATH = completeConfig.root.publicPath;
-
-/** Bundle is also static, so it must be accessible from publicPath */
-const BUNDLE_PATH = `${PUBLIC_PATH}/${CLIENT_BUNDLE_NAME}`;
-
 /** These paths are handled by frontend server, so they must be relative */
 const WEB_MANIFEST_PATH = '/manifest.json';
 const BROWSER_CONFIG_PATH = '/browserconfig.xml';
-
-// https://github.com/webpack/webpack/issues/2121
-process.env.NODE_ENV = completeConfig.root.env === config.ENV.DEV ? 'development' : 'production';
 
 function getBabelOptions(ssrMode) {
     return {
@@ -111,19 +100,17 @@ function commonLoaders(ssrMode) {
     ];
 }
 
-const commonConfig = {
-    mode: completeConfig.root.env === config.ENV.DEV ? 'development' : 'production',
-    devtool: completeConfig.root.env === config.ENV.DEV && 'cheap-module-source-map',
+const commonConfig = env => ({
+    mode: !env.build ? 'development' : 'production',
+    devtool: !env.build && 'cheap-module-source-map',
     plugins: [
-        completeConfig.root.env === config.ENV.DEV && new webpack.HotModuleReplacementPlugin(),
+        !env.build && new webpack.HotModuleReplacementPlugin(),
         // https://github.com/webpack/webpack-dev-middleware#multiple-successive-builds
         new TimeFixPlugin(),
         // TODO: sort out issue with iconv-loader
         new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
         new webpack.DefinePlugin({
-            GRAPHQL_ENDPOINT: JSON.stringify(completeConfig.api.graphqlEndpoint),
-            GITHUB_TOKEN: JSON.stringify(completeConfig.api.githubToken),
-            BUNDLE_PATH: JSON.stringify(BUNDLE_PATH),
+            CLIENT_BUNDLE_NAME: JSON.stringify(CLIENT_BUNDLE_NAME),
             WEB_MANIFEST_PATH: JSON.stringify(WEB_MANIFEST_PATH),
             BROWSER_CONFIG_PATH: JSON.stringify(BROWSER_CONFIG_PATH),
             BUILD_TIMESTAMP: Date.now(),
@@ -132,7 +119,7 @@ const commonConfig = {
             dry: false,
             verbose: false,
         }),
-        completeConfig.root.env === config.ENV.DEV &&
+        !env.build &&
             new UnusedWebpackPlugin({
                 directories: [path.resolve(`./src/client`)],
                 exclude: [
@@ -152,7 +139,7 @@ const commonConfig = {
         new FilterWarningsPlugin({
             exclude: /export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+'/,
         }),
-        completeConfig.root.env === config.ENV.DEV && new CleanTerminalPlugin(),
+        !env.build && new CleanTerminalPlugin(),
     ].filter(Boolean),
     resolve: {
         modules: ['node_modules', path.resolve(`./src/client`)],
@@ -161,22 +148,19 @@ const commonConfig = {
             'node-fetch$': 'node-fetch/lib/index.js',
         },
     },
-    output: {
-        publicPath: `${PUBLIC_PATH}/`,
-    },
     stats: {
         all: false,
         colors: true,
         timings: true,
     },
-};
+});
 
-const clientConfig = {
+const clientConfig = env => ({
     name: 'client',
     target: 'web',
     entry: [
         '@babel/polyfill',
-        completeConfig.root.env === config.ENV.DEV && 'webpack-hot-middleware/client?reload=true',
+        !env.build && 'webpack-hot-middleware/client?reload=true',
         './src/client/client.ts',
     ].filter(Boolean),
     module: {
@@ -185,7 +169,7 @@ const clientConfig = {
     plugins: [
         new webpack.DefinePlugin({ SSR_MODE: false }),
 
-        completeConfig.root.env !== config.ENV.DEV &&
+        env.build &&
             new ReactLoadablePlugin({
                 filename: './dist/react-loadable.json',
             }),
@@ -194,9 +178,9 @@ const clientConfig = {
         filename: CLIENT_BUNDLE_NAME,
         path: path.resolve(__dirname, 'dist', 'static'),
     },
-};
+});
 
-const serverConfig = {
+const serverConfig = () => ({
     name: 'server',
     target: 'node',
     entry: ['@babel/polyfill/noConflict', './src/client/server.ts'],
@@ -214,6 +198,11 @@ const serverConfig = {
         path: path.resolve(__dirname, 'dist'),
         libraryTarget: 'commonjs2',
     },
-};
+});
 
-module.exports = [merge(clientConfig, commonConfig), merge(serverConfig, commonConfig)];
+module.exports = env => {
+    // https://github.com/webpack/webpack/issues/2121
+    process.env.NODE_ENV = !env.build ? 'development' : 'production';
+
+    return [merge(clientConfig(env), commonConfig(env)), merge(serverConfig(env), commonConfig(env))];
+};

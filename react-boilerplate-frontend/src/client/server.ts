@@ -9,11 +9,14 @@ import Helmet from 'react-helmet';
 import { getBundles } from 'react-loadable/webpack';
 import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
-import * as url from 'url';
+import { config } from '../../config';
+import './isomorphic-globals-init';
+/* tslint:disable-next-line */
 import { IsomorphicApp } from './modules/common/components/IsomorphicApp';
 import { IsomorphicApolloClient } from './modules/common/lib/IsomorphicApolloClient';
 import { IsomorphicStore } from './modules/common/lib/IsomorphicStore';
 import { browserConfig, Html, webManifest } from './modules/common/lib/server-templates';
+import { HtmlProps } from './modules/common/lib/server-templates/Html';
 
 /** Incomplete */
 interface WebpackHotServerMiddlewareStats {
@@ -73,6 +76,7 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
             } else {
                 const html = React.createElement(Html, {
                     content,
+                    config,
                     helmet: Helmet.renderStatic(),
                     styleTags: sheet.getStyleTags(),
                     spriteContent: sprite.stringify(),
@@ -86,6 +90,7 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
         })
         .catch((error: Error) => {
             const html = React.createElement(Html, {
+                config,
                 ssrError: error,
             });
 
@@ -93,7 +98,7 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
         });
 }
 
-function sendHtml(res: Response, html: React.ReactElement<{}>) {
+function sendHtml(res: Response, html: React.ReactElement<HtmlProps>) {
     res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
 }
 
@@ -144,27 +149,22 @@ function convertWebpackHotServerMiddlewareStatsToReactLoadableStats(
 ): ReactLoadableStats {
     const manifest: ReactLoadableStats = {};
 
-    if (stats.clientStats.publicPath) {
-        stats.clientStats.chunks.forEach(chunk => {
-            chunk.files.forEach(file => {
-                chunk.modules.forEach(module => {
-                    const request = module.reasons[0].userRequest;
-                    if (!manifest[request]) {
-                        manifest[request] = [];
-                    }
+    stats.clientStats.chunks.forEach(chunk => {
+        chunk.files.forEach(file => {
+            chunk.modules.forEach(module => {
+                const request = module.reasons[0].userRequest;
+                if (!manifest[request]) {
+                    manifest[request] = [];
+                }
 
-                    manifest[request].push({
-                        file,
-                        id: module.id,
-                        name: module.name,
-                        publicPath: url.resolve(stats.clientStats.publicPath!, file),
-                    });
+                manifest[request].push({
+                    file,
+                    id: module.id,
+                    name: module.name,
                 });
             });
         });
+    });
 
-        return manifest;
-    }
-
-    throw new Error('publicPath is required (specify in webpack.config.js)');
+    return manifest;
 }
