@@ -1,4 +1,6 @@
+import minireset from 'minireset.css';
 import normalize from 'normalize.css';
+import reset from 'reset-css';
 import { css, injectGlobal } from 'styled-components';
 import { fontFamily, FontFamily } from '../../lib/fonts';
 import { MIN_WIDTH } from '../../lib/media';
@@ -9,17 +11,13 @@ const globalCss = css`
         ${fontFamily(FontFamily.BITTER)};
         min-width: ${MIN_WIDTH}px;
     }
-
-    /* Default box-sizing */
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
-    }
 `;
 
+/* TODO: combine normalize, reset and minireset to single optimized file */
 injectGlobal`
     /* stylelint-disable max-empty-lines */
     ${normalize};
+    ${reset};
+    ${minireset};
     ${globalCss};
 `;

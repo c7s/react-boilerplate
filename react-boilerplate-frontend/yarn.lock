@@ -4976,6 +4976,10 @@ minipass@^2.2.1, minipass@^2.3.3:
     safe-buffer "^5.1.2"
     yallist "^3.0.0"
 
+minireset.css@~0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/minireset.css/-/minireset.css-0.0.3.tgz#0b112dbbd7809ea0fc965388b79fd29390778fe5"
+
 minizlib@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/minizlib/-/minizlib-1.1.0.tgz#11e13658ce46bc3a70a267aac58359d1e0c29ceb"
@@ -6482,6 +6486,10 @@ require-uncached@^1.0.3:
   dependencies:
     caller-path "^0.1.0"
     resolve-from "^1.0.0"
+
+reset-css@~4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/reset-css/-/reset-css-4.0.1.tgz#1f8456a8be478bc435ce9775b7878ec82cca6b05"
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
