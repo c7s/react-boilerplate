@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { HelmetData } from 'react-helmet';
+import { getBundles } from 'react-loadable/webpack';
 import { Config } from '../../../../../../config';
 
 export interface HtmlProps {
@@ -12,7 +13,7 @@ export interface HtmlProps {
     ssrError?: Error;
     apolloState?: object;
     reduxState?: object;
-    bundles?: ReactLoadableBundle[];
+    bundles?: ReturnType<typeof getBundles>;
 }
 
 export const Html: React.StatelessComponent<HtmlProps> = ({

@@ -34,6 +34,8 @@ interface WebpackHotServerMiddlewareStats {
     };
 }
 
+type ReactLoadableStats = FirstArgument<typeof getBundles>;
+
 interface FrontendServerStats {
     reactLoadableStats: ReactLoadableStats;
 }
@@ -119,11 +121,8 @@ function sendRedirect(res: Response, context: RouterContext) {
         .send();
 }
 
-function getNormalizedBundles(reactLoadableStats: ReactLoadableStats, modules: string[]): ReactLoadableBundle[] {
-    return filter(
-        getBundles(reactLoadableStats, uniq(modules)),
-        bundle => !bundle.file.includes('.js.map'),
-    ) as ReactLoadableBundle[]; // Official type definition error
+function getNormalizedBundles(reactLoadableStats: ReactLoadableStats, modules: string[]) {
+    return filter(getBundles(reactLoadableStats, uniq(modules)), bundle => !bundle.file.includes('.js.map'));
 }
 
 function getReactLoadableStats(stats: WebpackHotServerMiddlewareStats | FrontendServerStats): ReactLoadableStats {

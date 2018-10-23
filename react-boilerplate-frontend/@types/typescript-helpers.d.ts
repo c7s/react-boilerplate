@@ -43,3 +43,6 @@ interface SuccessCallback<R = never> {
 interface ErrorCallback<E = Error> {
     (error: E): void;
 }
+/** https://stackoverflow.com/a/50677584/7785430 */
+type FirstArgument<T> = T extends (arg1: infer U, ...args: any[]) => any ? U : any;
+type SecondArgument<T> = T extends (arg1: any, arg2: infer U, ...args: any[]) => any ? U : any;
