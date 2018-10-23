@@ -56,6 +56,7 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                                         GRAPHQL_ENDPOINT: JSON.stringify(config.api.graphqlEndpoint),
                                         GITHUB_TOKEN: JSON.stringify(config.api.githubToken),
                                         PUBLIC_PATH: JSON.stringify(config.root.publicPath),
+                                        IS_OUTPUT_APP_INFO: JSON.stringify(config.root.isOutputAppInfo),
                                         /** Dynamic server data part */
                                         APOLLO_STATE: JSON.stringify(apolloState),
                                         REDUX_STATE: JSON.stringify(reduxState),

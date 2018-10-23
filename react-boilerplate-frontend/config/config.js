@@ -21,6 +21,7 @@ module.exports = {
         /** Note trailing slash */
         publicPath: process.env.REACT_BOILERPLATE_PUBLIC_PATH || '/static/',
         devServerPort: 3000,
+        isOutputAppInfo: process.env.REACT_BOILERPLATE_ENV !== Env.PROD,
     },
     api: {
         graphqlEndpoint: process.env.REACT_BOILERPLATE_GRAPHQL_ENDPOINT || 'https://api.github.com/graphql',

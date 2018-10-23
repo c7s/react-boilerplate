@@ -10,6 +10,7 @@ if (SSR_MODE) {
     global.GRAPHQL_ENDPOINT = config.api.graphqlEndpoint;
     global.GITHUB_TOKEN = config.api.githubToken;
     global.PUBLIC_PATH = config.root.publicPath;
+    global.IS_OUTPUT_APP_INFO = config.root.isOutputAppInfo;
 }
 
 /** https://webpack.js.org/guides/public-path/#on-the-fly */

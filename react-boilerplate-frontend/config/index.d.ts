@@ -9,6 +9,7 @@ declare namespace ConfigNamespace {
     interface RootConfig {
         publicPath: string;
         devServerPort: number;
+        isOutputAppInfo: boolean;
     }
 
     interface ApiConfig {

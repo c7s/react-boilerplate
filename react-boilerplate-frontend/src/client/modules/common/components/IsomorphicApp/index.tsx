@@ -9,8 +9,8 @@ import { observeFontFamilies } from '../../lib/fonts';
 import { StoreState } from '../../lib/IsomorphicStore';
 import { observeResize } from '../../lib/media';
 import { routes } from '../../lib/routes';
-/** Log useful information (development only) */
-import './development-logger.ts';
+/** Log application information */
+import './app-info-logger.ts';
 /** Inject external and global styles */
 import './external-and-global-styles';
 import { InitialHelmet } from './InitialHelmet';
