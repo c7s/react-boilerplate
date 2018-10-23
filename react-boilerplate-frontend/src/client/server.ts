@@ -14,8 +14,7 @@ import './isomorphic-globals-init';
 import { IsomorphicApp } from './modules/common/components/IsomorphicApp';
 import { IsomorphicApolloClient } from './modules/common/lib/IsomorphicApolloClient';
 import { IsomorphicStore } from './modules/common/lib/IsomorphicStore';
-import { browserConfig, Html, webManifest } from './modules/common/lib/server-templates';
-import { HtmlProps } from './modules/common/lib/server-templates/Html';
+import { browserConfig, Html, HtmlProps, webManifest } from './modules/common/lib/server-templates';
 
 /** Incomplete */
 interface WebpackHotServerMiddlewareStats {
