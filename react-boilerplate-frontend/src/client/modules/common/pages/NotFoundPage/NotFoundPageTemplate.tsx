@@ -1,6 +1,8 @@
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Status } from '../../components/Status';
 import { routes } from '../../lib/routes';
 import { CommonProps } from '../../types/CommonProps';
 
@@ -8,12 +10,17 @@ interface Props extends CommonProps {}
 
 const NotFoundPageTemplate: React.StatelessComponent<Props> = ({ className }) => (
     <Root className={className}>
-        <Header>404</Header>
-        <Text>
-            Данная страница не существует.
-            {'\n'}
-            Попробуйте <Link to={routes.ROOT.path}>вернуться на главную.</Link>
-        </Text>
+        <Status code={404}>
+            <Helmet>
+                <title>{'Страница не найдена'}</title>
+            </Helmet>
+            <Header>404</Header>
+            <Text>
+                Данная страница не существует.
+                {'\n'}
+                Попробуйте <Link to={routes.ROOT.path}>вернуться на главную.</Link>
+            </Text>
+        </Status>
     </Root>
 );
 

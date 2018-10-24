@@ -41,6 +41,7 @@ interface FrontendServerStats {
 
 interface RouterContext {
     url?: string;
+    statusCode?: number;
 }
 
 export default function serverRenderer(
@@ -85,7 +86,7 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
                     bundles: getNormalizedBundles(reactLoadableStats, modules),
                 });
 
-                sendHtml(res, html);
+                sendHtml(res, html, context.statusCode);
             }
         })
         .catch((error: Error) => {
@@ -94,12 +95,23 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
                 ssrError: error,
             });
 
-            sendHtml(res, html);
+            sendHtml(res, html, context.statusCode, true);
         });
 }
 
-function sendHtml(res: Response, html: React.ReactElement<HtmlProps>) {
-    res.status(200).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
+function sendHtml(res: Response, html: React.ReactElement<HtmlProps>, appStatus?: number, isSsrError?: boolean) {
+    let statusCode = appStatus;
+
+    if (statusCode === undefined) {
+        // No status provided by app, using fallback error or success
+        statusCode = isSsrError ? 500 : 200;
+    } else if (statusCode === 0 || (statusCode === 200 && isSsrError)) {
+        // Sending HTML with status 0 makes no sense, using fallback error
+        // Sending HTML with status 200 after SSR error makes no sense, using fallback error
+        statusCode = 500;
+    }
+
+    res.status(statusCode).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
 }
 
 function sendWebManifest(res: Response) {
