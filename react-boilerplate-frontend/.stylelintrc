@@ -16,6 +16,8 @@
         "color-hex-case": "lower",
         "color-hex-length": "long",
         "color-named": "never",
-        "block-no-empty": null
+        "block-no-empty": null,
+        "value-list-comma-newline-after": null,
+        "declaration-colon-newline-after": null
     }
 }
