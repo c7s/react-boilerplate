@@ -1,9 +1,9 @@
 import { Dictionary } from 'async';
 import { FontVariant } from 'fontfaceobserver';
-import { injectGlobal } from 'styled-components';
 import { bitter } from './Bitter';
+import { createGlobalFontsStyle } from './createFontStyleTag';
 
-injectGlobal`
+const GlobalFontsStyle = createGlobalFontsStyle`
     ${bitter};
 `;
 
@@ -31,4 +31,4 @@ const fontFamilyConfig: Dictionary<FontFamilyConfig> = {
     },
 };
 
-export { FontFamily, fontFamilyConfig };
+export { FontFamily, fontFamilyConfig, GlobalFontsStyle };

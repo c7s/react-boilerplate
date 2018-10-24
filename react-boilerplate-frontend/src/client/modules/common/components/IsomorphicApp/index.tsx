@@ -5,14 +5,13 @@ import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { Store } from 'redux';
-import { observeFontFamilies } from '../../lib/fonts';
+import { GlobalFontsStyle, observeFontFamilies } from '../../lib/fonts';
 import { StoreState } from '../../lib/IsomorphicStore';
 import { observeResize } from '../../lib/media';
 import { routes } from '../../lib/routes';
 /** Log application information */
 import './app-info-logger.ts';
-/** Inject external and global styles */
-import './external-and-global-styles';
+import { ExternalAndGlobalStyles } from './ExternalAndGlobalStyles';
 import { InitialHelmet } from './InitialHelmet';
 import { isomorphicHot } from './isomorphicHot';
 import { IsomorphicLoadableCapture } from './IsomorphicLoadableCapture';
@@ -46,6 +45,8 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
                     <Provider store={this.props.store}>
                         <RootErrorBoundary>
                             <React.Fragment>
+                                <GlobalFontsStyle />
+                                <ExternalAndGlobalStyles />
                                 <InitialHelmet />
                                 <Notificator />
                                 <IsomorphicRouter location={this.props.location} context={this.props.context}>
