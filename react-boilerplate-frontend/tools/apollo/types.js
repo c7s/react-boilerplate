@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 const { run } = require('apollo');
+const del = require('del');
+
+del(['**/ApolloTypes/*.ts', '!**/ApolloTypes/globalTypes.ts']);
 
 run(
     [
