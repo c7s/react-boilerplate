@@ -13,7 +13,7 @@
         "build:final": "yarn build && node ./tools/build/remove-dev-files",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
         "generate:apollo": "node ./tools/apollo/schema && node ./tools/apollo/config && yarn generate:apollo-types",
-        "generate:apollo-types": "yarn apollo codegen:generate ApolloTypes --target=typescript --schema=graphql.schema.json --addTypename --queries=\"**/*{Connect,Graphql}.{ts,tsx}\" --globalTypesFile ./src/client/modules/common/graphql/ApolloTypes/globalTypes.ts",
+        "generate:apollo-types": "node ./tools/apollo/types",
         "git:configure": "node ./tools/git/scripts/configure",
         "lint:js": "eslint .",
         "lint:ts": "tslint -t codeFrame --project tsconfig.json ./src/**/*.{ts,tsx} && tsc --project tsconfig.json",
