@@ -16,7 +16,7 @@
       <option name="outputFromStdout" value="false" />
       <option name="program" value="$PROJECT_DIR$/node_modules/.bin/prettier.cmd" />
       <option name="runOnExternalChanges" value="true" />
-      <option name="scopeName" value="Changed Files" />
+      <option name="scopeName" value="PrettierScope" />
       <option name="trackOnlyRoot" value="false" />
       <option name="workingDir" value="" />
       <envs />

@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="PrettierScope" pattern="(file:*.js||file:*.ts||file:*.tsx||file:*.json||file:*.graphql||file:*.md||file:*rc&amp;&amp;!file:.yarnrc)&amp;&amp;!file:src/client/modules/common/graphql/ApolloTypes/globalTypes.ts" />
+</component>
