@@ -2,6 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+let isMerge = false;
+try {
+    execSync('git --git-dir ../.git rev-parse -q --verify MERGE_HEAD', { encoding: 'utf-8' });
+    isMerge = true;
+} catch (error) {
+    // Okay, it's not merge
+}
+
 try {
     const msgPrefixMatch = /([A-Z]+-\d+)/.exec(
         execSync('git --git-dir ../.git symbolic-ref --short HEAD', { encoding: 'utf-8' })
@@ -12,7 +20,6 @@ try {
 
     const msgFileContent = fs.readFileSync(msgFilePath, { encoding: 'utf-8' });
 
-    const isMerge = messageFileName === 'MERGE_MSG';
     const isAlreadyWithPrefix = /^[A-Z]+-\d+: /.test(msgFileContent);
 
     let msgPrefix = '';
