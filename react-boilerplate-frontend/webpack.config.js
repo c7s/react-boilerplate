@@ -150,6 +150,7 @@ const commonConfig = env => ({
         all: false,
         colors: true,
         timings: true,
+        errors: true,
     },
 });
 
