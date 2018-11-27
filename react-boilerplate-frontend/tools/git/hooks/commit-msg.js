@@ -5,7 +5,9 @@ const { isMerge } = require('./isMerge');
 const messageFileName = process.env.GIT_PARAMS.split(' ')[0];
 
 const msgFilePath = path.resolve('..', messageFileName);
-const msgFileContent = fs.readFileSync(msgFilePath, { encoding: 'utf-8' });
+
+/** Note: assuming that commentChar is '#' and cleanup mode is 'strip' */
+const msgFileContent = fs.readFileSync(msgFilePath, { encoding: 'utf-8' }).replace(/^#.*[^.]/gm, '');
 
 const isMsgFormattedCorrectly = /^[A-Z]+-\d+: [A-Z]/.test(msgFileContent);
 const isDoublePrefix = /^[A-Z]+-\d+: [A-Z]+-\d+/.test(msgFileContent);
