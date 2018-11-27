@@ -1,14 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
-
-let isMerge = false;
-try {
-    execSync('git --git-dir ../.git rev-parse -q --verify MERGE_HEAD', { encoding: 'utf-8' });
-    isMerge = true;
-} catch (error) {
-    // Okay, it's not merge
-}
+const { isMerge } = require('./isMerge');
 
 const messageFileName = process.env.GIT_PARAMS.split(' ')[0];
 
