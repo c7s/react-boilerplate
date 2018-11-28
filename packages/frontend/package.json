@@ -18,10 +18,7 @@
         "lint:js": "eslint .",
         "lint:ts": "tslint -t codeFrame --project tsconfig.json ./src/**/*.{ts,tsx} && tsc --project tsconfig.json",
         "lint:css": "stylelint ./src/**/*.{ts,tsx}",
-        "prepare-commit-msg": "node ./tools/git/hooks/prepare-commit-msg",
-        "commit-msg": "node ./tools/git/hooks/commit-msg",
-        "pre-commit": "lint-staged",
-        "post-commit": "git --git-dir ../.git update-index --again"
+        "pre-commit": "lint-staged"
     },
     "lint-staged": {
         "*.js": [

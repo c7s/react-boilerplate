@@ -7,7 +7,10 @@
     "i": "yarn install --frozen-lockfile",
     "a": "yarn add -T -D",
     "r": "yarn remove",
-    "pre-commit": "lint-staged"
+    "prepare-commit-msg": "node ./tools/git/hooks/prepare-commit-msg",
+    "commit-msg": "node ./tools/git/hooks/commit-msg",
+    "pre-commit": "lint-staged",
+    "post-commit": "git update-index --again"
   },
   "lint-staged": {
     "{package.json,yarn.lock}": [
@@ -17,10 +20,10 @@
   },
   "husky": {
     "hooks": {
-      "prepare-commit-msg": "lerna run prepare-commit-msg",
-      "commit-msg": "lerna run commit-msg",
-      "pre-commit": "lerna run pre-commit",
-      "post-commit": "lerna run post-commit"
+      "prepare-commit-msg": "yarn prepare-commit-msg",
+      "commit-msg": "yarn commit-msg",
+      "pre-commit": "yarn pre-commit && lerna run pre-commit",
+      "post-commit": "yarn post-commit"
     }
   },
   "devDependencies": {
