@@ -41,7 +41,8 @@
             "git add"
         ],
         "{package.json,yarn.lock}": [
-            "node ./tools/git/hooks/check-yarn-lock"
+            "node ./tools/git/hooks/check-yarn-lock",
+            "node ./tools/git/hooks/check-package-json"
         ]
     },
     "devDependencies": {
