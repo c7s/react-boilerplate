@@ -17,22 +17,24 @@ type ReplaceReturnType<T, TNewReturn> = T extends (
     ? (IsValidArg<J> extends true
           ? (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => TNewReturn
           : IsValidArg<I> extends true
-              ? (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I) => TNewReturn
-              : IsValidArg<H> extends true
-                  ? (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H) => TNewReturn
-                  : IsValidArg<G> extends true
-                      ? (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TNewReturn
-                      : IsValidArg<F> extends true
-                          ? (a: A, b: B, c: C, d: D, e: E, f: F) => TNewReturn
-                          : IsValidArg<E> extends true
-                              ? (a: A, b: B, c: C, d: D, e: E) => TNewReturn
-                              : IsValidArg<D> extends true
-                                  ? (a: A, b: B, c: C, d: D) => TNewReturn
-                                  : IsValidArg<C> extends true
-                                      ? (a: A, b: B, c: C) => TNewReturn
-                                      : IsValidArg<B> extends true
-                                          ? (a: A, b: B) => TNewReturn
-                                          : IsValidArg<A> extends true ? (a: A) => TNewReturn : () => TNewReturn)
+          ? (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I) => TNewReturn
+          : IsValidArg<H> extends true
+          ? (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H) => TNewReturn
+          : IsValidArg<G> extends true
+          ? (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TNewReturn
+          : IsValidArg<F> extends true
+          ? (a: A, b: B, c: C, d: D, e: E, f: F) => TNewReturn
+          : IsValidArg<E> extends true
+          ? (a: A, b: B, c: C, d: D, e: E) => TNewReturn
+          : IsValidArg<D> extends true
+          ? (a: A, b: B, c: C, d: D) => TNewReturn
+          : IsValidArg<C> extends true
+          ? (a: A, b: B, c: C) => TNewReturn
+          : IsValidArg<B> extends true
+          ? (a: A, b: B) => TNewReturn
+          : IsValidArg<A> extends true
+          ? (a: A) => TNewReturn
+          : () => TNewReturn)
     : never;
 type Nullable<T> = { [P in keyof T]: T[P] | null };
 type OfType<T, TYPE> = { [P in keyof T]: TYPE };

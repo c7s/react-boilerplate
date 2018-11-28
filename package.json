@@ -1,35 +1,36 @@
 {
-  "name": "react-boilerplate",
-  "version": "0.0.0",
-  "author": "c7s",
-  "private": true,
-  "scripts": {
-    "i": "yarn install --frozen-lockfile",
-    "a": "yarn add -T -D",
-    "r": "yarn remove",
-    "prepare-commit-msg": "node ./tools/git/hooks/prepare-commit-msg",
-    "commit-msg": "node ./tools/git/hooks/commit-msg",
-    "pre-commit": "lint-staged",
-    "post-commit": "git update-index --again"
-  },
-  "lint-staged": {
-    "{package.json,yarn.lock}": [
-      "node ./tools/git/hooks/check-yarn-lock",
-      "node ./tools/git/hooks/check-package-json"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "prepare-commit-msg": "yarn prepare-commit-msg",
-      "commit-msg": "yarn commit-msg",
-      "pre-commit": "yarn pre-commit && lerna run pre-commit",
-      "post-commit": "yarn post-commit"
+    "name": "react-boilerplate",
+    "version": "0.0.0",
+    "author": "c7s",
+    "private": true,
+    "scripts": {
+        "i": "yarn install --frozen-lockfile",
+        "a": "yarn add -T -D",
+        "r": "yarn remove",
+        "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
+        "prepare-commit-msg": "node ./tools/git/hooks/prepare-commit-msg",
+        "commit-msg": "node ./tools/git/hooks/commit-msg",
+        "pre-commit": "lint-staged",
+        "post-commit": "git update-index --again"
+    },
+    "lint-staged": {
+        "{package.json,yarn.lock}": [
+            "node ./tools/git/hooks/check-yarn-lock",
+            "node ./tools/git/hooks/check-package-json"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "prepare-commit-msg": "yarn prepare-commit-msg",
+            "commit-msg": "yarn commit-msg",
+            "pre-commit": "yarn pre-commit && lerna run pre-commit",
+            "post-commit": "yarn post-commit"
+        }
+    },
+    "devDependencies": {
+        "husky": "~1.2.0",
+        "lerna": "^3.5.0",
+        "lint-staged": "~8.1.0",
+        "prettier": "~1.15.2"
     }
-  },
-  "devDependencies": {
-    "husky": "~1.2.0",
-    "lerna": "^3.5.0",
-    "lint-staged": "~8.1.0",
-    "prettier": "~1.15.2"
-  }
 }

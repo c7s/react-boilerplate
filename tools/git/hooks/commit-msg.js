@@ -1,15 +1,13 @@
-const fs = require("fs");
-const path = require("path");
-const { isMerge } = require("./isMerge");
+const fs = require('fs');
+const path = require('path');
+const { isMerge } = require('./isMerge');
 
-const messageFileName = process.env.HUSKY_GIT_PARAMS.split(" ")[0];
+const messageFileName = process.env.HUSKY_GIT_PARAMS.split(' ')[0];
 
 const msgFilePath = path.resolve(messageFileName);
 
 /** Note: assuming that commentChar is '#' and cleanup mode is 'strip' */
-const msgFileContent = fs
-  .readFileSync(msgFilePath, { encoding: "utf-8" })
-  .replace(/^#.*[^.]/gm, "");
+const msgFileContent = fs.readFileSync(msgFilePath, { encoding: 'utf-8' }).replace(/^#.*[^.]/gm, '');
 
 const isMsgFormattedCorrectly = /^[A-Z]+-\d+: [A-Z]/.test(msgFileContent);
 const isDoublePrefix = /^[A-Z]+-\d+: [A-Z]+-\d+/.test(msgFileContent);
@@ -19,27 +17,21 @@ const isBlankLineAfterSubject = /^.+\n\n.+/.test(msgFileContent);
 const isSubjectEndsWithDot = /^.+\.\s*(?:\n|$)/.test(msgFileContent);
 
 if (isDoublePrefix && !isMerge) {
-  terminateWithError(
-    "You've specified prefix in wrong format while being on task branch"
-  );
+    terminateWithError("You've specified prefix in wrong format while being on task branch");
 } else if (!isMsgFormattedCorrectly && !isMerge) {
-  terminateWithError(
-    `Message must look like 'KP-00: Makes stuff' or 'Merge ...', instead got: ${msgFileContent}`
-  );
+    terminateWithError(`Message must look like 'KP-00: Makes stuff' or 'Merge ...', instead got: ${msgFileContent}`);
 } else if (isLongLines && !isMerge) {
-  terminateWithError("Message lines must not exceed 72 characters");
+    terminateWithError('Message lines must not exceed 72 characters');
 } else if (isHasBody && !isBlankLineAfterSubject && !isMerge) {
-  terminateWithError(
-    "There must be exactly one blank line between subject and body"
-  );
+    terminateWithError('There must be exactly one blank line between subject and body');
 } else if (isSubjectEndsWithDot && !isMerge) {
-  terminateWithError("Subject must not end with dot");
+    terminateWithError('Subject must not end with dot');
 }
 
 /**
  * @param {string} warning
  */
 function terminateWithError(warning) {
-  console.error(`[ERROR] ${warning}`);
-  process.exit(1);
+    console.error(`[ERROR] ${warning}`);
+    process.exit(1);
 }

@@ -1,13 +1,13 @@
 {
-  "name": "@react-boilerplate/frontend-server",
-  "version": "0.0.0",
-  "author": "c7s",
-  "private": true,
-  "scripts": {
-    "start": "node ./src/index"
-  },
-  "dependencies": {
-    "express": "~4.16.3",
-    "frontend": "file:../frontend"
-  }
+    "name": "@react-boilerplate/frontend-server",
+    "version": "0.0.0",
+    "author": "c7s",
+    "private": true,
+    "scripts": {
+        "start": "node ./src/index"
+    },
+    "dependencies": {
+        "express": "~4.16.3",
+        "frontend": "file:../frontend"
+    }
 }

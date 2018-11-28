@@ -8,8 +8,8 @@ const createFontStyleTag: typeof createGlobalStyle = (strings, ...interpolations
             <style>
                 {String.raw(
                     strings,
-                    ...interpolations.map(
-                        interpolation => (Array.isArray(interpolation) ? interpolation.join('') : interpolation),
+                    ...interpolations.map(interpolation =>
+                        Array.isArray(interpolation) ? interpolation.join('') : interpolation,
                     ),
                 )}
             </style>
