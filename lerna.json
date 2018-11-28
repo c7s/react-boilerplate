@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "react-boilerplate-frontend",
+    "react-boilerplate-frontend-server"
+  ],
+  "version": "0.0.0"
+}

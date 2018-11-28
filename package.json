@@ -1,0 +1,14 @@
+{
+  "name": "react-boilerplate",
+  "version": "0.0.0",
+  "author": "c7s",
+  "private": true,
+  "scripts": {
+    "i": "yarn install --frozen-lockfile",
+    "a": "yarn add -T -D",
+    "r": "yarn remove"
+  },
+  "devDependencies": {
+    "lerna": "^3.5.0"
+  }
+}
