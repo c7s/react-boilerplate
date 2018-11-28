@@ -1,0 +1,12 @@
+{
+    "extends": ["airbnb", "prettier"],
+    "rules": {
+        "import/no-extraneous-dependencies": [
+            "error",
+            { "devDependencies": true, "optionalDependencies": true, "peerDependencies": true }
+        ],
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "no-use-before-define": ["error", "nofunc"],
+        "capitalized-comments": ["error", "always"]
+    }
+}
