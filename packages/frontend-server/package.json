@@ -1,5 +1,5 @@
 {
-  "name": "react-boilerplate-frontend-server",
+  "name": "@react-boilerplate/frontend-server",
   "version": "0.0.0",
   "author": "c7s",
   "private": true,
@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "express": "~4.16.3",
-    "frontend": "file:../react-boilerplate-frontend"
+    "frontend": "file:../frontend"
   }
 }

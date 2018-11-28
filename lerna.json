@@ -1,8 +1,5 @@
 {
-  "packages": [
-    "react-boilerplate-frontend",
-    "react-boilerplate-frontend-server"
-  ],
+  "packages": ["packages/*"],
   "version": "0.0.0",
   "command": {
     "run": {

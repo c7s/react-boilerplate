@@ -12,9 +12,6 @@ dist/
 # Global types include enums, which are required at compile-time
 !**/ApolloTypes/globalTypes.ts
 
-# Yarn is used instead of npm, so tracking this file makes no sense
-package-lock.json
-
 # GraphQL schema is generated from endpoint
 graphql.schema.json
 
