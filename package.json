@@ -6,7 +6,14 @@
   "scripts": {
     "i": "yarn install --frozen-lockfile",
     "a": "yarn add -T -D",
-    "r": "yarn remove"
+    "r": "yarn remove",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "{package.json,yarn.lock}": [
+      "node ./tools/git/hooks/check-yarn-lock",
+      "node ./tools/git/hooks/check-package-json"
+    ]
   },
   "husky": {
     "hooks": {
@@ -18,6 +25,7 @@
   },
   "devDependencies": {
     "husky": "~1.2.0",
-    "lerna": "^3.5.0"
+    "lerna": "^3.5.0",
+    "lint-staged": "~8.1.0"
   }
 }
