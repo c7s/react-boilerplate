@@ -8,7 +8,7 @@ try {
         execSync('git --git-dir ../.git symbolic-ref --short HEAD', { encoding: 'utf-8' })
     );
 
-    const messageFileName = process.env.GIT_PARAMS.split(' ')[0];
+    const messageFileName = process.env.HUSKY_GIT_PARAMS.split(' ')[0];
     const msgFilePath = path.resolve('..', messageFileName);
 
     const msgFileContent = fs.readFileSync(msgFilePath, { encoding: 'utf-8' });

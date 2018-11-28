@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { isMerge } = require('./isMerge');
 
-const messageFileName = process.env.GIT_PARAMS.split(' ')[0];
+const messageFileName = process.env.HUSKY_GIT_PARAMS.split(' ')[0];
 
 const msgFilePath = path.resolve('..', messageFileName);
 

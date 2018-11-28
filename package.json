@@ -8,7 +8,16 @@
     "a": "yarn add -T -D",
     "r": "yarn remove"
   },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "lerna run prepare-commit-msg",
+      "commit-msg": "lerna run commit-msg",
+      "pre-commit": "lerna run pre-commit",
+      "post-commit": "lerna run post-commit"
+    }
+  },
   "devDependencies": {
+    "husky": "~1.2.0",
     "lerna": "^3.5.0"
   }
 }
