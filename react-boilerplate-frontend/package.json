@@ -20,7 +20,7 @@
         "lint:css": "stylelint ./src/**/*.{ts,tsx}",
         "preparecommitmsg": "node ./tools/git/hooks/prepare-commit-msg",
         "commitmsg": "node ./tools/git/hooks/commit-msg",
-        "precommit": "yarn check --integrity && tsc --project tsconfig.json && lint-staged",
+        "precommit": "lint-staged",
         "postcommit": "git --git-dir ../.git update-index --again"
     },
     "lint-staged": {
@@ -29,6 +29,7 @@
             "git add"
         ],
         "*.{ts,tsx}": [
+            "node ./tools/git/hooks/check-types",
             "tslint -t codeFrame --project tsconfig.json --fix",
             "git add"
         ],
@@ -38,6 +39,9 @@
         "*.{js,ts,tsx,json,graphql,md,*rc}": [
             "prettier --write",
             "git add"
+        ],
+        "{package.json,yarn.lock}": [
+            "node ./tools/git/hooks/check-yarn-lock"
         ]
     },
     "devDependencies": {
