@@ -12,7 +12,7 @@ run(
         '--target',
         'typescript',
         '--schema',
-        'graphql.schema.json',
+        '../../graphql.schema.json',
         '--addTypename',
         '--globalTypesFile',
         './src/client/modules/common/graphql/ApolloTypes/globalTypes.ts',

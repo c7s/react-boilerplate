@@ -5,7 +5,7 @@ const { config } = require('../../config');
 
 run([
     'schema:download',
-    'graphql.schema.json',
+    '../../graphql.schema.json',
     '--endpoint',
     config.api.graphqlEndpoint,
     '--header',
