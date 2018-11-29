@@ -5,7 +5,7 @@
     "private": true,
     "scripts": {
         "prepare": "node ./tools/install/create-symlinks",
-        "i": "yarn install --frozen-lockfile",
+        "i": "yarn install --frozen-lockfile && lerna bootstrap --hoist",
         "a": "yarn add -T -D",
         "r": "yarn remove",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
@@ -37,24 +37,16 @@
         }
     },
     "devDependencies": {
-        "create-symlink": "~1.0.0",
-        "eslint": "~5.9.0",
-        "eslint-config-airbnb": "~17.1.0",
-        "eslint-config-prettier": "~3.3.0",
-        "eslint-plugin-import": "~2.14.0",
-        "eslint-plugin-jsx-a11y": "~6.1.2",
-        "eslint-plugin-react": "~7.11.1",
+        "create-symlink": "1.0.0",
+        "eslint": "5.9.0",
+        "eslint-config-airbnb": "17.1.0",
+        "eslint-config-prettier": "3.3.0",
+        "eslint-plugin-import": "2.14.0",
+        "eslint-plugin-jsx-a11y": "6.1.2",
+        "eslint-plugin-react": "7.11.1",
         "husky": "~1.2.0",
-        "lerna": "^3.5.0",
-        "lint-staged": "~8.1.0",
-        "prettier": "~1.15.2",
-        "stylelint": "~9.9.0",
-        "stylelint-config-standard": "~18.2.0",
-        "stylelint-config-styled-components": "~0.1.1",
-        "stylelint-processor-styled-components": "~1.5.1",
-        "tslint": "~5.11.0",
-        "tslint-config-airbnb": "~5.11.1",
-        "tslint-config-prettier": "~1.17.0",
-        "typescript": "~3.0.3"
+        "lerna": "~3.5.0",
+        "lint-staged": "8.1.0",
+        "prettier": "1.15.2"
     }
 }
