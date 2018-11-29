@@ -10,6 +10,7 @@
         "r": "yarn remove",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
         "lint:js": "eslint .",
+        "git:configure": "node ./tools/git/scripts/configure",
         "prepare-commit-msg": "node ./tools/git/hooks/prepare-commit-msg",
         "commit-msg": "node ./tools/git/hooks/commit-msg",
         "pre-commit": "lint-staged",
@@ -48,6 +49,7 @@
         "husky": "~1.2.0",
         "lerna": "~3.5.0",
         "lint-staged": "~8.1.0",
-        "prettier": "~1.15.2"
+        "prettier": "~1.15.2",
+        "prompt": "~1.0.0"
     }
 }
