@@ -4,6 +4,7 @@
     "author": "c7s",
     "private": true,
     "scripts": {
+        "prepare": "node ./tools/install/create-symlinks",
         "i": "yarn install --frozen-lockfile",
         "a": "yarn add -T -D",
         "r": "yarn remove",
@@ -36,6 +37,7 @@
         }
     },
     "devDependencies": {
+        "create-symlink": "~1.0.0",
         "eslint": "~5.9.0",
         "eslint-config-airbnb": "~17.1.0",
         "eslint-config-prettier": "~3.3.0",

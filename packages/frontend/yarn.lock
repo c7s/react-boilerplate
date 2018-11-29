@@ -2459,14 +2459,6 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-symlink@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/create-symlink/-/create-symlink-1.0.0.tgz#40d38a711767322345762f90f8d06cf2726201d7"
-  dependencies:
-    graceful-fs "^4.1.11"
-    inspect-with-kind "^1.0.0"
-    is-plain-obj "^1.1.0"
-
 cross-spawn@^6.0.0, cross-spawn@^6.0.5:
   version "6.0.5"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
@@ -3923,12 +3915,6 @@ inquirer@^6.0.0, inquirer@^6.1.0:
     string-width "^2.1.0"
     strip-ansi "^4.0.0"
     through "^2.3.6"
-
-inspect-with-kind@^1.0.0:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/inspect-with-kind/-/inspect-with-kind-1.0.5.tgz#fce151d4ce89722c82ca8e9860bb96f9167c316c"
-  dependencies:
-    kind-of "^6.0.2"
 
 interpret@^1.0.0, interpret@^1.1.0:
   version "1.1.0"
