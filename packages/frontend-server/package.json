@@ -4,10 +4,41 @@
     "author": "c7s",
     "private": true,
     "scripts": {
-        "start": "node ./src/index"
+        "prepare": "node ./tools/install/create-symlinks",
+        "i": "yarn install --frozen-lockfile",
+        "a": "yarn add -T",
+        "r": "yarn remove",
+        "start": "node ./src/index",
+        "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
+        "lint:js": "eslint .",
+        "pre-commit": "lint-staged"
+    },
+    "lint-staged": {
+        "*.js": [
+            "eslint --fix",
+            "git add"
+        ],
+        "*.{js,ts,tsx,json,graphql,md,*rc}": [
+            "prettier --write",
+            "git add"
+        ],
+        "{package.json,yarn.lock}": [
+            "node ./tools/git/hooks/check-yarn-lock"
+        ]
     },
     "dependencies": {
         "express": "~4.16.3",
         "frontend": "file:../frontend"
+    },
+    "devDependencies": {
+        "create-symlink": "~1.0.0",
+        "eslint": "~5.9.0",
+        "eslint-config-airbnb": "~17.1.0",
+        "eslint-config-prettier": "~3.3.0",
+        "eslint-plugin-import": "~2.14.0",
+        "eslint-plugin-jsx-a11y": "~6.1.2",
+        "eslint-plugin-react": "~7.11.1",
+        "lint-staged": "~8.1.0",
+        "prettier": "~1.15.2"
     }
 }

@@ -9,6 +9,7 @@
         "a": "yarn add -T -D",
         "r": "yarn remove",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
+        "lint:js": "eslint .",
         "prepare-commit-msg": "node ./tools/git/hooks/prepare-commit-msg",
         "commit-msg": "node ./tools/git/hooks/commit-msg",
         "pre-commit": "lint-staged",
