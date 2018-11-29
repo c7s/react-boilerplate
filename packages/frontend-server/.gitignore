@@ -1,3 +1,9 @@
+# Project-specific (define your stuff here!)
+
+# Yarn is used instead of npm, so tracking this file makes no sense
+package-lock.json
+
+
 # Created by https://www.gitignore.io/api/node,macos,linux,windows,webstorm,visualstudiocode
 
 ### Linux ###

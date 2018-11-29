@@ -5,7 +5,7 @@ const fs = require('fs');
 const { config } = require('../../config/index');
 
 fs.writeFileSync(
-    path.resolve('../../graphql.config.json'),
+    path.resolve('graphql.config.json'),
     jsGraphqlPluginConfig('graphql.schema.json', config.api.graphqlEndpoint)
 );
 
