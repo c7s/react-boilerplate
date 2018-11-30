@@ -44,14 +44,15 @@ class IsomorphicApolloClient {
                     ? new InMemoryCache().restore(global.APOLLO_STATE)
                     : new InMemoryCache(),
             defaultOptions: {
+                /**
+                 * In case you want to set errorPolicy: all for mutations, see:
+                 * https://github.com/c7s/react-boilerplate/issues/62
+                 */
                 watchQuery: {
                     errorPolicy: 'all',
                     notifyOnNetworkStatusChange: true,
                 },
                 query: {
-                    errorPolicy: 'all',
-                },
-                mutate: {
                     errorPolicy: 'all',
                 },
             },
