@@ -21,9 +21,9 @@ const UNKNOWN_ERROR_TEXT = 'Попробуйте обновить страниц
 
 /** Converts given error to human readable format */
 function castError(error: UncastedError): CastedError {
-    if (isError(error)) return castAsError(error);
     if (isApolloError(error)) return castAsApolloError(error);
     if (isErrorResponse(error)) return castAsErrorResponse(error);
+    if (isError(error)) return castAsError(error);
 
     throw new Error('Uncastable error');
 }
@@ -37,11 +37,10 @@ function castAsApolloError(error: ApolloError): CastedError {
 
     if (error.networkError) {
         castedError.header = NETWORK_ERROR_HEADER;
-        castedError.text = NETWORK_ERROR_TEXT;
+        castedError.text = mapNetworkErrorCodeToText((error.networkError as any).statusCode);
     } else if (error.graphQLErrors.length) {
         castedError.header = SERVER_ERROR_HEADER;
-        /** Map error code, if any, to whatever human-readable advice */
-        castedError.text = SERVER_ERROR_TEXT;
+        castedError.text = error.graphQLErrors.map(mapGraphqlErrorCodeToText).join('\n');
     }
 
     return castedError;
@@ -55,12 +54,11 @@ function castAsErrorResponse(error: ErrorResponse): CastedError {
 
     if (error.networkError) {
         castedError.header = NETWORK_ERROR_HEADER;
-        castedError.text = NETWORK_ERROR_TEXT;
+        castedError.text = mapNetworkErrorCodeToText((error.networkError as any).statusCode);
         castedError.details = error.networkError.message;
     } else if (error.graphQLErrors && error.graphQLErrors.length) {
         castedError.header = SERVER_ERROR_HEADER;
-        /** Map error code, if any, to whatever human-readable advice */
-        castedError.text = SERVER_ERROR_TEXT;
+        castedError.text = error.graphQLErrors.map(mapGraphqlErrorCodeToText).join('\n');
         castedError.details = error.graphQLErrors.map(error => error.message).join(', ');
     }
 
@@ -73,6 +71,26 @@ function castAsError(error: Error): CastedError {
         text: CLIENT_ERROR_TEXT,
         details: error.message,
     };
+}
+
+function mapGraphqlErrorCodeToText(error: ApolloError['graphQLErrors'][0]): string {
+    switch (error.message) {
+        /**
+         * case ApolloError.USER_NOT_LOGGED_IN:
+         *     return 'Требуется авторизация';
+         */
+        default:
+            return SERVER_ERROR_TEXT;
+    }
+}
+
+function mapNetworkErrorCodeToText(statusCode: number): string {
+    switch (statusCode) {
+        case 400:
+            return 'Некорректный запрос. Возможно, указаны неправильные данные.';
+        default:
+            return NETWORK_ERROR_TEXT;
+    }
 }
 
 function isApolloError(error: UncastedError): error is ApolloError {
