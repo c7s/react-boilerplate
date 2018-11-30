@@ -13,13 +13,23 @@ import { IsomorphicStore } from '../IsomorphicStore';
 interface ClientConfig {
     link?: ApolloLink;
     fetch?: GlobalFetch['fetch'];
+    context?: Context;
+}
+
+interface Context {
+    statusCode?: number;
 }
 
 class IsomorphicApolloClient {
     private static client: ApolloClient<NormalizedCacheObject> | null;
+    private static context: Context | null;
 
     public static getClient(clientConfig?: ClientConfig): ApolloClient<NormalizedCacheObject> {
-        const { link, fetch } = clientConfig || { link: undefined, fetch: undefined };
+        const { link, fetch, context } = clientConfig || { link: undefined, fetch: undefined, context: undefined };
+
+        if (context) {
+            IsomorphicApolloClient.context = context;
+        }
 
         if (!SSR_MODE || link || fetch) {
             if (SSR_MODE) {
@@ -77,6 +87,11 @@ class IsomorphicApolloClient {
     private static onError(error: ErrorResponse) {
         if (error.networkError) {
             IsomorphicStore.getStore().dispatch(onMessageAdd(error));
+        }
+
+        if (IsomorphicApolloClient.context) {
+            IsomorphicApolloClient.context.statusCode =
+                (error.networkError && (error.networkError as any).statusCode) || 500;
         }
     }
 }

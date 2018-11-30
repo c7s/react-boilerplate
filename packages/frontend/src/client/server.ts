@@ -59,9 +59,9 @@ export default function serverRenderer(
 }
 
 function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: ReactLoadableStats, link?: ApolloLink) {
-    const client = IsomorphicApolloClient.getClient({ fetch, link });
-    const store = IsomorphicStore.getStore();
     const context: RouterContext = {};
+    const client = IsomorphicApolloClient.getClient({ fetch, link, context });
+    const store = IsomorphicStore.getStore();
     const sheet = new ServerStyleSheet();
     const modules: string[] = [];
 
