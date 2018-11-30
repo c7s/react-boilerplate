@@ -7,6 +7,7 @@ const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
@@ -150,6 +151,9 @@ const commonConfig = env => ({
             exclude: /export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+'/,
         }),
         env.build && new LodashModuleReplacementPlugin(),
+        new MomentLocalesPlugin({
+            localesToKeep: ['ru'],
+        }),
     ].filter(Boolean),
     resolve: {
         modules: ['node_modules', path.resolve(`./src/client`)],
