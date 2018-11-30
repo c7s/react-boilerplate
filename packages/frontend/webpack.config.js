@@ -5,6 +5,7 @@ const TimeFixPlugin = require('time-fix-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
@@ -167,11 +168,11 @@ const clientConfig = env => ({
     },
     plugins: [
         new webpack.DefinePlugin({ SSR_MODE: false }),
-
         env.build &&
             new ReactLoadablePlugin({
                 filename: './dist/react-loadable.json',
             }),
+        env.analyze && new BundleAnalyzerPlugin(),
     ].filter(Boolean),
     output: {
         filename: CLIENT_BUNDLE_NAME,

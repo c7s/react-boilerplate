@@ -36,6 +36,7 @@ module.exports = {
 
 -   `yarn start`: install dependencies, start apollo types generation watcher, start dev server and open browser.
 -   `yarn start:no-install`: skip installing dependencies. Use when node_modules must remain untouched (i.e. when you `npm link` something).
+-   `yarn analyze`: analyze (production-ready) bundle size.
 
 ### Build
 
