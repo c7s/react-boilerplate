@@ -2,10 +2,8 @@ import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { HelmetData } from 'react-helmet';
 import { getBundles } from 'react-loadable/webpack';
-import { Config } from '../../../../../../config';
 
 export interface HtmlProps {
-    config: Config;
     helmet?: HelmetData;
     styleTags?: string;
     spriteContent?: string;
@@ -17,7 +15,6 @@ export interface HtmlProps {
 }
 
 export const Html: React.StatelessComponent<HtmlProps> = ({
-    config,
     helmet,
     styleTags,
     spriteContent,
@@ -53,10 +50,10 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                                 dangerouslySetInnerHTML={{
                                     __html: Object.entries({
                                         /** Config part */
-                                        GRAPHQL_ENDPOINT: JSON.stringify(config.api.graphqlEndpoint),
-                                        GITHUB_TOKEN: JSON.stringify(config.api.githubToken),
-                                        PUBLIC_PATH: JSON.stringify(config.root.publicPath),
-                                        IS_OUTPUT_APP_INFO: JSON.stringify(config.root.isOutputAppInfo),
+                                        GRAPHQL_ENDPOINT: JSON.stringify(global.GRAPHQL_ENDPOINT),
+                                        GITHUB_TOKEN: JSON.stringify(global.GITHUB_TOKEN),
+                                        PUBLIC_PATH: JSON.stringify(global.PUBLIC_PATH),
+                                        IS_OUTPUT_APP_INFO: JSON.stringify(global.IS_OUTPUT_APP_INFO),
                                         /** Dynamic server data part */
                                         APOLLO_STATE: JSON.stringify(apolloState),
                                         REDUX_STATE: JSON.stringify(reduxState),

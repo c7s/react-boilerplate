@@ -9,7 +9,6 @@ import Helmet from 'react-helmet';
 import { getBundles } from 'react-loadable/webpack';
 import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
-import { config } from '../../config';
 import './isomorphic-globals-init';
 import { IsomorphicApp } from './modules/common/components/IsomorphicApp';
 import { IsomorphicApolloClient } from './modules/common/lib/IsomorphicApolloClient';
@@ -77,7 +76,6 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
             } else {
                 const html = React.createElement(Html, {
                     content,
-                    config,
                     helmet: Helmet.renderStatic(),
                     styleTags: sheet.getStyleTags(),
                     spriteContent: sprite.stringify(),
@@ -91,7 +89,6 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
         })
         .catch((error: Error) => {
             const html = React.createElement(Html, {
-                config,
                 ssrError: error,
             });
 
