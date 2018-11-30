@@ -49,10 +49,12 @@ class IsomorphicApolloClient {
                  * https://github.com/c7s/react-boilerplate/issues/62
                  */
                 watchQuery: {
+                    fetchPolicy: 'cache-and-network',
                     errorPolicy: 'all',
                     notifyOnNetworkStatusChange: true,
                 },
                 query: {
+                    fetchPolicy: 'cache-and-network',
                     errorPolicy: 'all',
                 },
             },
