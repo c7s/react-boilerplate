@@ -59,7 +59,7 @@ function getBabelOptions(ssrMode) {
     };
 }
 
-function commonLoaders(ssrMode) {
+function commonLoaders(ssrMode, env) {
     return [
         {
             test: /\.[tj]sx?$/,
@@ -77,7 +77,15 @@ function commonLoaders(ssrMode) {
         },
         {
             test: /[a-z][A-Za-z0-9]*Image\.(jpg|jpeg|png)$/,
-            loader: `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
+            loaders: [
+                `file-loader?name=images/[name]_[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
+                {
+                    loader: 'image-webpack-loader',
+                    options: {
+                        disable: !env.build,
+                    },
+                },
+            ],
         },
         {
             test: /[A-Z][A-Za-z0-9]*Icon\.svg$/,
@@ -167,7 +175,7 @@ const clientConfig = env => ({
         './src/client/client.ts',
     ].filter(Boolean),
     module: {
-        rules: commonLoaders(false),
+        rules: commonLoaders(false, env),
     },
     plugins: [
         new webpack.DefinePlugin({ SSR_MODE: false }),
@@ -183,12 +191,12 @@ const clientConfig = env => ({
     },
 });
 
-const serverConfig = () => ({
+const serverConfig = env => ({
     name: 'server',
     target: 'node',
     entry: ['@babel/polyfill/noConflict', './src/client/server.ts'],
     module: {
-        rules: commonLoaders(true),
+        rules: commonLoaders(true, env),
     },
     plugins: [
         new webpack.DefinePlugin({ SSR_MODE: true }),
