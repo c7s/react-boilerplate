@@ -1,13 +1,14 @@
-# C7S React Boilerplate
+# Frontend
 
 > **NOTE**: Please read our [Frontend GitHub wiki](https://github.com/c7s/react-boilerplate/wiki/Frontend).
 
 ## Prerequisites
 
+-   Installed git hooks (see root).
+-   Configured git (see root).
 -   Yarn v1.9.4;
 -   Node v8.11.1 (with npm v5.6.0);
 -   Latest WebStorm or Visual Studio Code;
--   [Configured git](#git-config).
 
 ## Configuration
 
@@ -27,7 +28,7 @@ module.exports = {
 
 > **NOTE**: It's mandatory to use `yarn i` instead of `yarn` or `yarn install`
 
--   `yarn i`: install dependencies with frozen lockfile and create necessary symlinks;
+-   `yarn i`: install dependencies with frozen lockfile;
 -   `yarn a`: shortcut for `yarn add -T -D`;
 -   `yarn r`: shortcut for `yarn remove`.
 
@@ -61,14 +62,3 @@ module.exports = {
 -   `lint:js`: run eslint;
 -   `lint:ts`: run tslint and tsc (typecheck);
 -   `lint:css`: run stylelint.
-
-### Git config
-
--   `yarn git:configure`: set global git config to conventional.
-
-### Git hooks (debug only)
-
--   `yarn preparecommitmsg`: add task prefix to commit message, if necessary;
--   `yarn commitmsg`: validate commit message;
--   `yarn precommit`: linters, ts compiler errors, prettier, yarn.lock integrity check;
--   `yarn postcommit`: hack to update repository in IDE.
