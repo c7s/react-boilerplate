@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { StoreState } from '../../../common/lib/IsomorphicStore';
 import { RouteComponentPropsQuery, withRouterQuery } from '../../../common/lib/withRouterQuery';
-import { LoadedFontStatus, Media } from '../../../common/store/types';
+import { onMessageAdd } from '../../../common/store/actions';
+import { LoadedFontStatus, Media, Message } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
 import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
 import { CurrentCommonProps } from './DevelopmentPageTemplate';
@@ -27,7 +28,9 @@ interface MapProps {
     media: Media;
 }
 
-interface DispatchProps {}
+interface DispatchProps {
+    onMessageAdd(message: Message): void;
+}
 
 /** Props to render Apollo layer. The most tricky part, so pay attention while adding/deleting Redux & Router */
 
@@ -81,7 +84,12 @@ function mapStateToProps(state: StoreState, ownProps: ReduxProps): MapProps {
 
 function mapDispatchToProps(dispatch: Dispatch, ownProps: ReduxProps): DispatchProps {
     console.warn(`${ownProps.name} could also be used`);
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators(
+        {
+            onMessageAdd,
+        },
+        dispatch,
+    );
 }
 
 /** Single export is mandatory */

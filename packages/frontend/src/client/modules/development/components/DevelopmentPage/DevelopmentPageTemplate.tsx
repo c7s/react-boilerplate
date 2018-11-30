@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { routes } from '../../../common/lib/routes';
 import { withTheme } from '../../../common/lib/withTheme';
-import { LoadedFontStatus, Media } from '../../../common/store/types';
+import { LoadedFontStatus, Media, Message } from '../../../common/store/types';
 import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
 import { Licenses } from './ApolloTypes/Licenses';
 import C7sIcon from './C7sIcon.svg';
@@ -24,6 +24,7 @@ interface Props extends CurrentCommonProps {
     name?: string;
     id: string;
     queryFirst?: string;
+    onMessageAdd(message: Message): void;
 }
 
 /** Shortcuts for current common (inner) props (could also be just Common(Inner)Props without generic part) */

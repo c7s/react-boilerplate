@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
-import { LoadedFontStatus, Media } from '../../../common/store/types';
+import { LoadedFontStatus, Media, Message } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
 import { CurrentCommonProps, DevelopmentPageTemplate } from './DevelopmentPageTemplate';
 
@@ -14,6 +14,7 @@ interface Props extends CurrentCommonProps {
     name?: string;
     id: string;
     queryFirst?: string;
+    onMessageAdd(message: Message): void;
 }
 
 interface State {
@@ -36,6 +37,12 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
                 counter: counter + 2,
             }));
         }, 1000);
+    }
+
+    componentDidUpdate(prevProps: Props): void {
+        if (this.props.licenses.error && !prevProps.licenses.error) {
+            this.props.onMessageAdd(this.props.licenses.error);
+        }
     }
 
     componentWillUnmount() {
