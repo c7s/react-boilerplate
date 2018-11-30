@@ -47,6 +47,9 @@ class IsomorphicApolloClient {
                 /**
                  * In case you want to set errorPolicy: all for mutations, see:
                  * https://github.com/c7s/react-boilerplate/issues/62
+                 *
+                 * In case you want to remove errorPolicy: all, bear in mind that this will break SSR in case of any
+                 * graphql or network error
                  */
                 watchQuery: {
                     fetchPolicy: 'cache-and-network',
