@@ -1,4 +1,3 @@
-import { Dictionary } from 'async';
 import { FontVariant } from 'fontfaceobserver';
 import { bitter } from './Bitter';
 import { createGlobalFontsStyle } from './createFontStyleTag';
@@ -23,7 +22,7 @@ interface FontFamilyConfig {
 }
 
 // Empty font variant means all values are 'normal'
-const fontFamilyConfig: Dictionary<FontFamilyConfig> = {
+const fontFamilyConfig: EnumedDict<FontFamily, FontFamilyConfig> = {
     [FontFamily.BITTER]: {
         variants: [{}, { weight: 'bold' }, { style: 'italic' }],
         testString: TestString.LATIN,

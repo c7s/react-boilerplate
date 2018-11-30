@@ -1,4 +1,3 @@
-import { Dictionary } from 'lodash';
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
 import Helmet from 'react-helmet';
@@ -51,7 +50,7 @@ interface Theme {
 
 /** In case of theme, mapping between theme name and theme object */
 
-const THEME_DICT: Dictionary<Theme> = {
+const THEME_DICT: EnumedDict<ThemeName, Theme> = {
     [ThemeName.DEFAULT]: {
         greetingColor: '#aaff00',
     },

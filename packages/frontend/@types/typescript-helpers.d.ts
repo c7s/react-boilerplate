@@ -48,3 +48,4 @@ interface ErrorCallback<E = Error> {
 /** https://stackoverflow.com/a/50677584/7785430 */
 type FirstArgument<T> = T extends (arg1: infer U, ...args: any[]) => any ? U : any;
 type SecondArgument<T> = T extends (arg1: any, arg2: infer U, ...args: any[]) => any ? U : any;
+type EnumedDict<Y extends string, T> = { [P in Y]: T };

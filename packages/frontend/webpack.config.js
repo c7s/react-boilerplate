@@ -6,6 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
@@ -53,6 +54,7 @@ function getBabelOptions(ssrMode) {
             ],
             process.env.NODE_ENV === 'development' && 'add-react-displayname',
             process.env.NODE_ENV === 'development' && '@babel/plugin-transform-react-jsx-source',
+            process.env.NODE_ENV !== 'development' && 'lodash',
         ].filter(Boolean),
     };
 }
@@ -139,6 +141,7 @@ const commonConfig = env => ({
         new FilterWarningsPlugin({
             exclude: /export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+'/,
         }),
+        env.build && new LodashModuleReplacementPlugin(),
     ].filter(Boolean),
     resolve: {
         modules: ['node_modules', path.resolve(`./src/client`)],

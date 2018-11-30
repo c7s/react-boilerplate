@@ -1,4 +1,3 @@
-import { Dictionary } from 'lodash';
 import * as React from 'react';
 import { compose } from 'redux';
 import { ThemeProvider, withTheme as withThemeStyledComponents } from 'styled-components';
@@ -13,7 +12,7 @@ type WithThemeProviderEnhancer<
 ) => React.StatelessComponent<Props>;
 
 function withTheme<THEME_NAME extends string, THEME extends object, Props extends CommonProps<THEME_NAME>>(
-    themeDict: Dictionary<THEME>,
+    themeDict: EnumedDict<THEME_NAME, THEME>,
 ): WithThemeProviderEnhancer<THEME_NAME, THEME, Props> {
     return compose(
         (Component: React.StatelessComponent<Omit<Props, 'themeName'>>) => {
