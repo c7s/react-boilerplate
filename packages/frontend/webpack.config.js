@@ -10,8 +10,6 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
-const nodeModulesPath = path.resolve(__dirname, 'node_modules');
-
 const SERVER_BUNDLE_NAME = 'server.bundle.js';
 const CLIENT_BUNDLE_NAME = 'client.bundle.js';
 
@@ -66,7 +64,7 @@ function commonLoaders(ssrMode, env) {
             test: /\.[tj]sx?$/,
             loader: 'babel-loader',
             options: getBabelOptions(ssrMode),
-            exclude: [nodeModulesPath],
+            exclude: /node_modules[\\/](?!(query-string|strict-uri-encode))/,
         },
         {
             test: /\.css$/,
@@ -160,6 +158,7 @@ const commonConfig = env => ({
         extensions: ['.js', '.ts', '.tsx'],
         alias: {
             'node-fetch$': 'node-fetch/lib/index.js',
+            'unfetch/polyfill$': 'unfetch/polyfill/index.js',
         },
     },
     stats: {
@@ -175,6 +174,7 @@ const clientConfig = env => ({
     target: 'web',
     entry: [
         '@babel/polyfill',
+        'unfetch/polyfill',
         !env.build && 'webpack-hot-middleware/client?reload=true',
         './src/client/client.ts',
     ].filter(Boolean),
