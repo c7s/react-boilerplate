@@ -2,9 +2,11 @@ import gql from 'graphql-tag';
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
 import { StoreState } from '../../../common/lib/IsomorphicStore';
-import { RouteComponentPropsQuery, withRouterQuery } from '../../../common/lib/withRouterQuery';
+import { routes } from '../../../common/lib/routes';
+import { withRouter } from '../../../common/lib/withRouter';
 import { onMessageAdd } from '../../../common/store/actions';
 import { LoadedFontStatus, Media, Message } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
@@ -19,7 +21,7 @@ interface Props extends CurrentCommonProps {
 
 /** Props to render Redux layer */
 
-type ReduxProps = Props & RouteComponentPropsQuery<{ id: string }, { queryFirst?: string; querySecond?: string }>;
+type ReduxProps = Props & RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>>;
 
 /** Types for Redux */
 
@@ -56,7 +58,7 @@ const LICENSES_QUERY = gql`
 
 /** HOC order is mandatory. Don't forget to make query result Partial<> (like Query<Partial<Licenses>>) */
 
-const DevelopmentPageConnect = withRouterQuery(
+const DevelopmentPageConnect = withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps,
@@ -65,8 +67,14 @@ const DevelopmentPageConnect = withRouterQuery(
             {licenses => (
                 <DevelopmentPageBehaviour
                     {...props}
-                    queryFirst={props.queryParams.queryFirst}
-                    id={props.match.params.id}
+                    queryFirst={
+                        props.match.params.query
+                            ? !Array.isArray(props.match.params.query.queryFirst)
+                                ? props.match.params.query.queryFirst
+                                : 'no data'
+                            : 'no data'
+                    }
+                    id={props.match.params.id ? props.match.params.id : 'no data'}
                     licenses={licenses}
                 />
             )}

@@ -10,7 +10,6 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true,
         "module": "esnext"
     },
     "include": ["src", "@types", "config"]

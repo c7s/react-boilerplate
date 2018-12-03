@@ -1,8 +1,6 @@
-import { combineReducers, compose, createStore, Store } from 'redux';
+import { combineReducers, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import persistState, { mergePersistedState } from 'redux-localstorage';
 import { CommonState } from '../../store/types';
-import { getLocalStorage } from './getLocalStorage';
 import { reducers } from './reducers';
 
 interface StoreState {
@@ -26,13 +24,11 @@ class IsomorphicStore {
         }
 
         const store = createStore(
-            compose(mergePersistedState())(
-                combineReducers({
-                    ...reducers,
-                }),
-            ),
+            combineReducers({
+                ...reducers,
+            }),
             global.REDUX_STATE || {},
-            composeWithDevTools(persistState(getLocalStorage(), 'reduxStoreLocalPart')),
+            composeWithDevTools(),
         );
 
         if (module.hot) {

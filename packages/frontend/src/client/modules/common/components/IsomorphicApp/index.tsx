@@ -8,7 +8,7 @@ import { Store } from 'redux';
 import { GlobalFontsStyle, observeFontFamilies } from '../../lib/fonts';
 import { StoreState } from '../../lib/IsomorphicStore';
 import { observeResize } from '../../lib/media';
-import { routes } from '../../lib/routes';
+import { routesWithComponents } from '../../lib/routes';
 /** Log application information */
 import './app-info-logger.ts';
 import { ExternalAndGlobalStyles } from './ExternalAndGlobalStyles';
@@ -52,8 +52,8 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
                                 <IsomorphicRouter location={this.props.location} context={this.props.context}>
                                     <ScrollToTop>
                                         <Switch>
-                                            {Object.values(routes).map(route => (
-                                                <Route key={route.name} {...route} />
+                                            {Object.values(routesWithComponents).map(route => (
+                                                <Route key={(route as { name: string }).name} {...route} />
                                             ))}
                                         </Switch>
                                     </ScrollToTop>
