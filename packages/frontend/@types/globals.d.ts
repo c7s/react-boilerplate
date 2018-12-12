@@ -12,6 +12,7 @@ declare namespace NodeJS {
         GRAPHQL_ENDPOINT: string;
         GITHUB_TOKEN: string;
         PUBLIC_PATH: string;
+        CANONICAL_ROBOTS_HOST: string;
         IS_OUTPUT_APP_INFO: boolean;
         /** Dynamic server data part */
         APOLLO_STATE: { [key: string]: { [key: string]: object } } | undefined;

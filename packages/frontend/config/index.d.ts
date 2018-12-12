@@ -8,6 +8,7 @@ declare namespace ConfigNamespace {
 
     interface RootConfig {
         publicPath: string;
+        canonicalRobotsHost: string;
         devServerPort: number;
         isOutputAppInfo: boolean;
     }

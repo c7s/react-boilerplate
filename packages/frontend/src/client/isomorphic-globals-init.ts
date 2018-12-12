@@ -10,6 +10,7 @@ if (SSR_MODE) {
     global.GRAPHQL_ENDPOINT = config.api.graphqlEndpoint;
     global.GITHUB_TOKEN = config.api.githubToken;
     global.PUBLIC_PATH = config.root.publicPath;
+    global.CANONICAL_ROBOTS_HOST = config.root.canonicalRobotsHost;
     global.IS_OUTPUT_APP_INFO = config.root.isOutputAppInfo;
 }
 

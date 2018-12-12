@@ -45,16 +45,17 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
                             <React.Fragment>
                                 <GlobalFontsStyle />
                                 <ExternalAndGlobalStyles />
-                                <InitialHelmet />
                                 <Notificator />
                                 <IsomorphicRouter location={this.props.location} context={this.props.context}>
-                                    <ScrollToTop>
-                                        <Switch>
-                                            {Object.values(routesWithComponents).map(route => (
-                                                <Route key={(route as { name: string }).name} {...route} />
-                                            ))}
-                                        </Switch>
-                                    </ScrollToTop>
+                                    <InitialHelmet>
+                                        <ScrollToTop>
+                                            <Switch>
+                                                {Object.values(routesWithComponents).map(route => (
+                                                    <Route key={(route as { name: string }).name} {...route} />
+                                                ))}
+                                            </Switch>
+                                        </ScrollToTop>
+                                    </InitialHelmet>
                                 </IsomorphicRouter>
                             </React.Fragment>
                         </RootErrorBoundary>
