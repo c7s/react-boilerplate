@@ -23,17 +23,17 @@ export const InitialHelmet: React.StatelessComponent = ({ children }) => (
             <link rel="icon" type="image/png" sizes="16x16" href={favicon16x16} />
             <link rel="mask-icon" href={safariPinnedTab} color="#5bbad5" />
             <link rel="shortcut icon" href={favicon} />
-            <meta name="apple-mobile-web-app-title" content="React Boilerplate" />
-            <meta name="application-name" content="React Boilerplate" />
+            <meta name="apple-mobile-web-app-title" content={APP_NAME} />
+            <meta name="application-name" content={APP_NAME} />
             <meta name="msapplication-TileColor" content="#da532c" />
             <meta name="theme-color" content="#ffffff" />
 
             <link rel="manifest" href={`${WEB_MANIFEST_PATH}?${BUILD_TIMESTAMP}`} />
             <meta name="msapplication-config" content={`${BROWSER_CONFIG_PATH}?${BUILD_TIMESTAMP}`} />
 
-            <title>React Boilerplate</title>
+            <title>{APP_NAME}</title>
         </Helmet>
-        <OpenGraph title={'React Boilerplate'} />
+        <OpenGraph title={APP_NAME} />
         {children}
     </React.Fragment>
 );

@@ -11,7 +11,7 @@ type CurrentInnerCommonProps = CommonInnerProps;
 
 const RootPageTemplate: React.StatelessComponent<Props> = ({ className }) => (
     <Root className={className}>
-        <Header>React-boilerplate</Header>
+        <Header>{APP_NAME}</Header>
         <Link
             to={routes.DEVELOPMENT.pathWithParams({
                 name: 'Sir',

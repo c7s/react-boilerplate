@@ -18,6 +18,10 @@ const WEB_MANIFEST_PATH = '/manifest.json';
 const BROWSER_CONFIG_PATH = '/browserconfig.xml';
 const ROBOTS_PATH = '/robots.txt';
 
+/** Name the project here */
+const APP_NAME = 'React Boilerplate';
+const APP_SHORT_NAME = 'R.B.';
+
 function getBabelOptions(ssrMode) {
     return {
         cacheDirectory: true,
@@ -120,6 +124,8 @@ const commonConfig = env => ({
         // TODO: sort out issue with iconv-loader
         new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
         new webpack.DefinePlugin({
+            APP_NAME: JSON.stringify(APP_NAME),
+            APP_SHORT_NAME: JSON.stringify(APP_SHORT_NAME),
             CLIENT_BUNDLE_NAME: JSON.stringify(CLIENT_BUNDLE_NAME),
             WEB_MANIFEST_PATH: JSON.stringify(WEB_MANIFEST_PATH),
             BROWSER_CONFIG_PATH: JSON.stringify(BROWSER_CONFIG_PATH),

@@ -2,8 +2,8 @@ import androidChrome192x192 from '../../favicon/android-chrome-192x192.png';
 import androidChrome256x256 from '../../favicon/android-chrome-256x256.png';
 
 export const webManifest = {
-    name: 'React Boilerplate',
-    short_name: 'React Boilerplate',
+    name: APP_NAME,
+    short_name: APP_SHORT_NAME,
     icons: [
         {
             src: androidChrome192x192,
