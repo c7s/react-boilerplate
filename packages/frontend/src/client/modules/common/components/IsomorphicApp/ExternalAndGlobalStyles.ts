@@ -6,10 +6,10 @@ import { fontFamily, FontFamily } from '../../lib/fonts';
 import { MIN_WIDTH } from '../../lib/media';
 
 const globalCss = css`
-    /* Default font and min-width */
     body {
-        ${fontFamily(FontFamily.BITTER)};
         min-width: ${MIN_WIDTH}px;
+        ${fontFamily(FontFamily.BITTER)};
+        background-color: #ebede8;
     }
 `;
 
