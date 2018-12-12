@@ -13,7 +13,7 @@ import './isomorphic-globals-init';
 import { IsomorphicApp } from './modules/common/components/IsomorphicApp';
 import { IsomorphicApolloClient } from './modules/common/lib/IsomorphicApolloClient';
 import { IsomorphicStore } from './modules/common/lib/IsomorphicStore';
-import { browserConfig, Html, HtmlProps, webManifest } from './modules/common/lib/server-templates';
+import { browserConfig, Html, HtmlProps, robots, webManifest } from './modules/common/lib/server-templates';
 
 /** Incomplete */
 interface WebpackHotServerMiddlewareStats {
@@ -52,6 +52,8 @@ export default function serverRenderer(
             sendWebManifest(res);
         } else if (req.path === BROWSER_CONFIG_PATH) {
             sendBrowserConfig(res);
+        } else if (req.path === ROBOTS_PATH) {
+            sendRobots(res);
         } else {
             sendHtmlOrRedirect(req, res, getReactLoadableStats(stats), link);
         }
@@ -121,6 +123,12 @@ function sendBrowserConfig(res: Response) {
     res.status(200)
         .header('Content-Type', 'application/xml')
         .send(browserConfig);
+}
+
+function sendRobots(res: Response) {
+    res.status(200)
+        .header('Content-Type', 'text/plain')
+        .send(robots);
 }
 
 function sendRedirect(res: Response, context: RouterContext) {

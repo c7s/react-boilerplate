@@ -2,6 +2,7 @@
 declare const CLIENT_BUNDLE_NAME: string;
 declare const WEB_MANIFEST_PATH: string;
 declare const BROWSER_CONFIG_PATH: string;
+declare const ROBOTS_PATH: string;
 declare const BUILD_TIMESTAMP: number;
 declare const SSR_MODE: boolean;
 

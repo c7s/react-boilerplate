@@ -16,6 +16,7 @@ const CLIENT_BUNDLE_NAME = 'client.bundle.js';
 /** These paths are handled by frontend server, so they must be relative */
 const WEB_MANIFEST_PATH = '/manifest.json';
 const BROWSER_CONFIG_PATH = '/browserconfig.xml';
+const ROBOTS_PATH = '/robots.txt';
 
 function getBabelOptions(ssrMode) {
     return {
@@ -122,6 +123,7 @@ const commonConfig = env => ({
             CLIENT_BUNDLE_NAME: JSON.stringify(CLIENT_BUNDLE_NAME),
             WEB_MANIFEST_PATH: JSON.stringify(WEB_MANIFEST_PATH),
             BROWSER_CONFIG_PATH: JSON.stringify(BROWSER_CONFIG_PATH),
+            ROBOTS_PATH: JSON.stringify(ROBOTS_PATH),
             BUILD_TIMESTAMP: Date.now(),
         }),
         new CleanWebpackPlugin(['dist'], {
