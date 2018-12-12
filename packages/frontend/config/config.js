@@ -18,7 +18,7 @@ if (!process.env.REACT_BOILERPLATE_ENV) {
 /** Use 'process.env.REACT_BOILERPLATE_ENV' to adjust variables according to current environment */
 module.exports = {
     root: {
-        /** Note trailing slash */
+        /** Note trailing slash. May also be absolute */
         publicPath: process.env.REACT_BOILERPLATE_PUBLIC_PATH || '/static/',
         devServerPort: 3000,
         isOutputAppInfo: process.env.REACT_BOILERPLATE_ENV !== Env.PROD,
