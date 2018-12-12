@@ -5,7 +5,6 @@ import favicon16x16 from '../../favicon/favicon-16x16.png';
 import favicon32x32 from '../../favicon/favicon-32x32.png';
 import favicon from '../../favicon/favicon.ico';
 import safariPinnedTab from '../../favicon/safari-pinned-tab.svg';
-import { MIN_WIDTH } from '../../lib/media';
 /** Generate files for manifest and msapplication-config favicon */
 import '../../lib/server-templates/index';
 
@@ -13,7 +12,7 @@ export const InitialHelmet: React.StatelessComponent = () => (
     <Helmet>
         <html lang="ru" />
         <meta charSet="utf-8" />
-        <meta name="viewport" content={`width=${MIN_WIDTH}, initial-scale=1, maximum-scale=1`} />
+        <meta name="viewport" content={`width=device-width`} />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
 
