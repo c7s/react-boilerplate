@@ -12,7 +12,13 @@ type CurrentInnerCommonProps = CommonInnerProps;
 const RootPageTemplate: React.StatelessComponent<Props> = ({ className }) => (
     <Root className={className}>
         <Header>React-boilerplate</Header>
-        <Link to={routes.DEVELOPMENT.pathWithParams({ name: 'Sir', id: '1', query: { queryFirst: 'queryValue' } })}>
+        <Link
+            to={routes.DEVELOPMENT.pathWithParams({
+                name: 'Sir',
+                id: '1',
+                query: { querySingle: 'queryValue', queryArray: ['array'] },
+            })}
+        >
             Development
         </Link>
     </Root>

@@ -7,7 +7,7 @@ export const routes = {
         name: 'ROOT',
         exact: true,
     }),
-    DEVELOPMENT: route<'name', 'id', 'queryFirst' | 'querySecond', 'hashValue'>({
+    DEVELOPMENT: route<'name', 'id', 'querySingle' | 'querySingle2', 'queryArray', 'hashValue'>({
         path: '/development/:name/:id?',
         name: 'DEVELOPMENT',
     }),

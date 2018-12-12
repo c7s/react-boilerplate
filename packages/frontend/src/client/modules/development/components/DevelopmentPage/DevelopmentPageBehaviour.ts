@@ -13,7 +13,8 @@ interface Props extends CurrentCommonProps {
     media: Media;
     name?: string;
     id: string;
-    queryFirst?: string;
+    querySingle?: string;
+    queryArray?: string[];
     onMessageAdd(message: Message): void;
 }
 

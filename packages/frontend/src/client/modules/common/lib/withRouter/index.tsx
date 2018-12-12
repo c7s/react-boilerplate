@@ -18,7 +18,9 @@ function withRouterParams<P extends RouteComponentProps<any>>(Component: React.C
                       match: {
                           params: merge(
                               {},
-                              props.location.search ? { query: queryString.parse(props.location.search) } : {},
+                              props.location.search
+                                  ? { query: queryString.parse(props.location.search, { arrayFormat: 'bracket' }) }
+                                  : {},
                               props.location.hash ? { hash: props.location.hash } : {},
                           ),
                       },

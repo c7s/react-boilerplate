@@ -67,13 +67,8 @@ const DevelopmentPageConnect = withRouter(
             {licenses => (
                 <DevelopmentPageBehaviour
                     {...props}
-                    queryFirst={
-                        props.match.params.query
-                            ? !Array.isArray(props.match.params.query.queryFirst)
-                                ? props.match.params.query.queryFirst
-                                : 'no data'
-                            : 'no data'
-                    }
+                    querySingle={props.match.params.query && props.match.params.query.querySingle}
+                    queryArray={props.match.params.query && props.match.params.query.queryArray}
                     id={props.match.params.id ? props.match.params.id : 'no data'}
                     licenses={licenses}
                 />

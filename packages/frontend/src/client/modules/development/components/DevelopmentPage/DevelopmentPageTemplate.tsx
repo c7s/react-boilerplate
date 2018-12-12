@@ -22,7 +22,8 @@ interface Props extends CurrentCommonProps {
     media: Media;
     name?: string;
     id: string;
-    queryFirst?: string;
+    querySingle?: string;
+    queryArray?: string[];
     onMessageAdd(message: Message): void;
 }
 
@@ -70,7 +71,8 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
         loadedFontStatus,
         media,
         id,
-        queryFirst,
+        querySingle,
+        queryArray,
         name,
         theme /** can't get 'themeName' here*/,
     }) => (
@@ -83,7 +85,8 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
             <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
             <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
             <UrlData>Page id: {id}</UrlData>
-            <UrlData>QueryFirst: {queryFirst}</UrlData>
+            <UrlData>QuerySingle: {querySingle}</UrlData>
+            <UrlData>QueryArray: {JSON.stringify(queryArray)}</UrlData>
             <MediaDisplay>Media: {JSON.stringify(media)}</MediaDisplay>
             <StateCounter>State counter: {counter}</StateCounter>
             <button onClick={onClick}>Droppy</button>
