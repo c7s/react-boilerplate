@@ -1,15 +1,19 @@
 import { Width } from './mediaWidth';
 
-function getWidth(exactWidth: number): Width {
-    if (exactWidth >= Width.XL) {
+function getWidth(): Width {
+    if (SSR_MODE) {
+        throw new Error('getWidth is client-side only operation');
+    }
+
+    if (window.matchMedia(`(min-width: ${Width.XL}px)`).matches) {
         return Width.XL;
     }
 
-    if (exactWidth >= Width.L) {
+    if (window.matchMedia(`(min-width: ${Width.L}px)`).matches) {
         return Width.L;
     }
 
-    if (exactWidth >= Width.M) {
+    if (window.matchMedia(`(min-width: ${Width.M}px)`).matches) {
         return Width.M;
     }
 

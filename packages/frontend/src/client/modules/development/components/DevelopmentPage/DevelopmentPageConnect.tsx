@@ -8,7 +8,7 @@ import { StoreState } from '../../../common/lib/IsomorphicStore';
 import { routes } from '../../../common/lib/routes';
 import { withRouter } from '../../../common/lib/withRouter';
 import { onMessageAdd } from '../../../common/store/actions';
-import { LoadedFontStatus, Media, Message } from '../../../common/store/types';
+import { LoadedFontStatus, Message } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
 import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
 import { CurrentCommonProps } from './DevelopmentPageTemplate';
@@ -27,7 +27,6 @@ type ReduxProps = Props & RouteComponentProps<FirstArgument<typeof routes.DEVELO
 
 interface MapProps {
     loadedFontStatus: LoadedFontStatus;
-    media: Media;
 }
 
 interface DispatchProps {
@@ -77,16 +76,13 @@ const DevelopmentPageConnect = withRouter(
     )),
 );
 
-function mapStateToProps(state: StoreState, ownProps: ReduxProps): MapProps {
-    console.warn(`${ownProps.name} could also be used`);
+function mapStateToProps(state: StoreState /*, ownProps: ReduxProps */): MapProps {
     return {
         loadedFontStatus: state.common.loadedFontStatus,
-        media: state.common.media,
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch, ownProps: ReduxProps): DispatchProps {
-    console.warn(`${ownProps.name} could also be used`);
+function mapDispatchToProps(dispatch: Dispatch /*, ownProps: ReduxProps */): DispatchProps {
     return bindActionCreators(
         {
             onMessageAdd,

@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
-import { LoadedFontStatus, Media, Message } from '../../../common/store/types';
+import { LoadedFontStatus, Message } from '../../../common/store/types';
 import { Licenses } from './ApolloTypes/Licenses';
 import { CurrentCommonProps, DevelopmentPageTemplate } from './DevelopmentPageTemplate';
 
@@ -10,7 +10,6 @@ import { CurrentCommonProps, DevelopmentPageTemplate } from './DevelopmentPageTe
 interface Props extends CurrentCommonProps {
     licenses: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
-    media: Media;
     name?: string;
     id: string;
     querySingle?: string;

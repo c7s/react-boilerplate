@@ -9,8 +9,6 @@ export const onFontVariantLoad = actionCreator<{ fontFamily: FontFamily; fontVar
     'ON_FONT_VARIANT_LOAD',
 );
 
-export const onMediaExactWidthChange = actionCreator<number>('ON_MEDIA_EXACT_WIDTH_CHANGE');
-
 export const onMessageAdd = actionCreator<Message>('ON_MESSAGE_ADD');
 
 export const onMessageRemove = actionCreator<string>('ON_MESSAGE_REMOVE');

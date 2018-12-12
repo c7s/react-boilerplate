@@ -7,7 +7,6 @@ import { Route, Switch } from 'react-router';
 import { Store } from 'redux';
 import { GlobalFontsStyle, observeFontFamilies } from '../../lib/fonts';
 import { StoreState } from '../../lib/IsomorphicStore';
-import { observeResize } from '../../lib/media';
 import { routesWithComponents } from '../../lib/routes';
 /** Log application information */
 import './app-info-logger.ts';
@@ -33,9 +32,8 @@ export interface IsomorphicAppProps {
 @isomorphicHot(module)
 export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
     componentDidMount() {
-        // These functions must be called client-side only and immediately
+        // This function must be called client-side only and immediately
         observeFontFamilies();
-        observeResize();
     }
 
     render() {

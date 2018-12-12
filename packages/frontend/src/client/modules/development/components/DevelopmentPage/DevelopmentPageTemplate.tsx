@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { routes } from '../../../common/lib/routes';
 import { withTheme } from '../../../common/lib/withTheme';
-import { LoadedFontStatus, Media, Message } from '../../../common/store/types';
+import { LoadedFontStatus, Message } from '../../../common/store/types';
 import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
 import { Licenses } from './ApolloTypes/Licenses';
 import C7sIcon from './C7sIcon.svg';
@@ -19,7 +19,6 @@ interface Props extends CurrentCommonProps {
     counter: number;
     licenses: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
-    media: Media;
     name?: string;
     id: string;
     querySingle?: string;
@@ -69,7 +68,6 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
         onClick,
         licenses,
         loadedFontStatus,
-        media,
         id,
         querySingle,
         queryArray,
@@ -87,7 +85,6 @@ const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<Theme
             <UrlData>Page id: {id}</UrlData>
             <UrlData>QuerySingle: {querySingle}</UrlData>
             <UrlData>QueryArray: {JSON.stringify(queryArray)}</UrlData>
-            <MediaDisplay>Media: {JSON.stringify(media)}</MediaDisplay>
             <StateCounter>State counter: {counter}</StateCounter>
             <button onClick={onClick}>Droppy</button>
             <LicensesDisplay>
@@ -114,8 +111,6 @@ const LoadedFontStatusDisplay = styled.div`
 `;
 
 const UrlData = styled.div``;
-
-const MediaDisplay = styled.div``;
 
 const StateCounter = styled.div``;
 
