@@ -25,7 +25,6 @@ module.exports = {
     },
     api: {
         graphqlEndpoint: process.env.REACT_BOILERPLATE_GRAPHQL_ENDPOINT || 'https://api.github.com/graphql',
-        restUrl: process.env.REACT_BOILERPLATE_REST_URL || '',
         githubToken: process.env.REACT_BOILERPLATE_GITHUB_TOKEN || '',
     },
 };
