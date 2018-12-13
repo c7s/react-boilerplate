@@ -69,13 +69,9 @@ export const Html: React.StatelessComponent<HtmlProps> = ({
                             />
                             {bundles
                                 ? bundles.map(bundle => (
-                                      <script
-                                          key={bundle.id}
-                                          src={`${global.PUBLIC_PATH}${bundle.file}?${BUILD_TIMESTAMP}`}
-                                      />
+                                      <script key={bundle.id} src={`${global.PUBLIC_PATH}${bundle.file}`} />
                                   ))
                                 : null}
-                            <script src={`${global.PUBLIC_PATH}${CLIENT_BUNDLE_NAME}?${BUILD_TIMESTAMP}`} />
                         </React.Fragment>,
                     )}`,
                 }}

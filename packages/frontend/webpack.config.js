@@ -12,7 +12,6 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 const SERVER_BUNDLE_NAME = 'server.bundle.js';
-const CLIENT_BUNDLE_NAME = 'client.bundle.js';
 
 /** These paths are handled by frontend server, so they must be relative */
 const WEB_MANIFEST_PATH = '/manifest.json';
@@ -127,7 +126,6 @@ const commonConfig = env => ({
         new webpack.DefinePlugin({
             APP_NAME: JSON.stringify(APP_NAME),
             APP_SHORT_NAME: JSON.stringify(APP_SHORT_NAME),
-            CLIENT_BUNDLE_NAME: JSON.stringify(CLIENT_BUNDLE_NAME),
             WEB_MANIFEST_PATH: JSON.stringify(WEB_MANIFEST_PATH),
             BROWSER_CONFIG_PATH: JSON.stringify(BROWSER_CONFIG_PATH),
             ROBOTS_PATH: JSON.stringify(ROBOTS_PATH),
@@ -200,7 +198,7 @@ const clientConfig = env => ({
             }),
     ].filter(Boolean),
     output: {
-        filename: CLIENT_BUNDLE_NAME,
+        filename: '[name].[hash].js',
         path: path.resolve(__dirname, 'dist', 'static'),
     },
 });

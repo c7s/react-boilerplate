@@ -1,7 +1,6 @@
 /** Webpack-defined, not real variables */
 declare const APP_NAME: string;
 declare const APP_SHORT_NAME: string;
-declare const CLIENT_BUNDLE_NAME: string;
 declare const WEB_MANIFEST_PATH: string;
 declare const BROWSER_CONFIG_PATH: string;
 declare const ROBOTS_PATH: string;

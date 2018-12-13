@@ -1,6 +1,6 @@
 import { ApolloLink } from 'apollo-link';
 import { Request, Response } from 'express';
-import { filter, uniq } from 'lodash';
+import { filter, flatten, uniq, uniqBy } from 'lodash';
 import fetch from 'node-fetch';
 import * as React from 'react';
 import { getDataFromTree } from 'react-apollo';
@@ -83,7 +83,7 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
                     spriteContent: sprite.stringify(),
                     apolloState: client.extract(),
                     reduxState: store.getState(),
-                    bundles: getNormalizedBundles(reactLoadableStats, modules),
+                    bundles: getCompleteBundles(reactLoadableStats, modules),
                 });
 
                 sendHtml(res, html, context.statusCode);
@@ -137,8 +137,20 @@ function sendRedirect(res: Response, context: RouterContext) {
         .send();
 }
 
-function getNormalizedBundles(reactLoadableStats: ReactLoadableStats, modules: string[]) {
-    return filter(getBundles(reactLoadableStats, uniq(modules)), bundle => !bundle.file.includes('.js.map'));
+function getCompleteBundles(reactLoadableStats: ReactLoadableStats, modules: string[]) {
+    return stripSourceMaps([...getBundles(reactLoadableStats, uniq(modules)), ...getCommonBundles(reactLoadableStats)]);
+}
+
+/** Returns an array of bundles with non-react-loadable files, one random bundle for each file name */
+function getCommonBundles(reactLoadableStats: ReactLoadableStats) {
+    return filter(
+        uniqBy(flatten(Object.values(reactLoadableStats)), bundle => bundle.file),
+        bundle => !/^\d+\./.test(bundle.file),
+    );
+}
+
+function stripSourceMaps(bundles: ReturnType<typeof getBundles>) {
+    return filter(bundles, bundle => !bundle.file.includes('.js.map'));
 }
 
 function getReactLoadableStats(stats: WebpackHotServerMiddlewareStats | FrontendServerStats): ReactLoadableStats {
