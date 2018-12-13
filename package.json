@@ -34,7 +34,7 @@
         "hooks": {
             "prepare-commit-msg": "yarn prepare-commit-msg",
             "commit-msg": "yarn commit-msg",
-            "pre-commit": "yarn pre-commit && lerna run pre-commit",
+            "pre-commit": "yarn pre-commit & lerna run --concurrency=1 --stream pre-commit",
             "post-commit": "yarn post-commit"
         }
     },
