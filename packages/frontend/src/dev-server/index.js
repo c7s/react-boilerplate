@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -11,6 +12,8 @@ const webpackConfig = getWebpackConfig({});
 const app = express();
 
 const compiler = webpack(webpackConfig);
+
+app.use(express.static(path.resolve(__dirname, '..', 'client', 'public')));
 
 app.use(
     webpackDevMiddleware(compiler, {

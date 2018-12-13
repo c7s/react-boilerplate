@@ -2,6 +2,7 @@ const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const TimeFixPlugin = require('time-fix-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
@@ -175,6 +176,7 @@ const clientConfig = env => ({
     },
     plugins: [
         new webpack.DefinePlugin({ SSR_MODE: false }),
+        new CopyWebpackPlugin([{ from: './src/client/public', to: '../public' }]),
         env.build &&
             new ReactLoadablePlugin({
                 filename: './dist/react-loadable.json',

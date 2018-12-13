@@ -80,6 +80,7 @@
         "clean-webpack-plugin": "~0.1.19",
         "commander": "~2.17.1",
         "concurrently": "~4.1.0",
+        "copy-webpack-plugin": "~4.6.0",
         "create-symlink": "~1.0.0",
         "css-loader": "~1.0.0",
         "del": "~3.0.0",
