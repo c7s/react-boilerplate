@@ -136,22 +136,6 @@ const commonConfig = env => ({
             dry: false,
             verbose: false,
         }),
-        !env.build &&
-            new UnusedWebpackPlugin({
-                directories: [path.resolve(`./src/client`)],
-                exclude: [
-                    // Readme files are fine
-                    'README.md',
-                    // Apollo types are generated
-                    'ApolloTypes',
-                    // These files are ignored due to babel usage (instead of tsc)
-                    '*.d.ts',
-                    // Entry points
-                    'client.ts',
-                    'server.ts',
-                ],
-                root: path.resolve(`./src/client`),
-            }),
         // https://github.com/babel/babel/issues/8361
         new FilterWarningsPlugin({
             exclude: /export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+'/,
@@ -196,6 +180,22 @@ const clientConfig = env => ({
                 filename: './dist/react-loadable.json',
             }),
         env.analyze && new BundleAnalyzerPlugin(),
+        !env.build &&
+            new UnusedWebpackPlugin({
+                directories: [path.resolve(`./src/client`)],
+                exclude: [
+                    // Readme files are fine
+                    'README.md',
+                    // Apollo types are generated
+                    'ApolloTypes',
+                    // These files are ignored due to babel usage (instead of tsc)
+                    '*.d.ts',
+                    // Entry points
+                    'client.ts',
+                    'server.ts',
+                ],
+                root: path.resolve(`./src/client`),
+            }),
     ].filter(Boolean),
     output: {
         filename: CLIENT_BUNDLE_NAME,
