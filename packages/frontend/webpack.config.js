@@ -158,6 +158,44 @@ const commonConfig = env => ({
     },
 });
 
+const cacheableDependencies = [
+    'apollo-cache-inmemory',
+    'apollo-client',
+    'apollo-link',
+    'apollo-link-error',
+    'apollo-link-http',
+    'autobind-decorator',
+    'fontfaceobserver',
+    'graphql',
+    'graphql-tag',
+    'lodash',
+    'minireset.css',
+    'moment',
+    'normalize.css',
+    'path-to-regexp',
+    'query-string',
+    'react',
+    'react-apollo',
+    'react-dom',
+    'react-helmet',
+    'react-hot-loader',
+    'react-loadable',
+    'react-redux',
+    'react-router-dom',
+    'redux',
+    'redux-devtools-extension',
+    'reset-css',
+    'styled-components',
+    'svg-sprite-loader',
+    'typescript-fsa',
+    'typescript-fsa-reducers',
+    'unfetch',
+    'core-js',
+    'stylis',
+    'history',
+    'zen-observable',
+];
+
 const clientConfig = env => ({
     name: 'client',
     target: 'web',
@@ -209,7 +247,7 @@ const clientConfig = env => ({
         splitChunks: {
             cacheGroups: {
                 vendor: {
-                    test: /[\\/]node_modules[\\/]/,
+                    test: new RegExp(`[\\\\/]node_modules[\\\\/](?:${cacheableDependencies.join('|')})`),
                     name: 'vendors',
                     chunks: 'all',
                 },
