@@ -11,8 +11,6 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
-const SERVER_BUNDLE_NAME = 'server.bundle.js';
-
 /** These paths are handled by frontend server, so they must be relative */
 const WEB_MANIFEST_PATH = '/manifest.json';
 const BROWSER_CONFIG_PATH = '/browserconfig.xml';
@@ -234,7 +232,7 @@ const serverConfig = env => ({
         }),
     ],
     output: {
-        filename: SERVER_BUNDLE_NAME,
+        filename: 'server.bundle.js',
         path: path.resolve(__dirname, 'dist'),
         libraryTarget: 'commonjs2',
     },
