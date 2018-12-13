@@ -1,5 +1,5 @@
 import { combineReducers, createStore, Store } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { CommonState } from '../../store/types';
 import { reducers } from './reducers';
 
