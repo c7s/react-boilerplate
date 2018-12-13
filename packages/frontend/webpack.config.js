@@ -179,6 +179,8 @@ const clientConfig = env => ({
             new ReactLoadablePlugin({
                 filename: './dist/react-loadable.json',
             }),
+        // https://webpack.js.org/guides/caching/
+        new webpack.HashedModuleIdsPlugin(),
         env.analyze && new BundleAnalyzerPlugin(),
         !env.build &&
             new UnusedWebpackPlugin({
@@ -198,8 +200,23 @@ const clientConfig = env => ({
             }),
     ].filter(Boolean),
     output: {
-        filename: '[name].[hash].js',
+        // https://webpack.js.org/guides/caching/
+        filename: env.build ? '[name].[contenthash].js' : '[name].[hash].js',
         path: path.resolve(__dirname, 'dist', 'static'),
+    },
+    // https://webpack.js.org/guides/caching/
+    // Moving runtime to separate bundle makes it unreachable
+    // Also main bundle hash is changed every build anyway due to BUILD_TIMESTAMP passing
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
+        },
     },
 });
 
