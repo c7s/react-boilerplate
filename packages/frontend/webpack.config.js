@@ -231,6 +231,8 @@ const clientConfig = env => ({
                     // Entry points
                     'client.ts',
                     'server.ts',
+                    // Special folder for public files
+                    'public',
                 ],
                 root: path.resolve(`./src/client`),
             }),
