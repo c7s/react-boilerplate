@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+lib_dir=node_modules/deployment
+
+scriptpath=$(dirname $0)
+cd $scriptpath/../
+
+echo "[DEPLOY] [FRONTEND-SERVER] Installing dependencies"
+yarn run i
+
+project=$project \
+target_host=$target_host \
+env=$env \
+lib_dir=$lib_dir \
+remote_user=gorod \
+packaging_release_number=$packaging_release_number \
+build_only=$build_only \
+github_project_url=$github_project_url \
+git_branch=$git_branch \
+source $lib_dir/bin/deploy

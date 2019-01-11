@@ -1,12 +1,20 @@
 const express = require('express');
 
 const app = express();
-const serverRenderer = require('frontend/dist/server.bundle.js').default;
-const reactLoadableStats = require('frontend/dist/react-loadable.json');
 
-app.use(express.static('./node_modules/frontend/dist/public'));
-app.use('/static', express.static('./node_modules/frontend/dist/static'));
-app.use(serverRenderer({ reactLoadableStats }));
+try {
+    app.use(express.static('./node_modules/frontend/dist/public'));
+    app.use('/static', express.static('./node_modules/frontend/dist/static'));
+    /* eslint-disable global-require */
+    app.use(
+        require('frontend/dist/server.bundle.js').default({
+            reactLoadableStats: require('frontend/dist/react-loadable.json'),
+        })
+    );
+    /* eslint-enable */
+} catch (e) {
+    // Okay, no server renderer
+}
 
 app.listen(6060);
 

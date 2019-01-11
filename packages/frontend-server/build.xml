@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="react-boilerplate_frontend">
+    <property name="packaging.project" value="${ant.project.name}"/>
+    <property name="packaging.target.basedir" value="/opt/${packaging.project}"/>
+    <property name="packaging.target.current-path" value="${packaging.target.basedir}/current"/>
+    <property
+            name="packaging.source.supervisor"
+            value="${packaging.target.current-path}/environment/supervisor/${packaging.project}.${params.env}.conf"/>
+
+    <property name="initd_script" value="${ant.project.name}-node"/>
+    <property name="packaging.source.shared.path" value="${basedir}/public/uploads"/>
+
+    <import file="${basedir}/node_modules/deployment/packaging.xml"/>
+    <import file="${basedir}/node_modules/deployment/node.xml"/>
+</project>

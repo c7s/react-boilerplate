@@ -5,10 +5,12 @@
     "private": true,
     "scripts": {
         "prepare": "node ./tools/install/create-symlinks",
-        "i": "yarn install --frozen-lockfile",
+        "i": "yarn install --frozen-lockfile --ignore-optional",
         "a": "yarn add -T",
         "r": "yarn remove",
-        "start": "node ./src/index",
+        "start": "yarn i && yarn start:no-install",
+        "start:no-install": "node ./src/index",
+        "inject-frontend": "yarn add frontend@file:../frontend --optional",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
         "lint:js": "eslint .",
         "pre-commit": "lint-staged"
@@ -27,11 +29,11 @@
         ]
     },
     "dependencies": {
-        "express": "~4.16.3",
-        "frontend": "file:../frontend"
+        "express": "~4.16.3"
     },
     "devDependencies": {
         "create-symlink": "~1.0.0",
+        "deployment": "git+ssh://git@github.com/c7s/deployment.git#KP-157",
         "eslint": "~5.9.0",
         "eslint-config-airbnb": "~17.1.0",
         "eslint-config-prettier": "~3.3.0",
@@ -40,5 +42,8 @@
         "eslint-plugin-react": "~7.11.1",
         "lint-staged": "~8.1.0",
         "prettier": "~1.15.2"
+    },
+    "optionalDependencies": {
+        "frontend": "file:../frontend"
     }
 }

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+lib_dir=node_modules/deployment
+
+scriptpath=$(dirname $0)
+
+cd $scriptpath/../../frontend/
+
+echo "[BUILD] [FRONTEND] Building frontend"
+# Installing dependencies is part of build process, yet somehow it's required here.
+yarn run i
+yarn run build:final:no-install
+
+cd ../frontend-server/
+echo "[BUILD] [FRONTEND-SERVER] Injecting frontend"
+yarn inject-frontend
+
+project=$project \
+target_host=$target_host \
+port=$port \
+env=$env \
+lib_dir=$lib_dir \
+remote_user=gorod \
+packaging_release_number=$packaging_release_number \
+github_project_url=$github_project_url \
+git_branch=$git_branch \
+build_only=$build_only
+source $lib_dir/bin/build

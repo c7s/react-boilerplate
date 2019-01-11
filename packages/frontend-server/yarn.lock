@@ -463,6 +463,10 @@ depd@~1.1.1, depd@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
 
+"deployment@git+ssh://git@github.com/c7s/deployment.git#KP-157":
+  version "1.0.0"
+  resolved "git+ssh://git@github.com/c7s/deployment.git#49536781ede8d5173c4fc5eebd5c65fe7d4f8dbd"
+
 destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
