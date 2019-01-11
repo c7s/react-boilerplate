@@ -11,6 +11,31 @@
     <property name="initd_script" value="${ant.project.name}-node"/>
     <property name="packaging.source.shared.path" value="${basedir}/public/uploads"/>
 
+    <!-- Remove uploads folder linking -->
+
     <import file="${basedir}/node_modules/deployment/packaging.xml"/>
     <import file="${basedir}/node_modules/deployment/node.xml"/>
+
+    <import file="${basedir}/node_modules/deployment/packaging.xml"/>
+    <import file="${basedir}/node_modules/deployment/node.xml"/>
+
+    <target name="packaging.release.switch"
+            depends="packaging.shared-folders,
+      packaging.supervisor.link,
+      packaging.release.folder.link,
+      packaging.rollback-script,
+      packaging.supervisor.restart"/>
+
+    <target name="packaging.shared-folders"
+            depends="packaging.shared-folders.create,
+      packaging.shared-folders.set-permissions,
+      packaging.shared-folders.link.logs"/>
+
+    <target name="packaging.shared-folders.create"
+            depends="packaging.shared-folders.create.logs"/>
+
+    <target name="packaging.shared-folders.set-permissions"
+            depends="packaging.shared-folders.set-permissions.logs"/>
+
+    <!-- Remove uploads folder linking end -->
 </project>
