@@ -17,7 +17,7 @@ interface Props extends RouteComponentProps<{}> {
     locale?: string;
 }
 
-const OpenGraphTemplate: React.StatelessComponent<Props> = ({
+const OpenGraphTemplate: React.FC<Props> = ({
     title,
     url,
     location,

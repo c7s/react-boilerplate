@@ -8,7 +8,7 @@ import { CommonProps } from '../../types/CommonProps';
 
 interface Props extends CommonProps {}
 
-const NotFoundPageTemplate: React.StatelessComponent<Props> = ({ className }) => (
+const NotFoundPageTemplate: React.FC<Props> = ({ className }) => (
     <Root className={className}>
         <Status code={404}>
             <Helmet>

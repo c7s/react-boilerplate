@@ -14,7 +14,7 @@ export interface HtmlProps {
     bundles?: ReturnType<typeof getBundles>;
 }
 
-export const Html: React.StatelessComponent<HtmlProps> = ({
+export const Html: React.FC<HtmlProps> = ({
     helmet,
     styleTags,
     spriteContent,

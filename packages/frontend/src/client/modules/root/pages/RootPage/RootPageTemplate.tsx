@@ -9,7 +9,7 @@ interface Props extends CurrentCommonProps {}
 type CurrentCommonProps = CommonProps;
 type CurrentInnerCommonProps = CommonInnerProps;
 
-const RootPageTemplate: React.StatelessComponent<Props> = ({ className }) => (
+const RootPageTemplate: React.FC<Props> = ({ className }) => (
     <Root className={className}>
         <Header>{APP_NAME}</Header>
         <Link

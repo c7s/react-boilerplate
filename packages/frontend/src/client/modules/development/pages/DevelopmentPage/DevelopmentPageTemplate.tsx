@@ -61,7 +61,7 @@ const THEME_DICT: EnumedDict<ThemeName, Theme> = {
 
 /** In case of theme, withTheme is added, ensuring that outer 'themeName' converts to inner 'theme' (types included) */
 
-const DevelopmentPageTemplate: React.StatelessComponent<Props> = withTheme<ThemeName, Theme, Props>(THEME_DICT)(
+const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Props>(THEME_DICT)(
     ({
         className,
         counter,

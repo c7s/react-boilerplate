@@ -9,7 +9,7 @@ import safariPinnedTab from '../../favicon/safari-pinned-tab.svg';
 import '../../lib/server-templates/index';
 import { OpenGraph } from '../OpenGraph';
 
-export const InitialHelmet: React.StatelessComponent = ({ children }) => (
+export const InitialHelmet: React.FC = ({ children }) => (
     <React.Fragment>
         <Helmet>
             <html lang="ru" />

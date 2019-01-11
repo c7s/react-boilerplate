@@ -7,15 +7,13 @@ type WithThemeProviderEnhancer<
     THEME_NAME extends string,
     THEME extends object,
     Props extends CommonProps<THEME_NAME>
-> = (
-    Component: React.StatelessComponent<Omit<Props, 'themeName'> & CommonInnerProps<THEME>>,
-) => React.StatelessComponent<Props>;
+> = (Component: React.FC<Omit<Props, 'themeName'> & CommonInnerProps<THEME>>) => React.FC<Props>;
 
 function withTheme<THEME_NAME extends string, THEME extends object, Props extends CommonProps<THEME_NAME>>(
     themeDict: EnumedDict<THEME_NAME, THEME>,
 ): WithThemeProviderEnhancer<THEME_NAME, THEME, Props> {
     return compose(
-        (Component: React.StatelessComponent<Omit<Props, 'themeName'>>) => {
+        (Component: React.FC<Omit<Props, 'themeName'>>) => {
             /**
              * Should be Props instead of { themeName: THEME_NAME }, but
              * https://github.com/Microsoft/TypeScript/issues/10727

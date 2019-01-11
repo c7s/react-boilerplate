@@ -187,6 +187,7 @@ function convertWebpackHotServerMiddlewareStatsToReactLoadableStats(
                     file,
                     id: module.id,
                     name: module.name,
+                    publicPath: `${global.PUBLIC_PATH}${file}`,
                 });
             });
         });
