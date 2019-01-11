@@ -2,13 +2,13 @@
   "name": "node-api-boilerplate",
   "version": "1.1.1",
   "description": "A boilerplate for web APIs using Node",
-  "main": "index.js",
+  "main": "dist/index.js",
   "private": true,
   "engines": {
-    "node": ">=7.6.0"
+    "node": ">= 8.11.x"
   },
   "scripts": {
-    "start": "node cluster.js",
+    "start": "node dist/cluster.js",
     "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
     "test": "npm run test:all",
     "test:all": "npm run test:unit && npm run test:features",
@@ -49,6 +49,11 @@
     "swagger-ui-express": "^2.0.14"
   },
   "devDependencies": {
+    "@types/events": "^1.2.0",
+    "@types/express": "^4.16.0",
+    "@types/http-status": "^0.2.30",
+    "@types/morgan": "^1.7.35",
+    "@types/node": "^10.12.18",
     "chai": "^4.1.2",
     "chai-change": "^2.1.2",
     "chance": "^1.0.6",
@@ -60,6 +65,8 @@
     "nyc": "^11.2.1",
     "replace-in-file": "^2.5.0",
     "supertest": "^3.0.0",
-    "supertest-as-promised": "^4.0.2"
+    "supertest-as-promised": "^4.0.2",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
   }
 }
