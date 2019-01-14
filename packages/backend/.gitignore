@@ -24,3 +24,6 @@ coverage/
 
 # IDE files
 .idea/
+.sublime-(project|workspace)
+sftp-config(-alt\\d?)?.json
+sftp-settings.json
