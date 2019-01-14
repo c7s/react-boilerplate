@@ -3,17 +3,16 @@ const express = require('express');
 const app = express();
 
 try {
+    /* eslint-disable global-require,import/no-unresolved */
+    const serverRenderer = require('frontend/dist/server.bundle.js').default;
+    const reactLoadableStats = require('frontend/dist/react-loadable.json');
+    /* eslint-enable */
+
     app.use(express.static('./node_modules/frontend/dist/public'));
     app.use('/static', express.static('./node_modules/frontend/dist/static'));
-    /* eslint-disable global-require */
-    app.use(
-        require('frontend/dist/server.bundle.js').default({
-            reactLoadableStats: require('frontend/dist/react-loadable.json'),
-        })
-    );
-    /* eslint-enable */
+    app.use(serverRenderer({ reactLoadableStats }));
 } catch (e) {
-    // Okay, no server renderer
+    // We're good, frontend (server renderer) is optional dependency
 }
 
 app.listen(6060);
