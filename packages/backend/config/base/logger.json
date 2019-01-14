@@ -1,0 +1,11 @@
+{
+    "appenders": [
+        {
+            "type": "console"
+        },
+        {
+            "type": "file",
+            "filename": "/home/andrew/react-boilerplate/packages/backend/logs/development.log"
+        }
+    ]
+}
