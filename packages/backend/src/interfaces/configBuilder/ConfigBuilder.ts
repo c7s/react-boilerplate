@@ -22,16 +22,14 @@ type GetConfigOptions = {
     suppressWarnings?: boolean;
 };
 
-const envVariants = ['dev', 'qa', 'prod'];
-
 export class ConfigBuilder {
     private baseConfigs: ConfigFile[] = [];
     private readonly cachedConfigs: CachedConfig[] = [];
     private readonly configPath: string;
     private isUsingFracturedConfigs: boolean;
-    private env: string;
+    private env?: string;
     private readonly ENV_ERROR_STRING =
-        'You must set enviroment with "setEnviroment" ' +
+        'You must set environment with "setEnviroment" ' +
         'or pass it directly to executed method argument';
 
     constructor(configPath: string, params: OptionalParams = {}) {
@@ -49,12 +47,14 @@ export class ConfigBuilder {
         this.loadBaseConfigs();
     }
 
-    public set enviroment(env: string) {
-        this.validateEnv(env);
+    public set environment(env: string | undefined) {
+        if (!env) {
+            throw new Error(this.ENV_ERROR_STRING);
+        }
         this.env = env;
     }
 
-    public get enviroment(): string {
+    public get environment(): string | undefined {
         return this.env;
     }
 
@@ -63,7 +63,6 @@ export class ConfigBuilder {
         if (!env) {
             throw new Error(this.ENV_ERROR_STRING);
         }
-        this.validateEnv(env);
         const baseConfig = this.baseConfigs.find(config => config.name == name);
         if (!baseConfig) {
             throw new Error(`Cant find base config with name ${name}`);
@@ -82,7 +81,6 @@ export class ConfigBuilder {
         if (!env) {
             throw new Error(this.ENV_ERROR_STRING);
         }
-        this.validateEnv(env);
         this.baseConfigs.forEach(configFile => {
             console.log(`===== ${configFile.name} =====`);
             const config = this.getConfig(configFile.name, env);
@@ -162,8 +160,8 @@ export class ConfigBuilder {
         }
 
         this.cachedConfigs.push({
+            env,
             name: baseConfig.name,
-            env: env,
             content: result
         });
 
@@ -201,11 +199,5 @@ export class ConfigBuilder {
         const configs = this.getConfigsInDirectory(directory, options);
 
         return configs.find(configFile => configFile.name == name);
-    }
-
-    private validateEnv(env: string = ''): void {
-        if (envVariants.indexOf(env) < 0) {
-            throw new Error('Invalid enviroment. Env will be on of ');
-        }
     }
 }
