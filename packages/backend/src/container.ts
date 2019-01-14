@@ -1,15 +1,19 @@
 import { createContainer, asClass, asFunction, asValue } from 'awilix';
+import { resolve } from 'path';
 import { scopePerRequest } from 'awilix-express';
 
-import { Application } from './app/Application';
+import { ConfigBuilder } from './interfaces/configBuilder';
 
-const config = require('../config');
+const configBuilder = new ConfigBuilder(resolve(__dirname, '../', 'config'));
+configBuilder.environment = process.env.BOILERPLATE_ENV || 'dev';
+
+import { Application } from './app/Application';
 import {
-  CreateUser,
-  GetAllUsers,
-  GetUser,
-  UpdateUser,
-  DeleteUser
+    CreateUser,
+    GetAllUsers,
+    GetUser,
+    UpdateUser,
+    DeleteUser
 } from './app/user';
 
 import { UserSerializer } from './interfaces/http/user/UserSerializer';
@@ -28,51 +32,46 @@ import { database, User as UserModel } from './infra/database/models';
 export const container = createContainer();
 
 // System
-container
-  .register({
+container.register({
     app: asClass(Application).singleton(),
-    server: asClass(Server).singleton()
-  })
-  .register({
+    server: asClass(Server).singleton(),
+}).register({
     router: asFunction(router).singleton(),
-    logger: asFunction(logger).singleton()
-  })
-  .register({
-    config: asValue(config)
-  });
+    logger: asFunction(logger).singleton(),
+}).register({
+    configBuilder: asValue(configBuilder),
+});
 
 // Middlewares
-container
-  .register({
-    loggerMiddleware: asFunction(loggerMiddleware).singleton()
-  })
-  .register({
+container.register({
+    loggerMiddleware: asFunction(loggerMiddleware).singleton(),
+}).register({
     containerMiddleware: asValue(scopePerRequest(container)),
-    errorHandler: asValue(config.production ? errorHandler : devErrorHandler),
-    swaggerMiddleware: asValue([swaggerMiddleware])
-  });
+    errorHandler: asValue(configBuilder.environment === 'prod' ? errorHandler : devErrorHandler),
+    swaggerMiddleware: asValue([swaggerMiddleware]),
+});
 
 // Repositories
 container.register({
-  usersRepository: asClass(SequelizeUsersRepository).singleton()
+    usersRepository: asClass(SequelizeUsersRepository).singleton(),
 });
 
 // Database
 container.register({
-  database: asValue(database),
-  UserModel: asValue(UserModel)
+    database: asValue(database),
+    UserModel: asValue(UserModel),
 });
 
 // Operations
 container.register({
-  createUser: asClass(CreateUser),
-  getAllUsers: asClass(GetAllUsers),
-  getUser: asClass(GetUser),
-  updateUser: asClass(UpdateUser),
-  deleteUser: asClass(DeleteUser)
+    createUser: asClass(CreateUser),
+    getAllUsers: asClass(GetAllUsers),
+    getUser: asClass(GetUser),
+    updateUser: asClass(UpdateUser),
+    deleteUser: asClass(DeleteUser),
 });
 
 // Serializers
 container.register({
-  userSerializer: asValue(UserSerializer)
+    userSerializer: asValue(UserSerializer),
 });
