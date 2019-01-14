@@ -1,6 +1,6 @@
 import { ModelsLoader } from '../../sequelize';
 import Sequelize from 'sequelize';
-const { db: config } = require('config');
+const { db: config } = require('../../../../config');
 
 if (!config) {
     throw new Error('Database configuration not found, disabling database.');
