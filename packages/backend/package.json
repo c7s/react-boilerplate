@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node dist/cluster.js",
-    "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
+    "dev": "bin/environment nodemon",
     "test": "npm run test:all",
     "test:all": "npm run test:unit && npm run test:features",
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha --opts test/mocha.opts.unit",
