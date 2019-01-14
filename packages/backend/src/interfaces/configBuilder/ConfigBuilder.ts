@@ -25,7 +25,6 @@ type GetConfigOptions = {
 const envVariants = ['dev', 'qa', 'prod'];
 
 export class ConfigBuilder {
-
     private baseConfigs: ConfigFile[] = [];
     private readonly cachedConfigs: CachedConfig[] = [];
     private readonly configPath: string;
