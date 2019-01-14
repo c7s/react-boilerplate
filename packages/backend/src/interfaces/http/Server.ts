@@ -5,8 +5,8 @@ export class Server {
   private config: any;
   private logger: any;
 
-  constructor({ config, router, logger }) {
-    this.config = config;
+  constructor({ configBuilder, router, logger }) {
+    this.config = configBuilder.getConfig('server');
     this.logger = logger;
     this.express = express();
 
@@ -16,7 +16,7 @@ export class Server {
 
   async start(): Promise<void> {
     return new Promise((resolve) => {
-      const http = this.express.listen(this.config.web.port, () => {
+      const http = this.express.listen(this.config.port, () => {
         const { port } = http.address() as any;
         this.logger.info(`[pid ${process.pid}] Listening at port ${port}`);
         resolve();

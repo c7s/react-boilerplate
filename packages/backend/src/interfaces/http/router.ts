@@ -1,22 +1,24 @@
 import { Router } from 'express';
+import cors from 'cors';
 const statusMonitor = require('express-status-monitor');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const methodOverride = require('method-override');
 
+import { Container } from '../../Container';
+
 import { UsersController } from './user/UsersController';
 
-export const router = ({ config, containerMiddleware, loggerMiddleware, errorHandler, swaggerMiddleware }) => {
+export const router = ({ configBuilder, containerMiddleware, loggerMiddleware, errorHandler, swaggerMiddleware }: Container) => {
   const router = Router();
 
   /* istanbul ignore if */
-  if(config.env === 'development') {
+  if(configBuilder.environment === 'dev') {
     router.use(statusMonitor());
   }
 
   /* istanbul ignore if */
-  if(config.env !== 'test') {
+  if(configBuilder.environment !== 'qa') {
     router.use(loggerMiddleware);
   }
 
@@ -24,7 +26,7 @@ export const router = ({ config, containerMiddleware, loggerMiddleware, errorHan
 
   apiRouter
     .use(methodOverride('X-HTTP-Method-Override'))
-    .use(cors())
+    .use(cors({}))
     .use(bodyParser.json())
     .use(compression())
     .use(containerMiddleware)
