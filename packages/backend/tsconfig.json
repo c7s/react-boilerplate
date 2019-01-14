@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        /* Basic Options */
         "target": "ES2017",
         "module": "commonjs",
         "lib": ["ES2015", "ES2016", "ES2017", "ES2018", "ESNext"],
@@ -24,18 +25,13 @@
 
         "moduleResolution": "node",
         "baseUrl": "./src",
+        "paths": {},
+        "types": ["node"],
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
+        // "preserveSymlinks": true,
 
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "types": ["node"]
-    },
-    "exclude": [
-        "./node_modules",
-        "./dist"
-    ],
-    "include": [
-        "./src/**/*.ts"
-    ]
+        "emitDecoratorMetadata": true
+    }
 }

@@ -71,9 +71,7 @@ export class SequelizeUsersRepository {
     return await this.UserModel.count();
   }
 
-  // Private
-
-  async _getById(id) {
+  private async _getById(id) {
     try {
       return await this.UserModel.findById(id, { rejectOnEmpty: true });
     } catch(error) {
