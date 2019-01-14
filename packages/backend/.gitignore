@@ -5,9 +5,6 @@
 node_modules/
 dist/
 
-# Project specific
-config/database.js
-
 # Unit test / coverage reports
 coverage/
 .nyc_output
@@ -27,3 +24,6 @@ coverage/
 .sublime-(project|workspace)
 sftp-config(-alt\\d?)?.json
 sftp-settings.json
+
+# local files
+**/local/**
