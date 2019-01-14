@@ -23,7 +23,7 @@ import swaggerMiddleware from './interfaces/http/swagger/swaggerMiddleware';
 
 import { logger } from './infra/logging/logger';
 import { SequelizeUsersRepository } from './infra/user/SequelizeUsersRepository';
-const { database, User: UserModel } = require('./infra/database/models');
+import { database, User as UserModel } from './infra/database/models';
 
 export const container = createContainer();
 
