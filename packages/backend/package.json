@@ -8,17 +8,23 @@
     "node": ">=8.x.x"
   },
   "scripts": {
-    "start": "node dist/cluster.js",
-    "dev": "bin/environment nodemon",
+    "migration:run": "yarn env typeorm migration:run",
+    "migration:revert": "yarn env typeorm migration:revert",
+    "migration:generate": "yarn env typeorm migration:generate -d 'src/infra/database/migrate' -n Migrations",
+    "schema:drop": "yarn env typeorm schema:drop",
+    "build": "rm -rf dist && yarn tsc",
+    "build:dev": "yarn build --watch",
+    "start": "yarn env node dist/index.js",
+    "start:dev": "concurrently --handle-input -n build,app \"yarn tsc --watch\" nodemon",
     "test": "npm run test:all",
     "test:all": "npm run test:unit && npm run test:features",
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha --opts test/mocha.opts.unit",
     "test:features": "cross-env NODE_PATH=. NODE_ENV=test mocha --opts test/mocha.opts.features",
     "coverage": "cross-env NODE_PATH=. NODE_ENV=test nyc mocha --opts test/mocha.opts.unit",
     "lint": "eslint {src,test,config}/**/*.js",
-    "console": "bin/environment ts-node src/interfaces/console/index.ts",
-    "heroku-postbuild": "NODE_ENV=production NODE_PATH=. sequelize db:migrate --url=$DATABASE_URL",
-    "cleanup": "node scripts/cleanup.js"
+    "console": "yarn env ts-node src/interfaces/console/index.ts",
+    "cleanup": "node scripts/cleanup.js",
+    "env": "bin/environment"
   },
   "repository": {},
   "author": "",
@@ -41,10 +47,9 @@
     "morgan": "^1.8.1",
     "pg": "^6.1.3",
     "pm2": "^2.4.2",
-    "sequelize": "^3.30.4",
-    "sequelize-cli": "^3.0.0",
+    "redis": "^2.8.0",
     "structure": "^1.2.0",
-    "swagger-ui-express": "^2.0.14"
+    "typeorm": "0.2.7"
   },
   "devDependencies": {
     "@types/events": "^1.2.0",
@@ -53,10 +58,10 @@
     "@types/log4js": "^2.3.5",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.12.18",
-    "@types/sequelize": "^4.27.33",
     "chai": "^4.1.2",
     "chai-change": "^2.1.2",
     "chance": "^1.0.6",
+    "concurrently": "^4.1.0",
     "dirty-chai": "^2.0.1",
     "factory-girl": "^4.0.0",
     "listr": "^0.11.0",
