@@ -1,21 +1,17 @@
 export class Application {
   public server: any;
-  public database: any;
+  public databaseConnector: any;
   public logger: any;
 
-  constructor({ server, database, logger }) {
+  constructor({ server, databaseConnector, logger }) {
     this.server = server;
-    this.database = database;
+    this.databaseConnector = databaseConnector;
     this.logger = logger;
-
-    if(database && database.options.logging) {
-      database.options.logging = logger.info.bind(logger);
-    }
   }
 
   async start() {
-    if (this.database) {
-      await this.database.authenticate();
+    if (this.databaseConnector) {
+      await this.databaseConnector.connect();
     }
 
     await this.server.start();
