@@ -5,11 +5,11 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const methodOverride = require('method-override');
 
-import { Container } from '../../Container';
+import { Container } from '../../container';
 
 import { UsersController } from './user/UsersController';
 
-export const router = ({ configBuilder, containerMiddleware, loggerMiddleware, errorHandler, swaggerMiddleware }: Container) => {
+export const router = ({ configBuilder, containerMiddleware, loggerMiddleware, errorHandler }: Container) => {
   const router = Router();
 
   /* istanbul ignore if */
@@ -29,8 +29,7 @@ export const router = ({ configBuilder, containerMiddleware, loggerMiddleware, e
     .use(cors({}))
     .use(bodyParser.json())
     .use(compression())
-    .use(containerMiddleware)
-    .use('/docs', swaggerMiddleware);
+    .use(containerMiddleware);
 
   /*
    * Add your API routes here
