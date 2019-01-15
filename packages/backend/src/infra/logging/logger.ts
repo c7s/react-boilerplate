@@ -1,6 +1,6 @@
 import Log4js from 'log4js';
 
-import { Container } from '../../Container';
+import { Container } from '../../container';
 
 export const logger = ({ configBuilder }: Container) => {
     const config = configBuilder.getConfig('logger');
