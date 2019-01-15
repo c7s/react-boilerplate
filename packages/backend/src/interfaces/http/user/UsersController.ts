@@ -19,15 +19,16 @@ export const UsersController = {
 
   index(req, res, next) {
     const { getAllUsers, userSerializer } = req;
-    const { SUCCESS, ERROR } = getAllUsers.outputs;
+    const [ SUCCESS, ERROR ] = getAllUsers.outputs;
 
     getAllUsers
-      .on(SUCCESS, (users) => {
+      .on(SUCCESS, users => {
         res
           .status(Status.OK)
           .json(users.map(userSerializer.serialize));
       })
       .on(ERROR, next);
+
 
     getAllUsers.execute();
   },
@@ -35,7 +36,7 @@ export const UsersController = {
   show(req, res, next) {
     const { getUser, userSerializer } = req;
 
-    const { SUCCESS, ERROR, NOT_FOUND } = getUser.outputs;
+    const [SUCCESS, ERROR, NOT_FOUND] = getUser.outputs;
 
     getUser
       .on(SUCCESS, (user) => {
@@ -56,7 +57,7 @@ export const UsersController = {
 
   create(req, res, next) {
     const { createUser, userSerializer } = req;
-    const { SUCCESS, ERROR, VALIDATION_ERROR } = createUser.outputs;
+    const [SUCCESS, ERROR, VALIDATION_ERROR] = createUser.outputs;
 
     createUser
       .on(SUCCESS, (user) => {
@@ -77,7 +78,7 @@ export const UsersController = {
 
   update(req, res, next) {
     const { updateUser, userSerializer } = req;
-    const { SUCCESS, ERROR, VALIDATION_ERROR, NOT_FOUND } = updateUser.outputs;
+    const [SUCCESS, ERROR, VALIDATION_ERROR, NOT_FOUND] = updateUser.outputs;
 
     updateUser
       .on(SUCCESS, (user) => {
@@ -104,7 +105,7 @@ export const UsersController = {
 
   delete(req, res, next) {
     const { deleteUser } = req;
-    const { SUCCESS, ERROR,  NOT_FOUND } = deleteUser.outputs;
+    const [SUCCESS, ERROR, NOT_FOUND] = deleteUser.outputs;
 
     deleteUser
       .on(SUCCESS, () => {
