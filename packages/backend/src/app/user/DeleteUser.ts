@@ -1,15 +1,18 @@
 import { Operation } from '../Operation';
 
-export class DeleteUser extends Operation {
-  public usersRepository: any;
+import { Container } from '../../container';
 
-  constructor({ usersRepository }) {
+export class DeleteUser extends Operation {
+  protected usersRepository: Container['usersRepository'];
+  protected outputs = ['SUCCESS', 'ERROR', 'NOT_FOUND'];
+
+  constructor({ usersRepository }: Container) {
     super();
     this.usersRepository = usersRepository;
   }
 
   async execute(userId): Promise<void | boolean> {
-    const { SUCCESS, ERROR, NOT_FOUND } = this.outputs;
+    const [ SUCCESS, ERROR, NOT_FOUND ]= this.outputs;
 
     try {
       await this.usersRepository.remove(userId);
@@ -24,4 +27,3 @@ export class DeleteUser extends Operation {
   }
 }
 
-DeleteUser.setOutputs(['SUCCESS', 'ERROR', 'NOT_FOUND']);

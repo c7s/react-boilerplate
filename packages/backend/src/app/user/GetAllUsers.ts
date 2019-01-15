@@ -1,19 +1,22 @@
 import { Operation } from '../Operation';
 
-export class GetAllUsers extends Operation {
-  public usersRepository: any;
+import { Container } from '../../container';
 
-  constructor({ usersRepository }) {
+export class GetAllUsers extends Operation {
+  protected usersRepository: Container['usersRepository'];
+  protected outputs = ['SUCCESS', 'ERROR'];
+
+  constructor({ usersRepository }: Container) {
     super();
     this.usersRepository = usersRepository;
   }
 
-  async execute() {
-    const { SUCCESS, ERROR } = this.outputs;
+  async execute(): Promise<void> {
+    const [SUCCESS, ERROR] = this.outputs;
 
     try {
-      const users = await this.usersRepository.getAll({
-        attributes: ['id', 'name']
+      const users = await this.usersRepository.find({
+        select: ['id', 'name'],
       });
 
       this.emit(SUCCESS, users);
@@ -22,5 +25,3 @@ export class GetAllUsers extends Operation {
     }
   }
 }
-
-GetAllUsers.setOutputs(['SUCCESS', 'ERROR']);

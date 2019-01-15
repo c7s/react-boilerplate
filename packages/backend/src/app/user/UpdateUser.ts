@@ -1,17 +1,18 @@
 import { Operation } from '../Operation';
 
-export class UpdateUser extends Operation {
-  public usersRepository: any;
+import { Container } from '../../container';
 
-  constructor({ usersRepository }) {
+export class UpdateUser extends Operation {
+  protected usersRepository: Container['usersRepository'];
+  protected outputs = ['SUCCESS', 'NOT_FOUND', 'VALIDATION_ERROR', 'ERROR'];
+
+  constructor({ usersRepository }: Container) {
     super();
     this.usersRepository = usersRepository;
   }
 
-  async execute(userId, userData): Promise<void | boolean> {
-    const {
-      SUCCESS, NOT_FOUND, VALIDATION_ERROR, ERROR
-    } = this.outputs;
+  async execute(userId: number, userData): Promise<void | boolean> {
+    const [SUCCESS, NOT_FOUND, VALIDATION_ERROR, ERROR] = this.outputs;
 
     try {
       const user = await this.usersRepository.update(userId, userData);
@@ -28,5 +29,3 @@ export class UpdateUser extends Operation {
     }
   }
 }
-
-UpdateUser.setOutputs(['SUCCESS', 'NOT_FOUND', 'VALIDATION_ERROR', 'ERROR']);
