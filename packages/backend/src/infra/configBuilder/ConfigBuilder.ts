@@ -5,7 +5,8 @@ import { Helper } from './Helper';
 
 export type OptionalParams = {
     destPath?: string;
-    isUsingFracturedConfigs?: boolean
+    isUsingFracturedConfigs?: boolean;
+    env?: string;
 };
 
 type CachedConfig = {
@@ -29,8 +30,7 @@ export class ConfigBuilder {
     private isUsingFracturedConfigs: boolean;
     private env?: string;
     private readonly ENV_ERROR_STRING =
-        'You must set environment with "setEnviroment" ' +
-        'or pass it directly to executed method argument';
+        'You must set environment or pass it directly to executed method argument';
 
     constructor(configPath: string, params: OptionalParams = {}) {
         if (!Helper.isDirectory(configPath)) {
@@ -43,37 +43,34 @@ export class ConfigBuilder {
             mkdirSync(dest);
         }
 
+        if (params.env) {
+            this.environment = params.env;
+        }
+
         this.isUsingFracturedConfigs = params.isUsingFracturedConfigs || false;
         this.loadBaseConfigs();
     }
 
     public set environment(env: string | undefined) {
-        if (!env) {
-            throw new Error(this.ENV_ERROR_STRING);
-        }
-        this.env = env;
+        this.env = this.checkEnv(env);
     }
 
     public get environment(): string | undefined {
         return this.env;
     }
 
-    public getConfig(name: string, passedEnv?: string): any {
-        const env = passedEnv || this.env;
-        if (!env) {
-            throw new Error(this.ENV_ERROR_STRING);
-        }
-        const baseConfig = this.baseConfigs.find(config => config.name == name);
+    public getConfig<ConfigType>(name: string, passedEnv?: string): ConfigType {
+        const env = this.checkEnv(passedEnv || this.env);
+        const baseConfig = this.baseConfigs.find(config => config.name === name);
+
         if (!baseConfig) {
             throw new Error(`Cant find base config with name ${name}`);
         }
 
         const cachedConfig = this.cachedConfigs.find(cached =>
-            cached.name == name && cached.env == env);
+            cached.name === name && cached.env === env);
 
-        return cachedConfig ?
-            cachedConfig.content :
-            this.generateConfig(baseConfig, env);
+        return cachedConfig ? cachedConfig.content : this.generateConfig(baseConfig, env);
     }
 
     public printConfigs(passedEnv?: string) {
@@ -148,7 +145,6 @@ export class ConfigBuilder {
         const localConfig = this.getSpecificConfig(
             baseConfig.name,
             'local',
-            { suppressWarnings: true },
         );
 
         if (localConfig) {
@@ -199,5 +195,13 @@ export class ConfigBuilder {
         const configs = this.getConfigsInDirectory(directory, options);
 
         return configs.find(configFile => configFile.name == name);
+    }
+
+    private checkEnv(env?: string): string {
+        if (!env) {
+            throw new Error(this.ENV_ERROR_STRING);
+        }
+
+        return env;
     }
 }
