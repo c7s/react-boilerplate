@@ -9,7 +9,7 @@ import {
     DeleteUser
 } from './app/user';
 
-import { ConfigBuilder } from './interfaces/configBuilder';
+import { ConfigBuilder } from './infra/configBuilder';
 import { Server } from './interfaces/http/Server';
 import { router } from './interfaces/http/router';
 import { loggerMiddleware } from './interfaces/http/logging/loggerMiddleware';

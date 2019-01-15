@@ -2,7 +2,7 @@ import { createContainer, asClass, asFunction, asValue } from 'awilix';
 import { resolve } from 'path';
 import { scopePerRequest } from 'awilix-express';
 
-import { ConfigBuilder } from './interfaces/configBuilder';
+import { ConfigBuilder } from './infra/configBuilder';
 
 const configBuilder = new ConfigBuilder(resolve(__dirname, '../', 'config'));
 configBuilder.environment = process.env.BOILERPLATE_ENV || 'dev';
