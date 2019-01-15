@@ -1,27 +1,13 @@
-import { EventEmitter } from 'events';
-const define = Object.defineProperty;
+import EventEmitter from 'events';
 
-export class Operation extends EventEmitter {
-  public outputs: any;
+export abstract class Operation extends EventEmitter {
+    protected abstract outputs: string[] = [];
 
-  static setOutputs(outputs) {
-    define(this.prototype, 'outputs', {
-      value: createOutputs(outputs)
-    });
-  }
+    on(output: string, handler: (...args: any[]) => void) {
+        if(this.outputs.indexOf(output) < 0) {
+            throw new Error(`Invalid output "${output}" to operation ${this.constructor.name}.`);
+        }
 
-  on(output, handler) {
-    if(this.outputs[output]) {
-      return this.addListener(output, handler);
+        return super.addListener(output, handler);
     }
-
-    throw new Error(`Invalid output "${output}" to operation ${this.constructor.name}.`);
-  }
 }
-
-const createOutputs = (outputsArray) => {
-  return outputsArray.reduce((obj, output) => {
-    obj[output] = output;
-    return obj;
-  }, Object.create(null));
-};
