@@ -10,7 +10,9 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "allowSyntheticDefaultImports": true,
-        "module": "esnext"
+        "module": "esnext",
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true
     },
     "include": ["src", "@types", "config"]
 }
