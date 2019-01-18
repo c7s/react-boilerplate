@@ -9,6 +9,11 @@ fs.writeFileSync(
     jsGraphqlPluginConfig('graphql.schema.json', config.api.graphqlEndpoint)
 );
 
+fs.writeFileSync(
+    path.resolve('.graphqlconfig.yml'),
+    vsCodeGraphqlExtensionConfig('graphql.schema.json', config.api.graphqlEndpoint)
+);
+
 /**
  * @param {string} schemaFile
  * @param {string} endpoint
@@ -33,5 +38,13 @@ function jsGraphqlPluginConfig(schemaFile, endpoint) {
         }
     ]
 }
+`;
+}
+
+function vsCodeGraphqlExtensionConfig(schemaFile, endpoint) {
+    return `schemaPath: ${schemaFile}
+extensions:
+  endpoints:
+    default: ${endpoint}
 `;
 }
