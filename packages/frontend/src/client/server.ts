@@ -83,7 +83,7 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
                     spriteContent: sprite.stringify(),
                     apolloState: client.extract(),
                     reduxState: store.getState(),
-                    bundles: getCompleteBundles(reactLoadableStats, modules),
+                    bundles: getUsedBundles(reactLoadableStats, modules),
                 });
 
                 sendHtml(res, html, context.statusCode);
@@ -92,6 +92,7 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
         .catch((error: Error) => {
             const html = React.createElement(Html, {
                 ssrError: error,
+                bundles: getAllBundles(reactLoadableStats),
             });
 
             sendHtml(res, html, context.statusCode, true);
@@ -137,16 +138,28 @@ function sendRedirect(res: Response, context: RouterContext) {
         .send();
 }
 
-function getCompleteBundles(reactLoadableStats: ReactLoadableStats, modules: string[]) {
-    return stripSourceMaps([...getBundles(reactLoadableStats, uniq(modules)), ...getCommonBundles(reactLoadableStats)]);
+function getUsedBundles(reactLoadableStats: ReactLoadableStats, modules: string[]) {
+    return stripSourceMaps([
+        ...getBundles(reactLoadableStats, uniq(modules)),
+        ...getCommonBundlesWithSourceMaps(reactLoadableStats),
+    ]);
+}
+
+function getAllBundles(reactLoadableStats: ReactLoadableStats) {
+    return stripSourceMaps(getAllBundlesWithSourceMaps(reactLoadableStats));
 }
 
 /** Returns an array of bundles with non-react-loadable files, one random bundle for each file name */
-function getCommonBundles(reactLoadableStats: ReactLoadableStats) {
+function getCommonBundlesWithSourceMaps(reactLoadableStats: ReactLoadableStats) {
     return filter(
         uniqBy(flatten(Object.values(reactLoadableStats)), bundle => bundle.file),
         bundle => !/^\d+\./.test(bundle.file),
     );
+}
+
+/** Returns an array of bundles with all files, one random bundle for each file name */
+function getAllBundlesWithSourceMaps(reactLoadableStats: ReactLoadableStats) {
+    return uniqBy(flatten(Object.values(reactLoadableStats)), bundle => bundle.file);
 }
 
 function stripSourceMaps(bundles: ReturnType<typeof getBundles>) {
