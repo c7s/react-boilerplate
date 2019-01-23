@@ -141,7 +141,7 @@ function sendRedirect(res: Response, context: RouterContext) {
 function getUsedBundles(reactLoadableStats: ReactLoadableStats, modules: string[]) {
     return stripSourceMaps([
         ...getBundles(reactLoadableStats, uniq(modules)),
-        ...getCommonBundlesWithSourceMaps(reactLoadableStats),
+        ...stripReactLoadableBundles(getAllBundlesWithSourceMaps(reactLoadableStats)),
     ]);
 }
 
@@ -149,17 +149,13 @@ function getAllBundles(reactLoadableStats: ReactLoadableStats) {
     return stripSourceMaps(getAllBundlesWithSourceMaps(reactLoadableStats));
 }
 
-/** Returns an array of bundles with non-react-loadable files, one random bundle for each file name */
-function getCommonBundlesWithSourceMaps(reactLoadableStats: ReactLoadableStats) {
-    return filter(
-        uniqBy(flatten(Object.values(reactLoadableStats)), bundle => bundle.file),
-        bundle => !/^\d+\./.test(bundle.file),
-    );
-}
-
 /** Returns an array of bundles with all files, one random bundle for each file name */
 function getAllBundlesWithSourceMaps(reactLoadableStats: ReactLoadableStats) {
     return uniqBy(flatten(Object.values(reactLoadableStats)), bundle => bundle.file);
+}
+
+function stripReactLoadableBundles(bundles: ReturnType<typeof getBundles>) {
+    return filter(bundles, bundle => !/^\d+\./.test(bundle.file));
 }
 
 function stripSourceMaps(bundles: ReturnType<typeof getBundles>) {
