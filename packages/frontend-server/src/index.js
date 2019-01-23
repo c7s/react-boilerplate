@@ -12,6 +12,9 @@ try {
     app.use('/static', express.static('./node_modules/frontend/dist/static'));
     app.use(serverRenderer({ reactLoadableStats }));
 } catch (e) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
+        throw e;
+    }
     // We're good, frontend (server renderer) is optional dependency
 }
 
