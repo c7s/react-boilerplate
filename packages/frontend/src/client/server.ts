@@ -60,7 +60,12 @@ export default function serverRenderer(
     };
 }
 
-function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: ReactLoadableStats, link?: ApolloLink) {
+async function sendHtmlOrRedirect(
+    req: Request,
+    res: Response,
+    reactLoadableStats: ReactLoadableStats,
+    link?: ApolloLink,
+) {
     const context: RouterContext = {};
     const client = IsomorphicApolloClient.getClient({ fetch, link, context });
     const store = IsomorphicStore.getStore();
@@ -69,8 +74,10 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
 
     const App = React.createElement(IsomorphicApp, { client, store, modules, context, location: req.url });
 
-    getDataFromTree(App)
-        .then(() => {
+    try {
+        if (req.query.__FAIL_SSR__ === undefined) {
+            await getDataFromTree(App);
+
             const content = renderToString(sheet.collectStyles(App));
 
             if (context.url) {
@@ -88,15 +95,17 @@ function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Rea
 
                 sendHtml(res, html, context.statusCode);
             }
-        })
-        .catch((error: Error) => {
-            const html = React.createElement(Html, {
-                ssrError: error,
-                bundles: getAllBundles(reactLoadableStats),
-            });
-
-            sendHtml(res, html, context.statusCode, true);
+        } else {
+            throw new Error('SSR was disabled by query parameter');
+        }
+    } catch (error) {
+        const html = React.createElement(Html, {
+            ssrError: error,
+            bundles: getAllBundles(reactLoadableStats),
         });
+
+        sendHtml(res, html, context.statusCode, true);
+    }
 }
 
 function sendHtml(res: Response, html: React.ReactElement<HtmlProps>, appStatus?: number, isSsrError?: boolean) {
