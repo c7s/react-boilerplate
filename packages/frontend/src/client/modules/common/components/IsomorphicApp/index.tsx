@@ -8,8 +8,8 @@ import { Store } from 'redux';
 import { GlobalFontsStyle, observeFontFamilies } from '../../lib/fonts';
 import { StoreState } from '../../lib/IsomorphicStore';
 import { routesWithComponents } from '../../lib/routes';
-/** Log application information */
-import './app-info-logger.ts';
+/** Monkeypatch console and log application information */
+import './console-enhancers';
 import { ExternalAndGlobalStyles } from './ExternalAndGlobalStyles';
 import { InitialHelmet } from './InitialHelmet';
 import { isomorphicHot } from './isomorphicHot';
