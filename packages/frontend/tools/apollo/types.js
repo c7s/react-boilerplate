@@ -7,16 +7,15 @@ del(['**/ApolloTypes/*.ts', '!**/ApolloTypes/globalTypes.ts']);
 
 run(
     [
-        'codegen:generate',
+        'client:codegen',
         'ApolloTypes',
         '--target',
         'typescript',
-        '--schema',
+        '--localSchemaFile',
         'graphql.schema.json',
-        '--addTypename',
         '--globalTypesFile',
         './src/client/modules/common/graphql/ApolloTypes/globalTypes.ts',
-        '--queries',
+        '--includes',
         '**/*{Connect,Graphql}.{ts,tsx}',
         '--passthroughCustomScalars',
         '--customScalarsPrefix',

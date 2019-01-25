@@ -4,7 +4,7 @@ const { run } = require('apollo');
 const { config } = require('../../config');
 
 run([
-    'schema:download',
+    'service:download',
     'graphql.schema.json',
     '--endpoint',
     config.api.graphqlEndpoint,
