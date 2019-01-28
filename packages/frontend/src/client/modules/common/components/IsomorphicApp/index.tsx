@@ -2,6 +2,7 @@ import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client/ApolloClient';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
+import { hot } from 'react-hot-loader/root';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { Store } from 'redux';
@@ -12,7 +13,6 @@ import { routesWithComponents } from '../../lib/routes';
 import './console-enhancers';
 import { ExternalAndGlobalStyles } from './ExternalAndGlobalStyles';
 import { InitialHelmet } from './InitialHelmet';
-import { isomorphicHot } from './isomorphicHot';
 import { IsomorphicLoadableCapture } from './IsomorphicLoadableCapture';
 import { IsomorphicRouter } from './IsomorphicRouter';
 import { Notificator } from './Notificator';
@@ -29,7 +29,7 @@ export interface IsomorphicAppProps {
     context?: object;
 }
 
-@isomorphicHot(module)
+@hot
 export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
     componentDidMount() {
         // This function must be called client-side only and immediately
