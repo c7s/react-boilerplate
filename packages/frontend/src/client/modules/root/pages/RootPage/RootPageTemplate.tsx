@@ -24,7 +24,9 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
     </Root>
 );
 
-const Root = styled.div``;
+const Root = styled.div`
+    min-height: 100%;
+`;
 
 const Header = styled.h1``;
 

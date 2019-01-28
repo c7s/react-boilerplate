@@ -6,6 +6,13 @@ import { fontFamily, FontFamily } from '../../lib/fonts';
 import { MIN_WIDTH } from '../../lib/media';
 
 const globalCss = css`
+    /* Enabling 100% page min-height */
+    html,
+    body,
+    #root {
+        height: 100%;
+    }
+
     body {
         min-width: ${MIN_WIDTH}px;
         ${fontFamily(FontFamily.BITTER)};

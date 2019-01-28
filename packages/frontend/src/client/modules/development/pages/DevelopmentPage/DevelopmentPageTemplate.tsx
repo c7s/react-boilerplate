@@ -102,7 +102,9 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
 
 /** Styled components */
 
-const Root = styled.div``;
+const Root = styled.div`
+    min-height: 100%;
+`;
 
 const ThemeDisplay = styled.div``;
 
