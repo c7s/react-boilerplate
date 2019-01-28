@@ -4,6 +4,7 @@ import { ErrorResponse } from 'apollo-link-error';
 type UncastedError = ApolloError | ErrorResponse | Error;
 
 interface CastedError {
+    userDisplayedMessage: string;
     header: string;
     text: string;
     details?: string;
@@ -83,13 +84,14 @@ function mapNetworkErrorCodeToText(statusCode: number): string {
 }
 
 function getCastedError(header: string, text: string, details?: string): CastedError {
-    const error: CastedError = { header, text, details };
-
-    error.toString = function() {
-        return `${this.header}: ${this.text}${this.details ? ` (${this.details})` : ''}`;
+    return {
+        header,
+        text,
+        details,
+        get userDisplayedMessage() {
+            return `${this.header}: ${this.text}${this.details ? ` (${this.details})` : ''}`;
+        },
     };
-
-    return error;
 }
 
 function isApolloError(error: UncastedError): error is ApolloError {
