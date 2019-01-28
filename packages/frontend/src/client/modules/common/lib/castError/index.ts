@@ -29,11 +29,7 @@ function castError(error: UncastedError): CastedError {
 }
 
 function castAsApolloError(error: ApolloError): CastedError {
-    const castedError: CastedError = {
-        header: UNKNOWN_ERROR_HEADER,
-        text: UNKNOWN_ERROR_TEXT,
-        details: error.message,
-    };
+    const castedError = getCastedError(UNKNOWN_ERROR_HEADER, UNKNOWN_ERROR_TEXT, error.message);
 
     if (error.networkError) {
         castedError.header = NETWORK_ERROR_HEADER;
@@ -47,10 +43,7 @@ function castAsApolloError(error: ApolloError): CastedError {
 }
 
 function castAsErrorResponse(error: ErrorResponse): CastedError {
-    const castedError: CastedError = {
-        header: UNKNOWN_ERROR_HEADER,
-        text: UNKNOWN_ERROR_TEXT,
-    };
+    const castedError = getCastedError(UNKNOWN_ERROR_HEADER, UNKNOWN_ERROR_TEXT);
 
     if (error.networkError) {
         castedError.header = NETWORK_ERROR_HEADER;
@@ -66,11 +59,7 @@ function castAsErrorResponse(error: ErrorResponse): CastedError {
 }
 
 function castAsError(error: Error): CastedError {
-    return {
-        header: CLIENT_ERROR_HEADER,
-        text: CLIENT_ERROR_TEXT,
-        details: error.message,
-    };
+    return getCastedError(CLIENT_ERROR_HEADER, CLIENT_ERROR_TEXT, error.message);
 }
 
 function mapGraphqlErrorCodeToText(error: ApolloError['graphQLErrors'][0]): string {
@@ -91,6 +80,16 @@ function mapNetworkErrorCodeToText(statusCode: number): string {
         default:
             return NETWORK_ERROR_TEXT;
     }
+}
+
+function getCastedError(header: string, text: string, details?: string): CastedError {
+    const error: CastedError = { header, text, details };
+
+    error.toString = function() {
+        return `${this.header}: ${this.text}${this.details ? ` (${this.details})` : ''}`;
+    };
+
+    return error;
 }
 
 function isApolloError(error: UncastedError): error is ApolloError {
