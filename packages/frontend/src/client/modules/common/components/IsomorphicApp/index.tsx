@@ -9,7 +9,6 @@ import { Store } from 'redux';
 import { GlobalFontsStyle, observeFontFamilies } from '../../lib/fonts';
 import { StoreState } from '../../lib/IsomorphicStore';
 import { routesWithComponents } from '../../lib/routes';
-/** Monkeypatch console and log application information */
 import './console-enhancers';
 import { ExternalAndGlobalStyles } from './ExternalAndGlobalStyles';
 import { InitialHelmet } from './InitialHelmet';
