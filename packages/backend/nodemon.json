@@ -1,5 +1,0 @@
-{
-    "exec": "yarn start",
-    "watch": "./dist",
-    "ext": "js"
-}
