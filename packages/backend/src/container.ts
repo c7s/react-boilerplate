@@ -1,13 +1,6 @@
 import { RequestHandler } from 'express';
 
 import { Application } from './app/Application';
-import {
-    CreateUser,
-    GetAllUsers,
-    GetUser,
-    UpdateUser,
-    DeleteUser
-} from './app/user';
 
 import { ConfigBuilder } from './infra/configBuilder';
 import { Server } from './interfaces/http/Server';
@@ -33,9 +26,4 @@ export interface Container {
     databaseConnector: DatabaseConnector;
     UserModel: UserModel;
     controllers: (new () => any)[];
-    createUser: CreateUser;
-    getAllUsers: GetAllUsers;
-    getUser: GetUser;
-    updateUser: UpdateUser;
-    deleteUser: DeleteUser;
 }

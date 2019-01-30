@@ -10,13 +10,6 @@ const configBuilder = new ConfigBuilder(resolve(__dirname, '../', 'config'), {
 });
 
 import { Application } from './app/Application';
-import {
-    CreateUser,
-    GetAllUsers,
-    GetUser,
-    UpdateUser,
-    DeleteUser
-} from './app/user';
 
 import { UserSerializer } from './interfaces/http/user/UserSerializer';
 
@@ -66,11 +59,6 @@ container.register({
 // controllers
 container.register({
     controllers: asValue([UserController]),
-    createUser: asClass(CreateUser),
-    getAllUsers: asClass(GetAllUsers),
-    getUser: asClass(GetUser),
-    updateUser: asClass(UpdateUser),
-    deleteUser: asClass(DeleteUser),
 });
 
 // Serializers
