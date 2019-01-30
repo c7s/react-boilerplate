@@ -11,7 +11,6 @@ import {
 
 import { ConfigBuilder } from './infra/configBuilder';
 import { Server } from './interfaces/http/Server';
-import { router } from './interfaces/http/router';
 import { loggerMiddleware } from './interfaces/http/logging/loggerMiddleware';
 import { errorHandler } from './interfaces/http/errors/errorHandler';
 import { devErrorHandler } from './interfaces/http/errors/devErrorHandler';
@@ -25,7 +24,6 @@ import { UserRepository } from './infra/user/repository';
 export interface Container {
     app: Application;
     server: Server;
-    router: typeof router;
     logger: typeof logger;
     configBuilder: ConfigBuilder;
     loggerMiddleware: typeof loggerMiddleware;
@@ -34,6 +32,7 @@ export interface Container {
     usersRepository: UserRepository;
     databaseConnector: DatabaseConnector;
     UserModel: UserModel;
+    controllers: (new () => any)[];
     createUser: CreateUser;
     getAllUsers: GetAllUsers;
     getUser: GetUser;

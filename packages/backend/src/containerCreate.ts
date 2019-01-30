@@ -21,7 +21,6 @@ import {
 import { UserSerializer } from './interfaces/http/user/UserSerializer';
 
 import { Server } from './interfaces/http/Server';
-import { router } from './interfaces/http/router';
 import { loggerMiddleware } from './interfaces/http/logging/loggerMiddleware';
 import { errorHandler } from './interfaces/http/errors/errorHandler';
 import { devErrorHandler } from './interfaces/http/errors/devErrorHandler';
@@ -31,6 +30,8 @@ import { User as UserModel } from './infra/database/models';
 import { DatabaseConnector } from './infra/database/connector';
 import { UserRepository } from './infra/user/repository';
 
+import { UserController } from './app/controllers';
+
 export const container = createContainer();
 
 // System
@@ -38,7 +39,6 @@ container.register({
     app: asClass(Application).singleton(),
     server: asClass(Server).singleton(),
 }).register({
-    router: asFunction(router).singleton(),
     logger: asFunction(logger).singleton(),
 }).register({
     configBuilder: asValue(configBuilder),
@@ -63,8 +63,9 @@ container.register({
     UserModel: asValue(UserModel),
 });
 
-// Operations
+// controllers
 container.register({
+    controllers: asValue([UserController]),
     createUser: asClass(CreateUser),
     getAllUsers: asClass(GetAllUsers),
     getUser: asClass(GetUser),

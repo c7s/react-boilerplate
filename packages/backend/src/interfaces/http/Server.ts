@@ -1,17 +1,23 @@
 import express from 'express';
+import { createExpressServer } from 'routing-controllers';
+
+import { Container } from '../../container';
 
 export class Server {
   private express: express.Application;
   private config: any;
   private logger: any;
 
-  constructor({ configBuilder, router, logger }) {
+  constructor({ configBuilder, logger, controllers }: Container) {
     this.config = configBuilder.getConfig('server');
     this.logger = logger;
-    this.express = express();
+    this.express = createExpressServer({
+      controllers,
+      routePrefix: '/api',
+      development: true,
+    });
 
     this.express.disable('x-powered-by');
-    this.express.use(router);
   }
 
   async start(): Promise<void> {
