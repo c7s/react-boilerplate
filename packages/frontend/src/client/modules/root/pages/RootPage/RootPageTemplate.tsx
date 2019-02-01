@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from '../../../common/components/Link';
 import { routes } from '../../../common/lib/routes';
 import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
 

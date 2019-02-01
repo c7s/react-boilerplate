@@ -440,3 +440,7 @@ export const svgAttributesList = [
     'z',
     'zoomAndPan',
 ].concat(domAttributesList);
+
+export const anchorAttributesList = ['download', 'href', 'hrefLang', 'media', 'rel', 'target', 'type'].concat(
+    htmlAttributesList,
+);

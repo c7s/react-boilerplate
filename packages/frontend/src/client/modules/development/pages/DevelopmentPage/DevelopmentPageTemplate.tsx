@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
 import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from '../../../common/components/Link';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { routes } from '../../../common/lib/routes';
 import { withTheme } from '../../../common/lib/withTheme';
