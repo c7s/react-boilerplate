@@ -278,7 +278,7 @@ const serverConfig = env => ({
     },
 });
 
-module.exports = env => {
+module.exports = (env = {}) => {
     // https://github.com/webpack/webpack/issues/2121
     process.env.NODE_ENV = !env.build ? 'development' : 'production';
 

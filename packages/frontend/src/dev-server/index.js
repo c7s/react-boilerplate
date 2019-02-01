@@ -7,7 +7,7 @@ const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const getWebpackConfig = require('../../webpack.config');
 const { config } = require('../../config');
 
-const webpackConfig = getWebpackConfig({});
+const webpackConfig = getWebpackConfig();
 
 const app = express();
 
