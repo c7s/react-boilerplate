@@ -239,7 +239,7 @@ const clientConfig = env => ({
     ].filter(Boolean),
     output: {
         // https://webpack.js.org/guides/caching/
-        filename: env.build ? '[name].[contenthash].js' : '[name].[hash].js',
+        filename: env.build ? '[name].[contenthash].js' : '[name].js',
         path: path.resolve(__dirname, 'dist', 'static'),
     },
     // https://webpack.js.org/guides/caching/
