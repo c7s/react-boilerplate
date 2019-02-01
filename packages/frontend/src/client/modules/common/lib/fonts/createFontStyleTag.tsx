@@ -7,7 +7,7 @@ const createFontStyleTag: typeof createGlobalStyle = (strings, ...interpolations
         <Helmet>
             <style>
                 {String.raw(
-                    strings,
+                    strings as any,
                     ...interpolations.map(interpolation =>
                         Array.isArray(interpolation) ? interpolation.join('') : interpolation,
                     ),

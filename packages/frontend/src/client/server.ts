@@ -150,21 +150,32 @@ function sendRedirect(res: Response, context: RouterContext) {
 function getUsedBundles(reactLoadableStats: ReactLoadableStats, modules: string[]) {
     return stripSourceMaps([
         ...getBundles(reactLoadableStats, uniq(modules)),
-        ...stripReactLoadableBundles(getAllBundlesWithSourceMaps(reactLoadableStats)),
+        ...stripReactLoadableBundles(stripHotUpdateBundles(getDirtyBundles(reactLoadableStats))),
     ]);
 }
 
 function getAllBundles(reactLoadableStats: ReactLoadableStats) {
-    return stripSourceMaps(getAllBundlesWithSourceMaps(reactLoadableStats));
+    return stripSourceMaps(stripHotUpdateBundles(getDirtyBundles(reactLoadableStats)));
 }
 
-/** Returns an array of bundles with all files, one random bundle for each file name */
-function getAllBundlesWithSourceMaps(reactLoadableStats: ReactLoadableStats) {
+/**
+ * Returns unique array of all bundles.
+ * Includes all possible bundles:
+ *     * regular bundles like 'main' and 'vendors'
+ *     * source maps
+ *     * react-loadable
+ *     * HMR results
+ */
+function getDirtyBundles(reactLoadableStats: ReactLoadableStats) {
     return uniqBy(flatten(Object.values(reactLoadableStats)), bundle => bundle.file);
 }
 
 function stripReactLoadableBundles(bundles: ReturnType<typeof getBundles>) {
     return filter(bundles, bundle => !/^\d+\./.test(bundle.file));
+}
+
+function stripHotUpdateBundles(bundles: ReturnType<typeof getBundles>) {
+    return filter(bundles, bundle => !bundle.file.includes('.hot-update.js'));
 }
 
 function stripSourceMaps(bundles: ReturnType<typeof getBundles>) {
