@@ -19,6 +19,7 @@ interface Props extends CurrentCommonProps {
 
 interface State {
     counter: number;
+    isModalOpen: boolean;
 }
 
 class DevelopmentPageBehaviour extends React.Component<Props, State> {
@@ -27,6 +28,7 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
         super(props);
         this.state = {
             counter: 0,
+            isModalOpen: false,
         };
         this.timer = null;
     }
@@ -56,9 +58,21 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
         this.setState({ counter: 0 });
     }
 
+    @autobind
+    onOpenModalClick() {
+        this.setState({ isModalOpen: true });
+    }
+
+    @autobind
+    onModalRequestClose() {
+        this.setState({ isModalOpen: false });
+    }
+
     render() {
         return React.createElement(DevelopmentPageTemplate, {
             onClick: this.onClick,
+            onOpenModalClick: this.onOpenModalClick,
+            onModalRequestClose: this.onModalRequestClose,
             /** It may be handy to just pass everything forward */
             ...this.state,
             ...this.props,

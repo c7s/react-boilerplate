@@ -3,6 +3,7 @@ import { QueryResult } from 'react-apollo';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Link } from '../../../common/components/Link';
+import { Modal } from '../../../common/components/Modal';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { routes } from '../../../common/lib/routes';
 import { withTheme } from '../../../common/lib/withTheme';
@@ -17,6 +18,7 @@ import c7sImage from './c7sImage.png';
 interface Props extends CurrentCommonProps {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     counter: number;
+    isModalOpen: boolean;
     licenses: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
     name?: string;
@@ -24,6 +26,8 @@ interface Props extends CurrentCommonProps {
     querySingle?: string;
     queryArray?: string[];
     onMessageAdd(message: Message): void;
+    onOpenModalClick(): void;
+    onModalRequestClose(): void;
 }
 
 /** Shortcuts for current common (inner) props (could also be just Common(Inner)Props without generic part) */
@@ -65,7 +69,10 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
     ({
         className,
         counter,
+        isModalOpen,
         onClick,
+        onModalRequestClose,
+        onOpenModalClick,
         licenses,
         loadedFontStatus,
         id,
@@ -94,8 +101,12 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
                     : 'No data'}
             </LicensesDisplay>
             <Link to={routes.ROOT.path}>Root</Link>
+            <button onClick={onOpenModalClick}>Modal</button>
             <Image src={c7sImage} />
             <PositionedC7sIcon />
+            <Modal isOpen={isModalOpen} onRequestClose={onModalRequestClose}>
+                <ModalContent>Modal {'\n\n\n\n\n\n\n\n'} Modal</ModalContent>
+            </Modal>
         </Root>
     ),
 );
@@ -112,7 +123,9 @@ const LoadedFontStatusDisplay = styled.div`
     word-break: break-all;
 `;
 
-const UrlData = styled.div``;
+const UrlData = styled.div`
+    margin-top: 300px;
+`;
 
 const StateCounter = styled.div``;
 
@@ -137,6 +150,15 @@ const Image = styled.img`
 
 const PositionedC7sIcon = styled(C7sIcon)`
     ${displayAt(Width.M)};
+`;
+
+const ModalContent = styled.div`
+    background-color: #ffffff;
+    width: 100px;
+    height: 100px;
+    white-space: pre;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 `;
 
 /** Single export is mandatory */
