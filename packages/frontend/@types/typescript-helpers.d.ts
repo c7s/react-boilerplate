@@ -49,3 +49,7 @@ interface ErrorCallback<E = Error> {
 type FirstArgument<T> = T extends (arg1: infer U, ...args: any[]) => any ? U : any;
 type SecondArgument<T> = T extends (arg1: any, arg2: infer U, ...args: any[]) => any ? U : any;
 type EnumedDict<Y extends string, T> = { [P in Y]: T };
+/** https://stackoverflow.com/a/50084862/7785430 */
+type ExtractProps<TComponentOrTProps> = TComponentOrTProps extends React.ComponentType<infer TProps>
+    ? TProps
+    : TComponentOrTProps;

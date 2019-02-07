@@ -104,7 +104,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
             <button onClick={onOpenModalClick}>Modal</button>
             <Image src={c7sImage} />
             <PositionedC7sIcon />
-            <Modal isOpen={isModalOpen} onRequestClose={onModalRequestClose}>
+            <Modal open={isModalOpen} onClose={onModalRequestClose}>
                 <ModalContent>Modal {'\n\n\n\n\n\n\n\n'} Modal</ModalContent>
             </Modal>
         </Root>

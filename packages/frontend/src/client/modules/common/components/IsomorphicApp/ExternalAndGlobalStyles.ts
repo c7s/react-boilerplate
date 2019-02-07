@@ -1,5 +1,6 @@
 import minireset from 'minireset.css';
 import normalize from 'normalize.css';
+import reactResponsiveModalStyles from 'react-responsive-modal/src/styles.css';
 import reset from 'reset-css';
 import { createGlobalStyle, css } from 'styled-components';
 import { fontFamily, FontFamily } from '../../lib/fonts';
@@ -26,6 +27,7 @@ const ExternalAndGlobalStyles = createGlobalStyle`
     ${normalize};
     ${reset};
     ${minireset};
+    ${reactResponsiveModalStyles};
     ${globalCss};
 `;
 
