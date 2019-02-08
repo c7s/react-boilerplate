@@ -6,7 +6,7 @@ interface Props {
 }
 
 class IsomorphicLoadableCapture extends React.Component<Props> {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         super(props);
 
         if (SSR_MODE && !this.props.modules) {
@@ -14,7 +14,7 @@ class IsomorphicLoadableCapture extends React.Component<Props> {
         }
     }
 
-    render() {
+    public render() {
         return SSR_MODE ? (
             <Loadable.Capture
                 report={module => {

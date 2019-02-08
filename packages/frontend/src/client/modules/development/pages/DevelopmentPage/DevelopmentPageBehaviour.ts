@@ -23,8 +23,8 @@ interface State {
 }
 
 class DevelopmentPageBehaviour extends React.Component<Props, State> {
-    timer: number | null;
-    constructor(props: Props) {
+    private timer: number | null;
+    public constructor(props: Props) {
         super(props);
         this.state = {
             counter: 0,
@@ -33,42 +33,7 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
         this.timer = null;
     }
 
-    componentDidMount() {
-        this.timer = window.setInterval(() => {
-            this.setState(({ counter }) => ({
-                counter: counter + 2,
-            }));
-        }, 1000);
-    }
-
-    componentDidUpdate(prevProps: Props): void {
-        if (this.props.licenses.error && !prevProps.licenses.error) {
-            this.props.onMessageAdd(this.props.licenses.error);
-        }
-    }
-
-    componentWillUnmount() {
-        if (this.timer) {
-            window.clearInterval(this.timer);
-        }
-    }
-
-    @autobind
-    onClick() {
-        this.setState({ counter: 0 });
-    }
-
-    @autobind
-    onOpenModalClick() {
-        this.setState({ isModalOpen: true });
-    }
-
-    @autobind
-    onModalRequestClose() {
-        this.setState({ isModalOpen: false });
-    }
-
-    render() {
+    public render() {
         return React.createElement(DevelopmentPageTemplate, {
             onClick: this.onClick,
             onOpenModalClick: this.onOpenModalClick,
@@ -78,6 +43,41 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
             ...this.props,
             /** Can't specify 'theme' here */
         });
+    }
+
+    public componentDidMount() {
+        this.timer = window.setInterval(() => {
+            this.setState(({ counter }) => ({
+                counter: counter + 2,
+            }));
+        }, 1000);
+    }
+
+    public componentDidUpdate(prevProps: Props): void {
+        if (this.props.licenses.error && !prevProps.licenses.error) {
+            this.props.onMessageAdd(this.props.licenses.error);
+        }
+    }
+
+    public componentWillUnmount() {
+        if (this.timer) {
+            window.clearInterval(this.timer);
+        }
+    }
+
+    @autobind
+    private onClick() {
+        this.setState({ counter: 0 });
+    }
+
+    @autobind
+    private onOpenModalClick() {
+        this.setState({ isModalOpen: true });
+    }
+
+    @autobind
+    private onModalRequestClose() {
+        this.setState({ isModalOpen: false });
     }
 }
 

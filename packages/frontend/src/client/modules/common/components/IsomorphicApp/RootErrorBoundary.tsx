@@ -9,17 +9,17 @@ export interface State {
 }
 
 export class RootErrorBoundary extends React.Component<Props, State> {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         super(props);
 
         this.state = {};
     }
 
-    componentDidCatch(error: Error, info: React.ErrorInfo) {
+    public componentDidCatch(error: Error, info: React.ErrorInfo) {
         this.setState({ error, info });
     }
 
-    render() {
+    public render() {
         if (this.state.error) {
             const castedError = castError(this.state.error);
             return (

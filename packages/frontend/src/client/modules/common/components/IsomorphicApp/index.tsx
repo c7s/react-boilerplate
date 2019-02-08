@@ -30,12 +30,12 @@ export interface IsomorphicAppProps {
 
 @hot
 export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
-    componentDidMount() {
+    public componentDidMount() {
         // This function must be called client-side only and immediately
         observeFontFamilies();
     }
 
-    render() {
+    public render() {
         return (
             <IsomorphicLoadableCapture modules={this.props.modules}>
                 <ApolloProvider client={this.props.client}>

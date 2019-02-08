@@ -6,6 +6,29 @@
         "comment-format": [true, "check-space", "check-uppercase"],
         "ordered-imports": true,
         "no-unused-variable": false,
-        "no-console": [true, "log"]
+        "no-console": [true, "log"],
+        "member-access": [true, "check-accessor", "check-constructor", "check-parameter-property"],
+        "member-ordering": [
+            true,
+            {
+                "order": [
+                    "public-static-field",
+                    "protected-static-field",
+                    "private-static-field",
+                    "public-static-method",
+                    "protected-static-method",
+                    "private-static-method",
+                    "public-instance-field",
+                    "protected-instance-field",
+                    "private-instance-field",
+                    "public-constructor",
+                    "protected-constructor",
+                    "private-constructor",
+                    "public-instance-method",
+                    "protected-instance-method",
+                    "private-instance-method"
+                ]
+            }
+        ]
     }
 }
