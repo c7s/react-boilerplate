@@ -33,7 +33,7 @@
     },
     "devDependencies": {
         "create-symlink": "~1.0.0",
-        "deployment": "git+ssh://git@github.com/c7s/deployment.git#KP-157",
+        "deployment": "git+ssh://git@github.com/c7s/deployment.git#dev",
         "eslint": "~5.9.0",
         "eslint-config-airbnb": "~17.1.0",
         "eslint-config-prettier": "~3.3.0",
