@@ -1,6 +1,6 @@
 {
     "processors": [
-        ["./tools/stylelint/processors/implicit-sc-selector", { "selectors": ["mediaWidth"] }],
+        ["./tools/stylelint/processors/implicit-sc-tags", { "atRules": ["mediaWidth"] }],
         "stylelint-processor-styled-components"
     ],
     "extends": ["stylelint-config-standard", "stylelint-config-styled-components"],
