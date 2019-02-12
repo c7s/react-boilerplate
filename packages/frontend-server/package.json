@@ -6,7 +6,7 @@
     "scripts": {
         "prepare": "node ./tools/install/create-symlinks",
         "i": "yarn install --frozen-lockfile --ignore-optional",
-        "a": "yarn add -T",
+        "a": "yarn add -E",
         "r": "yarn remove",
         "start": "yarn i && yarn start:no-install",
         "start:no-install": "node ./src/index",
@@ -29,19 +29,19 @@
         ]
     },
     "dependencies": {
-        "express": "~4.16.3"
+        "express": "4.16.4"
     },
     "devDependencies": {
-        "create-symlink": "~1.0.0",
+        "create-symlink": "1.0.0",
         "deployment": "git+ssh://git@github.com/c7s/deployment.git#dev",
-        "eslint": "~5.9.0",
-        "eslint-config-airbnb": "~17.1.0",
-        "eslint-config-prettier": "~3.3.0",
-        "eslint-plugin-import": "~2.14.0",
-        "eslint-plugin-jsx-a11y": "~6.1.2",
-        "eslint-plugin-react": "~7.11.1",
-        "lint-staged": "~8.1.0",
-        "prettier": "~1.15.2"
+        "eslint": "5.9.0",
+        "eslint-config-airbnb": "17.1.0",
+        "eslint-config-prettier": "3.3.0",
+        "eslint-plugin-import": "2.14.0",
+        "eslint-plugin-jsx-a11y": "6.1.2",
+        "eslint-plugin-react": "7.11.1",
+        "lint-staged": "8.1.3",
+        "prettier": "1.15.3"
     },
     "optionalDependencies": {
         "frontend": "file:../frontend"
