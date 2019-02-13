@@ -53,7 +53,6 @@ const rootCss = css`
     color: inherit;
     text-decoration: none;
     border: ${({ theme }: RootProps) => theme!.border};
-    transition: opacity 0.2s ease-in-out;
 
     /* 'disabled' is not valid attribute for anchor tag, so this state is styled via prop */
     ${({ disabled }: RootProps) =>
@@ -65,6 +64,10 @@ const rootCss = css`
 
     :active {
         opacity: 0.5;
+    }
+
+    :not(:active) {
+        transition: opacity 0.2s ease-in-out;
     }
 `;
 
