@@ -41,9 +41,19 @@ interface StyledLinkProps extends CommonInnerProps<Theme> {
 }
 
 const LinkTemplate = withTheme<ThemeName, Theme, Props>(THEME_DICT)(
-    ({ className, smooth, scroll, to, replace, innerRef, ...props }) => {
+    ({ className, smooth, scroll, to, replace, innerRef, disabled, tabIndex, ...props }) => {
         if (typeof to === 'string' && (to.startsWith('http') || to.startsWith('//'))) {
-            return <Anchor className={className} href={to} target="_blank" rel="noopener noreferrer" {...props} />;
+            return (
+                <Anchor
+                    className={className}
+                    href={to}
+                    target="_blank"
+                    rel="noopener noreferrer" // See https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
+                    disabled={disabled}
+                    tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
+                    {...props}
+                />
+            );
         }
 
         return (
@@ -53,6 +63,8 @@ const LinkTemplate = withTheme<ThemeName, Theme, Props>(THEME_DICT)(
                 to={to}
                 replace={replace}
                 innerRef={innerRef}
+                disabled={disabled}
+                tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
                 {...extractProps<AnchorHTMLAttributes<HTMLAnchorElement>, AnchorHTMLAttributes<HTMLAnchorElement>>(
                     props,
                     anchorAttributesList,

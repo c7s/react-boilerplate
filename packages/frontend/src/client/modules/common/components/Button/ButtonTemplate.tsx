@@ -60,9 +60,6 @@ const rootCss = css`
         disabled
             ? css`
                   opacity: 0.5;
-
-                  /* pointer-events: none; is critical for disabling link */
-                  pointer-events: none;
               `
             : ''};
 
