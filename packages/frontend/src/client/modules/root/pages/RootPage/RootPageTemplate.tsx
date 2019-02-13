@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Link } from '../../../common/components/Link';
+import { Link, LinkThemeName } from '../../../common/components/Link';
 import { routes } from '../../../common/lib/routes';
 import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
 
@@ -13,6 +13,7 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
     <Root className={className}>
         <Header>{APP_NAME}</Header>
         <Link
+            themeName={LinkThemeName.TEXT}
             to={routes.DEVELOPMENT.pathWithParams({
                 name: 'Sir',
                 id: '1',

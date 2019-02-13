@@ -2,7 +2,7 @@ import * as React from 'react';
 import { QueryResult } from 'react-apollo';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import { Link } from '../../../common/components/Link';
+import { Button, ButtonThemeName } from '../../../common/components/Button';
 import { Modal } from '../../../common/components/Modal';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { routes } from '../../../common/lib/routes';
@@ -93,15 +93,22 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
             <UrlData>QuerySingle: {querySingle}</UrlData>
             <UrlData>QueryArray: {JSON.stringify(queryArray)}</UrlData>
             <StateCounter>State counter: {counter}</StateCounter>
-            <button onClick={onClick}>Droppy</button>
+            <Button themeName={ButtonThemeName.SECONDARY} onClick={onClick}>
+                Drop Counter (Button)
+            </Button>
             <LicensesDisplay>
                 Licenses:{' '}
                 {licenses.data && licenses.data.licenses
                     ? licenses.data.licenses.map(license => (license ? license.nickname : 'No nickname'))
                     : 'No data'}
             </LicensesDisplay>
-            <Link to={routes.ROOT.path}>Root</Link>
-            <button onClick={onOpenModalClick}>Modal</button>
+            <Button themeName={ButtonThemeName.SECONDARY} to={routes.ROOT.path}>
+                Root (Button-Link)
+            </Button>
+            <Button disabled to={routes.ROOT.path} themeName={ButtonThemeName.SECONDARY}>
+                Disabled State (Button-Link)
+            </Button>
+            <Button onClick={onOpenModalClick}>Modal (Button)</Button>
             <Image src={c7sImage} />
             <PositionedC7sIcon />
             <Modal open={isModalOpen} onClose={onModalRequestClose}>
