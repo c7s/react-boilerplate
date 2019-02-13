@@ -85,6 +85,14 @@ const linkCss = css`
                   opacity: ${({ theme }: StyledLinkProps) => theme!.disabledOpacity};
               `
             : ''};
+
+    :active {
+        opacity: 0.5;
+    }
+
+    :not(:active) {
+        transition: opacity 0.2s ease-in-out;
+    }
 `;
 
 const Anchor = styled.a`
