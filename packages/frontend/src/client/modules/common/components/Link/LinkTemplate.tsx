@@ -77,6 +77,7 @@ const LinkTemplate = withTheme<ThemeName, Theme, Props>(THEME_DICT)(
 const linkCss = css`
     text-decoration: ${({ theme }: StyledLinkProps) => theme!.textDecoration};
     color: ${({ theme }: StyledLinkProps) => theme!.color};
+    transition: opacity 0.2s ease-in-out;
 
     ${({ disabled }: StyledLinkProps) =>
         disabled
@@ -88,10 +89,7 @@ const linkCss = css`
 
     :active {
         opacity: 0.5;
-    }
-
-    :not(:active) {
-        transition: opacity 0.2s ease-in-out;
+        transition: none;
     }
 `;
 
