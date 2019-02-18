@@ -21,6 +21,9 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
             })}
         >
             Development
+        </Link>{' '}
+        <Link themeName={LinkThemeName.TEXT} to={routes.SHOWCASE.path}>
+            Showcase
         </Link>
     </Root>
 );

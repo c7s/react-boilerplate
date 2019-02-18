@@ -1,6 +1,7 @@
 import { merge } from 'lodash';
 import * as React from 'react';
 import { DevelopmentPage, DevelopmentPageThemeName } from '../../../development/pages/DevelopmentPage';
+import { ShowcasePage } from '../../../development/pages/ShowcasePage';
 import { RootPage } from '../../../root/pages/RootPage';
 import { NotFoundPage } from '../../pages/NotFoundPage';
 import { routes } from './routes';
@@ -14,6 +15,9 @@ export const routesWithComponents = merge<{ [P in keyof typeof routes]: Partial<
         DEVELOPMENT: {
             render: () =>
                 React.createElement(DevelopmentPage, { name: 'User', themeName: DevelopmentPageThemeName.ALTER }),
+        },
+        SHOWCASE: {
+            component: ShowcasePage,
         },
         NOT_FOUND: {
             component: NotFoundPage,
