@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
-import { Button } from '../Button';
+import { Button, ButtonProps } from '../Button';
 import { Link, LinkThemeName } from '../Link';
 import { ErrorBoundary } from './ErrorBoundary';
 
@@ -84,12 +84,12 @@ const TextAreaContainer = styled.div`
     width: 100%;
 `;
 
-// TODO: Fix Button types
-const ResetButton: any = styled(Button)`
+// Similar issue: https://github.com/styled-components/styled-components/issues/1803
+const ResetButton = styled(Button)`
     position: absolute;
     top: 0;
     left: 0;
-`;
+` as React.ComponentType<ButtonProps>;
 
 const TextArea = styled.textarea`
     width: 100%;
