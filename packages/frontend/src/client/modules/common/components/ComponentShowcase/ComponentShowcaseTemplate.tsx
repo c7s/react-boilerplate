@@ -2,16 +2,19 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
+import { Button } from '../Button';
 import { Link, LinkThemeName } from '../Link';
 import { ErrorBoundary } from './ErrorBoundary';
 
 interface Props<D extends {}, F extends {}> extends CommonProps {
     component: React.ComponentType<D & F>;
     onTextAreaChange: React.ChangeEventHandler<HTMLTextAreaElement>;
+    onTextAreaReset: React.MouseEventHandler<HTMLButtonElement>;
     rawComponentDataProps: string;
     name: string;
     linkTo: string;
     textAreaRef: React.RefObject<HTMLTextAreaElement>;
+    initialComponentDataProps?: D;
     componentPropsValidators?: { [key in keyof D]: Validator };
     componentFuncProps?: F;
 }
@@ -27,12 +30,19 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
     componentPropsValidators,
     children,
     textAreaRef,
+    onTextAreaReset,
+    initialComponentDataProps,
 }: Props<D, F>): React.ReactElement<any> | null => (
     <Root className={className}>
         <Positionedlink themeName={LinkThemeName.TEXT} to={linkTo}>
             {name}
         </Positionedlink>
-        <TextArea ref={textAreaRef} onChange={onTextAreaChange} value={rawComponentDataProps} />
+        <TextAreaContainer>
+            {JSON.stringify(initialComponentDataProps || {}, null, 4) !== rawComponentDataProps ? (
+                <ResetButton onClick={onTextAreaReset}>↻</ResetButton>
+            ) : null}
+            <TextArea ref={textAreaRef} onChange={onTextAreaChange} value={rawComponentDataProps} />
+        </TextAreaContainer>
         <ComponentContainer>
             <ErrorBoundary<D>
                 rawComponentProps={rawComponentDataProps}
@@ -67,6 +77,18 @@ const ComponentContainer = styled.div`
 const ErrorMessage = styled.div`
     white-space: pre-line;
     color: #8b0000;
+`;
+
+const TextAreaContainer = styled.div`
+    position: relative;
+    width: 100%;
+`;
+
+// TODO: Fix Button types
+const ResetButton: any = styled(Button)`
+    position: absolute;
+    top: 0;
+    left: 0;
 `;
 
 const TextArea = styled.textarea`

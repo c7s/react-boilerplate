@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import autosize from 'autosize';
+import autosize, { destroy, update } from 'autosize';
 import * as React from 'react';
 import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
@@ -24,9 +24,7 @@ class ComponentShowcaseBehaviour<D extends {}, F extends {}> extends React.Compo
         super(props);
 
         this.state = {
-            rawComponentDataProps: this.props.initialComponentDataProps
-                ? JSON.stringify(this.props.initialComponentDataProps, null, 4)
-                : '',
+            rawComponentDataProps: JSON.stringify(this.props.initialComponentDataProps || {}, null, 4),
         };
     }
 
@@ -37,6 +35,7 @@ class ComponentShowcaseBehaviour<D extends {}, F extends {}> extends React.Compo
                 ...this.props,
                 ...this.state,
                 onTextAreaChange: this.onTextAreaChange,
+                onTextAreaReset: this.onTextAreaReset,
                 componentFuncProps: this.props.initialComponentFuncProps,
                 textAreaRef: this.textAreaRef,
             },
@@ -49,15 +48,40 @@ class ComponentShowcaseBehaviour<D extends {}, F extends {}> extends React.Compo
         }
     }
 
+    public componentWillUnmount() {
+        if (this.textAreaRef.current) {
+            destroy(this.textAreaRef.current);
+        }
+    }
+
     @autobind
     private onTextAreaChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
         try {
-            this.setState({
-                rawComponentDataProps: JSON.stringify(JSON.parse(event.target.value), null, 4),
-            });
+            this.setState(
+                {
+                    rawComponentDataProps: JSON.stringify(JSON.parse(event.target.value), null, 4),
+                },
+                () => {
+                    if (this.textAreaRef.current) {
+                        update(this.textAreaRef.current);
+                    }
+                },
+            );
         } catch (error) {
             this.setState({ rawComponentDataProps: event.target.value });
         }
+    }
+
+    @autobind
+    private onTextAreaReset() {
+        this.setState(
+            { rawComponentDataProps: JSON.stringify(this.props.initialComponentDataProps || {}, null, 4) },
+            () => {
+                if (this.textAreaRef.current) {
+                    update(this.textAreaRef.current);
+                }
+            },
+        );
     }
 }
 
