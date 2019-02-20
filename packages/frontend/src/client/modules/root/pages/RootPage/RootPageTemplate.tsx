@@ -30,6 +30,8 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
 
 const Root = styled.div`
     min-height: 100%;
+    display: flex;
+    flex-direction: column;
 `;
 
 const Header = styled.h1`

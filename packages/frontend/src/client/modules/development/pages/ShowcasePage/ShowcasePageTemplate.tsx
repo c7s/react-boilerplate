@@ -107,6 +107,8 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
 
 const Root = styled.div`
     min-height: 100%;
+    display: flex;
+    flex-direction: column;
 `;
 
 const Header = styled.h1`
@@ -115,7 +117,7 @@ const Header = styled.h1`
 `;
 
 const BackLink = styled(Link)`
-    margin: 20px;
+    margin: 0 20px 20px;
 `;
 
 const ShowcaseGroup = styled.div`
