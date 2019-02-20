@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
 import { Link, LinkThemeName } from '../Link';
 import { ErrorBoundary } from './ErrorBoundary';
@@ -10,6 +11,7 @@ interface Props<D extends {}, F extends {}> extends CommonProps {
     rawComponentDataProps: string;
     name: string;
     linkTo: string;
+    componentPropsValidators?: { [key in keyof D]: Validator };
     componentFuncProps?: F;
 }
 
@@ -21,6 +23,7 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
     componentFuncProps,
     name,
     linkTo,
+    componentPropsValidators,
 }: Props<D, F>): React.ReactElement<any> | null => (
     <Root className={className}>
         <Positionedlink themeName={LinkThemeName.TEXT} to={linkTo}>
@@ -28,8 +31,17 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
         </Positionedlink>
         <TextArea onChange={onTextAreaChange} value={rawComponentDataProps} />
         <ComponentContainer>
-            <ErrorBoundary<D> rawComponentProps={rawComponentDataProps}>
-                {componentDataProps => React.createElement(component, { ...componentDataProps, ...componentFuncProps })}
+            <ErrorBoundary<D>
+                rawComponentProps={rawComponentDataProps}
+                componentPropsValidators={componentPropsValidators}
+            >
+                {({ props, errorMessage }) =>
+                    props ? (
+                        React.createElement(component, { ...props, ...componentFuncProps })
+                    ) : (
+                        <ErrorMessage>{errorMessage || 'Unexpected error'}</ErrorMessage>
+                    )
+                }
             </ErrorBoundary>
         </ComponentContainer>
     </Root>
@@ -44,6 +56,11 @@ const ComponentContainer = styled.div`
     display: flex;
     padding: 20px;
     background-color: #c0c0c0;
+`;
+
+const ErrorMessage = styled.div`
+    white-space: pre-line;
+    color: #8b0000;
 `;
 
 const TextArea = styled.textarea`

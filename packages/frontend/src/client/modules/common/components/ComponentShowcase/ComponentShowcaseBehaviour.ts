@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import * as React from 'react';
+import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
 import { ComponentShowcaseTemplate, Props as ComponentShowcaseTemplateProps } from './ComponentShowcaseTemplate';
 
@@ -9,6 +10,7 @@ interface Props<D extends {}, F extends {}> extends CommonProps {
     linkTo: string;
     initialComponentDataProps?: D;
     initialComponentFuncProps?: F;
+    componentPropsValidators?: { [key in keyof D]: Validator };
 }
 
 interface State {

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Button } from '../../../common/components/Button';
+import { Button, ButtonThemeName } from '../../../common/components/Button';
 import { ComponentShowcase } from '../../../common/components/ComponentShowcase';
-import { Link } from '../../../common/components/Link';
+import { Link, LinkThemeName } from '../../../common/components/Link';
+import { isBoolean, isOneOf, isString } from '../../../common/lib/validators';
 import { CommonProps } from '../../../common/types/CommonProps';
 
 interface Props extends CommonProps {}
@@ -19,9 +20,14 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className }) => (
                     to: 'https://google.com',
                     children: 'Button with link to google',
                     disabled: false,
-                    themeName: 'primary',
+                    themeName: ButtonThemeName.PRIMARY,
                 } as any
             }
+            componentPropsValidators={{
+                to: isString(),
+                disabled: isBoolean(),
+                themeName: isOneOf({ items: Object.values(ButtonThemeName) }),
+            }}
             component={Button}
         />
         <ComponentShowcase
@@ -34,9 +40,14 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className }) => (
                     to: 'https://google.com',
                     children: 'Link to google',
                     disabled: true,
-                    themeName: 'text',
+                    themeName: LinkThemeName.TEXT,
                 } as any
             }
+            componentPropsValidators={{
+                to: isString(),
+                disabled: isBoolean(),
+                themeName: isOneOf({ items: Object.values(LinkThemeName) }),
+            }}
             component={Link}
         />
     </Root>
