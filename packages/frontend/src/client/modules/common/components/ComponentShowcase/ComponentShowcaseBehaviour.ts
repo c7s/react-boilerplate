@@ -1,4 +1,5 @@
 import autobind from 'autobind-decorator';
+import autosize from 'autosize';
 import * as React from 'react';
 import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
@@ -18,6 +19,7 @@ interface State {
 }
 
 class ComponentShowcaseBehaviour<D extends {}, F extends {}> extends React.Component<Props<D, F>, State> {
+    private textAreaRef = React.createRef<HTMLTextAreaElement>();
     public constructor(props: Props<D, F>) {
         super(props);
 
@@ -36,8 +38,15 @@ class ComponentShowcaseBehaviour<D extends {}, F extends {}> extends React.Compo
                 ...this.state,
                 onTextAreaChange: this.onTextAreaChange,
                 componentFuncProps: this.props.initialComponentFuncProps,
+                textAreaRef: this.textAreaRef,
             },
         );
+    }
+
+    public componentDidMount(): void {
+        if (this.textAreaRef.current) {
+            autosize(this.textAreaRef.current);
+        }
     }
 
     @autobind

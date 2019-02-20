@@ -11,6 +11,7 @@ interface Props<D extends {}, F extends {}> extends CommonProps {
     rawComponentDataProps: string;
     name: string;
     linkTo: string;
+    textAreaRef: React.RefObject<HTMLTextAreaElement>;
     componentPropsValidators?: { [key in keyof D]: Validator };
     componentFuncProps?: F;
 }
@@ -25,12 +26,13 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
     linkTo,
     componentPropsValidators,
     children,
+    textAreaRef,
 }: Props<D, F>): React.ReactElement<any> | null => (
     <Root className={className}>
         <Positionedlink themeName={LinkThemeName.TEXT} to={linkTo}>
             {name}
         </Positionedlink>
-        <TextArea onChange={onTextAreaChange} value={rawComponentDataProps} />
+        <TextArea ref={textAreaRef} onChange={onTextAreaChange} value={rawComponentDataProps} />
         <ComponentContainer>
             <ErrorBoundary<D>
                 rawComponentProps={rawComponentDataProps}
@@ -69,7 +71,6 @@ const ErrorMessage = styled.div`
 
 const TextArea = styled.textarea`
     width: 100%;
-    height: 200px;
     resize: vertical;
     vertical-align: bottom;
     padding: 20px;
