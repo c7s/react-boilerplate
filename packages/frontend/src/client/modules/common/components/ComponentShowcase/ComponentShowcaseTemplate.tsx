@@ -24,6 +24,7 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
     name,
     linkTo,
     componentPropsValidators,
+    children,
 }: Props<D, F>): React.ReactElement<any> | null => (
     <Root className={className}>
         <Positionedlink themeName={LinkThemeName.TEXT} to={linkTo}>
@@ -43,6 +44,7 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
                     )
                 }
             </ErrorBoundary>
+            {children}
         </ComponentContainer>
     </Root>
 );
@@ -54,6 +56,8 @@ const Root = styled.div`
 
 const ComponentContainer = styled.div`
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 20px;
     background-color: #c0c0c0;
 `;

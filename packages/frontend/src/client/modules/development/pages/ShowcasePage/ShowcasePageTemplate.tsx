@@ -3,12 +3,17 @@ import styled from 'styled-components';
 import { Button, ButtonThemeName } from '../../../common/components/Button';
 import { ComponentShowcase } from '../../../common/components/ComponentShowcase';
 import { Link, LinkThemeName } from '../../../common/components/Link';
-import { isBoolean, isOneOf, isString } from '../../../common/lib/validators';
+import { Modal } from '../../../common/components/Modal';
+import { isBoolean, isNumber, isOneOf, isString } from '../../../common/lib/validators';
 import { CommonProps } from '../../../common/types/CommonProps';
 
-interface Props extends CommonProps {}
+interface Props extends CommonProps {
+    isModalOpen: boolean;
+    onModalOpen(): void;
+    onModalClose(): void;
+}
 
-const ShowcasePageTemplate: React.FC<Props> = ({ className }) => (
+const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModalClose, onModalOpen }) => (
     <Root className={className}>
         <ComponentShowcase
             name={'Button'}
@@ -50,6 +55,42 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className }) => (
             }}
             component={Link}
         />
+        <ComponentShowcase
+            name={'Modal'}
+            linkTo={
+                'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Modal'
+            }
+            initialComponentDataProps={
+                {
+                    closeOnEsc: true,
+                    closeOnOverlayClick: true,
+                    center: true,
+                    showCloseIcon: true,
+                    closeIconSize: 28,
+                    animationDuration: 200,
+                    blockScroll: true,
+                    focusTrapped: true,
+                } as any
+            }
+            initialComponentFuncProps={{
+                open: isModalOpen,
+                onClose: onModalClose,
+                children: <ModalContent>Modal Content {'\n'} height: 200vh;</ModalContent>,
+            }}
+            componentPropsValidators={{
+                closeOnEsc: isBoolean(),
+                closeOnOverlayClick: isBoolean(),
+                center: isBoolean(),
+                showCloseIcon: isBoolean(),
+                closeIconSize: isNumber(),
+                animationDuration: isNumber(),
+                blockScroll: isBoolean(),
+                focusTrapped: isBoolean(),
+            }}
+            component={Modal}
+        >
+            <Button onClick={onModalOpen}>Show Modal</Button>
+        </ComponentShowcase>
     </Root>
 );
 
@@ -60,6 +101,12 @@ const Root = styled.div`
     > :not(:first-child) {
         margin-top: 30px;
     }
+`;
+
+const ModalContent = styled.div`
+    height: 200vh;
+    width: 200px;
+    white-space: pre-line;
 `;
 
 export { ShowcasePageTemplate, Props };
