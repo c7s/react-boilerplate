@@ -12,7 +12,10 @@ type CurrentInnerCommonProps = CommonInnerProps;
 const RootPageTemplate: React.FC<Props> = ({ className }) => (
     <Root className={className}>
         <Header>{APP_NAME}</Header>
-        <Link
+        <PositionedLink themeName={LinkThemeName.TEXT} to={routes.SHOWCASE.path}>
+            Component Showcase
+        </PositionedLink>
+        <PositionedLink
             themeName={LinkThemeName.TEXT}
             to={routes.DEVELOPMENT.pathWithParams({
                 name: 'Sir',
@@ -21,10 +24,7 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
             })}
         >
             Development
-        </Link>{' '}
-        <Link themeName={LinkThemeName.TEXT} to={routes.SHOWCASE.path}>
-            Showcase
-        </Link>
+        </PositionedLink>{' '}
     </Root>
 );
 
@@ -32,6 +32,13 @@ const Root = styled.div`
     min-height: 100%;
 `;
 
-const Header = styled.h1``;
+const Header = styled.h1`
+    font-weight: bold;
+    margin: 20px;
+`;
+
+const PositionedLink = styled(Link)`
+    margin: 20px;
+`;
 
 export { RootPageTemplate, Props, CurrentCommonProps, CurrentInnerCommonProps };

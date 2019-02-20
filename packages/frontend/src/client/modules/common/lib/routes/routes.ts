@@ -10,7 +10,7 @@ export const routes = {
         path: '/development/:name/:id?',
     }),
     SHOWCASE: route({
-        path: '/showcase',
+        path: '/component-showcase',
     }),
     NOT_FOUND: route({
         path: '/',
