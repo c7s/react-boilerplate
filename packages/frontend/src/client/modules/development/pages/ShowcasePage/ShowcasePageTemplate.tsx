@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
+import { Accordion } from '../../../common/components/Accordion';
 import { Button, ButtonThemeName } from '../../../common/components/Button';
 import { ComponentShowcase } from '../../../common/components/ComponentShowcase';
 import { Link, LinkThemeName } from '../../../common/components/Link';
@@ -64,6 +65,26 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                     themeName: isOneOf({ items: Object.values(LinkThemeName) }),
                 }}
                 component={Link}
+            />
+            <ComponentShowcase
+                name={'Accordion'}
+                linkTo={
+                    'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Accordion'
+                }
+                initialComponentDataProps={
+                    {
+                        collapseThreshold: 100,
+                        collapsedHeight: 50,
+                    } as any
+                }
+                initialComponentFuncProps={{
+                    children: <AccordionContent>Accordion Content {'\n\n\n\n'} (200 px height)</AccordionContent>,
+                }}
+                componentPropsValidators={{
+                    collapseThreshold: isNumber(),
+                    collapsedHeight: isNumber(),
+                }}
+                component={Accordion}
             />
             <ComponentShowcase
                 name={'Modal'}
@@ -132,6 +153,11 @@ const ShowcaseGroup = styled.div`
 const ModalContent = styled.div`
     height: 200vh;
     width: 200px;
+    white-space: pre-line;
+`;
+
+const AccordionContent = styled.div`
+    height: 200px;
     white-space: pre-line;
 `;
 
