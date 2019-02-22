@@ -6,6 +6,7 @@ import { ComponentShowcase } from '../../../common/components/ComponentShowcase'
 import { Link, LinkThemeName } from '../../../common/components/Link';
 import { Modal } from '../../../common/components/Modal';
 import { Page } from '../../../common/components/Page';
+import { SocialShare } from '../../../common/components/SocialShare';
 import { routes } from '../../../common/lib/routes';
 import { isBoolean, isNumber, isOneOf, isString } from '../../../common/lib/validators';
 import { CommonProps } from '../../../common/types/CommonProps';
@@ -119,6 +120,21 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
             >
                 <Button onClick={onModalOpen}>Show Modal</Button>
             </ComponentShowcase>
+            <ComponentShowcase
+                name={'SocialShare'}
+                linkTo={
+                    'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/SocialShare'
+                }
+                initialComponentDataProps={
+                    {
+                        url: 'https://google.com',
+                    } as any
+                }
+                componentPropsValidators={{
+                    url: isString(),
+                }}
+                component={SocialShare}
+            />
         </ShowcaseGroup>
     </StyledPage>
 );
