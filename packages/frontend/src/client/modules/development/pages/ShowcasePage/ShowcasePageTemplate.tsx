@@ -128,10 +128,35 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 initialComponentDataProps={
                     {
                         url: 'https://google.com',
+                        title: 'Share showcase',
+                        image: '',
+                        vk: {
+                            url: 'https://google.com',
+                            title: 'Share showcase',
+                            image: '',
+                            noparse: false,
+                            no_vk_links: 0,
+                        },
+                        ok: {
+                            url: 'https://google.com',
+                            title: 'Share showcase',
+                            imageUrl: '',
+                        },
+                        tw: {
+                            url: 'https://google.com',
+                            text: 'Share showcase',
+                            hashtags: 'react,boilerplate,c7s',
+                            via: 'fenok',
+                        },
+                        fb: {
+                            u: 'https://google.com',
+                        },
                     } as any
                 }
                 componentPropsValidators={{
                     url: isString(),
+                    title: isString(),
+                    image: isString(),
                 }}
                 component={SocialShare}
             />
