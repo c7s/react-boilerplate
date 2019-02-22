@@ -32,8 +32,9 @@ export const InitialHelmet: React.FC = ({ children }) => (
             <meta name="msapplication-config" content={`${BROWSER_CONFIG_PATH}?${BUILD_TIMESTAMP}`} />
 
             <title>{APP_NAME}</title>
+            <meta name="description" content={APP_DESCRIPTION} />
         </Helmet>
-        <OpenGraph title={APP_NAME} />
+        <OpenGraph />
         {children}
     </React.Fragment>
 );

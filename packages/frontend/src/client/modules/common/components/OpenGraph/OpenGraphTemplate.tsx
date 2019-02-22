@@ -4,26 +4,27 @@ import { RouteComponentProps } from 'react-router';
 import appleTouchIcon from '../../favicon/apple-touch-icon.png';
 
 interface Props extends RouteComponentProps<{}> {
-    title: string;
+    /** Defaults to APP_NAME */
+    title?: string;
     /** Defaults to website */
     type?: string;
     /** Relative or absolute path to image, defaults to favicon */
     image?: string;
     /** Defaults to current url without search (uses CANONICAL_ROBOTS_HOST) */
     url?: string;
-    /** Defaults to '' */
+    /** Defaults to APP_DESCRIPTION */
     description?: string;
     /** Defaults to ru_RU */
     locale?: string;
 }
 
 const OpenGraphTemplate: React.FC<Props> = ({
-    title,
+    title = APP_NAME,
     url,
     location,
     type = 'website',
     image = appleTouchIcon,
-    description = '',
+    description = APP_DESCRIPTION,
     locale = 'ru_RU',
 }) => (
     <Helmet>

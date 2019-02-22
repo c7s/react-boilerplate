@@ -16,9 +16,10 @@ const WEB_MANIFEST_PATH = '/manifest.json';
 const BROWSER_CONFIG_PATH = '/browserconfig.xml';
 const ROBOTS_PATH = '/robots.txt';
 
-/** Name the project here */
+/** Name and describe the project here */
 const APP_NAME = 'React Boilerplate';
 const APP_SHORT_NAME = 'R.B.';
+const APP_DESCRIPTION = 'React Boilerplate of c7s';
 
 function getBabelOptions(ssrMode) {
     return {
@@ -124,6 +125,7 @@ const commonConfig = env => ({
         new webpack.DefinePlugin({
             APP_NAME: JSON.stringify(APP_NAME),
             APP_SHORT_NAME: JSON.stringify(APP_SHORT_NAME),
+            APP_DESCRIPTION: JSON.stringify(APP_DESCRIPTION),
             WEB_MANIFEST_PATH: JSON.stringify(WEB_MANIFEST_PATH),
             BROWSER_CONFIG_PATH: JSON.stringify(BROWSER_CONFIG_PATH),
             ROBOTS_PATH: JSON.stringify(ROBOTS_PATH),

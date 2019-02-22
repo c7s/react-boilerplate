@@ -8,6 +8,7 @@ import { Status } from '../Status';
 interface Props extends CommonProps {
     statusCode?: number;
     documentTitle?: string;
+    documentDescription?: string;
     ogTitle?: string;
     ogType?: string;
     ogImage?: string;
@@ -21,6 +22,7 @@ const PageTemplate: React.FC<Props> = ({
     statusCode,
     children,
     documentTitle,
+    documentDescription,
     ogTitle,
     ogType,
     ogImage,
@@ -32,13 +34,14 @@ const PageTemplate: React.FC<Props> = ({
         <Status code={statusCode || 200}>
             <Helmet>
                 <title>{documentTitle || APP_NAME}</title>
+                <meta name="description" content={documentDescription || APP_DESCRIPTION} />
             </Helmet>
             <OpenGraph
                 title={ogTitle || documentTitle || APP_NAME}
                 type={ogType}
                 image={ogImage}
                 url={ogUrl}
-                description={ogDescription}
+                description={ogDescription || documentDescription || APP_DESCRIPTION}
                 locale={ogLocale}
             />
             {children}
