@@ -148,10 +148,12 @@ function sendRedirect(res: Response, context: RouterContext) {
 }
 
 function getUsedBundles(reactLoadableStats: ReactLoadableStats, modules: string[]) {
-    return stripSourceMaps([
-        ...getBundles(reactLoadableStats, uniq(modules)),
-        ...stripReactLoadableBundles(stripHotUpdateBundles(getDirtyBundles(reactLoadableStats))),
-    ]);
+    return stripSourceMaps(
+        stripHotUpdateBundles([
+            ...getBundles(reactLoadableStats, uniq(modules)),
+            ...stripReactLoadableBundles(getDirtyBundles(reactLoadableStats)),
+        ]),
+    );
 }
 
 function getAllBundles(reactLoadableStats: ReactLoadableStats) {
