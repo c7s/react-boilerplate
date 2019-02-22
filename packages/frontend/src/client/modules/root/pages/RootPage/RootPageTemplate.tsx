@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link, LinkThemeName } from '../../../common/components/Link';
+import { Page } from '../../../common/components/Page';
 import { routes } from '../../../common/lib/routes';
 import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
 
@@ -10,7 +11,7 @@ type CurrentCommonProps = CommonProps;
 type CurrentInnerCommonProps = CommonInnerProps;
 
 const RootPageTemplate: React.FC<Props> = ({ className }) => (
-    <Root className={className}>
+    <StyledPage className={className} documentTitle={APP_NAME}>
         <Header>{APP_NAME}</Header>
         <PositionedLink themeName={LinkThemeName.TEXT} to={routes.SHOWCASE.path}>
             Component Showcase
@@ -24,12 +25,11 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
             })}
         >
             Development
-        </PositionedLink>{' '}
-    </Root>
+        </PositionedLink>
+    </StyledPage>
 );
 
-const Root = styled.div`
-    min-height: 100%;
+const StyledPage = styled(Page)`
     display: flex;
     flex-direction: column;
 `;

@@ -1,31 +1,27 @@
 import * as React from 'react';
-import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Status } from '../../components/Status';
+import { Link, LinkThemeName } from '../../components/Link';
+import { Page } from '../../components/Page';
 import { routes } from '../../lib/routes';
 import { CommonProps } from '../../types/CommonProps';
 
 interface Props extends CommonProps {}
 
 const NotFoundPageTemplate: React.FC<Props> = ({ className }) => (
-    <Root className={className}>
-        <Status code={404}>
-            <Helmet>
-                <title>{'Страница не найдена'}</title>
-            </Helmet>
-            <Header>404</Header>
-            <Text>
-                Данная страница не существует.
-                {'\n'}
-                Попробуйте <Link to={routes.ROOT.path}>вернуться на главную.</Link>
-            </Text>
-        </Status>
-    </Root>
+    <StyledPage className={className} statusCode={404} documentTitle={'Страница не найдена'}>
+        <Header>404</Header>
+        <Text>
+            Данная страница не существует.
+            {'\n'}
+            Попробуйте{' '}
+            <Link to={routes.ROOT.path} themeName={LinkThemeName.TEXT}>
+                вернуться на главную.
+            </Link>
+        </Text>
+    </StyledPage>
 );
 
-const Root = styled.div`
-    min-height: 100vh;
+const StyledPage = styled(Page)`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,7 +31,9 @@ const Root = styled.div`
     white-space: pre-line;
 `;
 
-const Header = styled.h1``;
+const Header = styled.h1`
+    font-weight: bold;
+`;
 
 const Text = styled.p``;
 

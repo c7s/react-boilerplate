@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
-import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Button, ButtonThemeName } from '../../../common/components/Button';
 import { Modal } from '../../../common/components/Modal';
+import { Page } from '../../../common/components/Page';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { routes } from '../../../common/lib/routes';
 import { withTheme } from '../../../common/lib/withTheme';
@@ -82,10 +82,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
         theme /** can't get 'themeName' here*/,
     }) => (
         /** It's mandatory to pass className to root element */
-        <Root className={className}>
-            <Helmet>
-                <title>{`${counter} Development page`}</title>
-            </Helmet>
+        <StyledPage className={className} documentTitle={`${counter} Development page`} ogTitle={'Development page'}>
             <Greeting>Greetings, {name ? name : 'Unknown'}</Greeting>
             <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
             <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
@@ -114,15 +111,13 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
             <Modal open={isModalOpen} onClose={onModalRequestClose}>
                 <ModalContent>Modal {'\n\n\n\n\n\n\n\n'} Modal</ModalContent>
             </Modal>
-        </Root>
+        </StyledPage>
     ),
 );
 
 /** Styled components */
 
-const Root = styled.div`
-    min-height: 100%;
-`;
+const StyledPage = styled(Page)``;
 
 const ThemeDisplay = styled.div``;
 

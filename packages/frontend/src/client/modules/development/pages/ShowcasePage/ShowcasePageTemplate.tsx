@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Accordion } from '../../../common/components/Accordion';
 import { Button, ButtonThemeName } from '../../../common/components/Button';
 import { ComponentShowcase } from '../../../common/components/ComponentShowcase';
 import { Link, LinkThemeName } from '../../../common/components/Link';
 import { Modal } from '../../../common/components/Modal';
+import { Page } from '../../../common/components/Page';
 import { routes } from '../../../common/lib/routes';
 import { isBoolean, isNumber, isOneOf, isString } from '../../../common/lib/validators';
 import { CommonProps } from '../../../common/types/CommonProps';
@@ -17,10 +17,7 @@ interface Props extends CommonProps {
 }
 
 const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModalClose, onModalOpen }) => (
-    <Root className={className}>
-        <Helmet>
-            <title>Component Showcase</title>
-        </Helmet>
+    <StyledPage className={className} documentTitle={'Component Showcase'}>
         <Header>Component Showcase</Header>
         <BackLink to={routes.ROOT.path} themeName={LinkThemeName.TEXT}>
             Back to Root
@@ -123,11 +120,10 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 <Button onClick={onModalOpen}>Show Modal</Button>
             </ComponentShowcase>
         </ShowcaseGroup>
-    </Root>
+    </StyledPage>
 );
 
-const Root = styled.div`
-    min-height: 100%;
+const StyledPage = styled(Page)`
     display: flex;
     flex-direction: column;
 `;
