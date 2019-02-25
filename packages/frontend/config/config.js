@@ -4,7 +4,6 @@
 const Env = {
     DEV: 'dev',
     QA: 'qa',
-    RT: 'rt',
     PROD: 'prod',
 };
 
