@@ -11,7 +11,7 @@ IS_SHOW_DEV_PAGES: ${global.IS_SHOW_DEV_PAGES}`,
             '',
         );
 
-        console.info('%cSSR can be prevented by passing __FAIL_SSR__ in query parameters', 'color: yellow');
+        console.warn('SSR can be prevented by passing __FAIL_SSR__ in query parameters');
 
         console.groupEnd();
     }
