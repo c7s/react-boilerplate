@@ -2,6 +2,7 @@ import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { HelmetData } from 'react-helmet';
 import { getBundles } from 'react-loadable/webpack';
+import { castError } from '../castError';
 
 export interface HtmlProps {
     helmet?: HelmetData;
@@ -45,6 +46,7 @@ export const Html: React.FC<HtmlProps> = ({
                 dangerouslySetInnerHTML={{
                     __html: `${spriteContent ? spriteContent : ''}${renderToString(
                         <React.Fragment>
+                            {ssrError ? <noscript>{castError(ssrError).userDisplayedMessage}</noscript> : null}
                             <div id="root" dangerouslySetInnerHTML={{ __html: content ? content : '' }} />
                             <script
                                 dangerouslySetInnerHTML={{
