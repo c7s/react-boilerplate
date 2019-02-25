@@ -7,6 +7,10 @@ lib_dir=node_modules/deployment
 scriptpath=$(dirname $0)
 cd $scriptpath/../
 
+# TODO: environment may not be executable unlike build and deploy. Find out why
+echo "[DEPLOY] [FRONTEND-SERVER] Making environment executable"
+chmod +x ./bin/environment
+
 echo "[DEPLOY] [FRONTEND-SERVER] Installing dependencies"
 yarn run i
 
