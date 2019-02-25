@@ -17,6 +17,7 @@ declare namespace NodeJS {
         PUBLIC_PATH: string;
         CANONICAL_ROBOTS_HOST: string;
         IS_OUTPUT_APP_INFO: boolean;
+        IS_SHOW_DEV_PAGES: boolean;
         /** Dynamic server data part */
         APOLLO_STATE: { [key: string]: { [key: string]: object } } | undefined;
         REDUX_STATE: object | undefined;

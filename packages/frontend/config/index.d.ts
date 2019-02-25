@@ -11,6 +11,7 @@ declare namespace ConfigNamespace {
         canonicalRobotsHost: string;
         devServerPort: number;
         isOutputAppInfo: boolean;
+        isShowDevPages: boolean;
     }
 
     interface ApiConfig {

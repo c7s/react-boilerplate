@@ -23,6 +23,7 @@ module.exports = {
         canonicalRobotsHost: process.env.REACT_BOILERPLATE_CANONICAL_ROBOTS_HOST || 'http://react-boilerplate.com',
         devServerPort: 3000,
         isOutputAppInfo: process.env.REACT_BOILERPLATE_ENV !== Env.PROD,
+        isShowDevPages: process.env.REACT_BOILERPLATE_ENV === Env.DEV,
     },
     api: {
         graphqlEndpoint: process.env.REACT_BOILERPLATE_GRAPHQL_ENDPOINT || 'https://api.github.com/graphql',

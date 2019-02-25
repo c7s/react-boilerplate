@@ -57,6 +57,7 @@ export const Html: React.FC<HtmlProps> = ({
                                         PUBLIC_PATH: JSON.stringify(global.PUBLIC_PATH),
                                         CANONICAL_ROBOTS_HOST: JSON.stringify(global.CANONICAL_ROBOTS_HOST),
                                         IS_OUTPUT_APP_INFO: JSON.stringify(global.IS_OUTPUT_APP_INFO),
+                                        IS_SHOW_DEV_PAGES: JSON.stringify(global.IS_SHOW_DEV_PAGES),
                                         /** Dynamic server data part */
                                         APOLLO_STATE: JSON.stringify(apolloState),
                                         REDUX_STATE: JSON.stringify(reduxState),

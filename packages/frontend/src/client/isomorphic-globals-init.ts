@@ -12,6 +12,7 @@ if (SSR_MODE) {
     global.PUBLIC_PATH = config.root.publicPath;
     global.CANONICAL_ROBOTS_HOST = config.root.canonicalRobotsHost;
     global.IS_OUTPUT_APP_INFO = config.root.isOutputAppInfo;
+    global.IS_SHOW_DEV_PAGES = config.root.isShowDevPages;
 }
 
 /** https://webpack.js.org/guides/public-path/#on-the-fly */
