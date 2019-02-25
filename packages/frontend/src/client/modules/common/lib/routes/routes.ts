@@ -8,9 +8,11 @@ export const routes = {
     }),
     DEVELOPMENT: route<'name', 'id', 'querySingle' | 'querySingle2', 'queryArray', 'hashValue'>({
         path: '/development/:name/:id?',
+        isDev: true,
     }),
     SHOWCASE: route({
         path: '/component-showcase',
+        isDev: true,
     }),
     NOT_FOUND: route({
         path: '/',

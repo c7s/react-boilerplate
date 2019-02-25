@@ -52,7 +52,7 @@ function route<
     QUERY extends string = never,
     QUERY_ARRAY extends string = never,
     HASH extends string = never
->(routeData: RouteProps & { path: string }) {
+>(routeData: RouteProps & { path: string; isDev?: boolean }) {
     return {
         ...routeData,
         pathWithParams: getPathWithParams<PATH, PATH_OPTIONAL, QUERY, QUERY_ARRAY, HASH>(routeData.path),

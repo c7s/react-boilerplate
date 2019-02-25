@@ -49,9 +49,11 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
                                     <InitialHelmet>
                                         <ScrollToTop>
                                             <Switch>
-                                                {Object.entries(routesWithComponents).map(([name, route]) => (
-                                                    <Route key={name} {...route} />
-                                                ))}
+                                                {Object.entries(routesWithComponents).map(([name, route]) =>
+                                                    global.IS_SHOW_DEV_PAGES || !(route as { isDev: boolean }).isDev ? (
+                                                        <Route key={name} {...route} />
+                                                    ) : null,
+                                                )}
                                             </Switch>
                                         </ScrollToTop>
                                     </InitialHelmet>
