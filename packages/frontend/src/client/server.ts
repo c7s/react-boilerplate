@@ -142,7 +142,7 @@ function sendRobots(res: Response) {
 }
 
 function sendRedirect(res: Response, context: RouterContext) {
-    res.status(301)
+    res.status(context.statusCode || 301)
         .header('Location', context.url)
         .send();
 }
