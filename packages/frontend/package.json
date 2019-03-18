@@ -23,6 +23,10 @@
         "lint:css": "stylelint ./src/**/*.{ts,tsx}",
         "pre-commit": "lint-staged"
     },
+    "engines": {
+        "node": "8.11.1",
+        "yarn": "^1.6.0"
+    },
     "lint-staged": {
         "*.js": [
             "eslint --fix",
