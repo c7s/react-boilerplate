@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { routes } from '../../lib/routes';
 import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
 import { Button, ButtonProps } from '../Button';
@@ -34,9 +35,14 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
     initialComponentDataProps,
 }: Props<D, F>): React.ReactElement<any> | null => (
     <Root className={className}>
-        <Positionedlink themeName={LinkThemeName.TEXT} to={linkTo}>
-            {name}
-        </Positionedlink>
+        <Header id={name}>
+            <Link themeName={LinkThemeName.TEXT} to={linkTo}>
+                {name}
+            </Link>
+            <AnchorLink to={routes.SHOWCASE.pathWithParams({ hash: name })} smooth>
+                🔗
+            </AnchorLink>
+        </Header>
         <TextAreaContainer>
             {JSON.stringify(initialComponentDataProps || {}, null, 4) !== rawComponentDataProps ? (
                 <ResetButton onClick={onTextAreaReset}>↻</ResetButton>
@@ -98,9 +104,19 @@ const TextArea = styled.textarea`
     padding: 20px;
 `;
 
-const Positionedlink = styled(Link)`
-    display: block;
-    margin: 20px;
+const Header = styled.h2`
+    align-self: flex-start;
+    padding: 20px;
+
+    :hover > * {
+        opacity: 1;
+    }
+`;
+
+const AnchorLink = styled(Link)`
+    margin-left: 10px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
 `;
 
 export { ComponentShowcaseTemplate, Props };
