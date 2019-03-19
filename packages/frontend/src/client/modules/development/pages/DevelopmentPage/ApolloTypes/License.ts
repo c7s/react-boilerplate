@@ -6,13 +6,13 @@
 // ====================================================
 
 export interface License {
-    __typename: 'License';
-    /**
-     * Customary short name if applicable (e.g, GPLv3)
-     */
-    nickname: string | null;
-    /**
-     * A human-readable description of the license
-     */
-    description: string | null;
+  __typename: "License";
+  /**
+   * Customary short name if applicable (e.g, GPLv3)
+   */
+  nickname: string | null;
+  /**
+   * A human-readable description of the license
+   */
+  description: string | null;
 }
