@@ -4,7 +4,7 @@
     "author": "c7s",
     "private": true,
     "scripts": {
-        "prepare": "node ./tools/install/create-symlinks",
+        "prepare": "node ./tools/install/create-symlinks && cd .. && yarn i",
         "i": "yarn install --frozen-lockfile --ignore-optional",
         "a": "yarn add -E",
         "r": "yarn remove",
