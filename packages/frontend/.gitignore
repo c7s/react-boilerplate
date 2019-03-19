@@ -6,12 +6,6 @@ config/local.js
 # Webpack output
 dist/
 
-# Apollo types are generated
-**/ApolloTypes/*
-
-# Global types include enums, which are required at compile-time
-!**/ApolloTypes/globalTypes.ts
-
 # GraphQL schema is generated from endpoint
 graphql.schema.json
 
