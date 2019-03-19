@@ -1,4 +1,4 @@
 node_modules/
 dist/
 .yarnrc
-src/client/modules/common/graphql/ApolloTypes/globalTypes.ts
+/**/ApolloTypes/*.ts
