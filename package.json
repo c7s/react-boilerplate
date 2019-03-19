@@ -16,6 +16,10 @@
         "pre-commit": "lint-staged",
         "post-commit": "git update-index --again"
     },
+    "engines": {
+        "node": "8.11.1",
+        "yarn": "^1.6.0"
+    },
     "lint-staged": {
         "*.js": [
             "eslint --fix",
