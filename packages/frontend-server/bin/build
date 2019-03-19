@@ -9,9 +9,7 @@ scriptpath=$(dirname $0)
 cd $scriptpath/../../frontend/
 
 echo "[BUILD] [FRONTEND] Building frontend"
-# Installing dependencies is part of build process, yet somehow it's required here.
-yarn run i
-yarn run build:final:no-install
+yarn build:final
 
 cd ../frontend-server/
 echo "[BUILD] [FRONTEND-SERVER] Injecting frontend"

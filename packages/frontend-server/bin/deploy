@@ -12,7 +12,7 @@ echo "[DEPLOY] [FRONTEND-SERVER] Making environment executable"
 chmod +x ./bin/environment
 
 echo "[DEPLOY] [FRONTEND-SERVER] Installing dependencies"
-yarn run i
+yarn i
 
 project=$project \
 target_host=$target_host \
