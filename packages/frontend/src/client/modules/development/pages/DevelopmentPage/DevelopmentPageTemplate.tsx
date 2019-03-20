@@ -90,7 +90,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
             <UrlData>QuerySingle: {querySingle}</UrlData>
             <UrlData>QueryArray: {JSON.stringify(queryArray)}</UrlData>
             <StateCounter>State counter: {counter}</StateCounter>
-            <Button themeName={ButtonThemeName.SECONDARY} onClick={onClick}>
+            <Button themeName={ButtonThemeName.PRIMARY} onClick={onClick}>
                 Drop Counter (Button)
             </Button>
             <LicensesDisplay>
@@ -99,10 +99,10 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
                     ? licenses.data.licenses.map(license => (license ? license.nickname : 'No nickname'))
                     : 'No data'}
             </LicensesDisplay>
-            <Button themeName={ButtonThemeName.SECONDARY} to={routes.ROOT.path}>
+            <Button themeName={ButtonThemeName.PRIMARY} to={routes.ROOT.path}>
                 Root (Button-Link)
             </Button>
-            <Button disabled to={routes.ROOT.path} themeName={ButtonThemeName.SECONDARY}>
+            <Button disabled to={routes.ROOT.path} themeName={ButtonThemeName.PRIMARY}>
                 Disabled State (Button-Link)
             </Button>
             <Button onClick={onOpenModalClick}>Modal (Button)</Button>

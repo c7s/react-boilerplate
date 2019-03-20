@@ -20,19 +20,16 @@ enum ThemeName {
 interface Theme {
     textDecoration: string;
     color: string;
-    disabledOpacity: string;
 }
 
 const THEME_DICT: EnumedDict<ThemeName, Theme> = {
     [ThemeName.SEAMLESS]: {
         textDecoration: 'none',
         color: 'inherit',
-        disabledOpacity: '1',
     },
     [ThemeName.TEXT]: {
-        textDecoration: 'underscore',
+        textDecoration: 'underline',
         color: '#808080',
-        disabledOpacity: '0.5',
     },
 };
 
@@ -83,7 +80,7 @@ const linkCss = css`
         disabled
             ? css`
                   pointer-events: none;
-                  opacity: ${({ theme }: StyledLinkProps) => theme!.disabledOpacity};
+                  opacity: 0.5;
               `
             : ''};
 

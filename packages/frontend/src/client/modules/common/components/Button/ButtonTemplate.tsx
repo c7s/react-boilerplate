@@ -8,8 +8,10 @@ type Props = CommonProps<ThemeName> &
     (React.ButtonHTMLAttributes<HTMLButtonElement> | (Omit<LinkProps, keyof CommonProps>));
 
 enum ThemeName {
+    // Invisible, for wrapping blocks. Default, should be easy to override with custom styles.
+    SEAMLESS = 'seamless',
+    // Usual button
     PRIMARY = 'primary',
-    SECONDARY = 'secondary',
 }
 
 interface Theme {
@@ -17,11 +19,11 @@ interface Theme {
 }
 
 const THEME_DICT: EnumedDict<ThemeName, Theme> = {
+    [ThemeName.SEAMLESS]: {
+        border: 'none',
+    },
     [ThemeName.PRIMARY]: {
         border: '1px solid #000000',
-    },
-    [ThemeName.SECONDARY]: {
-        border: '1px dashed #000000',
     },
 };
 
