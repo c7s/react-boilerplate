@@ -44,7 +44,6 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
                             <React.Fragment>
                                 <GlobalFontsStyle />
                                 <ExternalAndGlobalStyles />
-                                <Notificator />
                                 <IsomorphicRouter location={this.props.location} context={this.props.context}>
                                     <InitialHelmet>
                                         <ScrollToTop>
@@ -58,6 +57,7 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
                                         </ScrollToTop>
                                     </InitialHelmet>
                                 </IsomorphicRouter>
+                                <Notificator />
                             </React.Fragment>
                         </RootErrorBoundary>
                     </Provider>

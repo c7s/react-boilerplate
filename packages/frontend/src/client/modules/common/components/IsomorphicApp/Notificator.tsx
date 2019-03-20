@@ -6,6 +6,7 @@ import { castError } from '../../lib/castError';
 import { StoreState } from '../../lib/IsomorphicStore';
 import { onMessageRemove } from '../../store/actions';
 import { Messages } from '../../store/types';
+import { Button, ButtonProps } from '../Button';
 
 interface MapProps {
     messages: Messages;
@@ -27,7 +28,7 @@ class Notificator extends React.Component<MapProps & DispatchProps> {
                             <Header>{castedError.header}</Header>
                             <Text>{castedError.text}</Text>
                             {castedError.details ? <Details>{castedError.details}</Details> : null}
-                            <Button onClick={() => this.props.onMessageRemove(key)}>OK</Button>
+                            <OkButton onClick={() => this.props.onMessageRemove(key)}>OK</OkButton>
                         </Message>
                     );
                 })}
@@ -41,6 +42,7 @@ const Root = styled.div`
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1;
 `;
 
 const Message = styled.div`
@@ -49,13 +51,9 @@ const Message = styled.div`
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 `;
 
-const Button = styled.button`
-    background-color: transparent;
-    border: none;
+const OkButton = styled(Button)`
     margin-top: 10px;
-    font-size: 14px;
-    padding: 0;
-`;
+` as React.ComponentType<ButtonProps>;
 
 const Header = styled.h1`
     margin-bottom: 10px;
