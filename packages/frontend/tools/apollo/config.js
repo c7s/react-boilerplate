@@ -4,24 +4,25 @@ const path = require('path');
 const fs = require('fs');
 const { config } = require('../../config/index');
 
-fs.writeFileSync(
-    path.resolve('graphql.config.json'),
-    jsGraphqlPluginConfig('graphql.schema.json', config.api.graphqlEndpoint)
-);
+function generateConfig() {
+    fs.writeFileSync(
+        path.resolve('graphql.config.json'),
+        jsGraphqlPluginConfig('graphql.schema.json', config.api.graphqlEndpoint)
+    );
 
-fs.writeFileSync(
-    path.resolve('.graphqlconfig.yml'),
-    vsCodeGraphqlExtensionConfig('graphql.schema.json', config.api.graphqlEndpoint)
-);
+    fs.writeFileSync(
+        path.resolve('.graphqlconfig.yml'),
+        vsCodeGraphqlExtensionConfig('graphql.schema.json', config.api.graphqlEndpoint)
+    );
 
-/**
- * @param {string} schemaFile
- * @param {string} endpoint
- * @return {string}
- * @constructor
- */
-function jsGraphqlPluginConfig(schemaFile, endpoint) {
-    return `{
+    /**
+     * @param {string} schemaFile
+     * @param {string} endpoint
+     * @return {string}
+     * @constructor
+     */
+    function jsGraphqlPluginConfig(schemaFile, endpoint) {
+        return `{
     "schema": {
         "file": "${schemaFile}"
     },
@@ -39,12 +40,19 @@ function jsGraphqlPluginConfig(schemaFile, endpoint) {
     ]
 }
 `;
-}
+    }
 
-function vsCodeGraphqlExtensionConfig(schemaFile, endpoint) {
-    return `schemaPath: ${schemaFile}
+    function vsCodeGraphqlExtensionConfig(schemaFile, endpoint) {
+        return `schemaPath: ${schemaFile}
 extensions:
   endpoints:
     default: ${endpoint}
 `;
+    }
 }
+
+if (module.parent === null) {
+    generateConfig();
+}
+
+module.exports = { generateConfig };
