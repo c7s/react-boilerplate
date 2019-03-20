@@ -9,6 +9,7 @@ const HEADER_HEIGHT = 50;
 const HeaderTemplate: React.FC<Props> = ({ className }) => <Root className={className}>{APP_NAME}</Root>;
 
 const Root = styled.div`
+    width: 100%;
     height: ${`${HEADER_HEIGHT}px`};
     position: sticky;
     top: 0;

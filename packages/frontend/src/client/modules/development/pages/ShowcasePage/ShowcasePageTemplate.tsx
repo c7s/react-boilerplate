@@ -167,6 +167,7 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
 const StyledPage = styled(Page)`
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 `;
 
 const Header = styled.h1`
@@ -180,6 +181,7 @@ const BackLink = styled(Link)`
 
 const ShowcaseGroup = styled.div`
     margin-top: 20px;
+    align-self: stretch;
 
     /* NOT FOR PRODUCTION. Styled-components messes up types for ComponentShowcase (even more) */
     > :not(:first-child) {

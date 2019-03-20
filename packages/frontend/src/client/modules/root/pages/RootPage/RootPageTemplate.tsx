@@ -32,6 +32,7 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
 const StyledPage = styled(Page)`
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 `;
 
 const Header = styled.h1`
