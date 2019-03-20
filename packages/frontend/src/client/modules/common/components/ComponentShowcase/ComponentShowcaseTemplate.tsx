@@ -116,6 +116,10 @@ const AnchorLink = styled(Link)`
     margin-left: 10px;
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
+
+    :focus {
+        opacity: 1;
+    }
 `;
 
 export { ComponentShowcaseTemplate, Props };
