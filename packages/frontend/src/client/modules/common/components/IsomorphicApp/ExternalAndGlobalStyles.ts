@@ -15,9 +15,19 @@ const globalCss = css`
     }
 
     body {
+        /* Scale on small widths */
         min-width: ${MIN_WIDTH}px;
+
+        /* There must be default font */
         ${fontFamily(FontFamily.BITTER)};
+
+        /* Important for iOS overscroll. May be redefined for concrete Page via props */
         background-color: #ebede8;
+    }
+
+    /* Define design-friendly outline color (in the name of a11y) */
+    * {
+        outline-color: #000000;
     }
 `;
 
