@@ -37,9 +37,9 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
 }: Props<D, F>): React.ReactElement<any> | null => (
     <Root className={className}>
         <Header id={name}>
-            <Link themeName={LinkThemeName.TEXT} to={linkTo}>
+            <ComponentLink themeName={LinkThemeName.TEXT} to={linkTo}>
                 {name}
-            </Link>
+            </ComponentLink>
             <AnchorLink to={routes.SHOWCASE.pathWithParams({ hash: name })} smooth>
                 🔗
             </AnchorLink>
@@ -105,20 +105,27 @@ const TextArea = styled.textarea`
 const Header = styled.h2`
     padding: 20px;
 
-    :hover > * {
-        opacity: 1;
-    }
-
     ${anchorForStickyHeader({ paddingTop: '20px' })};
 `;
 
+const ComponentLink = styled(Link)`
+    :hover + * {
+        opacity: 1;
+    }
+`;
+
 const AnchorLink = styled(Link)`
-    margin-left: 10px;
+    padding-left: 10px;
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
 
+    :hover,
     :focus {
         opacity: 1;
+    }
+
+    :active {
+        opacity: 0.5;
     }
 `;
 
