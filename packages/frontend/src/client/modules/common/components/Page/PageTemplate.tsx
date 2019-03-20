@@ -2,10 +2,12 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import styled, { createGlobalStyle, css } from 'styled-components';
 import { CommonProps } from '../../types/CommonProps';
+import { Header } from '../Header';
 import { OpenGraph } from '../OpenGraph';
 import { Status } from '../Status';
 
 interface Props extends CommonProps {
+    hideHeader?: boolean;
     statusCode?: number;
     documentTitle?: string;
     documentDescription?: string;
@@ -24,6 +26,7 @@ interface PageGlobalStyleProps {
 
 const PageTemplate: React.FC<Props> = ({
     className,
+    hideHeader,
     statusCode,
     children,
     documentTitle,
@@ -51,6 +54,7 @@ const PageTemplate: React.FC<Props> = ({
                 description={ogDescription || documentDescription || APP_DESCRIPTION}
                 locale={ogLocale}
             />
+            {!hideHeader ? <Header /> : null}
             {children}
         </Status>
     </Root>

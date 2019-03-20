@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { routes } from '../../lib/routes';
+import { anchorForStickyHeader } from '../../lib/styles/anchorForStickyHeader';
 import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
 import { Button, ButtonProps } from '../Button';
@@ -67,10 +68,7 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
     </Root>
 );
 
-const Root = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
+const Root = styled.div``;
 
 const ComponentContainer = styled.div`
     display: flex;
@@ -105,12 +103,13 @@ const TextArea = styled.textarea`
 `;
 
 const Header = styled.h2`
-    align-self: flex-start;
     padding: 20px;
 
     :hover > * {
         opacity: 1;
     }
+
+    ${anchorForStickyHeader({ paddingTop: '20px' })};
 `;
 
 const AnchorLink = styled(Link)`
