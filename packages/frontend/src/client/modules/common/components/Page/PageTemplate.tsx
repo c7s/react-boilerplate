@@ -2,12 +2,14 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import styled, { createGlobalStyle, css } from 'styled-components';
 import { CommonProps } from '../../types/CommonProps';
+import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { OpenGraph } from '../OpenGraph';
 import { Status } from '../Status';
 
 interface Props extends CommonProps {
     hideHeader?: boolean;
+    hideFooter?: boolean;
     statusCode?: number;
     documentTitle?: string;
     documentDescription?: string;
@@ -27,6 +29,7 @@ interface PageGlobalStyleProps {
 const PageTemplate: React.FC<Props> = ({
     className,
     hideHeader,
+    hideFooter,
     statusCode,
     children,
     documentTitle,
@@ -56,6 +59,7 @@ const PageTemplate: React.FC<Props> = ({
             />
             {!hideHeader ? <Header /> : null}
             {children}
+            {!hideFooter ? <Footer /> : null}
         </Status>
     </Root>
 );
@@ -73,6 +77,8 @@ const PageGlobalStyle = createGlobalStyle`
 
 const Root = styled.div`
     min-height: 100%;
+    display: flex;
+    flex-direction: column;
 `;
 
 export { PageTemplate, Props };

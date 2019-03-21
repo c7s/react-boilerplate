@@ -117,7 +117,9 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
 
 /** Styled components */
 
-const StyledPage = styled(Page)``;
+const StyledPage = styled(Page)`
+    align-items: flex-start;
+`;
 
 const ThemeDisplay = styled.div``;
 
