@@ -1,12 +1,36 @@
 #!/usr/bin/env node
 
 const { run } = require('apollo');
-const del = require('del');
+const glob = require('glob');
+const fs = require('fs');
+
+const DELETION_MARK = '// NOTE: This file is marked for deletion';
 
 function generateTypes() {
-    del(['**/ApolloTypes/*.ts', '!**/ApolloTypes/globalTypes.ts']);
+    const oldApolloTypeFiles = getApolloTypeFiles();
+    oldApolloTypeFiles.forEach(markFileForDeletion);
 
-    run(
+    generateApolloTypeFiles().then(() => {
+        oldApolloTypeFiles.forEach(deleteFileIfMarked);
+    });
+}
+
+function getApolloTypeFiles() {
+    return glob.sync('**/ApolloTypes/*.ts', { absolute: true });
+}
+
+function markFileForDeletion(path) {
+    fs.appendFileSync(path, DELETION_MARK);
+}
+
+function deleteFileIfMarked(path) {
+    if (fs.readFileSync(path, { encoding: 'utf-8' }).includes(DELETION_MARK)) {
+        fs.unlinkSync(path);
+    }
+}
+
+function generateApolloTypeFiles() {
+    return run(
         [
             'client:codegen',
             'ApolloTypes',
