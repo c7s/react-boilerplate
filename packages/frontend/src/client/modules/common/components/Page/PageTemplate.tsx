@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import styled, { createGlobalStyle, css } from 'styled-components';
-import { CommonProps } from '../../types/CommonProps';
+import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
 import { Footer } from '../Footer';
-import { Header } from '../Header';
+import { Header, HEADER_HEIGHT } from '../Header';
 import { OpenGraph } from '../OpenGraph';
 import { Status } from '../Status';
 
@@ -24,6 +24,10 @@ interface Props extends CommonProps {
 
 interface PageGlobalStyleProps {
     bodyBackground?: string;
+}
+
+interface RootProps extends CommonInnerProps {
+    hideHeader?: boolean;
 }
 
 const PageTemplate: React.FC<Props> = ({
@@ -79,6 +83,11 @@ const Root = styled.div`
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    padding-top: ${({ hideHeader }: RootProps) => (!hideHeader ? `${HEADER_HEIGHT}px` : '0')};
+
+    @supports (position: sticky) {
+        padding-top: 0;
+    }
 `;
 
 export { PageTemplate, Props };

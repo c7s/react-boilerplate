@@ -11,7 +11,7 @@ const HeaderTemplate: React.FC<Props> = ({ className }) => <Root className={clas
 const Root = styled.div`
     width: 100%;
     height: ${`${HEADER_HEIGHT}px`};
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 1;
 
@@ -22,6 +22,10 @@ const Root = styled.div`
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.08);
     font-weight: bold;
     background: #ffffff;
+
+    @supports (position: sticky) {
+        position: sticky;
+    }
 `;
 
 export { HeaderTemplate, Props, HEADER_HEIGHT };
