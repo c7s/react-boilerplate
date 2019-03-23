@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import styled, { createGlobalStyle, css } from 'styled-components';
-import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
-import { Footer } from '../Footer';
+import { CommonProps } from '../../types/CommonProps';
+import { Footer, FOOTER_HEIGHT } from '../Footer';
 import { Header, HEADER_HEIGHT } from '../Header';
 import { OpenGraph } from '../OpenGraph';
 import { Status } from '../Status';
@@ -23,11 +23,9 @@ interface Props extends CommonProps {
 }
 
 interface PageGlobalStyleProps {
-    bodyBackground?: string;
-}
-
-interface RootProps extends CommonInnerProps {
     hideHeader?: boolean;
+    hideFooter?: boolean;
+    bodyBackground?: string;
 }
 
 const PageTemplate: React.FC<Props> = ({
@@ -46,9 +44,9 @@ const PageTemplate: React.FC<Props> = ({
     ogDescription,
     ogLocale,
 }) => (
-    <Root className={className}>
+    <React.Fragment>
         <Status code={statusCode || 200}>
-            <PageGlobalStyle bodyBackground={bodyBackground} />
+            <PageGlobalStyle hideHeader={hideHeader} hideFooter={hideFooter} bodyBackground={bodyBackground} />
             <Helmet>
                 <title>{documentTitle || APP_NAME}</title>
                 <meta name="description" content={documentDescription || APP_DESCRIPTION} />
@@ -61,11 +59,11 @@ const PageTemplate: React.FC<Props> = ({
                 description={ogDescription || documentDescription || APP_DESCRIPTION}
                 locale={ogLocale}
             />
+            <Main className={className}>{children}</Main>
             {!hideHeader ? <Header /> : null}
-            {children}
             {!hideFooter ? <Footer /> : null}
         </Status>
-    </Root>
+    </React.Fragment>
 );
 
 const PageGlobalStyle = createGlobalStyle`
@@ -77,17 +75,13 @@ const PageGlobalStyle = createGlobalStyle`
                   }
               `
             : ''};
-`;
 
-const Root = styled.div`
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: ${({ hideHeader }: RootProps) => (!hideHeader ? `${HEADER_HEIGHT}px` : '0')};
-
-    @supports (position: sticky) {
-        padding-top: 0;
+    #root {
+        padding-top: ${({ hideHeader }) => (!hideHeader ? `${HEADER_HEIGHT}px` : '0')};
+        padding-bottom: ${({ hideFooter }) => (!hideFooter ? `${FOOTER_HEIGHT}px` : '0')};
     }
 `;
+
+const Main = styled.main``;
 
 export { PageTemplate, Props };

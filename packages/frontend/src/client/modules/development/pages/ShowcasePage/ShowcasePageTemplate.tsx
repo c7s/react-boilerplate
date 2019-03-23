@@ -18,7 +18,7 @@ interface Props extends CommonProps {
 }
 
 const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModalClose, onModalOpen }) => (
-    <StyledPage className={className} documentTitle={'Component Showcase'}>
+    <Root className={className} documentTitle={'Component Showcase'}>
         <Header>Component Showcase</Header>
         <BackLink to={routes.ROOT.path} themeName={LinkThemeName.TEXT}>
             Back to Root
@@ -161,10 +161,10 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 component={SocialShare}
             />
         </ShowcaseGroup>
-    </StyledPage>
+    </Root>
 );
 
-const StyledPage = styled(Page)`
+const Root = styled(Page)`
     display: flex;
     flex-direction: column;
     align-items: flex-start;

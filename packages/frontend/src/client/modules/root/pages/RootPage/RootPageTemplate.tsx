@@ -11,7 +11,7 @@ type CurrentCommonProps = CommonProps;
 type CurrentInnerCommonProps = CommonInnerProps;
 
 const RootPageTemplate: React.FC<Props> = ({ className }) => (
-    <StyledPage className={className} documentTitle={APP_NAME}>
+    <Root className={className} documentTitle={APP_NAME}>
         <Header>{APP_NAME}</Header>
         <PositionedLink themeName={LinkThemeName.TEXT} to={routes.SHOWCASE.path}>
             Component Showcase
@@ -29,10 +29,10 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
         >
             Development
         </PositionedLink>
-    </StyledPage>
+    </Root>
 );
 
-const StyledPage = styled(Page)`
+const Root = styled(Page)`
     display: flex;
     flex-direction: column;
     align-items: flex-start;

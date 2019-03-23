@@ -9,9 +9,14 @@ import { MIN_WIDTH } from '../../lib/media';
 const globalCss = css`
     /* Enabling 100% page min-height */
     html,
-    body,
-    #root {
+    body {
         height: 100%;
+    }
+
+    #root {
+        /* Enables sticky footer on IE11 */
+        position: relative;
+        min-height: 100%;
     }
 
     body {

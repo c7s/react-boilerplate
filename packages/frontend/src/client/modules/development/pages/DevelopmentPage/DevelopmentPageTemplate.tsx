@@ -82,7 +82,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
         theme /** can't get 'themeName' here*/,
     }) => (
         /** It's mandatory to pass className to root element */
-        <StyledPage className={className} documentTitle={`${counter} Development page`} ogTitle={'Development page'}>
+        <Root className={className} documentTitle={`${counter} Development page`} ogTitle={'Development page'}>
             <Greeting>Greetings, {name ? name : 'Unknown'}</Greeting>
             <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
             <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
@@ -111,15 +111,13 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
             <Modal open={isModalOpen} onClose={onModalRequestClose}>
                 <ModalContent>Modal {'\n\n\n\n\n\n\n\n'} Modal</ModalContent>
             </Modal>
-        </StyledPage>
+        </Root>
     ),
 );
 
 /** Styled components */
 
-const StyledPage = styled(Page)`
-    align-items: flex-start;
-`;
+const Root = styled(Page)``;
 
 const ThemeDisplay = styled.div``;
 

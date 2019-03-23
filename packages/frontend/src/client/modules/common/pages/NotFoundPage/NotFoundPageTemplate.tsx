@@ -8,7 +8,7 @@ import { CommonProps } from '../../types/CommonProps';
 interface Props extends CommonProps {}
 
 const NotFoundPageTemplate: React.FC<Props> = ({ className }) => (
-    <StyledPage className={className} statusCode={404} documentTitle={'Страница не найдена'} hideHeader hideFooter>
+    <Root className={className} statusCode={404} documentTitle={'Страница не найдена'} hideHeader hideFooter>
         <Header>404</Header>
         <Text>
             Данная страница не существует.
@@ -19,12 +19,14 @@ const NotFoundPageTemplate: React.FC<Props> = ({ className }) => (
             </Link>
             .
         </Text>
-    </StyledPage>
+    </Root>
 );
 
-const StyledPage = styled(Page)`
-    align-items: center;
-    justify-content: center;
+const Root = styled(Page)`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     white-space: pre-line;
 `;

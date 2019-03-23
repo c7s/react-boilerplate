@@ -4,14 +4,17 @@ import { CommonProps } from '../../types/CommonProps';
 
 interface Props extends CommonProps {}
 
+const FOOTER_HEIGHT = 50;
+
 const FooterTemplate: React.FC<Props> = ({ className }) => <Root className={className}>{APP_NAME}</Root>;
 
-const Root = styled.div`
+const Root = styled.footer`
     width: 100%;
-    margin-top: auto;
+    height: ${`${FOOTER_HEIGHT}px`};
+    position: absolute;
+    bottom: 0;
 
     /* Temporal */
-    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,4 +23,4 @@ const Root = styled.div`
     background: #ffffff;
 `;
 
-export { FooterTemplate, Props };
+export { FooterTemplate, Props, FOOTER_HEIGHT };
