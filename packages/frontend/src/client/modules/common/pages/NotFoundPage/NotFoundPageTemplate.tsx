@@ -23,10 +23,10 @@ const NotFoundPageTemplate: React.FC<Props> = ({ className }) => (
 );
 
 const Root = styled(Page)`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     white-space: pre-line;
 `;

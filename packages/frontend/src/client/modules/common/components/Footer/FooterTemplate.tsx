@@ -4,7 +4,7 @@ import { CommonProps } from '../../types/CommonProps';
 
 interface Props extends CommonProps {}
 
-const FOOTER_HEIGHT = 50;
+const FOOTER_HEIGHT = 25;
 
 const FooterTemplate: React.FC<Props> = ({ className }) => <Root className={className}>{APP_NAME}</Root>;
 

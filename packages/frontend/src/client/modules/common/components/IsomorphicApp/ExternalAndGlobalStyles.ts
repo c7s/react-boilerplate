@@ -17,6 +17,11 @@ const globalCss = css`
         /* Enables sticky footer on IE11 */
         position: relative;
         min-height: 100%;
+
+        /* Enables growing page content (excluding IE11) */
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     body {
