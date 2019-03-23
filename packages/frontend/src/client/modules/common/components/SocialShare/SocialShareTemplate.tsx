@@ -12,7 +12,7 @@ import {
     vkUrl,
 } from '../../lib/social-share-urls';
 import { CommonProps } from '../../types/CommonProps';
-import { Button, ButtonProps } from '../Button';
+import { Button } from '../Button';
 
 interface Props extends CommonProps, RouteComponentProps<{}> {
     url?: string;
@@ -82,6 +82,6 @@ const SocialButton = styled(Button)`
     :last-child {
         margin-right: 0;
     }
-` as React.ComponentType<ButtonProps>;
+`;
 
 export { SocialShareTemplate, Props };

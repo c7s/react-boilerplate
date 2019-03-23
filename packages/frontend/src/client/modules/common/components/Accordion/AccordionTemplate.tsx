@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
-import { Button, ButtonProps } from '../Button';
+import { Button } from '../Button';
 
 interface Props extends CommonProps {
     rootRef: React.RefObject<HTMLDivElement>;
@@ -70,6 +70,6 @@ const ToggleCollapsedStateButton = styled(Button)`
     position: absolute;
     bottom: 0;
     left: 0;
-` as React.ComponentType<ButtonProps>;
+`;
 
 export { AccordionTemplate, Props };

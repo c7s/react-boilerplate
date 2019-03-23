@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const createSymlink = require('create-symlink');
 const fs = require('fs');
 const path = require('path');

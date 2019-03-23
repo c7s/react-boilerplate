@@ -6,7 +6,7 @@ import { castError } from '../../lib/castError';
 import { StoreState } from '../../lib/IsomorphicStore';
 import { onMessageRemove } from '../../store/actions';
 import { Messages } from '../../store/types';
-import { Button, ButtonProps } from '../Button';
+import { Button } from '../Button';
 
 interface MapProps {
     messages: Messages;
@@ -53,7 +53,7 @@ const Message = styled.div`
 
 const OkButton = styled(Button)`
     margin-top: 10px;
-` as React.ComponentType<ButtonProps>;
+`;
 
 const Header = styled.h1`
     margin-bottom: 10px;

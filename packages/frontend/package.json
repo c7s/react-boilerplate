@@ -5,6 +5,7 @@
     "private": true,
     "scripts": {
         "prepare": "node ./tools/install/create-symlinks && cd .. && yarn i",
+        "postinstall": "node ./tools/install/remove-dependencies",
         "i": "yarn install --frozen-lockfile",
         "a": "yarn add -E -D",
         "r": "yarn remove",
@@ -72,7 +73,7 @@
         "@types/react-redux": "6.0.12",
         "@types/react-router-dom": "4.3.1",
         "@types/react-router-hash-link": "1.2.0",
-        "@types/styled-components": "4.1.6",
+        "@types/styled-components": "4.1.12",
         "@types/svg-sprite-loader": "3.9.0",
         "@types/webpack-env": "1.13.6",
         "apollo": "2.6.2",

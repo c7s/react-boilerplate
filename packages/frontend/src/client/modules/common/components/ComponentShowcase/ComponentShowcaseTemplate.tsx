@@ -4,7 +4,7 @@ import { routes } from '../../lib/routes';
 import { anchorForStickyHeader } from '../../lib/styles/anchorForStickyHeader';
 import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
-import { Button, ButtonProps } from '../Button';
+import { Button } from '../Button';
 import { Link, LinkThemeName } from '../Link';
 import { ErrorBoundary } from './ErrorBoundary';
 
@@ -93,7 +93,7 @@ const ResetButton = styled(Button)`
     position: absolute;
     top: 0;
     left: 0;
-` as React.ComponentType<ButtonProps>;
+`;
 
 const TextArea = styled.textarea`
     width: 100%;
