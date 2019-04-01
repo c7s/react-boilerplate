@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+const open = require('open');
 const { config } = require('../../config');
 
-exec(`start http://localhost:${config.root.devServerPort}`);
+open(`http://localhost:${config.root.devServerPort}`);
