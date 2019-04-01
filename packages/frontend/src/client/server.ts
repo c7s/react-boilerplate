@@ -6,6 +6,7 @@ import * as React from 'react';
 import { getDataFromTree } from 'react-apollo';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
+import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
@@ -76,6 +77,7 @@ async function sendHtmlOrRedirect(
 
     try {
         if (req.query.__FAIL_SSR__ === undefined) {
+            await Loadable.preloadAll();
             await getDataFromTree(App);
 
             const content = renderToString(sheet.collectStyles(App));
