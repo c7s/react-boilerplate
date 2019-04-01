@@ -9,6 +9,7 @@ import { Store } from 'redux';
 import { GlobalFontsStyle, observeFontFamilies } from '../../lib/fonts';
 import { StoreState } from '../../lib/IsomorphicStore';
 import { routesWithComponents } from '../../lib/routes';
+import { onMessageAdd } from '../../store/actions';
 import './console-enhancers';
 import { ExternalAndGlobalStyles } from './ExternalAndGlobalStyles';
 import { InitialHelmet } from './InitialHelmet';
@@ -33,6 +34,10 @@ export class IsomorphicApp extends React.Component<IsomorphicAppProps> {
     public componentDidMount() {
         // This function must be called client-side only and immediately
         observeFontFamilies();
+
+        if (global.SSR_ERROR) {
+            this.props.store.dispatch(onMessageAdd(global.SSR_ERROR));
+        }
     }
 
     public render() {
