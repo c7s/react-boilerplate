@@ -1,10 +1,11 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
 import { withTheme } from '../../lib/withTheme';
+import { ToInnerCommonProps } from '../../lib/withTheme/withTheme';
 import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
 import { Link, LinkProps } from '../Link';
 
-type Props = CommonProps<ThemeName> &
+type Props = CommonProps<ThemeName, HTMLButtonElement | HTMLAnchorElement> &
     (React.ButtonHTMLAttributes<HTMLButtonElement> | (Omit<LinkProps, keyof CommonProps>));
 
 enum ThemeName {
@@ -27,15 +28,26 @@ const THEME_DICT: EnumedDict<ThemeName, Theme> = {
     },
 };
 
-interface RootProps extends CommonInnerProps<Theme> {
+interface RootProps extends CommonInnerProps<Theme, HTMLButtonElement | HTMLAnchorElement> {
     disabled?: boolean;
 }
 
-const ButtonTemplate = withTheme<ThemeName, Theme, Props>(THEME_DICT)(props =>
-    isButtonProps(props) ? (
-        <RootButton {...props as CommonInnerProps<Theme> & React.ButtonHTMLAttributes<HTMLButtonElement>} />
-    ) : (
-        <RootLink {...props as CommonInnerProps<Theme> & (Omit<LinkProps, keyof CommonProps>)} />
+const ButtonTemplate = withTheme<ThemeName, Theme, HTMLAnchorElement | HTMLButtonElement, Props>(THEME_DICT)(
+    React.forwardRef<
+        HTMLButtonElement | HTMLAnchorElement,
+        ToInnerCommonProps<ThemeName, Theme, HTMLAnchorElement | HTMLButtonElement, Props>
+    >((props, ref) =>
+        isButtonProps(props) ? (
+            <RootButton
+                ref={ref as React.RefObject<HTMLButtonElement>}
+                {...props as CommonInnerProps<Theme, HTMLButtonElement> & React.ButtonHTMLAttributes<HTMLButtonElement>}
+            />
+        ) : (
+            <RootLink
+                ref={ref as React.Ref<HTMLAnchorElement>}
+                {...props as CommonInnerProps<Theme, HTMLAnchorElement> & (Omit<LinkProps, keyof CommonProps>)}
+            />
+        ),
     ),
 );
 

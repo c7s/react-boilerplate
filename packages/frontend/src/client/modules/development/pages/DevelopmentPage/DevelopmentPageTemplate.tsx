@@ -65,7 +65,7 @@ const THEME_DICT: EnumedDict<ThemeName, Theme> = {
 
 /** In case of theme, withTheme is added, ensuring that outer 'themeName' converts to inner 'theme' (types included) */
 
-const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Props>(THEME_DICT)(
+const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTMLElement, Props>(THEME_DICT)(
     ({
         className,
         counter,
@@ -80,39 +80,53 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, Pro
         queryArray,
         name,
         theme /** can't get 'themeName' here*/,
-    }) => (
-        /** It's mandatory to pass className to root element */
-        <Root className={className} documentTitle={`${counter} Development page`} ogTitle={'Development page'}>
-            <Greeting>Greetings, {name ? name : 'Unknown'}</Greeting>
-            <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
-            <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
-            <UrlData>Page id: {id}</UrlData>
-            <UrlData>QuerySingle: {querySingle}</UrlData>
-            <UrlData>QueryArray: {JSON.stringify(queryArray)}</UrlData>
-            <StateCounter>State counter: {counter}</StateCounter>
-            <Button themeName={ButtonThemeName.PRIMARY} onClick={onClick}>
-                Drop Counter (Button)
-            </Button>
-            <LicensesDisplay>
-                Licenses:{' '}
-                {licenses.data && licenses.data.licenses
-                    ? licenses.data.licenses.map(license => (license ? license.nickname : 'No nickname'))
-                    : 'No data'}
-            </LicensesDisplay>
-            <Button themeName={ButtonThemeName.PRIMARY} to={routes.ROOT.path}>
-                Root (Button-Link)
-            </Button>
-            <Button disabled to={routes.ROOT.path} themeName={ButtonThemeName.PRIMARY}>
-                Disabled State (Button-Link)
-            </Button>
-            <Button onClick={onOpenModalClick}>Modal (Button)</Button>
-            <Image src={c7sImage} />
-            <PositionedC7sIcon />
-            <Modal open={isModalOpen} onClose={onModalRequestClose}>
-                <ModalContent>Modal {'\n\n\n\n\n\n\n\n'} Modal</ModalContent>
-            </Modal>
-        </Root>
-    ),
+    }) => {
+        const buttonRef = React.useRef<HTMLButtonElement>(null);
+        const anchorRef = React.useRef<HTMLAnchorElement>(null);
+
+        React.useEffect(() => {
+            /* tslint:disable no-console */
+            console.log(buttonRef.current);
+            console.log(anchorRef.current);
+            /* tslint:enable */
+        }, []);
+
+        return (
+            /** It's mandatory to pass className to root element */
+            <Root className={className} documentTitle={`${counter} Development page`} ogTitle={'Development page'}>
+                <Greeting>Greetings, {name ? name : 'Unknown'}</Greeting>
+                <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
+                <LoadedFontStatusDisplay>
+                    Loaded font status: {JSON.stringify(loadedFontStatus)}
+                </LoadedFontStatusDisplay>
+                <UrlData>Page id: {id}</UrlData>
+                <UrlData>QuerySingle: {querySingle}</UrlData>
+                <UrlData>QueryArray: {JSON.stringify(queryArray)}</UrlData>
+                <StateCounter>State counter: {counter}</StateCounter>
+                <StyledButton themeName={ButtonThemeName.PRIMARY} onClick={onClick} ref={buttonRef}>
+                    Drop Counter (Button)
+                </StyledButton>
+                <LicensesDisplay>
+                    Licenses:{' '}
+                    {licenses.data && licenses.data.licenses
+                        ? licenses.data.licenses.map(license => (license ? license.nickname : 'No nickname'))
+                        : 'No data'}
+                </LicensesDisplay>
+                <Button themeName={ButtonThemeName.PRIMARY} to={routes.ROOT.path}>
+                    Root (Button-Link)
+                </Button>
+                <StyledButton disabled to={routes.ROOT.path} themeName={ButtonThemeName.SEAMLESS} ref={anchorRef}>
+                    Disabled State (Button-Link)
+                </StyledButton>
+                <Button onClick={onOpenModalClick}>Modal (Button)</Button>
+                <Image src={c7sImage} />
+                <PositionedC7sIcon />
+                <Modal open={isModalOpen} onClose={onModalRequestClose}>
+                    <ModalContent>Modal {'\n\n\n\n\n\n\n\n'} Modal</ModalContent>
+                </Modal>
+            </Root>
+        );
+    },
 );
 
 /** Styled components */
@@ -161,6 +175,10 @@ const ModalContent = styled.div`
     white-space: pre;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+`;
+
+const StyledButton = styled(Button)`
+    color: #ff00ff;
 `;
 
 /** Single export is mandatory */

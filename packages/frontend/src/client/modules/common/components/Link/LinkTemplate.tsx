@@ -4,11 +4,13 @@ import styled, { css } from 'styled-components';
 import { extractProps } from '../../lib/attributes-list';
 import { anchorAttributesList } from '../../lib/attributes-list/attributes-list';
 import { withTheme } from '../../lib/withTheme';
+import { ToInnerCommonProps } from '../../lib/withTheme/withTheme';
 import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
 
-interface Props extends CommonProps<ThemeName>, HashLinkProps {
-    disabled?: boolean;
-}
+type Props = CommonProps<ThemeName, HTMLAnchorElement> &
+    Omit<HashLinkProps, 'innerRef'> & {
+        disabled?: boolean;
+    };
 
 enum ThemeName {
     // Invisible, for wrapping blocks. Button component relies on this to be default theme
@@ -37,38 +39,44 @@ interface StyledLinkProps extends CommonInnerProps<Theme> {
     disabled?: boolean;
 }
 
-const LinkTemplate = withTheme<ThemeName, Theme, Props>(THEME_DICT)(
-    ({ className, smooth, scroll, to, replace, innerRef, disabled, tabIndex, ...props }) => {
-        if (typeof to === 'string' && (to.startsWith('http') || to.startsWith('//'))) {
+const LinkTemplate = withTheme<ThemeName, Theme, HTMLAnchorElement, Props>(THEME_DICT)(
+    React.forwardRef<HTMLAnchorElement, ToInnerCommonProps<ThemeName, Theme, HTMLAnchorElement, Props>>(
+        ({ className, smooth, scroll, to, replace, disabled, tabIndex, ...props }, ref) => {
+            if (typeof to === 'string' && (to.startsWith('http') || to.startsWith('//'))) {
+                return (
+                    <Anchor
+                        ref={ref}
+                        className={className}
+                        href={to}
+                        target="_blank"
+                        rel="noopener noreferrer" // See https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
+                        disabled={disabled}
+                        tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
+                        {...props}
+                    />
+                );
+            }
+
             return (
-                <Anchor
+                <StyledLink
                     className={className}
-                    href={to}
-                    target="_blank"
-                    rel="noopener noreferrer" // See https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
+                    scroll={
+                        scroll || (el => el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' }))
+                    }
+                    to={to}
+                    replace={replace}
+                    // TODO: Remove any (types are broken)
+                    innerRef={ref as any}
                     disabled={disabled}
                     tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
-                    {...props}
+                    {...extractProps<AnchorHTMLAttributes<HTMLAnchorElement>, AnchorHTMLAttributes<HTMLAnchorElement>>(
+                        props,
+                        anchorAttributesList,
+                    )}
                 />
             );
-        }
-
-        return (
-            <StyledLink
-                className={className}
-                scroll={scroll || (el => el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' }))}
-                to={to}
-                replace={replace}
-                innerRef={innerRef}
-                disabled={disabled}
-                tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
-                {...extractProps<AnchorHTMLAttributes<HTMLAnchorElement>, AnchorHTMLAttributes<HTMLAnchorElement>>(
-                    props,
-                    anchorAttributesList,
-                )}
-            />
-        );
-    },
+        },
+    ),
 );
 
 const linkCss = css`
