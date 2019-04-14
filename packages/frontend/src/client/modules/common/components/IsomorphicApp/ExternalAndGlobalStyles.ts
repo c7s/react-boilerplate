@@ -7,24 +7,20 @@ import { fontFamily, FontFamily } from '../../lib/fonts';
 import { MIN_WIDTH } from '../../lib/media';
 
 const globalCss = css`
-    /* Enabling 100% page min-height */
-    html,
-    body {
+    html {
+        /* Enables 100% body min-height */
         height: 100%;
     }
 
-    #root {
-        /* Enables sticky footer on IE11 */
-        position: relative;
+    body {
+        /* Guarantees 100% viewport height */
         min-height: 100%;
 
-        /* Enables growing page content (excluding IE11) */
+        /* Enables growing #root to body */
         display: flex;
         flex-direction: column;
         align-items: stretch;
-    }
 
-    body {
         /* Scale on small widths */
         min-width: ${MIN_WIDTH}px;
 
@@ -33,6 +29,19 @@ const globalCss = css`
 
         /* Important for iOS overscroll. May be redefined for concrete Page via props */
         background-color: #ebede8;
+    }
+
+    #root {
+        /* Grow to body height */
+        flex-grow: 1;
+
+        /* Enables sticky footer on IE11 */
+        position: relative;
+
+        /* Enables growing page content (excluding IE11) */
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     /* Define design-friendly outline color (in the name of a11y) */
