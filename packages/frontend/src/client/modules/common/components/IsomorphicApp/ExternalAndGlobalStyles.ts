@@ -8,13 +8,18 @@ import { MIN_WIDTH } from '../../lib/media';
 
 const globalCss = css`
     html {
-        /* Enables 100% body min-height */
-        height: 100%;
+        /* Guarantees 100% viewport height */
+        min-height: 100%;
+
+        /* Enables growing body to html */
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     body {
-        /* Guarantees 100% viewport height */
-        min-height: 100%;
+        /* Grow to html height */
+        flex-grow: 1;
 
         /* Enables growing #root to body */
         display: flex;
