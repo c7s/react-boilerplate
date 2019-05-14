@@ -7,9 +7,11 @@ import { Link, LinkThemeName } from '../../../common/components/Link';
 import { Modal } from '../../../common/components/Modal';
 import { Page } from '../../../common/components/Page';
 import { SocialShare } from '../../../common/components/SocialShare';
+import { Mode } from '../../../common/lib/react-hooks/useViewportSize';
 import { routes } from '../../../common/lib/routes';
 import { isBoolean, isNumber, isOneOf, isString } from '../../../common/lib/validators';
 import { CommonProps } from '../../../common/types/CommonProps';
+import { ViewportDisplay } from './ViewportDisplay';
 
 interface Props extends CommonProps {
     isModalOpen: boolean;
@@ -24,6 +26,23 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
             Back to Root
         </BackLink>
         <ShowcaseGroup>
+            <ComponentShowcase
+                name={'useViewport'}
+                linkTo={
+                    'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/lib/react-hooks/useViewportSize.ts'
+                }
+                initialComponentDataProps={
+                    {
+                        mode: Mode.EXACT,
+                        includeVerticalScrollbar: false,
+                    } as any
+                }
+                componentPropsValidators={{
+                    mode: isOneOf({ items: Object.values(Mode) }),
+                    includeVerticalScrollbar: isBoolean(),
+                }}
+                component={ViewportDisplay}
+            />
             <ComponentShowcase
                 name={'Button'}
                 linkTo={
