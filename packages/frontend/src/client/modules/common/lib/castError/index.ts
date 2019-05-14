@@ -66,7 +66,7 @@ function castAsError(error: Error): CastedError {
 function mapGraphqlErrorCodeToText(error: ApolloError['graphQLErrors'][0]): string {
     switch (error.message) {
         /**
-         * case ApolloError.USER_NOT_LOGGED_IN:
+         * case ServerError.USER_NOT_LOGGED_IN:
          *     return 'Требуется авторизация';
          */
         default:
