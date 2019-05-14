@@ -1,6 +1,16 @@
 import { throttle } from 'lodash';
 import * as React from 'react';
 
+/**
+ * NOTE: Scrollbar appearance doesn't dispatch resize event and hence doesn't cause viewport size recalculation.
+ *
+ * In order to react to such situation, implement something like this:
+ * - https://gist.github.com/AdamMcCormick/d5f718d2e9569acdf7def25e8266bb2a
+ * - https://gist.github.com/OrganicPanda/8222636
+ *
+ * In short, ensure that 'resize' event is dispatched on scrollbar appearance.
+ */
+
 export enum Mode {
     EXACT = 'exact',
     LEAST = 'least',
