@@ -93,7 +93,12 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
 
         return (
             /** It's mandatory to pass className to root element */
-            <Root className={className} documentTitle={`${counter} Development page`} ogTitle={'Development page'}>
+            <Root
+                className={className}
+                documentTitle={`${counter} Development page`}
+                ogTitle={'Development page'}
+                bodyBackground={'#008080'}
+            >
                 <Greeting>Greetings, {name ? name : 'Unknown'}</Greeting>
                 <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
                 <LoadedFontStatusDisplay>

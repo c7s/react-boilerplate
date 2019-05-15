@@ -78,7 +78,7 @@ const PageGlobalStyle = createGlobalStyle`
     ${({ bodyBackground }: PageGlobalStyleProps) =>
         bodyBackground
             ? css`
-                  body {
+                  html body {
                       background: ${bodyBackground};
                   }
               `
