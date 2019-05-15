@@ -79,7 +79,7 @@ function commonLoaders(ssrMode, env) {
             loader: `file-loader?name=favicon/[name].[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
         },
         {
-            test: /[a-z][A-Za-z0-9]*Image\.(jpg|jpeg|png)$/,
+            test: /[\\/][a-z][A-Za-z0-9]*Image\.(jpg|jpeg|png)$/,
             loaders: [
                 `file-loader?name=images/[name].[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
                 {
@@ -91,7 +91,7 @@ function commonLoaders(ssrMode, env) {
             ],
         },
         {
-            test: /[A-Z][A-Za-z0-9]*Icon\.svg$/,
+            test: /[\\/][A-Z][A-Za-z0-9]*Icon\.svg$/,
             loaders: [
                 {
                     loader: 'babel-loader',
