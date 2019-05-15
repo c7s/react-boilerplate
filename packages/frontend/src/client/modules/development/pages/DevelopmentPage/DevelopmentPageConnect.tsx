@@ -63,13 +63,13 @@ const DevelopmentPageConnect = withRouter(
         mapDispatchToProps,
     )((props: ApolloProps) => (
         <Query<Partial<Licenses>> query={LICENSES_QUERY}>
-            {licenses => (
+            {licensesQueryResult => (
                 <DevelopmentPageBehaviour
                     {...props}
                     querySingle={props.match.params.query && props.match.params.query.querySingle}
                     queryArray={props.match.params.query && props.match.params.query.queryArray}
                     id={props.match.params.id ? props.match.params.id : 'no data'}
-                    licenses={licenses}
+                    licensesQueryResult={licensesQueryResult}
                 />
             )}
         </Query>

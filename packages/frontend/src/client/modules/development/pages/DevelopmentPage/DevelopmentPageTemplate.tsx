@@ -5,6 +5,7 @@ import { Button, ButtonThemeName } from '../../../common/components/Button';
 import { Modal } from '../../../common/components/Modal';
 import { Page } from '../../../common/components/Page';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
+import { useApolloErrorReporter } from '../../../common/lib/react-hooks/useApolloErrorReporter';
 import { routes } from '../../../common/lib/routes';
 import { withTheme } from '../../../common/lib/withTheme';
 import { LoadedFontStatus, Message } from '../../../common/store/types';
@@ -19,7 +20,7 @@ interface Props extends CurrentCommonProps {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     counter: number;
     isModalOpen: boolean;
-    licenses: QueryResult<Partial<Licenses>>;
+    licensesQueryResult: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
     name?: string;
     id: string;
@@ -73,7 +74,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         onClick,
         onModalRequestClose,
         onOpenModalClick,
-        licenses,
+        licensesQueryResult,
         loadedFontStatus,
         id,
         querySingle,
@@ -81,6 +82,9 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         name,
         theme /** can't get 'themeName' here*/,
     }) => {
+        /** Universal graphql error handler */
+        useApolloErrorReporter(licensesQueryResult);
+
         const buttonRef = React.useRef<HTMLButtonElement>(null);
         const anchorRef = React.useRef<HTMLAnchorElement>(null);
 
@@ -90,6 +94,8 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
             console.log(anchorRef.current);
             /* tslint:enable */
         }, []);
+
+        const { data: licensesQueryResultData = {} } = licensesQueryResult;
 
         return (
             /** It's mandatory to pass className to root element */
@@ -113,9 +119,10 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
                 </StyledButton>
                 <LicensesDisplay>
                     Licenses:{' '}
-                    {licenses.data && licenses.data.licenses
-                        ? licenses.data.licenses.map(license => (license ? license.nickname : 'No nickname'))
+                    {licensesQueryResultData.licenses
+                        ? licensesQueryResultData.licenses.map(license => (license ? license.nickname : 'No nickname'))
                         : 'No data'}
+                    {licensesQueryResult.loading ? ' - Loading' : ''}
                 </LicensesDisplay>
                 <Button themeName={ButtonThemeName.PRIMARY} to={routes.ROOT.path}>
                     Root (Button-Link)

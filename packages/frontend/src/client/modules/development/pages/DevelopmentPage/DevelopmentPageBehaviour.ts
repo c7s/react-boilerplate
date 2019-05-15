@@ -8,7 +8,7 @@ import { CurrentCommonProps, DevelopmentPageTemplate } from './DevelopmentPageTe
 /** Props to render component behaviour. Don't forget to extend CurrentCommonProps */
 
 interface Props extends CurrentCommonProps {
-    licenses: QueryResult<Partial<Licenses>>;
+    licensesQueryResult: QueryResult<Partial<Licenses>>;
     loadedFontStatus: LoadedFontStatus;
     name?: string;
     id: string;
@@ -51,12 +51,6 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
                 counter: counter + 2,
             }));
         }, 1000);
-    }
-
-    public componentDidUpdate(prevProps: Props): void {
-        if (this.props.licenses.error && !prevProps.licenses.error) {
-            this.props.onMessageAdd(this.props.licenses.error);
-        }
     }
 
     public componentWillUnmount() {
