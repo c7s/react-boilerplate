@@ -44,6 +44,8 @@
                 "@typescript-eslint/no-empty-interface": "off",
                 // Unavoidable in some cases
                 "@typescript-eslint/no-non-null-assertion": "warn",
+                // Useless
+                "@typescript-eslint/explicit-function-return-type": "off",
                 // https://github.com/eslint/typescript-eslint-parser/issues/437
                 "no-undef": "off",
                 // Enable React Hooks rules
