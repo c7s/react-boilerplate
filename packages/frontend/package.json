@@ -29,12 +29,12 @@
     },
     "lint-staged": {
         "*.js": [
-            "eslint --fix",
+            "eslint --fix --quiet",
             "git add"
         ],
         "*.{ts,tsx}": [
             "node ./tools/git/hooks/check-types",
-            "eslint --fix",
+            "eslint --fix --quiet",
             "git add"
         ],
         "./src/**/*.{tsx,ts}": [
