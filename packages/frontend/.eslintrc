@@ -50,7 +50,7 @@
                 "react-hooks/rules-of-hooks": "error",
                 "react-hooks/exhaustive-deps": "error",
                 // Allow JSX in tsx files
-                "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+                "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
                 // Skip undeclared - no need in ts
                 "react/prop-types": [
                     "error",
@@ -61,7 +61,7 @@
                     }
                 ],
                 // Default export is discouraged
-                "import/prefer-default-export": "off",
+                "import/prefer-default-export": "warn",
                 // Function overrides are fine
                 "import/export": "warn",
                 // Seems fine in some cases
