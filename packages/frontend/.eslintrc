@@ -45,7 +45,16 @@
                 "react-hooks/rules-of-hooks": "error",
                 "react-hooks/exhaustive-deps": "error",
                 // Allow JSX in tsx files
-                "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }]
+                "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+                "react/prop-types": [
+                    "error",
+                    {
+                        "ignore": [],
+                        "customValidators": [],
+                        // No need for this in ts
+                        "skipUndeclared": true
+                    }
+                ]
             }
         }
     ]
