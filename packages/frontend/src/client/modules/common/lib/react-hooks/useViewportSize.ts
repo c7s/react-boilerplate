@@ -69,19 +69,13 @@ export function useViewportSize({ mode, includeVerticalScrollbar }: Data = {}) {
             switch (mode) {
                 default:
                 case Mode.EXACT:
-                    {
-                        setHeight(getExactHeight());
-                    }
+                    setHeight(getExactHeight());
                     break;
                 case Mode.LEAST:
-                    {
-                        setHeight(getLeastHeight());
-                    }
+                    setHeight(getLeastHeight());
                     break;
                 case Mode.MOST:
-                    {
-                        setHeight(getMostHeight());
-                    }
+                    setHeight(getMostHeight());
                     break;
             }
         }, 100);

@@ -41,7 +41,9 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
                 {name}
             </ComponentLink>
             <AnchorLink to={routes.SHOWCASE.pathWithParams({ hash: name })} smooth>
-                🔗
+                <span role="img" aria-label="Link">
+                    🔗
+                </span>
             </AnchorLink>
         </Header>
         <TextAreaContainer>

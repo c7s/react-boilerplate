@@ -89,10 +89,10 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         const anchorRef = React.useRef<HTMLAnchorElement>(null);
 
         React.useEffect(() => {
-            /* tslint:disable no-console */
+            // eslint-disable-next-line no-console
             console.log(buttonRef.current);
+            // eslint-disable-next-line no-console
             console.log(anchorRef.current);
-            /* tslint:enable */
         }, []);
 
         const { data: licensesQueryResultData = {} } = licensesQueryResult;

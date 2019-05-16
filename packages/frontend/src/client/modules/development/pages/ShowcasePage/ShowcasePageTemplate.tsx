@@ -142,6 +142,7 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                             title: 'Share showcase',
                             image: '',
                             noparse: false,
+                            // eslint-disable-next-line @typescript-eslint/camelcase
                             no_vk_links: 0,
                         },
                         ok: {

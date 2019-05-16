@@ -52,6 +52,7 @@ const AccordionTemplate: React.FC<Props> = ({
 
 const Root = styled.div`
     height: ${({ isCollapseThresholdExceeded, isCollapsed, collapsedHeight, naturalHeight }: RootProps) =>
+        // eslint-disable-next-line no-nested-ternary
         isCollapseThresholdExceeded && isCollapsed
             ? `${collapsedHeight}px`
             : naturalHeight

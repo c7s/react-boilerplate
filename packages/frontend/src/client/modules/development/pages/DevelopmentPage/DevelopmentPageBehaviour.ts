@@ -34,18 +34,6 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
         this.timer = null;
     }
 
-    public render() {
-        return React.createElement(DevelopmentPageTemplate, {
-            onClick: this.onClick,
-            onOpenModalClick: this.onOpenModalClick,
-            onModalRequestClose: this.onModalRequestClose,
-            /** It may be handy to just pass everything forward */
-            ...this.state,
-            ...this.props,
-            /** Can't specify 'theme' here */
-        });
-    }
-
     public componentDidMount() {
         this.timer = window.setInterval(() => {
             this.setState(({ counter }) => ({
@@ -73,6 +61,18 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
     @autobind
     private onModalRequestClose() {
         this.setState({ isModalOpen: false });
+    }
+
+    public render() {
+        return React.createElement(DevelopmentPageTemplate, {
+            onClick: this.onClick,
+            onOpenModalClick: this.onOpenModalClick,
+            onModalRequestClose: this.onModalRequestClose,
+            /** It may be handy to just pass everything forward */
+            ...this.state,
+            ...this.props,
+            /** Can't specify 'theme' here */
+        });
     }
 }
 

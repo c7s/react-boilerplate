@@ -76,6 +76,7 @@ async function sendHtmlOrRedirect(
     const App = React.createElement(IsomorphicApp, { client, store, modules, context, location: req.url });
 
     try {
+        // eslint-disable-next-line no-underscore-dangle
         if (req.query.__FAIL_SSR__ === undefined) {
             await Loadable.preloadAll();
             await getDataFromTree(App);
@@ -189,7 +190,7 @@ function stripSourceMaps(bundles: ReturnType<typeof getBundles>) {
 function getReactLoadableStats(stats: WebpackHotServerMiddlewareStats | FrontendServerStats): ReactLoadableStats {
     let reactLoadableStats: ReactLoadableStats;
     if (!isWebpackHotServerMiddlewareStats(stats)) {
-        reactLoadableStats = stats.reactLoadableStats;
+        ({ reactLoadableStats } = stats);
     } else {
         reactLoadableStats = convertWebpackHotServerMiddlewareStatsToReactLoadableStats(stats);
     }

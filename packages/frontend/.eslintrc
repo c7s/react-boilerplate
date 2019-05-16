@@ -19,7 +19,7 @@
         ],
         "no-use-before-define": ["error", "nofunc"],
         "@typescript-eslint/no-use-before-define": ["error", "nofunc"],
-        "no-console": ["error", { "allow": ["warn", "error"] }]
+        "no-console": ["error", { "allow": ["warn", "error", "info", "groupCollapsed", "groupEnd"] }]
     },
     "overrides": [
         {
@@ -39,6 +39,10 @@
             "rules": {
                 // Bring back disabled rule
                 "@typescript-eslint/no-var-requires": "error",
+                // Empty interfaces for Props are convenient
+                "@typescript-eslint/no-empty-interface": "off",
+                // Unavoidable in some cases
+                "@typescript-eslint/no-non-null-assertion": "warn",
                 // https://github.com/eslint/typescript-eslint-parser/issues/437
                 "no-undef": "off",
                 // Enable React Hooks rules
@@ -54,7 +58,13 @@
                         // No need for this in ts
                         "skipUndeclared": true
                     }
-                ]
+                ],
+                // Override airbnb
+                "import/prefer-default-export": "off",
+                // Function overrides are fine
+                "import/export": "warn",
+                // Seems fine in some cases
+                "react/destructuring-assignment": "warn"
             }
         }
     ]

@@ -35,12 +35,14 @@ class IsomorphicStore {
             module.hot.accept('./reducers', () => {
                 store.replaceReducer(
                     combineReducers({
+                        // eslint-disable-next-line global-require
                         ...require('./reducers').reducers,
                     }),
                 );
             });
         }
 
+        // eslint-disable-next-line no-return-assign
         return (IsomorphicStore.store = store);
     }
 }

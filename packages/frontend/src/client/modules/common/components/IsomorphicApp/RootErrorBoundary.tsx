@@ -16,6 +16,7 @@ export class RootErrorBoundary extends React.Component<Props, State> {
     }
 
     public componentDidCatch(error: Error, info: React.ErrorInfo) {
+        // eslint-disable-next-line react/no-unused-state
         this.setState({ error, info });
     }
 

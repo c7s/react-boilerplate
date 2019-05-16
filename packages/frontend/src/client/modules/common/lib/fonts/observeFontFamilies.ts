@@ -26,7 +26,7 @@ function observeFontFamily(fontFamily: FontFamily) {
     )
         .then(() => IsomorphicStore.getStore().dispatch(onFontLoad(fontFamily)))
         .catch(() =>
-            console.warn(`All font variants of \'${fontFamily}\' are not available after 1 minute. Giving up...`),
+            console.warn(`All font variants of '${fontFamily}' are not available after 1 minute. Giving up...`),
         );
 }
 

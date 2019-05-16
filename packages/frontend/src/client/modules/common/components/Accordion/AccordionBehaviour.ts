@@ -26,23 +26,20 @@ class AccordionBehaviour extends React.Component<Props, State> {
         };
     }
 
-    public render() {
-        return React.createElement(AccordionTemplate, {
-            ...this.props,
-            ...this.state,
-            onToggleCollapsedStateClick: this.onToggleCollapsedStateClick,
-            rootRef: this.rootRef,
-        });
-    }
-
     public componentDidMount(): void {
         this.setState(this.getClientSpecificStatePart());
     }
 
     public componentDidUpdate(prevProps: Readonly<Props>) {
         if (prevProps.collapseThreshold !== this.props.collapseThreshold) {
+            // eslint-disable-next-line react/no-did-update-set-state
             this.setState(this.getClientSpecificStatePart());
         }
+    }
+
+    @autobind
+    private onToggleCollapsedStateClick() {
+        this.setState(({ isCollapsed }) => ({ isCollapsed: !isCollapsed }));
     }
 
     private getClientSpecificStatePart(): Omit<State, 'isCollapsed'> {
@@ -60,9 +57,13 @@ class AccordionBehaviour extends React.Component<Props, State> {
         return { isCollapseThresholdExceeded, naturalHeight };
     }
 
-    @autobind
-    private onToggleCollapsedStateClick() {
-        this.setState(({ isCollapsed }) => ({ isCollapsed: !isCollapsed }));
+    public render() {
+        return React.createElement(AccordionTemplate, {
+            ...this.props,
+            ...this.state,
+            onToggleCollapsedStateClick: this.onToggleCollapsedStateClick,
+            rootRef: this.rootRef,
+        });
     }
 }
 

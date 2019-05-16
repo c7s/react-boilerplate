@@ -18,15 +18,6 @@ class ShowcasePageBehaviour extends React.Component<Props, State> {
         };
     }
 
-    public render() {
-        return React.createElement(ShowcasePageTemplate, {
-            ...this.props,
-            ...this.state,
-            onModalOpen: this.onModalOpen,
-            onModalClose: this.onModalClose,
-        });
-    }
-
     @autobind
     private onModalOpen() {
         this.setState({ isModalOpen: true });
@@ -35,6 +26,15 @@ class ShowcasePageBehaviour extends React.Component<Props, State> {
     @autobind
     private onModalClose() {
         this.setState({ isModalOpen: false });
+    }
+
+    public render() {
+        return React.createElement(ShowcasePageTemplate, {
+            ...this.props,
+            ...this.state,
+            onModalOpen: this.onModalOpen,
+            onModalClose: this.onModalClose,
+        });
     }
 }
 

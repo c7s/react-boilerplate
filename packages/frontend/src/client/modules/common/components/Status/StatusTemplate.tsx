@@ -9,6 +9,7 @@ interface Props extends CommonProps {
 const StatusTemplate: FC<Props> = ({ code, children }) => (
     <Route
         render={({ staticContext }) => {
+            // eslint-disable-next-line no-param-reassign
             if (staticContext) staticContext.statusCode = code;
             return children;
         }}

@@ -16,26 +16,25 @@ interface DispatchProps {
     onMessageRemove(key: string): void;
 }
 
-class Notificator extends React.Component<MapProps & DispatchProps> {
-    public render() {
-        return (
-            <Root>
-                {Object.entries(this.props.messages).map(([key, message]) => {
-                    const castedError = castError(message);
+// eslint-disable-next-line no-shadow
+const Notificator: React.FC<MapProps & DispatchProps> = ({ messages, onMessageRemove }) => {
+    return (
+        <Root>
+            {Object.entries(messages).map(([key, message]) => {
+                const castedError = castError(message);
 
-                    return (
-                        <Message key={key}>
-                            <Header>{castedError.header}</Header>
-                            <Text>{castedError.text}</Text>
-                            {castedError.details ? <Details>{castedError.details}</Details> : null}
-                            <OkButton onClick={() => this.props.onMessageRemove(key)}>OK</OkButton>
-                        </Message>
-                    );
-                })}
-            </Root>
-        );
-    }
-}
+                return (
+                    <Message key={key}>
+                        <Header>{castedError.header}</Header>
+                        <Text>{castedError.text}</Text>
+                        {castedError.details ? <Details>{castedError.details}</Details> : null}
+                        <OkButton onClick={() => onMessageRemove(key)}>OK</OkButton>
+                    </Message>
+                );
+            })}
+        </Root>
+    );
+};
 
 const Root = styled.div`
     position: fixed;

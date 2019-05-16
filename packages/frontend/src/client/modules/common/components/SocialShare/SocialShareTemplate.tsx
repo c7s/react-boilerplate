@@ -35,6 +35,7 @@ const SocialShareTemplate: React.FC<Props> = ({ className, location, url, title,
                     title: (vk && vk.title) || title,
                     image: (vk && vk.image) || image,
                     noparse: vk && vk.noparse,
+                    // eslint-disable-next-line @typescript-eslint/camelcase
                     no_vk_links: vk && vk.no_vk_links,
                 })}
             >

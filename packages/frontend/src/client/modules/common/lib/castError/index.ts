@@ -53,7 +53,7 @@ function castAsErrorResponse(error: ErrorResponse): CastedError {
     } else if (error.graphQLErrors && error.graphQLErrors.length) {
         castedError.header = SERVER_ERROR_HEADER;
         castedError.text = error.graphQLErrors.map(mapGraphqlErrorCodeToText).join('\n');
-        castedError.details = error.graphQLErrors.map(error => error.message).join(', ');
+        castedError.details = error.graphQLErrors.map(errorInner => errorInner.message).join(', ');
     }
 
     return castedError;

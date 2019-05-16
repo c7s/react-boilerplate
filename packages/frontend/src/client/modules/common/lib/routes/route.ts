@@ -42,6 +42,7 @@ function getPathWithParams<
             params.query && Object.values(params.query).length
                 ? `?${queryString.stringify(params.query, { arrayFormat: 'bracket' })}`
                 : ''
+            // eslint-disable-next-line no-nested-ternary
         }${params.hash ? (params.hash[0] === '#' ? params.hash : `#${params.hash}`) : ''}`;
     };
 }

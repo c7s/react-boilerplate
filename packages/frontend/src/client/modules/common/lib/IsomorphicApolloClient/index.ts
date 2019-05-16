@@ -41,6 +41,7 @@ class IsomorphicApolloClient {
                 return IsomorphicApolloClient.client;
             }
 
+            // eslint-disable-next-line no-return-assign
             return (IsomorphicApolloClient.client = IsomorphicApolloClient.createClient({ link, fetch }));
         }
 
@@ -76,11 +77,14 @@ class IsomorphicApolloClient {
     }
 
     private static createLink({ link, fetch }: ClientConfig): ApolloLink {
-        return link || createHttpLink({
-                  fetch,
-                  uri: global.GRAPHQL_ENDPOINT,
-                  headers: { Authorization: `bearer ${global.GITHUB_TOKEN}` },
-              });
+        return (
+            link ||
+            createHttpLink({
+                fetch,
+                uri: global.GRAPHQL_ENDPOINT,
+                headers: { Authorization: `bearer ${global.GITHUB_TOKEN}` },
+            })
+        );
     }
 
     private static onError(error: ErrorResponse) {

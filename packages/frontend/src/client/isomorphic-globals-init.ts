@@ -4,6 +4,7 @@ import * as Config from '../../config';
 
 let config: typeof Config.config | null = null;
 if (SSR_MODE) {
+    // eslint-disable-next-line global-require
     config = require('../../config').config as typeof Config.config;
 
     /** If server-side, initialize all globals */
@@ -16,4 +17,5 @@ if (SSR_MODE) {
 }
 
 /** https://webpack.js.org/guides/public-path/#on-the-fly */
+// eslint-disable-next-line @typescript-eslint/camelcase
 __webpack_public_path__ = global.PUBLIC_PATH;

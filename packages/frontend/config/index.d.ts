@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define,@typescript-eslint/no-use-before-define
 export = ConfigNamespace;
 
 declare namespace ConfigNamespace {

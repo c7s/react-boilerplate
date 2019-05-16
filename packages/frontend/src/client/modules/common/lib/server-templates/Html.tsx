@@ -26,6 +26,7 @@ export const Html: React.FC<HtmlProps> = ({
     bundles,
 }) => {
     return (
+        // eslint-disable-next-line jsx-a11y/html-has-lang
         <html {...(helmet ? helmet.htmlAttributes.toComponent() : {})}>
             <head
                 dangerouslySetInnerHTML={{
