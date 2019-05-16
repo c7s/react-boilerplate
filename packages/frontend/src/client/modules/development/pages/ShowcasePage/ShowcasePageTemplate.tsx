@@ -20,17 +20,15 @@ interface Props extends CommonProps {
 }
 
 const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModalClose, onModalOpen }) => (
-    <Root className={className} documentTitle={'Component Showcase'}>
+    <Root className={className} documentTitle="Component Showcase">
         <Header>Component Showcase</Header>
         <BackLink to={routes.ROOT.path} themeName={LinkThemeName.TEXT}>
             Back to Root
         </BackLink>
         <ShowcaseGroup>
             <ComponentShowcase
-                name={'useViewport'}
-                linkTo={
-                    'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/lib/react-hooks/useViewportSize.ts'
-                }
+                name="useViewport"
+                linkTo="https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/lib/react-hooks/useViewportSize.ts"
                 initialComponentDataProps={
                     {
                         mode: Mode.EXACT,
@@ -44,10 +42,8 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 component={ViewportDisplay}
             />
             <ComponentShowcase
-                name={'Button'}
-                linkTo={
-                    'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Button'
-                }
+                name="Button"
+                linkTo="https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Button"
                 initialComponentDataProps={
                     {
                         to: 'https://google.com',
@@ -64,10 +60,8 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 component={Button}
             />
             <ComponentShowcase
-                name={'Link'}
-                linkTo={
-                    'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Link'
-                }
+                name="Link"
+                linkTo="https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Link"
                 initialComponentDataProps={
                     {
                         to: 'https://google.com',
@@ -84,10 +78,8 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 component={Link}
             />
             <ComponentShowcase
-                name={'Accordion'}
-                linkTo={
-                    'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Accordion'
-                }
+                name="Accordion"
+                linkTo="https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Accordion"
                 initialComponentDataProps={
                     {
                         collapseThreshold: 100,
@@ -104,10 +96,8 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 component={Accordion}
             />
             <ComponentShowcase
-                name={'Modal'}
-                linkTo={
-                    'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Modal'
-                }
+                name="Modal"
+                linkTo="https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/Modal"
                 initialComponentDataProps={
                     {
                         closeOnEsc: true,
@@ -140,10 +130,8 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 <Button onClick={onModalOpen}>Show Modal</Button>
             </ComponentShowcase>
             <ComponentShowcase
-                name={'SocialShare'}
-                linkTo={
-                    'https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/SocialShare'
-                }
+                name="SocialShare"
+                linkTo="https://github.com/c7s/react-boilerplate/blob/master/packages/frontend/src/client/modules/common/components/SocialShare"
                 initialComponentDataProps={
                     {
                         url: 'https://google.com',

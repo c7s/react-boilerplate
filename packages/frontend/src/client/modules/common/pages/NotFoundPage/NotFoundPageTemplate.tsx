@@ -8,7 +8,7 @@ import { CommonProps } from '../../types/CommonProps';
 interface Props extends CommonProps {}
 
 const NotFoundPageTemplate: React.FC<Props> = ({ className }) => (
-    <Root className={className} statusCode={404} documentTitle={'Страница не найдена'} hideHeader hideFooter>
+    <Root className={className} statusCode={404} documentTitle="Страница не найдена" hideHeader hideFooter>
         <Header>404</Header>
         <Text>
             Данная страница не существует.

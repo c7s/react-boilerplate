@@ -38,16 +38,16 @@ export const Html: React.FC<HtmlProps> = ({
                               helmet.script.toString() +
                               helmet.style.toString() +
                               helmet.title.toString()
-                            : '') + (styleTags ? styleTags : ''),
+                            : '') + (styleTags || ''),
                 }}
             />
             <body
                 {...(helmet ? helmet.bodyAttributes.toComponent() : {})}
                 dangerouslySetInnerHTML={{
-                    __html: `${spriteContent ? spriteContent : ''}${renderToString(
+                    __html: `${spriteContent || ''}${renderToString(
                         <React.Fragment>
                             {ssrError ? <noscript>{castError(ssrError).userDisplayedMessage}</noscript> : null}
-                            <div id="root" dangerouslySetInnerHTML={{ __html: content ? content : '' }} />
+                            <div id="root" dangerouslySetInnerHTML={{ __html: content || '' }} />
                             <script
                                 dangerouslySetInnerHTML={{
                                     __html: Object.entries({

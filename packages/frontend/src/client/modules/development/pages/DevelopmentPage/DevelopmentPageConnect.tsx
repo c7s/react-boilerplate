@@ -76,13 +76,13 @@ const DevelopmentPageConnect = withRouter(
     )),
 );
 
-function mapStateToProps(state: StoreState /*, ownProps: ReduxProps */): MapProps {
+function mapStateToProps(state: StoreState /* , ownProps: ReduxProps */): MapProps {
     return {
         loadedFontStatus: state.common.loadedFontStatus,
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch /*, ownProps: ReduxProps */): DispatchProps {
+function mapDispatchToProps(dispatch: Dispatch /* , ownProps: ReduxProps */): DispatchProps {
     return bindActionCreators(
         {
             onMessageAdd,

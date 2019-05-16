@@ -20,6 +20,7 @@ interface State {
 
 class ComponentShowcaseBehaviour<D extends {}, F extends {}> extends React.Component<Props<D, F>, State> {
     private textAreaRef = React.createRef<HTMLTextAreaElement>();
+
     public constructor(props: Props<D, F>) {
         super(props);
 

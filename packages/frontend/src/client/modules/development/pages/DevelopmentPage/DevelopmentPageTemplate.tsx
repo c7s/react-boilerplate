@@ -80,7 +80,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         querySingle,
         queryArray,
         name,
-        theme /** can't get 'themeName' here*/,
+        theme /** can't get 'themeName' here */,
     }) => {
         /** Universal graphql error handler */
         useApolloErrorReporter(licensesQueryResult);
@@ -102,10 +102,10 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
             <Root
                 className={className}
                 documentTitle={`${counter} Development page`}
-                ogTitle={'Development page'}
-                bodyBackground={'#008080'}
+                ogTitle="Development page"
+                bodyBackground="#008080"
             >
-                <Greeting>Greetings, {name ? name : 'Unknown'}</Greeting>
+                <Greeting>Greetings, {name || 'Unknown'}</Greeting>
                 <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
                 <LoadedFontStatusDisplay>
                     Loaded font status: {JSON.stringify(loadedFontStatus)}

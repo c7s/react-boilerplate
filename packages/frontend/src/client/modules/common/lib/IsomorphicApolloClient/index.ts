@@ -22,6 +22,7 @@ interface Context {
 
 class IsomorphicApolloClient {
     private static client: ApolloClient<NormalizedCacheObject> | null;
+
     private static context: Context | null;
 
     public static getClient(clientConfig?: ClientConfig): ApolloClient<NormalizedCacheObject> {
@@ -75,9 +76,7 @@ class IsomorphicApolloClient {
     }
 
     private static createLink({ link, fetch }: ClientConfig): ApolloLink {
-        return link
-            ? link
-            : createHttpLink({
+        return link || createHttpLink({
                   fetch,
                   uri: global.GRAPHQL_ENDPOINT,
                   headers: { Authorization: `bearer ${global.GITHUB_TOKEN}` },

@@ -25,7 +25,7 @@ interface Props extends CommonProps, RouteComponentProps<{}> {
 }
 
 const SocialShareTemplate: React.FC<Props> = ({ className, location, url, title, image, vk, ok, tw, fb }) => {
-    const urlOrDefaultUrl = url ? url : `${global.CANONICAL_ROBOTS_HOST}${location.pathname}`;
+    const urlOrDefaultUrl = url || `${global.CANONICAL_ROBOTS_HOST}${location.pathname}`;
 
     return (
         <Root className={className}>

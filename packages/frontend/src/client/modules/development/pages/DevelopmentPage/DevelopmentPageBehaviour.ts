@@ -24,6 +24,7 @@ interface State {
 
 class DevelopmentPageBehaviour extends React.Component<Props, State> {
     private timer: number | null;
+
     public constructor(props: Props) {
         super(props);
         this.state = {

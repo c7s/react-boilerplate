@@ -92,7 +92,7 @@ export function useViewportSize({ mode, includeVerticalScrollbar }: Data = {}) {
         return () => {
             window.removeEventListener('resize', resizeHandler);
         };
-    }, []);
+    }, [includeVerticalScrollbar, mode]);
 
     return { width, height };
 }

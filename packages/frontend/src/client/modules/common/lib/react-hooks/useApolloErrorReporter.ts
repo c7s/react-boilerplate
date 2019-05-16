@@ -32,7 +32,7 @@ export function useApolloErrorReporter(result: { error?: ApolloError; loading: b
                 setWasShownFromLastLoading(false);
             }
         },
-        [result, wasShownFromLastLoading, opt],
+        [result, wasShownFromLastLoading, opt, disabled, ignore],
     );
 }
 
