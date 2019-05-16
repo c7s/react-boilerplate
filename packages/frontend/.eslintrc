@@ -1,12 +1,52 @@
 {
-    "extends": ["airbnb", "prettier"],
+    // Don't use parent config
+    "root": true,
+    // Can't be overridden, so it's here
+    "extends": [
+        "airbnb",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "prettier/@typescript-eslint",
+        "prettier/react"
+    ],
     "rules": {
+        // Requires in js code are fine
+        "@typescript-eslint/no-var-requires": "off",
+        // Every dependency is dev dependency in frontend
         "import/no-extraneous-dependencies": [
             "error",
             { "devDependencies": true, "optionalDependencies": true, "peerDependencies": true }
         ],
-        "no-console": ["error", { "allow": ["warn", "error"] }],
         "no-use-before-define": ["error", "nofunc"],
-        "capitalized-comments": ["error", "always"]
-    }
+        "@typescript-eslint/no-use-before-define": ["error", "nofunc"],
+        "no-console": ["error", { "allow": ["warn", "error"] }]
+    },
+    "overrides": [
+        {
+            "files": ["**/*.ts", "**/*.tsx"],
+            "settings": {
+                "import/resolver": {
+                    "node": {
+                        "extensions": [".ts", ".tsx", ".d.ts", ".js"]
+                    }
+                }
+            },
+            "plugins": ["@typescript-eslint", "react-hooks"],
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "project": "./tsconfig.json"
+            },
+            "rules": {
+                // Bring back disabled rule
+                "@typescript-eslint/no-var-requires": "error",
+                // https://github.com/eslint/typescript-eslint-parser/issues/437
+                "no-undef": "off",
+                // Enable React Hooks rules
+                "react-hooks/rules-of-hooks": "error",
+                "react-hooks/exhaustive-deps": "error",
+                // Allow JSX in tsx files
+                "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }]
+            }
+        }
+    ]
 }
