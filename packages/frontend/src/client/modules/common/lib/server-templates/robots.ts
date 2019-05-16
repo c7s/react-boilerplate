@@ -3,5 +3,5 @@ Disallow:
 
 User-agent: YandexBot
 Disallow:
-Host: ${global.CANONICAL_ROBOTS_HOST.replace('http://', '') /* https preserving is OK */}
+Host: ${global.CANONICAL_ROBOTS_HOST.replace('http://', '') /* Preserving https is OK */}
 `;

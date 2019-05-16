@@ -19,7 +19,8 @@
         ],
         "no-use-before-define": ["error", "nofunc"],
         "@typescript-eslint/no-use-before-define": ["error", "nofunc"],
-        "no-console": ["error", { "allow": ["warn", "error", "info", "groupCollapsed", "groupEnd"] }]
+        "no-console": ["error", { "allow": ["warn", "error", "info", "groupCollapsed", "groupEnd"] }],
+        "capitalized-comments": ["error", "always", { "ignorePattern": "tslint" }]
     },
     "overrides": [
         {

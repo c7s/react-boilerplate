@@ -80,7 +80,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         querySingle,
         queryArray,
         name,
-        theme /** can't get 'themeName' here */,
+        theme /** Can't get 'themeName' here */,
     }) => {
         /** Universal graphql error handler */
         useApolloErrorReporter(licensesQueryResult);
