@@ -150,6 +150,7 @@ const commonConfig = env => ({
         alias: {
             'node-fetch$': 'node-fetch/lib/index.js',
             'unfetch/polyfill$': 'unfetch/polyfill/index.js',
+            'react-dom': '@hot-loader/react-dom',
         },
     },
     stats: {
@@ -179,6 +180,7 @@ const cacheableDependencies = [
     'react',
     'react-apollo',
     'react-dom',
+    '@hot-loader/react-dom',
     'react-helmet',
     'react-hot-loader',
     'react-loadable',
@@ -205,6 +207,7 @@ const clientConfig = env => ({
         '@babel/polyfill',
         'unfetch/polyfill',
         !env.build && 'webpack-hot-middleware/client?reload=true',
+        'react-hot-loader/patch',
         './src/client/client.ts',
     ].filter(Boolean),
     module: {
