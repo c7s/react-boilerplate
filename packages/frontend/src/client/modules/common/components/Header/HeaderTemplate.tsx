@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { CommonProps } from "../../types/CommonProps";
+import { CommonProps } from '../../types/CommonProps';
 
 interface Props extends CommonProps {}
 
