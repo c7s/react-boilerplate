@@ -41,6 +41,20 @@ class ComponentShowcaseBehaviour<D extends {}, F extends {}> extends React.Compo
         }
     }
 
+    public render() {
+        return React.createElement<ComponentShowcaseTemplateProps<D, F>>(
+            ComponentShowcaseTemplate as React.ComponentType<ComponentShowcaseTemplateProps<D, F>>,
+            {
+                ...this.props,
+                ...this.state,
+                onTextAreaChange: this.onTextAreaChange,
+                onTextAreaReset: this.onTextAreaReset,
+                componentFuncProps: this.props.initialComponentFuncProps,
+                textAreaRef: this.textAreaRef,
+            },
+        );
+    }
+
     @autobind
     private onTextAreaChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
         try {
@@ -67,20 +81,6 @@ class ComponentShowcaseBehaviour<D extends {}, F extends {}> extends React.Compo
                 if (this.textAreaRef.current) {
                     update(this.textAreaRef.current);
                 }
-            },
-        );
-    }
-
-    public render() {
-        return React.createElement<ComponentShowcaseTemplateProps<D, F>>(
-            ComponentShowcaseTemplate as React.ComponentType<ComponentShowcaseTemplateProps<D, F>>,
-            {
-                ...this.props,
-                ...this.state,
-                onTextAreaChange: this.onTextAreaChange,
-                onTextAreaReset: this.onTextAreaReset,
-                componentFuncProps: this.props.initialComponentFuncProps,
-                textAreaRef: this.textAreaRef,
             },
         );
     }

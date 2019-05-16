@@ -48,6 +48,18 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
         }
     }
 
+    public render() {
+        return React.createElement(DevelopmentPageTemplate, {
+            onClick: this.onClick,
+            onOpenModalClick: this.onOpenModalClick,
+            onModalRequestClose: this.onModalRequestClose,
+            /** It may be handy to just pass everything forward */
+            ...this.state,
+            ...this.props,
+            /** Can't specify 'theme' here */
+        });
+    }
+
     @autobind
     private onClick() {
         this.setState({ counter: 0 });
@@ -61,18 +73,6 @@ class DevelopmentPageBehaviour extends React.Component<Props, State> {
     @autobind
     private onModalRequestClose() {
         this.setState({ isModalOpen: false });
-    }
-
-    public render() {
-        return React.createElement(DevelopmentPageTemplate, {
-            onClick: this.onClick,
-            onOpenModalClick: this.onOpenModalClick,
-            onModalRequestClose: this.onModalRequestClose,
-            /** It may be handy to just pass everything forward */
-            ...this.state,
-            ...this.props,
-            /** Can't specify 'theme' here */
-        });
     }
 }
 

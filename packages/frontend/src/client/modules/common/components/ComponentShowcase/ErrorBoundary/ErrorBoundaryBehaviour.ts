@@ -29,6 +29,23 @@ class ErrorBoundaryBehaviour<T extends object> extends React.Component<Props<T>,
         }
     }
 
+    public render() {
+        if (this.state.error) {
+            return this.props.children({ errorMessage: castError(this.state.error).details });
+        }
+
+        try {
+            const componentProps = JSON.parse(this.props.rawComponentProps);
+            const componentPropsValidationResult = this.validate(componentProps);
+
+            return componentPropsValidationResult
+                ? this.props.children({ errorMessage: componentPropsValidationResult })
+                : this.props.children({ props: componentProps });
+        } catch (error) {
+            return this.props.children({ errorMessage: castError(error).details });
+        }
+    }
+
     public componentDidCatch(error: Error): void {
         this.setState({ error });
     }
@@ -48,23 +65,6 @@ class ErrorBoundaryBehaviour<T extends object> extends React.Component<Props<T>,
         });
 
         return validationResult === '' ? undefined : validationResult;
-    }
-
-    public render() {
-        if (this.state.error) {
-            return this.props.children({ errorMessage: castError(this.state.error).details });
-        }
-
-        try {
-            const componentProps = JSON.parse(this.props.rawComponentProps);
-            const componentPropsValidationResult = this.validate(componentProps);
-
-            return componentPropsValidationResult
-                ? this.props.children({ errorMessage: componentPropsValidationResult })
-                : this.props.children({ props: componentProps });
-        } catch (error) {
-            return this.props.children({ errorMessage: castError(error).details });
-        }
     }
 }
 

@@ -50,21 +50,86 @@
                 "react-hooks/exhaustive-deps": "error",
                 // Allow JSX in tsx files
                 "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+                // Skip undeclared - no need in ts
                 "react/prop-types": [
                     "error",
                     {
                         "ignore": [],
                         "customValidators": [],
-                        // No need for this in ts
                         "skipUndeclared": true
                     }
                 ],
-                // Override airbnb
+                // Default export is discouraged
                 "import/prefer-default-export": "off",
                 // Function overrides are fine
                 "import/export": "warn",
                 // Seems fine in some cases
-                "react/destructuring-assignment": "warn"
+                "react/destructuring-assignment": "warn",
+                // TODO: Ensure consistency between member-ordering and sort-comp
+                "@typescript-eslint/member-ordering": [
+                    "error",
+                    {
+                        "default": [
+                            "public-static-field",
+                            "protected-static-field",
+                            "private-static-field",
+                            "public-static-method",
+                            "protected-static-method",
+                            "private-static-method",
+                            "public-instance-field",
+                            "protected-instance-field",
+                            "private-instance-field",
+                            "public-constructor",
+                            "protected-constructor",
+                            "private-constructor",
+                            "public-instance-method",
+                            "protected-instance-method",
+                            "private-instance-method"
+                        ]
+                    }
+                ],
+                // Move rendering right after lifecycle
+                "react/sort-comp": [
+                    "error",
+                    {
+                        "order": [
+                            "static-methods",
+                            "instance-variables",
+                            "lifecycle",
+                            "rendering",
+                            "/^on.+$/",
+                            "getters",
+                            "setters",
+                            "/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/",
+                            "instance-methods",
+                            "everything-else"
+                        ],
+                        "groups": {
+                            "lifecycle": [
+                                "displayName",
+                                "propTypes",
+                                "contextTypes",
+                                "childContextTypes",
+                                "mixins",
+                                "statics",
+                                "defaultProps",
+                                "constructor",
+                                "getDefaultProps",
+                                "getInitialState",
+                                "state",
+                                "getChildContext",
+                                "componentWillMount",
+                                "componentDidMount",
+                                "componentWillReceiveProps",
+                                "shouldComponentUpdate",
+                                "componentWillUpdate",
+                                "componentDidUpdate",
+                                "componentWillUnmount"
+                            ],
+                            "rendering": ["/^render.+$/", "render"]
+                        }
+                    }
+                ]
             }
         }
     ]

@@ -15,11 +15,6 @@ export class RootErrorBoundary extends React.Component<Props, State> {
         this.state = {};
     }
 
-    public componentDidCatch(error: Error, info: React.ErrorInfo) {
-        // eslint-disable-next-line react/no-unused-state
-        this.setState({ error, info });
-    }
-
     public render() {
         if (this.state.error) {
             const castedError = castError(this.state.error);
@@ -33,6 +28,11 @@ export class RootErrorBoundary extends React.Component<Props, State> {
         }
 
         return this.props.children;
+    }
+
+    public componentDidCatch(error: Error, info: React.ErrorInfo) {
+        // eslint-disable-next-line react/no-unused-state
+        this.setState({ error, info });
     }
 }
 
