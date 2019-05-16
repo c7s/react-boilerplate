@@ -19,7 +19,7 @@
         "generate:apollo": "node ./tools/apollo/all",
         "generate:apollo-types": "node ./tools/apollo/types",
         "lint:js": "eslint .",
-        "lint:ts": "eslint ./{src,@types,config}/**/*.{ts,tsx} && tsc --project tsconfig.json",
+        "lint:ts": "tsc --project tsconfig.json && eslint ./{src,@types,config}/**/*.{ts,tsx}",
         "lint:css": "stylelint ./src/**/*.{ts,tsx}",
         "pre-commit": "lint-staged"
     },
