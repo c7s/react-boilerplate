@@ -61,7 +61,8 @@
                     }
                 ],
                 // Default export is discouraged
-                "import/prefer-default-export": "warn",
+                "import/prefer-default-export": "off",
+                "import/no-default-export": "error",
                 // Function overrides are fine
                 "import/export": "warn",
                 // Seems fine in some cases

@@ -44,6 +44,7 @@ interface RouterContext {
     statusCode?: number;
 }
 
+// eslint-disable-next-line import/no-default-export
 export default function serverRenderer(
     stats: WebpackHotServerMiddlewareStats | FrontendServerStats,
     link?: ApolloLink,

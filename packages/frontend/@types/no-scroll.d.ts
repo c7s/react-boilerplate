@@ -6,5 +6,6 @@ declare module 'no-scroll' {
     }
 
     const noScroll: NoScroll;
+    // eslint-disable-next-line import/no-default-export
     export default noScroll;
 }
