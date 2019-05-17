@@ -150,7 +150,6 @@ const commonConfig = env => ({
         alias: {
             'node-fetch$': 'node-fetch/lib/index.js',
             'unfetch/polyfill$': 'unfetch/polyfill/index.js',
-            'react-dom': '@hot-loader/react-dom',
         },
     },
     stats: {
