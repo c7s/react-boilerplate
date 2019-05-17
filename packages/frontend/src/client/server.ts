@@ -46,8 +46,8 @@ interface RouterContext {
 
 /** Exposing these files allow frontend-server to create them once in '/public' and send them as usual files from '/' */
 export const publicFiles = {
-    [WEB_MANIFEST_PATH]: { path: WEB_MANIFEST_PATH, content: webManifest, contentType: 'application/manifest+json' },
-    [BROWSER_CONFIG_PATH]: { path: BROWSER_CONFIG_PATH, content: browserConfig, contentType: 'application/xml' },
+    [WEB_MANIFEST_PATH]: { path: WEB_MANIFEST_PATH, content: webManifest, contentType: 'application/json' },
+    [BROWSER_CONFIG_PATH]: { path: BROWSER_CONFIG_PATH, content: browserConfig, contentType: 'text/xml' },
     [ROBOTS_PATH]: { path: ROBOTS_PATH, content: robots, contentType: 'text/plain' },
 };
 
