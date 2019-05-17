@@ -44,18 +44,23 @@ interface RouterContext {
     statusCode?: number;
 }
 
+/** Exposing these files allow frontend-server to create them once in '/public' and send them as usual files from '/' */
+export const publicFiles = {
+    [WEB_MANIFEST_PATH]: { path: WEB_MANIFEST_PATH, content: webManifest, contentType: 'application/manifest+json' },
+    [BROWSER_CONFIG_PATH]: { path: BROWSER_CONFIG_PATH, content: browserConfig, contentType: 'application/xml' },
+    [ROBOTS_PATH]: { path: ROBOTS_PATH, content: robots, contentType: 'text/plain' },
+};
+
 // eslint-disable-next-line import/no-default-export
 export default function serverRenderer(
     stats: WebpackHotServerMiddlewareStats | FrontendServerStats,
     link?: ApolloLink,
 ) {
     return (req: Request, res: Response) => {
-        if (req.path === WEB_MANIFEST_PATH) {
-            sendWebManifest(res);
-        } else if (req.path === BROWSER_CONFIG_PATH) {
-            sendBrowserConfig(res);
-        } else if (req.path === ROBOTS_PATH) {
-            sendRobots(res);
+        const publicFile = publicFiles[req.path];
+
+        if (publicFile) {
+            sendPublicFile(res, publicFile.content, publicFile.contentType);
         } else {
             sendHtmlOrRedirect(req, res, getReactLoadableStats(stats), link);
         }
@@ -127,22 +132,10 @@ function sendHtml(res: Response, html: React.ReactElement<HtmlProps>, appStatus?
     res.status(statusCode).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
 }
 
-function sendWebManifest(res: Response) {
+function sendPublicFile(res: Response, content: string, contentType: string) {
     res.status(200)
-        .header('Content-Type', 'application/manifest+json')
-        .send(JSON.stringify(webManifest));
-}
-
-function sendBrowserConfig(res: Response) {
-    res.status(200)
-        .header('Content-Type', 'application/xml')
-        .send(browserConfig);
-}
-
-function sendRobots(res: Response) {
-    res.status(200)
-        .header('Content-Type', 'text/plain')
-        .send(robots);
+        .header('Content-Type', contentType)
+        .send(content);
 }
 
 function sendRedirect(res: Response, context: RouterContext) {

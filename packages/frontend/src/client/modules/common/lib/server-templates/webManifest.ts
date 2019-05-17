@@ -1,7 +1,7 @@
 import androidChrome192x192 from '../../favicon/android-chrome-192x192.png';
 import androidChrome256x256 from '../../favicon/android-chrome-256x256.png';
 
-export const webManifest = {
+export const webManifest = JSON.stringify({
     name: APP_NAME,
     // eslint-disable-next-line @typescript-eslint/camelcase
     short_name: APP_SHORT_NAME,
@@ -22,4 +22,4 @@ export const webManifest = {
     // eslint-disable-next-line @typescript-eslint/camelcase
     background_color: '#ffffff',
     display: 'standalone',
-};
+});
