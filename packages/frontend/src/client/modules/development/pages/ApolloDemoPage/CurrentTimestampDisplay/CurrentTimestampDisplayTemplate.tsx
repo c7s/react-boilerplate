@@ -17,8 +17,6 @@ const KNOWN_ERROR_LIST = [ServerError.TEST_ERROR];
 const CurrentTimestampDisplayTemplate: React.FC<Props> = ({ className, currentTimestampQueryResult }) => {
     useApolloErrorReporter(currentTimestampQueryResult, { ignore: KNOWN_ERROR_LIST });
 
-    const { data: currentTimestampData = {} } = currentTimestampQueryResult;
-
     const onRefetchClick = React.useCallback(() => {
         currentTimestampQueryResult.refetch({ ...currentTimestampQueryResult.variables, returnError: undefined });
     }, [currentTimestampQueryResult]);
@@ -40,7 +38,10 @@ const CurrentTimestampDisplayTemplate: React.FC<Props> = ({ className, currentTi
     return (
         <Root className={className}>
             <DataDisplay>
-                Data: {currentTimestampData.development ? currentTimestampData.development.currentTimestamp : 'No data'}
+                Data:{' '}
+                {currentTimestampQueryResult.data !== undefined
+                    ? JSON.stringify(currentTimestampQueryResult.data)
+                    : String(currentTimestampQueryResult.data)}
             </DataDisplay>
             <LoadingDisplay>Loading: {String(currentTimestampQueryResult.loading)}</LoadingDisplay>
             <ErrorDisplay>
