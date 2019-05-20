@@ -1,0 +1,12 @@
+{
+  "name": "@react-boilerplate/dev-backend",
+  "version": "0.0.0",
+  "description": "Dev only backend to test features like persisted queries",
+  "author": "c7s",
+  "private": true,
+  "scripts": {
+    "i": "yarn install --frozen-lockfile",
+    "a": "yarn add -E",
+    "r": "yarn remove"
+  }
+}
