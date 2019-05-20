@@ -14,6 +14,10 @@ export const routes = {
         path: '/component-showcase',
         isDev: true,
     }),
+    APOLLO_DEMO: route({
+        path: '/apollo-demo',
+        isDev: true,
+    }),
     NOT_FOUND: route({
         path: '/',
     }),

@@ -9,7 +9,7 @@ import { routes } from '../../../common/lib/routes';
 import { withRouter } from '../../../common/lib/withRouter';
 import { onMessageAdd } from '../../../common/store/actions';
 import { LoadedFontStatus, Message } from '../../../common/store/types';
-import { Licenses } from './ApolloTypes/Licenses';
+import { Books } from './ApolloTypes/Books';
 import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
 import { CurrentCommonProps } from './DevelopmentPageTemplate';
 
@@ -39,20 +39,20 @@ type ApolloProps = ReduxProps & MapProps & DispatchProps;
 
 /** Graphql code could be in 'DevelopmentPageGraphql.ts' */
 
-const LICENSE_FRAGMENT = gql`
-    fragment License on License {
-        nickname
-        description
+const BOOK_FULL_FRAGMENT = gql`
+    fragment BookFull on Book {
+        author
+        title
     }
 `;
 
-const LICENSES_QUERY = gql`
-    query Licenses {
-        licenses {
-            ...License
+const BOOKS_QUERY = gql`
+    query Books {
+        books {
+            ...BookFull
         }
     }
-    ${LICENSE_FRAGMENT}
+    ${BOOK_FULL_FRAGMENT}
 `;
 
 /** HOC order is mandatory. Don't forget to make query result Partial<> (like Query<Partial<Licenses>>) */
@@ -62,14 +62,14 @@ const DevelopmentPageConnect = withRouter(
         mapStateToProps,
         mapDispatchToProps,
     )((props: ApolloProps) => (
-        <Query<Partial<Licenses>> query={LICENSES_QUERY}>
-            {licensesQueryResult => (
+        <Query<Partial<Books>> query={BOOKS_QUERY}>
+            {booksQueryResult => (
                 <DevelopmentPageBehaviour
                     {...props}
                     querySingle={props.match.params.query && props.match.params.query.querySingle}
                     queryArray={props.match.params.query && props.match.params.query.queryArray}
                     id={props.match.params.id ? props.match.params.id : 'no data'}
-                    licensesQueryResult={licensesQueryResult}
+                    booksQueryResult={booksQueryResult}
                 />
             )}
         </Query>

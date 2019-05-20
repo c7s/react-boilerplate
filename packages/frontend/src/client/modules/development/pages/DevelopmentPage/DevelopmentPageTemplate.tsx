@@ -10,7 +10,7 @@ import { routes } from '../../../common/lib/routes';
 import { withTheme } from '../../../common/lib/withTheme';
 import { LoadedFontStatus, Message } from '../../../common/store/types';
 import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
-import { Licenses } from './ApolloTypes/Licenses';
+import { Books } from './ApolloTypes/Books';
 import C7sIcon from './C7sIcon.svg';
 import c7sImage from './c7sImage.png';
 
@@ -20,7 +20,7 @@ interface Props extends CurrentCommonProps {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     counter: number;
     isModalOpen: boolean;
-    licensesQueryResult: QueryResult<Partial<Licenses>>;
+    booksQueryResult: QueryResult<Partial<Books>>;
     loadedFontStatus: LoadedFontStatus;
     name?: string;
     id: string;
@@ -74,7 +74,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         onClick,
         onModalRequestClose,
         onOpenModalClick,
-        licensesQueryResult,
+        booksQueryResult,
         loadedFontStatus,
         id,
         querySingle,
@@ -83,7 +83,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         theme /** Can't get 'themeName' here */,
     }) => {
         /** Universal graphql error handler */
-        useApolloErrorReporter(licensesQueryResult);
+        useApolloErrorReporter(booksQueryResult);
 
         const buttonRef = React.useRef<HTMLButtonElement>(null);
         const anchorRef = React.useRef<HTMLAnchorElement>(null);
@@ -95,7 +95,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
             console.log(anchorRef.current);
         }, []);
 
-        const { data: licensesQueryResultData = {} } = licensesQueryResult;
+        const { data: booksQueryResultData = {} } = booksQueryResult;
 
         return (
             /** It's mandatory to pass className to root element */
@@ -118,11 +118,11 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
                     Drop Counter (Button)
                 </StyledButton>
                 <LicensesDisplay>
-                    Licenses:{' '}
-                    {licensesQueryResultData.licenses
-                        ? licensesQueryResultData.licenses.map(license => (license ? license.nickname : 'No nickname'))
+                    Book authors:{' '}
+                    {booksQueryResultData.books
+                        ? booksQueryResultData.books.map(book => `${book.author}, `)
                         : 'No data'}
-                    {licensesQueryResult.loading ? ' - Loading' : ''}
+                    {booksQueryResult.loading ? ' - Loading' : ''}
                 </LicensesDisplay>
                 <Button themeName={ButtonThemeName.PRIMARY} to={routes.ROOT.path}>
                     Root (Button-Link)

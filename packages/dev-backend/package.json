@@ -8,5 +8,9 @@
     "i": "yarn install --frozen-lockfile",
     "a": "yarn add -E",
     "r": "yarn remove"
+  },
+  "dependencies": {
+    "apollo-server": "2.5.0",
+    "graphql": "14.3.0"
   }
 }

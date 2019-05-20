@@ -13,7 +13,6 @@ declare namespace NodeJS {
     interface Global {
         /** Config part */
         GRAPHQL_ENDPOINT: string;
-        GITHUB_TOKEN: string;
         PUBLIC_PATH: string;
         CANONICAL_ROBOTS_HOST: string;
         IS_OUTPUT_APP_INFO: boolean;

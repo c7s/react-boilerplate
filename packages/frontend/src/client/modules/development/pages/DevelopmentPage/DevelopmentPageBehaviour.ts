@@ -2,13 +2,13 @@ import autobind from 'autobind-decorator';
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
 import { LoadedFontStatus, Message } from '../../../common/store/types';
-import { Licenses } from './ApolloTypes/Licenses';
+import { Books } from './ApolloTypes/Books';
 import { CurrentCommonProps, DevelopmentPageTemplate } from './DevelopmentPageTemplate';
 
 /** Props to render component behaviour. Don't forget to extend CurrentCommonProps */
 
 interface Props extends CurrentCommonProps {
-    licensesQueryResult: QueryResult<Partial<Licenses>>;
+    booksQueryResult: QueryResult<Partial<Books>>;
     loadedFontStatus: LoadedFontStatus;
     name?: string;
     id: string;

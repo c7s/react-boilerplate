@@ -16,6 +16,9 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
         <PositionedLink themeName={LinkThemeName.TEXT} to={routes.SHOWCASE.path}>
             Component Showcase
         </PositionedLink>
+        <PositionedLink themeName={LinkThemeName.TEXT} to={routes.APOLLO_DEMO.path}>
+            Apollo Demo
+        </PositionedLink>
         <PositionedLink themeName={LinkThemeName.TEXT} to="/broken-link">
             Broken Link
         </PositionedLink>
