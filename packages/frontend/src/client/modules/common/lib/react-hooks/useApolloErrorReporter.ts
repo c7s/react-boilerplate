@@ -1,11 +1,12 @@
 import { ApolloError } from 'apollo-client';
 import * as React from 'react';
+import { ServerError } from '../../graphql/ApolloTypes/globalTypes';
 import { onMessageAdd } from '../../store/actions';
 import { IsomorphicStore } from '../IsomorphicStore';
 
 interface Options {
     disabled?: boolean;
-    ignore?: string[]; // TODO: ServerError enum
+    ignore?: ServerError[];
 }
 
 /** Report non-network errors via Notificator (network errors are handled automatically) */
@@ -32,9 +33,9 @@ export function useApolloErrorReporter(result: { error?: ApolloError; loading: b
     });
 }
 
-export function includesOnly(apolloError: ApolloError, codeList: string[] /* TODO: ServerError enum */) {
+export function includesOnly(apolloError: ApolloError, codeList: ServerError[]) {
     if (!apolloError.networkError) {
-        return apolloError.graphQLErrors.every(graphqlError => codeList.includes(graphqlError.message));
+        return apolloError.graphQLErrors.every(graphqlError => codeList.includes((graphqlError.extensions || {}).code));
     }
 
     return false;

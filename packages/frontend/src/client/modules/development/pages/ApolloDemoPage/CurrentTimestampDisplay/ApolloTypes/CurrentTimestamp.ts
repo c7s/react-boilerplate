@@ -2,6 +2,8 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
+import { ServerError } from "./../../../../../common/graphql/ApolloTypes/globalTypes";
+
 // ====================================================
 // GraphQL query operation: CurrentTimestamp
 // ====================================================
@@ -17,5 +19,5 @@ export interface CurrentTimestamp {
 
 export interface CurrentTimestampVariables {
   loadingTime: number;
-  returnError: boolean;
+  returnError?: ServerError | null;
 }

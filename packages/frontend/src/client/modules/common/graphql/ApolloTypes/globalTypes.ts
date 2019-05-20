@@ -7,6 +7,7 @@
 //==============================================================
 
 export enum ServerError {
+  INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR",
   TEST_ERROR = "TEST_ERROR",
 }
 

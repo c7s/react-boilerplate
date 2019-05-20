@@ -8,7 +8,7 @@ import { CurrentTimestampDisplayTemplate } from './CurrentTimestampDisplayTempla
 interface Props extends CommonProps {}
 
 const CURRENT_TIMESTAMP_QUERY = gql`
-    query CurrentTimestamp($loadingTime: Int!, $returnError: Boolean!) {
+    query CurrentTimestamp($loadingTime: Int!, $returnError: ServerError) {
         development {
             currentTimestamp(loadingTime: $loadingTime, returnError: $returnError)
         }
@@ -19,7 +19,7 @@ const CurrentTimestampDisplayConnect = (props: Props) => (
     <Query<Partial<CurrentTimestamp>, CurrentTimestampVariables>
         query={CURRENT_TIMESTAMP_QUERY}
         context={{ debatch: true }}
-        variables={{ returnError: false, loadingTime: 1000 }}
+        variables={{ loadingTime: 1000 }}
     >
         {currentTimestampQueryResult => (
             <CurrentTimestampDisplayTemplate currentTimestampQueryResult={currentTimestampQueryResult} {...props} />

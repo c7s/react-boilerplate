@@ -27,11 +27,12 @@ const typeDefs = gql`
 
     type Development {
         books: [Book!]!
-        currentTimestamp(returnError: Boolean!, loadingTime: Int!): Float!
+        currentTimestamp(returnError: ServerError, loadingTime: Int!): Float!
     }
 
     enum ServerError {
         TEST_ERROR
+        INTERNAL_SERVER_ERROR
     }
     
     # The "Query" type is the root of all GraphQL queries.
@@ -43,7 +44,8 @@ const typeDefs = gql`
 `;
 
 const ServerError = {
-    TEST_ERROR: 'TEST_ERROR'
+    TEST_ERROR: 'TEST_ERROR',
+    INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR'
 };
 
 // Resolvers define the technique for fetching the types in the
@@ -59,7 +61,7 @@ const resolvers = {
             if (!returnError) {
                 resolve(Date.now());
             }
-            reject(new ApolloError('Developer-readable message, not code', ServerError.TEST_ERROR, {additionalProperty: 'Some additional data'}))
+            reject(new ApolloError(returnError === ServerError.TEST_ERROR ? 'Developer-readable message, not code' : 'Unknown error', returnError, {additionalProperty: 'Some additional data'}))
         }, loadingTime)
     }),
     }
