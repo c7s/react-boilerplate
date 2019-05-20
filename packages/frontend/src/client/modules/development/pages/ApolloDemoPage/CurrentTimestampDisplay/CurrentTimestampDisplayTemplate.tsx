@@ -51,15 +51,15 @@ const CurrentTimestampDisplayTemplate: React.FC<Props> = ({ className, currentTi
                         : 'Unknown error'
                     : 'No error'}
             </ErrorDisplay>
-            <Button themeName={ButtonThemeName.PRIMARY} onClick={onRefetchClick}>
+            <PositionedButton themeName={ButtonThemeName.PRIMARY} onClick={onRefetchClick}>
                 Refetch
-            </Button>
-            <Button themeName={ButtonThemeName.PRIMARY} onClick={onRefetchWithErrorClick}>
+            </PositionedButton>
+            <PositionedButton themeName={ButtonThemeName.PRIMARY} onClick={onRefetchWithErrorClick}>
                 Refetch with known error
-            </Button>
-            <Button themeName={ButtonThemeName.PRIMARY} onClick={onRefetchWithUnknownErrorClick}>
+            </PositionedButton>
+            <PositionedButton themeName={ButtonThemeName.PRIMARY} onClick={onRefetchWithUnknownErrorClick}>
                 Refetch with unknown error
-            </Button>
+            </PositionedButton>
         </Root>
     );
 };
@@ -71,5 +71,9 @@ const DataDisplay = styled.div``;
 const LoadingDisplay = styled.div``;
 
 const ErrorDisplay = styled.div``;
+
+const PositionedButton = styled(Button)`
+    margin-right: 20px;
+`;
 
 export { CurrentTimestampDisplayTemplate, Props };
