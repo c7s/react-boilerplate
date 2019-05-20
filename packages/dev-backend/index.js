@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer, gql, ApolloError } = require('apollo-server');
 
 // This is a (sample) collection of books we'll be able to query
 // the GraphQL server for.  A more complete example might fetch
@@ -27,23 +27,42 @@ const typeDefs = gql`
 
     type Development {
         books: [Book!]!
+        currentTimestamp(returnError: Boolean!, loadingTime: Int!): Float!
+    }
+
+    enum ServerError {
+        TEST_ERROR
     }
     
     # The "Query" type is the root of all GraphQL queries.
     # (A "Mutation" type will be covered later on.)
     type Query {
         development: Development!
+        serverError: ServerError!
     }
 `;
+
+const ServerError = {
+    TEST_ERROR: 'TEST_ERROR'
+};
 
 // Resolvers define the technique for fetching the types in the
 // schema.  We'll retrieve books from the "books" array above.
 const resolvers = {
     Query: {
-        development: () => ({
-            books: () => books,
-        })
+        serverError: () => (ServerError.TEST_ERROR),
+        development: () => ({books}),
     },
+    Development: {
+        currentTimestamp: (_, {returnError, loadingTime}) => new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (!returnError) {
+                resolve(Date.now());
+            }
+            reject(new ApolloError('Developer-readable message, not code', ServerError.TEST_ERROR, {additionalProperty: 'Some additional data'}))
+        }, loadingTime)
+    }),
+    }
 };
 
 // In the most basic sense, the ApolloServer can be started

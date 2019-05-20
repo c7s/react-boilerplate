@@ -13,24 +13,23 @@ export function useApolloErrorReporter(result: { error?: ApolloError; loading: b
     const disabled = Boolean(opt.disabled);
     const ignore = opt.ignore || [];
 
-    const [wasShownFromLastLoading, setWasShownFromLastLoading] = React.useState(false);
+    const prevLoadingRef = React.useRef<undefined | boolean>();
 
     React.useEffect(() => {
         if (
             !disabled &&
-            !wasShownFromLastLoading &&
+            (Boolean(prevLoadingRef.current) && !result.loading) &&
             result.error &&
             !result.error.networkError &&
             !includesOnly(result.error, ignore)
         ) {
             IsomorphicStore.getStore().dispatch(onMessageAdd(result.error));
-            setWasShownFromLastLoading(true);
         }
+    }, [disabled, ignore, result.error, result.loading]);
 
-        if (result.loading) {
-            setWasShownFromLastLoading(false);
-        }
-    }, [disabled, ignore, result.error, result.loading, wasShownFromLastLoading]);
+    React.useEffect(() => {
+        prevLoadingRef.current = result.loading;
+    });
 }
 
 export function includesOnly(apolloError: ApolloError, codeList: string[] /* TODO: ServerError enum */) {
