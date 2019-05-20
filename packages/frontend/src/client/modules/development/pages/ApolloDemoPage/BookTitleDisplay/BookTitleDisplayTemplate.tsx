@@ -16,7 +16,9 @@ const BookTitleDisplayTemplate: React.FC<Props> = ({ className, booksDisplayQuer
 
     return (
         <Root className={className}>
-            {booksDisplayData.books ? booksDisplayData.books.map(book => `${book.title} - `) : 'No data'}
+            {booksDisplayData.development
+                ? booksDisplayData.development.books.map(book => `${book.title} - `)
+                : 'No data'}
             {booksDisplayQueryResult.loading ? ' - Loading' : ''}
         </Root>
     );

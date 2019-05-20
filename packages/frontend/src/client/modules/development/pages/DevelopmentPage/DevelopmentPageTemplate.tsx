@@ -119,8 +119,8 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
                 </StyledButton>
                 <LicensesDisplay>
                     Book authors:{' '}
-                    {booksQueryResultData.books
-                        ? booksQueryResultData.books.map(book => `${book.author}, `)
+                    {booksQueryResultData.development
+                        ? booksQueryResultData.development.books.map(book => `${book.author}, `)
                         : 'No data'}
                     {booksQueryResult.loading ? ' - Loading' : ''}
                 </LicensesDisplay>

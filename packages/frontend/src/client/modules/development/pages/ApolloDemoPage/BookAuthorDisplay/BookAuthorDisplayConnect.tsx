@@ -9,8 +9,10 @@ interface Props extends CommonProps {}
 
 const BOOKS_AUTHOR_QUERY = gql`
     query BooksAuthor {
-        books {
-            author
+        development {
+            books {
+                author
+            }
         }
     }
 `;

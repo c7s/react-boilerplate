@@ -48,8 +48,10 @@ const BOOK_FULL_FRAGMENT = gql`
 
 const BOOKS_QUERY = gql`
     query Books {
-        books {
-            ...BookFull
+        development {
+            books {
+                ...BookFull
+            }
         }
     }
     ${BOOK_FULL_FRAGMENT}

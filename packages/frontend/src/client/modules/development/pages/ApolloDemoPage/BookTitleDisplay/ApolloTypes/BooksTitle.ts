@@ -6,11 +6,16 @@
 // GraphQL query operation: BooksTitle
 // ====================================================
 
-export interface BooksTitle_books {
+export interface BooksTitle_development_books {
   __typename: "Book";
   title: string;
 }
 
+export interface BooksTitle_development {
+  __typename: "Development";
+  books: BooksTitle_development_books[];
+}
+
 export interface BooksTitle {
-  books: BooksTitle_books[];
+  development: BooksTitle_development;
 }
