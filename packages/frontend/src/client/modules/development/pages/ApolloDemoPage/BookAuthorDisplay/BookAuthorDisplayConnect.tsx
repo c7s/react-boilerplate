@@ -16,7 +16,7 @@ const BOOKS_AUTHOR_QUERY = gql`
 `;
 
 const BookAuthorDisplayConnect = (props: Props) => (
-    <Query<Partial<BooksAuthor>> query={BOOKS_AUTHOR_QUERY}>
+    <Query<Partial<BooksAuthor>> query={BOOKS_AUTHOR_QUERY} context={{ debatch: true }}>
         {booksDisplayQueryResult => (
             <BookAuthorDisplayTemplate booksDisplayQueryResult={booksDisplayQueryResult} {...props} />
         )}

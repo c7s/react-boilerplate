@@ -1,8 +1,9 @@
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
+import { ApolloLink, split } from 'apollo-link';
+import { BatchHttpLink } from 'apollo-link-batch-http';
 import { ErrorResponse, onError } from 'apollo-link-error';
-import { createHttpLink } from 'apollo-link-http';
+import { HttpLink } from 'apollo-link-http';
 import { onMessageAdd } from '../../store/actions';
 import { IsomorphicStore } from '../IsomorphicStore';
 
@@ -79,10 +80,17 @@ class IsomorphicApolloClient {
     private static createLink({ link, fetch }: ClientConfig): ApolloLink {
         return (
             link ||
-            createHttpLink({
-                fetch,
-                uri: global.GRAPHQL_ENDPOINT,
-            })
+            split(
+                operation => operation.getContext().debatch,
+                new HttpLink({
+                    fetch,
+                    uri: global.GRAPHQL_ENDPOINT,
+                }),
+                new BatchHttpLink({
+                    fetch,
+                    uri: global.GRAPHQL_ENDPOINT,
+                }),
+            )
         );
     }
 
