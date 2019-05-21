@@ -85,6 +85,7 @@
         "apollo-link-batch-http": "1.2.11",
         "apollo-link-error": "1.1.10",
         "apollo-link-http": "1.5.14",
+        "apollo-link-persisted-queries": "0.2.2",
         "autobind-decorator": "2.1.0",
         "autosize": "4.0.2",
         "babel-loader": "8.0.5",

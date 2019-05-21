@@ -4,6 +4,7 @@ import { ApolloLink, split } from 'apollo-link';
 import { BatchHttpLink } from 'apollo-link-batch-http';
 import { ErrorResponse, onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
+import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 import { onMessageAdd } from '../../store/actions';
 import { IsomorphicStore } from '../IsomorphicStore';
 
@@ -80,16 +81,18 @@ class IsomorphicApolloClient {
     private static createLink({ link, fetch }: ClientConfig): ApolloLink {
         return (
             link ||
-            split(
-                operation => operation.getContext().debatch,
-                new HttpLink({
-                    fetch,
-                    uri: global.GRAPHQL_ENDPOINT,
-                }),
-                new BatchHttpLink({
-                    fetch,
-                    uri: global.GRAPHQL_ENDPOINT,
-                }),
+            createPersistedQueryLink().concat(
+                split(
+                    operation => operation.getContext().debatch,
+                    new HttpLink({
+                        fetch,
+                        uri: global.GRAPHQL_ENDPOINT,
+                    }),
+                    new BatchHttpLink({
+                        fetch,
+                        uri: global.GRAPHQL_ENDPOINT,
+                    }),
+                ),
             )
         );
     }

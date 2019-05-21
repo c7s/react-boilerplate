@@ -15,6 +15,9 @@ graphql.config.json
 # VSCode GraphQL Extension config is generated from endpoint
 .graphqlconfig.yml
 
+# https://www.apollographql.com/docs/platform/operation-registry
+operation-registry.json
+
 # Yarn is used instead of npm, so tracking this file makes no sense
 package-lock.json
 
