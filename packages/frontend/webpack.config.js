@@ -10,6 +10,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
+const OperationRegistryPlugin = require('./tools/webpack/plugins/OperationRegistryPlugin');
 
 /** These paths are handled by frontend server, so they must be relative */
 const WEB_MANIFEST_PATH = '/manifest.json';
@@ -218,6 +219,10 @@ const clientConfig = env => ({
         env.build &&
             new ReactLoadablePlugin({
                 filename: './dist/react-loadable.json',
+            }),
+        env.build &&
+            new OperationRegistryPlugin({
+                filename: './dist/operation-registry.json',
             }),
         // https://webpack.js.org/guides/caching/
         new webpack.HashedModuleIdsPlugin(),
