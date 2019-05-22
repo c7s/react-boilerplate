@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const { config } = require('../../config/index');
 
+const IS_CALLED_FROM_SHELL = module.parent === null;
+
 function generateConfig() {
     fs.writeFileSync(
         path.resolve('graphql.config.json'),
@@ -51,7 +53,7 @@ extensions:
     }
 }
 
-if (module.parent === null) {
+if (IS_CALLED_FROM_SHELL) {
     generateConfig();
 }
 

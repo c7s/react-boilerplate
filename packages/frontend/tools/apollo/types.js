@@ -5,14 +5,25 @@ const glob = require('glob');
 const fs = require('fs');
 
 const DELETION_MARK = '// NOTE: This file is marked for deletion';
+const IS_CALLED_FROM_SHELL = module.parent === null;
 
 function generateTypes() {
     const oldApolloTypeFiles = getApolloTypeFiles();
     oldApolloTypeFiles.forEach(markFileForDeletion);
 
-    generateApolloTypeFiles().then(() => {
-        oldApolloTypeFiles.forEach(deleteFileIfMarked);
-    });
+    return generateApolloTypeFiles()
+        .then(() => {
+            oldApolloTypeFiles.forEach(deleteFileIfMarked);
+        })
+        .catch(error => {
+            oldApolloTypeFiles.forEach(unmarkFileForDeletion);
+
+            if (IS_CALLED_FROM_SHELL) {
+                console.error(error);
+            } else {
+                throw error;
+            }
+        });
 }
 
 function getApolloTypeFiles() {
@@ -21,6 +32,12 @@ function getApolloTypeFiles() {
 
 function markFileForDeletion(path) {
     fs.appendFileSync(path, DELETION_MARK);
+}
+
+function unmarkFileForDeletion(path) {
+    fs.writeFileSync(path, fs.readFileSync(path, { encoding: 'utf-8' }).replace(DELETION_MARK, ''), {
+        encoding: 'utf-8',
+    });
 }
 
 function deleteFileIfMarked(path) {
@@ -47,10 +64,10 @@ function generateApolloTypeFiles() {
             'GQL_',
             process.argv.includes('--watch') && '--watch',
         ].filter(Boolean)
-    ).catch(error => console.error(error));
+    );
 }
 
-if (module.parent === null) {
+if (IS_CALLED_FROM_SHELL) {
     generateTypes();
 }
 

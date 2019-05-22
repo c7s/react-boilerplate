@@ -1,9 +1,17 @@
 const { run } = require('apollo');
+const { generateSchema } = require('../../apollo/schema');
 
 class OperationRegistryPlugin {
     static generateOperationRegistry(filename) {
-        return run(['client:extract', filename, '--includes', '**/*{Connect,Graphql}.{ts,tsx}']).catch(error =>
-            console.error(error)
+        return generateSchema().then(() =>
+            run([
+                'client:extract',
+                filename,
+                '--includes',
+                '**/*{Connect,Graphql}.{ts,tsx}',
+                '-c',
+                'operation-registry.apollo.config.js',
+            ])
         );
     }
 
