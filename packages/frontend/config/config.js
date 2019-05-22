@@ -26,6 +26,6 @@ module.exports = {
         isShowDevPages: process.env.REACT_BOILERPLATE_ENV === Env.DEV,
     },
     api: {
-        graphqlEndpoint: process.env.REACT_BOILERPLATE_GRAPHQL_ENDPOINT || 'http://localhost:4000/',
+        graphqlEndpoint: process.env.REACT_BOILERPLATE_GRAPHQL_ENDPOINT || 'https://react-boilerplate-demo.glitch.me',
     },
 };
