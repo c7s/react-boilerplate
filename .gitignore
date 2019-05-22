@@ -3,12 +3,6 @@
 # Yarn is used instead of npm, so tracking this file makes no sense
 package-lock.json
 
-# GraphQL schema is generated from endpoint
-graphql.schema.json
-
-# JS GraphQL plugin config is generated from endpoint
-graphql.config.json
-
 
 # Created by https://www.gitignore.io/api/node,macos,linux,windows,webstorm,visualstudiocode
 

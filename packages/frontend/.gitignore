@@ -6,9 +6,6 @@ config/local.js
 # Webpack output
 dist/
 
-# GraphQL schema is generated from endpoint
-graphql.schema.json
-
 # JS GraphQL plugin config is generated from endpoint
 graphql.config.json
 
