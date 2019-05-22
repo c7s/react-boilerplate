@@ -206,8 +206,8 @@ const clientConfig = env => ({
     entry: [
         '@babel/polyfill',
         'unfetch/polyfill',
-        !env.build && 'webpack-hot-middleware/client?reload=true',
-        'react-hot-loader/patch',
+        !env.build && 'webpack-hot-middleware/client?reload=true&noInfo=true',
+        !env.build && 'react-hot-loader/patch',
         './src/client/client.ts',
     ].filter(Boolean),
     module: {
