@@ -18,8 +18,6 @@ app.use(express.static(path.resolve(__dirname, '..', 'client', 'public')));
 app.use(
     webpackDevMiddleware(compiler, {
         serverSideRender: true,
-        quiet: false,
-        noInfo: false,
         stats: webpackConfig[0].stats,
     })
 );
