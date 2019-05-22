@@ -6,10 +6,7 @@ config/local.js
 # Webpack output
 dist/
 
-# JS GraphQL plugin config is generated from endpoint
-graphql.config.json
-
-# VSCode GraphQL Extension config is generated from endpoint
+# GraphQL config is generated from endpoint
 .graphqlconfig.yml
 
 # Yarn is used instead of npm, so tracking this file makes no sense

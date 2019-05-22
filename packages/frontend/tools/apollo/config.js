@@ -8,43 +8,11 @@ const IS_CALLED_FROM_SHELL = module.parent === null;
 
 function generateConfig() {
     fs.writeFileSync(
-        path.resolve('graphql.config.json'),
-        jsGraphqlPluginConfig('graphql.schema.json', config.api.graphqlEndpoint)
-    );
-
-    fs.writeFileSync(
         path.resolve('.graphqlconfig.yml'),
-        vsCodeGraphqlExtensionConfig('graphql.schema.json', config.api.graphqlEndpoint)
+        graphqlConfig('graphql.schema.json', config.api.graphqlEndpoint)
     );
 
-    /**
-     * @param {string} schemaFile
-     * @param {string} endpoint
-     * @return {string}
-     * @constructor
-     */
-    function jsGraphqlPluginConfig(schemaFile, endpoint) {
-        return `{
-    "schema": {
-        "file": "${schemaFile}"
-    },
-
-    "endpoints": [
-        {
-            "name": "Default",
-            "url": "${endpoint}",
-            "options": {
-                "headers": {
-                    "user-agent": "JS GraphQL"
-                }
-            }
-        }
-    ]
-}
-`;
-    }
-
-    function vsCodeGraphqlExtensionConfig(schemaFile, endpoint) {
+    function graphqlConfig(schemaFile, endpoint) {
         return `schemaPath: ${schemaFile}
 extensions:
   endpoints:
