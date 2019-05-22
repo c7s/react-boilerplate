@@ -7,6 +7,7 @@ import favicon from '../../favicon/favicon.ico';
 import safariPinnedTab from '../../favicon/safari-pinned-tab.svg';
 /** Generate files for manifest and msapplication-config favicon */
 import '../../lib/server-templates/index';
+import { MIN_WIDTH } from '../../lib/media';
 import { OpenGraph } from '../OpenGraph';
 
 export const InitialHelmet: React.FC = ({ children }) => (
@@ -14,7 +15,9 @@ export const InitialHelmet: React.FC = ({ children }) => (
         <Helmet>
             <html lang="ru" />
             <meta charSet="utf-8" />
-            <meta name="viewport" content="width=device-width" />
+            {/* Use content="width=device-width" to break everything for screens less than MIN_WIDTH */}
+            {/* This will fix necessity to zoom-out though */}
+            <meta name="viewport" content={`width=${MIN_WIDTH}, initial-scale=1, maximum-scale=1`} />
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-capable" content="yes" />
 
