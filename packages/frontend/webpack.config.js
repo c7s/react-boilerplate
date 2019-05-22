@@ -242,6 +242,8 @@ const clientConfig = env => ({
                     'server.ts',
                     // Special folder for public files
                     'public',
+                    // TODO: Temporal, remove once common/graphql/Graphql.ts becomes used
+                    'Graphql.ts',
                 ],
                 root: path.resolve(`./src/client`),
             }),
