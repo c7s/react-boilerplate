@@ -8,7 +8,12 @@ export function parseUrlData<Type extends StringifyablePrimitive>(value?: string
     try {
         const parsedValue = value !== undefined ? JSON.parse(value) : undefined;
 
-        if (['number', 'boolean', 'null', 'undefined'].includes(typeof parsedValue)) {
+        if (['number', 'boolean', 'undefined'].includes(typeof parsedValue)) {
+            return parsedValue;
+        }
+
+        // Because typeof null === 'object'
+        if (parsedValue === null) {
             return parsedValue;
         }
 
