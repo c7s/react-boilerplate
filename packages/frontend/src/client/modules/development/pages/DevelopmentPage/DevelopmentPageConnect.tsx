@@ -65,15 +65,9 @@ const DevelopmentPageConnect = withRouter(
         mapDispatchToProps,
     )((props: ApolloProps) => (
         <Query<Partial<Books>> query={BOOKS_QUERY}>
-            {booksQueryResult => (
-                <DevelopmentPageBehaviour
-                    {...props}
-                    querySingle={props.match.params.query && props.match.params.query.querySingle}
-                    queryArray={props.match.params.query && props.match.params.query.queryArray}
-                    id={props.match.params.id ? props.match.params.id : 'no data'}
-                    booksQueryResult={booksQueryResult}
-                />
-            )}
+            {booksQueryResult => {
+                return <DevelopmentPageBehaviour {...props} booksQueryResult={booksQueryResult} />;
+            }}
         </Query>
     )),
 );

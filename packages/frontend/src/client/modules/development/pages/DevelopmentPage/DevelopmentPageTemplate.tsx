@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
+import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
 import { Button, ButtonThemeName } from '../../../common/components/Button';
 import { Modal } from '../../../common/components/Modal';
@@ -16,16 +17,14 @@ import c7sImage from './c7sImage.png';
 
 /** Props to render component template. Don't forget to extend CurrentCommonProps */
 
-interface Props extends CurrentCommonProps {
+interface Props
+    extends CurrentCommonProps,
+        RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>> {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     counter: number;
     isModalOpen: boolean;
     booksQueryResult: QueryResult<Partial<Books>>;
     loadedFontStatus: LoadedFontStatus;
-    name?: string;
-    id: string;
-    querySingle?: string;
-    queryArray?: string[];
     onMessageAdd(message: Message): void;
     onOpenModalClick(): void;
     onModalRequestClose(): void;
@@ -76,10 +75,7 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         onOpenModalClick,
         booksQueryResult,
         loadedFontStatus,
-        id,
-        querySingle,
-        queryArray,
-        name,
+        match,
         theme /** Can't get 'themeName' here */,
     }) => {
         /** Universal graphql error handler */
@@ -105,14 +101,12 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
                 ogTitle="Development page"
                 bodyBackground="#008080"
             >
-                <Greeting>Greetings, {name || 'Unknown'}</Greeting>
+                <Greeting>Greetings, {match.params.name || 'Unknown'}</Greeting>
                 <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
                 <LoadedFontStatusDisplay>
                     Loaded font status: {JSON.stringify(loadedFontStatus)}
                 </LoadedFontStatusDisplay>
-                <UrlData>Page id: {id}</UrlData>
-                <UrlData>QuerySingle: {querySingle}</UrlData>
-                <UrlData>QueryArray: {JSON.stringify(queryArray)}</UrlData>
+                <UrlData>{JSON.stringify(match.params)}</UrlData>
                 <StateCounter>State counter: {counter}</StateCounter>
                 <StyledButton themeName={ButtonThemeName.PRIMARY} onClick={onClick} ref={buttonRef}>
                     Drop Counter (Button)
@@ -151,9 +145,7 @@ const LoadedFontStatusDisplay = styled.div`
     word-break: break-all;
 `;
 
-const UrlData = styled.div`
-    margin-top: 300px;
-`;
+const UrlData = styled.div``;
 
 const StateCounter = styled.div``;
 

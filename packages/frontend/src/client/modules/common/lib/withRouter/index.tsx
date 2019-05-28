@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { merge, mapValues } from 'lodash';
 import queryString from 'query-string';
 import * as React from 'react';
 import { Omit, RouteComponentProps, withRouter as withRouterOriginal } from 'react-router';
@@ -19,7 +19,18 @@ function withRouterParams<P extends RouteComponentProps<any>>(Component: React.C
                           params: merge(
                               {},
                               props.location.search
-                                  ? { query: queryString.parse(props.location.search, { arrayFormat: 'bracket' }) }
+                                  ? {
+                                        query: mapValues(
+                                            queryString.parse(props.location.search, { arrayFormat: 'bracket' }),
+                                            value => {
+                                                if (Array.isArray(value)) {
+                                                    return value.map(smartParse);
+                                                }
+
+                                                return smartParse(value);
+                                            },
+                                        ),
+                                    }
                                   : {},
                               props.location.hash ? { hash: props.location.hash } : {},
                           ),
@@ -28,6 +39,15 @@ function withRouterParams<P extends RouteComponentProps<any>>(Component: React.C
                 : props)}
         />
     );
+}
+
+function smartParse(value: string | undefined) {
+    try {
+        return value ? JSON.parse(value) : value;
+    } catch {
+        console.warn("URL inconsistency detected. Don't change it manually");
+        return value;
+    }
 }
 
 const withRouter: WithRouter = compose(

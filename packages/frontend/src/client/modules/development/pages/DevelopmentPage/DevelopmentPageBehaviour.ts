@@ -1,19 +1,19 @@
 import autobind from 'autobind-decorator';
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
+import { RouteComponentProps } from 'react-router';
+import { routes } from '../../../common/lib/routes';
 import { LoadedFontStatus, Message } from '../../../common/store/types';
 import { Books } from './ApolloTypes/Books';
 import { CurrentCommonProps, DevelopmentPageTemplate } from './DevelopmentPageTemplate';
 
 /** Props to render component behaviour. Don't forget to extend CurrentCommonProps */
 
-interface Props extends CurrentCommonProps {
+interface Props
+    extends CurrentCommonProps,
+        RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>> {
     booksQueryResult: QueryResult<Partial<Books>>;
     loadedFontStatus: LoadedFontStatus;
-    name?: string;
-    id: string;
-    querySingle?: string;
-    queryArray?: string[];
     onMessageAdd(message: Message): void;
 }
 

@@ -13,7 +13,7 @@ type CurrentInnerCommonProps = CommonInnerProps;
 const RootPageTemplate: React.FC<Props> = ({ className }) => (
     <Root className={className} documentTitle={APP_NAME}>
         <Header>{APP_NAME}</Header>
-        <PositionedLink themeName={LinkThemeName.TEXT} to={routes.SHOWCASE.path}>
+        <PositionedLink themeName={LinkThemeName.TEXT} to={routes.SHOWCASE.pathWithParams({})}>
             Component Showcase
         </PositionedLink>
         <PositionedLink themeName={LinkThemeName.TEXT} to={routes.APOLLO_DEMO.path}>
@@ -27,7 +27,8 @@ const RootPageTemplate: React.FC<Props> = ({ className }) => (
             to={routes.DEVELOPMENT.pathWithParams({
                 name: 'Sir',
                 id: '1',
-                query: { querySingle: 'queryValue', queryArray: ['array'] },
+                query: { querySingle: { absolutely: 'anything' }, queryArray: [true, false] },
+                hash: 'hashValue',
             })}
         >
             Development

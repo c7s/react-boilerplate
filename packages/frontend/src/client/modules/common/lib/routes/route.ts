@@ -1,62 +1,51 @@
 import pathToRegexp from 'path-to-regexp';
 import queryString from 'query-string';
 import { RouteProps } from 'react-router';
+import { mapValues } from 'lodash';
 
-type PathPart<PATH extends string = never> = { [key in PATH]: string };
-type PathPartOptional<PATH extends string = never> = { [key in PATH]?: string };
-type QueryPart<QUERY extends string = never> = { [key in QUERY]?: string };
-type QueryArrayPart<QUERY extends string = never> = { [key in QUERY]?: string[] };
-
-type PathData<
-    PATH extends string = never,
-    PATH_OPTIONAL extends string = never,
-    QUERY extends string = never,
-    QUERY_ARRAY extends string = never,
-    HASH extends string = never
-> = PathPart<PATH> &
-    PathPartOptional<PATH_OPTIONAL> & {
-        query?: QueryPart<QUERY> & QueryArrayPart<QUERY_ARRAY>;
-    } & {
-        hash?: HASH;
-    };
-
-interface PathWithParams<
-    PATH extends string = never,
-    PATH_OPTIONAL extends string = never,
-    QUERY extends string = never,
-    QUERY_ARRAY extends string = never,
-    HASH extends string = never
-> {
-    (params: PathData<PATH, PATH_OPTIONAL, QUERY, QUERY_ARRAY, HASH>): string;
+interface PathBase {
+    [key: string]: string | undefined;
+}
+interface QueryBase {
+    [key: string]: unknown | unknown[];
 }
 
-function getPathWithParams<
-    PATH extends string = never,
-    PATH_OPTIONAL extends string = never,
-    QUERY extends string = never,
-    QUERY_ARRAY extends string = never,
-    HASH extends string = never
->(path: string): PathWithParams<PATH, PATH_OPTIONAL, QUERY, QUERY_ARRAY, HASH> {
+type PathData<Path extends PathBase, Query extends QueryBase, Hash extends string> = Path & {
+    query?: Partial<Query>;
+    hash?: Hash;
+};
+
+interface PathWithParams<Path extends PathBase, Query extends QueryBase, Hash extends string> {
+    (params: PathData<Path, Query, Hash>): string;
+}
+
+function getPathWithParams<Path extends PathBase, Query extends QueryBase, Hash extends string>(
+    path: string,
+): PathWithParams<Path, Query, Hash> {
     return params => {
         return `${pathToRegexp.compile(path)(params)}${
             params.query && Object.values(params.query).length
-                ? `?${queryString.stringify(params.query, { arrayFormat: 'bracket' })}`
+                ? `?${queryString.stringify(
+                      mapValues(params.query, value => {
+                          if (Array.isArray(value)) {
+                              return value.map(valueItem => JSON.stringify(valueItem));
+                          }
+                          return JSON.stringify(value);
+                      }),
+                      { arrayFormat: 'bracket' },
+                  )}`
                 : ''
             // eslint-disable-next-line no-nested-ternary
         }${params.hash ? (params.hash[0] === '#' ? params.hash : `#${params.hash}`) : ''}`;
     };
 }
 
-function route<
-    PATH extends string = never,
-    PATH_OPTIONAL extends string = never,
-    QUERY extends string = never,
-    QUERY_ARRAY extends string = never,
-    HASH extends string = never
->(routeData: RouteProps & { path: string; isDev?: boolean }) {
+function route<Path extends PathBase = {}, Query extends QueryBase = {}, Hash extends string = string>(
+    routeData: RouteProps & { path: string; isDev?: boolean },
+) {
     return {
         ...routeData,
-        pathWithParams: getPathWithParams<PATH, PATH_OPTIONAL, QUERY, QUERY_ARRAY, HASH>(routeData.path),
+        pathWithParams: getPathWithParams<Path, Query, Hash>(routeData.path),
     };
 }
 
