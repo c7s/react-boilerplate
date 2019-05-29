@@ -71,7 +71,7 @@ class IsomorphicApolloClient {
                     notifyOnNetworkStatusChange: true,
                 },
                 query: {
-                    fetchPolicy: 'cache-and-network',
+                    fetchPolicy: 'network-only',
                     errorPolicy: 'all',
                 },
             },

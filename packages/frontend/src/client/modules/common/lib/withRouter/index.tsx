@@ -41,7 +41,7 @@ function withRouterParams<P extends RouteComponentProps<any>>(Component: React.C
     );
 }
 
-function smartParse(value: string | undefined) {
+function smartParse(value: string | undefined | null) {
     try {
         return value ? JSON.parse(value) : value;
     } catch {

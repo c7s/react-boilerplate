@@ -23,7 +23,7 @@ interface WebpackHotServerMiddlewareStats {
         chunks: {
             files: string[];
             modules: {
-                id: number;
+                id: string;
                 name: string;
                 reasons: {
                     userRequest: string;

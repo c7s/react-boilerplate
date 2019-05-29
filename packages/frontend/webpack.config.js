@@ -132,10 +132,7 @@ const commonConfig = env => ({
             ROBOTS_PATH: JSON.stringify(ROBOTS_PATH),
             BUILD_TIMESTAMP: Date.now(),
         }),
-        new CleanWebpackPlugin(['dist'], {
-            dry: false,
-            verbose: false,
-        }),
+        new CleanWebpackPlugin(),
         // https://github.com/babel/babel/issues/8361
         new FilterWarningsPlugin({
             exclude: /export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+'/,

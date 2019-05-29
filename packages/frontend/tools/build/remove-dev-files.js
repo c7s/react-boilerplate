@@ -1,3 +1,3 @@
 const del = require('del');
 
-del(['**', '**/.*', '!dist/**', '!package.json']);
+del.sync(['**', '**/.*', '!dist/**', '!package.json']);

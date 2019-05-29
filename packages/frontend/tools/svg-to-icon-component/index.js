@@ -13,11 +13,11 @@ function stringifySymbol(symbol) {
     });
 }
 
-module.exports = function runtimeGenerator({ symbol, config, context }) {
+module.exports = function runtimeGenerator({ symbol, config, loaderContext }) {
     const { spriteModule, symbolModule } = config;
 
-    const spriteRequest = stringifyRequest({ context }, spriteModule);
-    const symbolRequest = stringifyRequest({ context }, symbolModule);
+    const spriteRequest = stringifyRequest(loaderContext, spriteModule);
+    const symbolRequest = stringifyRequest(loaderContext, symbolModule);
     const displayName = `${symbol.id}`;
 
     return `
