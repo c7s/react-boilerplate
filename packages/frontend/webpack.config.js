@@ -77,12 +77,24 @@ function commonLoaders(ssrMode, env) {
         },
         {
             test: /favicon[\\/][^\\/]+\.(png|ico|svg)$/,
-            loader: `file-loader?name=favicon/[name].[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
+            loader: `file-loader`,
+            options: {
+                name: 'favicon/[name].[hash].[ext]',
+                context: './src/client',
+                emitFile: !ssrMode,
+            },
         },
         {
             test: /[\\/][a-z][A-Za-z0-9]*Image\.(jpg|jpeg|png)$/,
             loaders: [
-                `file-loader?name=images/[name].[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
+                {
+                    loader: `file-loader`,
+                    options: {
+                        name: 'images/[name].[hash].[ext]',
+                        context: './src/client',
+                        emitFile: !ssrMode,
+                    },
+                },
                 {
                     loader: 'image-webpack-loader',
                     options: {
@@ -109,7 +121,12 @@ function commonLoaders(ssrMode, env) {
         },
         {
             test: /\.(eot|ttf|otf|woff|woff2)$/,
-            loader: `file-loader?name=fonts/[name].[hash].[ext]&context=./src/client&emitFile=${!ssrMode}`,
+            loader: `file-loader`,
+            options: {
+                name: 'fonts/[name].[hash].[ext]',
+                context: './src/client',
+                emitFile: !ssrMode,
+            },
         },
     ];
 }
