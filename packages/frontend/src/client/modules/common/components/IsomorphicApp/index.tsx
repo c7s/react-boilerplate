@@ -8,7 +8,7 @@ import { Route, Switch } from 'react-router';
 import { Store } from 'redux';
 import { GlobalFontsStyle, observeFontFamilies } from '../../lib/fonts';
 import { StoreState } from '../../lib/IsomorphicStore';
-import { routesWithComponents } from '../../lib/routes';
+import { routesWithComponents } from '../../lib/routes/routesWithComponents';
 import { onMessageAdd } from '../../store/actions';
 import './console-enhancers';
 import { ExternalAndGlobalStyles } from './ExternalAndGlobalStyles';

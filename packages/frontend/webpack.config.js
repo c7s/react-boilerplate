@@ -10,6 +10,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 const OperationRegistryPlugin = require('./tools/webpack/plugins/OperationRegistryPlugin');
 
 /** These paths are handled by frontend server, so they must be relative */
@@ -157,6 +158,9 @@ const commonConfig = env => ({
         env.build && new LodashModuleReplacementPlugin(),
         new MomentLocalesPlugin({
             localesToKeep: ['ru'],
+        }),
+        new CircularDependencyPlugin({
+            failOnError: false,
         }),
     ].filter(Boolean),
     resolve: {
