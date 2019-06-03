@@ -2,7 +2,7 @@ import { merge, mapValues } from 'lodash';
 import queryString from 'query-string';
 import * as React from 'react';
 import { Omit, RouteComponentProps, withRouter as withRouterOriginal } from 'react-router';
-import { compose } from 'redux';
+import compose from 'compose-function';
 
 /** 'any' is used due to withRouter type definition */
 
@@ -53,6 +53,6 @@ function smartParse(value: string | undefined | null) {
 const withRouter: WithRouter = compose(
     withRouterOriginal,
     withRouterParams,
-);
+) as any;
 
 export { withRouter };

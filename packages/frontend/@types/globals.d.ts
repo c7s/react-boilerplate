@@ -19,7 +19,6 @@ declare namespace NodeJS {
         IS_SHOW_DEV_PAGES: boolean;
         /** Dynamic server data part */
         APOLLO_STATE: { [key: string]: { [key: string]: object } } | undefined;
-        REDUX_STATE: object | undefined;
         SSR_ERROR: Error | undefined;
     }
 }

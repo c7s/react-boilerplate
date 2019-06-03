@@ -1,23 +1,14 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
 import styled from 'styled-components';
 import { castError } from '../../lib/castError';
-import { StoreState } from '../../lib/IsomorphicStore';
-import { onMessageRemove } from '../../store/actions';
-import { Messages } from '../../store/types';
+import { useAppDispatch, useAppState } from '../AppStateProvider';
 import { Button } from '../Button';
 
-interface MapProps {
-    messages: Messages;
-}
-
-interface DispatchProps {
-    onMessageRemove(key: string): void;
-}
-
 // eslint-disable-next-line no-shadow
-const Notificator: React.FC<MapProps & DispatchProps> = ({ messages, onMessageRemove }) => {
+const Notificator: React.FC = () => {
+    const { messages } = useAppState();
+    const appDispatch = useAppDispatch();
+
     return (
         <Root>
             {Object.entries(messages).map(([key, message]) => {
@@ -28,7 +19,7 @@ const Notificator: React.FC<MapProps & DispatchProps> = ({ messages, onMessageRe
                         <Header>{castedError.header}</Header>
                         <Text>{castedError.text}</Text>
                         {castedError.details ? <Details>{castedError.details}</Details> : null}
-                        <OkButton onClick={() => onMessageRemove(key)}>OK</OkButton>
+                        <OkButton onClick={() => appDispatch({ type: 'MESSAGE/REMOVE', value: key })}>OK</OkButton>
                     </Message>
                 );
             })}
@@ -70,19 +61,4 @@ const Details = styled.p`
     font-size: 12px;
 `;
 
-function mapStateToProps(state: StoreState): MapProps {
-    return {
-        messages: state.common.messages,
-    };
-}
-
-function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
-    return bindActionCreators({ onMessageRemove }, dispatch);
-}
-
-const ConnectedNotificator = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Notificator);
-
-export { ConnectedNotificator as Notificator };
+export { Notificator };

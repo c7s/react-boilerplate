@@ -1,8 +1,7 @@
 import { ApolloError } from 'apollo-client';
 import * as React from 'react';
+import { useAppDispatch } from '../../components/AppStateProvider';
 import { ServerError } from '../../graphql/ApolloTypes/globalTypes';
-import { onMessageAdd } from '../../store/actions';
-import { IsomorphicStore } from '../IsomorphicStore';
 
 interface Options {
     disabled?: boolean;
@@ -16,17 +15,18 @@ export function useApolloErrorReporter(result: { error?: ApolloError; loading: b
 
     const prevLoadingRef = React.useRef<undefined | boolean>();
 
+    const appDispatch = useAppDispatch();
+
     React.useEffect(() => {
         if (
             !disabled &&
             (Boolean(prevLoadingRef.current) && !result.loading) &&
             result.error &&
-            !result.error.networkError &&
             !includesOnly(result.error, ignore)
         ) {
-            IsomorphicStore.getStore().dispatch(onMessageAdd(result.error));
+            appDispatch({ type: 'MESSAGE/ADD', value: result.error });
         }
-    }, [disabled, ignore, result.error, result.loading]);
+    }, [appDispatch, disabled, ignore, result.error, result.loading]);
 
     React.useEffect(() => {
         prevLoadingRef.current = result.loading;

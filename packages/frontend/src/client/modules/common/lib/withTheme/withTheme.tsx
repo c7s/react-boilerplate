@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { compose } from 'redux';
+import compose from 'compose-function';
 import { ThemeProvider, withTheme as withThemeStyledComponents } from 'styled-components';
 import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
 

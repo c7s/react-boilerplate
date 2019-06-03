@@ -1,14 +1,9 @@
 import gql from 'graphql-tag';
 import * as React from 'react';
 import { Query } from 'react-apollo';
-import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import { bindActionCreators, Dispatch } from 'redux';
-import { StoreState } from '../../../common/lib/IsomorphicStore';
 import { routes } from '../../../common/lib/routes';
 import { withRouter } from '../../../common/lib/withRouter';
-import { onMessageAdd } from '../../../common/store/actions';
-import { LoadedFontStatus, Message } from '../../../common/store/types';
 import { Books } from './ApolloTypes/Books';
 import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
 import { CurrentCommonProps } from './DevelopmentPageTemplate';
@@ -23,19 +18,9 @@ interface Props extends CurrentCommonProps {
 
 type ReduxProps = Props & RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>>;
 
-/** Types for Redux */
-
-interface MapProps {
-    loadedFontStatus: LoadedFontStatus;
-}
-
-interface DispatchProps {
-    onMessageAdd(message: Message): void;
-}
-
 /** Props to render Apollo layer. The most tricky part, so pay attention while adding/deleting Redux & Router */
 
-type ApolloProps = ReduxProps & MapProps & DispatchProps;
+type ApolloProps = ReduxProps;
 
 /** Graphql code could be in 'DevelopmentPageGraphql.ts' */
 
@@ -59,33 +44,13 @@ const BOOKS_QUERY = gql`
 
 /** HOC order is mandatory. Don't forget to make query result Partial<> (like Query<Partial<Licenses>>) */
 
-const DevelopmentPageConnect = withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps,
-    )((props: ApolloProps) => (
-        <Query<Partial<Books>> query={BOOKS_QUERY}>
-            {booksQueryResult => {
-                return <DevelopmentPageBehaviour {...props} booksQueryResult={booksQueryResult} />;
-            }}
-        </Query>
-    )),
-);
-
-function mapStateToProps(state: StoreState /* , ownProps: ReduxProps */): MapProps {
-    return {
-        loadedFontStatus: state.common.loadedFontStatus,
-    };
-}
-
-function mapDispatchToProps(dispatch: Dispatch /* , ownProps: ReduxProps */): DispatchProps {
-    return bindActionCreators(
-        {
-            onMessageAdd,
-        },
-        dispatch,
-    );
-}
+const DevelopmentPageConnect = withRouter((props: ApolloProps) => (
+    <Query<Partial<Books>> query={BOOKS_QUERY}>
+        {booksQueryResult => {
+            return <DevelopmentPageBehaviour {...props} booksQueryResult={booksQueryResult} />;
+        }}
+    </Query>
+));
 
 /** Single export is mandatory */
 

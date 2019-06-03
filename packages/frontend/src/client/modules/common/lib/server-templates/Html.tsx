@@ -11,7 +11,6 @@ export interface HtmlProps {
     content?: string;
     ssrError?: Error;
     apolloState?: object;
-    reduxState?: object;
     bundles?: ReturnType<typeof getBundles>;
 }
 
@@ -22,7 +21,6 @@ export const Html: React.FC<HtmlProps> = ({
     content,
     ssrError,
     apolloState,
-    reduxState,
     bundles,
 }) => {
     return (
@@ -60,7 +58,6 @@ export const Html: React.FC<HtmlProps> = ({
                                         IS_SHOW_DEV_PAGES: JSON.stringify(global.IS_SHOW_DEV_PAGES),
                                         /** Dynamic server data part */
                                         APOLLO_STATE: JSON.stringify(apolloState),
-                                        REDUX_STATE: JSON.stringify(reduxState),
                                         SSR_ERROR: JSON.stringify(ssrError, [
                                             ...Object.getOwnPropertyNames(ssrError || {}),
                                             'name',

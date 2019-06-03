@@ -13,7 +13,6 @@ import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import './isomorphic-globals-init';
 import { IsomorphicApp } from './modules/common/components/IsomorphicApp';
 import { IsomorphicApolloClient } from './modules/common/lib/IsomorphicApolloClient';
-import { IsomorphicStore } from './modules/common/lib/IsomorphicStore';
 import { browserConfig, Html, HtmlProps, robots, webManifest } from './modules/common/lib/server-templates';
 
 /** Incomplete */
@@ -75,11 +74,10 @@ async function sendHtmlOrRedirect(
 ) {
     const context: RouterContext = {};
     const client = IsomorphicApolloClient.getClient({ fetch, link, context });
-    const store = IsomorphicStore.getStore();
     const sheet = new ServerStyleSheet();
     const modules: string[] = [];
 
-    const App = React.createElement(IsomorphicApp, { client, store, modules, context, location: req.url });
+    const App = React.createElement(IsomorphicApp, { client, modules, context, location: req.url });
 
     try {
         // eslint-disable-next-line no-underscore-dangle
@@ -98,7 +96,6 @@ async function sendHtmlOrRedirect(
                     styleTags: sheet.getStyleTags(),
                     spriteContent: sprite.stringify(),
                     apolloState: client.extract(),
-                    reduxState: store.getState(),
                     bundles: getUsedBundles(reactLoadableStats, modules),
                 });
 

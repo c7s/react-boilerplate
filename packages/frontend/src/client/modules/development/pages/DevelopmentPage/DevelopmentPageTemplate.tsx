@@ -2,6 +2,7 @@ import * as React from 'react';
 import { QueryResult } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
+import { useAppState } from '../../../common/components/AppStateProvider';
 import { Button, ButtonThemeName } from '../../../common/components/Button';
 import { Modal } from '../../../common/components/Modal';
 import { Page } from '../../../common/components/Page';
@@ -9,7 +10,6 @@ import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { useApolloErrorReporter } from '../../../common/lib/react-hooks/useApolloErrorReporter';
 import { routes } from '../../../common/lib/routes';
 import { withTheme } from '../../../common/lib/withTheme';
-import { LoadedFontStatus, Message } from '../../../common/store/types';
 import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
 import { Books } from './ApolloTypes/Books';
 import C7sIcon from './C7sIcon.svg';
@@ -24,8 +24,6 @@ interface Props
     counter: number;
     isModalOpen: boolean;
     booksQueryResult: QueryResult<Partial<Books>>;
-    loadedFontStatus: LoadedFontStatus;
-    onMessageAdd(message: Message): void;
     onOpenModalClick(): void;
     onModalRequestClose(): void;
 }
@@ -74,7 +72,6 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         onModalRequestClose,
         onOpenModalClick,
         booksQueryResult,
-        loadedFontStatus,
         match,
         theme /** Can't get 'themeName' here */,
     }) => {
@@ -92,6 +89,8 @@ const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTM
         }, []);
 
         const { data: booksQueryResultData = {} } = booksQueryResult;
+
+        const { loadedFontStatus } = useAppState();
 
         return (
             /** It's mandatory to pass className to root element */

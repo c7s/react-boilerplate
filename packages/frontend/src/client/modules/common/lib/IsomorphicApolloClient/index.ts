@@ -5,8 +5,6 @@ import { BatchHttpLink } from 'apollo-link-batch-http';
 import { ErrorResponse, onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
 import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
-import { onMessageAdd } from '../../store/actions';
-import { IsomorphicStore } from '../IsomorphicStore';
 
 /**
  * The idea is to replace either fetch (in case we need network to fetch on backend) or the whole link
@@ -98,10 +96,6 @@ class IsomorphicApolloClient {
     }
 
     private static onError(error: ErrorResponse) {
-        if (error.networkError) {
-            IsomorphicStore.getStore().dispatch(onMessageAdd(error));
-        }
-
         if (IsomorphicApolloClient.context) {
             IsomorphicApolloClient.context.statusCode =
                 (error.networkError && (error.networkError as any).statusCode) || 500;
