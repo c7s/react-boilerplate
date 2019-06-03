@@ -12,7 +12,7 @@ function start() {
          *
          *  TL;DR: Do not add 'config' here.
          */
-        watch: ['src/dev-server', 'webpack.config.js'],
+        watch: ['src/dev-server', 'webpack.config.js', 'babel.config.js'],
     });
     nodemon
         .on('crash', () => {
