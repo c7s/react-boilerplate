@@ -8,7 +8,7 @@ interface Options {
     ignore?: ServerError[];
 }
 
-/** Report non-network errors via Notificator (network errors are handled automatically) */
+/** Report apollo errors via Notificator */
 export function useApolloErrorReporter(result: { error?: ApolloError; loading: boolean }, opt: Options = {}) {
     const disabled = Boolean(opt.disabled);
     const ignore = opt.ignore || [];
