@@ -35,6 +35,7 @@
         "*.{ts,tsx}": [
             "node ./tools/git/hooks/check-types",
             "eslint --fix --quiet",
+            "jest --bail --coverage --findRelatedTests",
             "git add"
         ],
         "./src/**/*.{tsx,ts}": [
