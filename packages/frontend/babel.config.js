@@ -2,16 +2,22 @@ module.exports = {
     presets: [
         [
             '@babel/env',
-            {
-                modules: false,
-                targets: {
-                    browsers: ['last 1 version'],
-                    safari: '9',
-                    ie: '11',
-                    ios: '9',
-                    android: '4',
-                },
-            },
+            process.env.NODE_ENV !== 'test'
+                ? {
+                      modules: false,
+                      targets: {
+                          browsers: ['last 1 version'],
+                          safari: '9',
+                          ie: '11',
+                          ios: '9',
+                          android: '4',
+                      },
+                  }
+                : {
+                      targets: {
+                          node: '8.11.1',
+                      },
+                  },
         ],
         '@babel/react',
         '@babel/typescript',
