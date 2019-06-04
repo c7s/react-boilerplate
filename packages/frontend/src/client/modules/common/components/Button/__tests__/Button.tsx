@@ -2,26 +2,28 @@ import { cleanup, render } from '@testing-library/react';
 import * as React from 'react';
 import { Button, ButtonThemeName } from '../index';
 
+const BUTTON_LABEL = 'Test text';
+
 afterEach(cleanup);
 
 it('renders <button> by default', () => {
-    const { getByText } = render(<Button>Test text</Button>);
+    const { getByText } = render(<Button>{BUTTON_LABEL}</Button>);
 
-    expect(getByText('Test text')).toBeInstanceOf(HTMLButtonElement);
+    expect(getByText(BUTTON_LABEL)).toBeInstanceOf(HTMLButtonElement);
 });
 
 it("renders <a> when 'to' is passed", () => {
-    const { getByText } = render(<Button to="https://google.com">Test text</Button>);
+    const { getByText } = render(<Button to="https://google.com">{BUTTON_LABEL}</Button>);
 
-    expect(getByText('Test text')).toBeInstanceOf(HTMLAnchorElement);
+    expect(getByText(BUTTON_LABEL)).toBeInstanceOf(HTMLAnchorElement);
 });
 
 it('accepts ref in <button> form', () => {
     const refObject = React.createRef<HTMLButtonElement>();
 
-    const { getByText } = render(<Button ref={refObject}>Test text</Button>);
+    const { getByText } = render(<Button ref={refObject}>{BUTTON_LABEL}</Button>);
 
-    expect(getByText('Test text')).toBe(refObject.current);
+    expect(getByText(BUTTON_LABEL)).toBe(refObject.current);
 });
 
 it('accepts ref in <a> form', () => {
@@ -29,38 +31,38 @@ it('accepts ref in <a> form', () => {
 
     const { getByText } = render(
         <Button to="https://google.com" ref={refObject}>
-            Test text
+            {BUTTON_LABEL}
         </Button>,
     );
 
-    expect(getByText('Test text')).toBe(refObject.current);
+    expect(getByText(BUTTON_LABEL)).toBe(refObject.current);
 });
 
 it('passes usual <button> attributes to DOM', () => {
-    const { getByText } = render(<Button type="reset">Test text</Button>);
+    const { getByText } = render(<Button type="reset">{BUTTON_LABEL}</Button>);
 
-    expect(getByText('Test text').getAttribute('type')).toBe('reset');
+    expect(getByText(BUTTON_LABEL).getAttribute('type')).toBe('reset');
 });
 
 it('passes usual <a> attributes to DOM', () => {
     const { getByText } = render(
         <Button to="https://google.com" download>
-            Test text
+            {BUTTON_LABEL}
         </Button>,
     );
 
-    expect(getByText('Test text').getAttributeNames()).toContain('download');
+    expect(getByText(BUTTON_LABEL).getAttributeNames()).toContain('download');
 });
 
 it("has 'seamless' as default theme (styles are easily overridable by default)", () => {
     const { getAllByText } = render(
         <React.Fragment>
-            <Button>Test text</Button>
+            <Button>{BUTTON_LABEL}</Button>
             {/* Intentional refactor-proof name */}
-            <Button themeName={'seamless' as ButtonThemeName}>Test text</Button>
+            <Button themeName={'seamless' as ButtonThemeName}>{BUTTON_LABEL}</Button>
         </React.Fragment>,
     );
-    const buttons = getAllByText('Test text');
+    const buttons = getAllByText(BUTTON_LABEL);
 
     expect(buttons[0]).toEqual(buttons[1]);
 });
