@@ -14,6 +14,8 @@
         "build:final": "yarn build && node ./tools/build/remove-dev-files",
         "build:no-install": "webpack --env.build",
         "build:final:no-install": "yarn build:no-install && node ./tools/build/remove-dev-files",
+        "test": "jest",
+        "test:watch": "jest -o --watch",
         "analyze": "yarn i && webpack --env.build --env.analyze",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
         "generate:apollo": "node ./tools/apollo/all",
