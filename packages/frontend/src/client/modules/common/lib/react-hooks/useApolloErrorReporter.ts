@@ -20,7 +20,7 @@ export function useApolloErrorReporter(result: { error?: ApolloError; loading: b
     React.useEffect(() => {
         if (
             !disabled &&
-            (Boolean(prevLoadingRef.current) && !result.loading) &&
+            (prevLoadingRef.current !== false && !result.loading) &&
             result.error &&
             !includesOnly(result.error, ignore)
         ) {

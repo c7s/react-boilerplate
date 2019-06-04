@@ -12,19 +12,19 @@ const INITIAL_STATE: AppState = {
     loadedFontStatus: {},
 };
 
-const StateContext = React.createContext<AppState>(INITIAL_STATE);
-const DispatchContext = React.createContext<React.Dispatch<Action>>(() => {});
+const AppStateContext = React.createContext<AppState>(INITIAL_STATE);
+const AppDispatchContext = React.createContext<React.Dispatch<Action>>(() => {});
 
 const AppStateProvider = ({ children }: Props) => {
     const [state, dispatch] = React.useReducer(rootReducer, INITIAL_STATE);
 
     return (
-        <StateContext.Provider value={state}>
-            <DispatchContext.Provider value={dispatch}>{children}</DispatchContext.Provider>
-        </StateContext.Provider>
+        <AppStateContext.Provider value={state}>
+            <AppDispatchContext.Provider value={dispatch}>{children}</AppDispatchContext.Provider>
+        </AppStateContext.Provider>
     );
 };
-const useAppState = () => React.useContext(StateContext);
-const useAppDispatch = () => React.useContext(DispatchContext);
+const useAppState = () => React.useContext(AppStateContext);
+const useAppDispatch = () => React.useContext(AppDispatchContext);
 
-export { AppStateProvider, useAppState, useAppDispatch, Action };
+export { AppStateProvider, useAppState, useAppDispatch, Action, AppStateContext, AppDispatchContext };
