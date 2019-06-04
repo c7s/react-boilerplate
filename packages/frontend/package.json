@@ -15,7 +15,7 @@
         "build:no-install": "webpack --env.build",
         "build:final:no-install": "yarn build:no-install && node ./tools/build/remove-dev-files",
         "test": "jest",
-        "test:watch": "jest -o --watch",
+        "test:watch": "jest --watch",
         "analyze": "yarn i && webpack --env.build --env.analyze",
         "prettier:all": "prettier --write \"**/*.{js,ts,tsx,json,graphql,md,*rc}\"",
         "generate:apollo": "node ./tools/apollo/all",
@@ -37,7 +37,7 @@
         "*.{ts,tsx}": [
             "node ./tools/git/hooks/check-types",
             "eslint --fix --quiet",
-            "jest --bail --coverage --findRelatedTests",
+            "jest --bail --findRelatedTests",
             "git add"
         ],
         "./src/**/*.{tsx,ts}": [
