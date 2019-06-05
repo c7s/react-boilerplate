@@ -69,19 +69,7 @@ const LinkTemplate = React.forwardRef(
     ),
 );
 
-const textDecoration = theme('mode', {
-    [ThemeMode.SEAMLESS]: 'none',
-    [ThemeMode.TEXT]: 'underline',
-});
-
-const color = theme('mode', {
-    [ThemeMode.SEAMLESS]: 'inherit',
-    [ThemeMode.TEXT]: '#808080',
-});
-
 const linkCss = css`
-    text-decoration: ${textDecoration};
-    color: ${color};
     transition: opacity 0.2s ease-in-out;
 
     ${({ disabled }: StyledLinkProps) =>
@@ -96,6 +84,17 @@ const linkCss = css`
         opacity: 0.5;
         transition: none;
     }
+
+    ${theme('mode', {
+        [ThemeMode.SEAMLESS]: css`
+            text-decoration: none;
+            color: inherit;
+        `,
+        [ThemeMode.TEXT]: css`
+            text-decoration: underline;
+            color: #808080;
+        `,
+    })};
 `;
 
 const Anchor = styled.a`
