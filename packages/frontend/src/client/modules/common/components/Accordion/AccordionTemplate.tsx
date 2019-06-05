@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
+import { CommonProps } from '../../types/CommonProps';
 import { Button } from '../Button';
 
 interface Props extends CommonProps {
@@ -13,7 +13,7 @@ interface Props extends CommonProps {
     onToggleCollapsedStateClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-interface RootProps extends CommonInnerProps {
+interface RootProps extends CommonProps {
     isCollapsed: boolean;
     isCollapseThresholdExceeded: boolean;
     collapsedHeight: number;

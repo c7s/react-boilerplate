@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
 import styled from 'styled-components';
-import { Button, ButtonThemeName } from '../../../../common/components/Button';
+import { Button, ButtonThemeMode } from '../../../../common/components/Button';
 import { ServerError } from '../../../../common/graphql/ApolloTypes/globalTypes';
 import { castError } from '../../../../common/lib/castError';
 import { includesOnly, useApolloErrorReporter } from '../../../../common/lib/react-hooks/useApolloErrorReporter';
@@ -52,13 +52,13 @@ const CurrentTimestampDisplayTemplate: React.FC<Props> = ({ className, currentTi
                         : 'Unknown error'
                     : 'No error'}
             </ErrorDisplay>
-            <PositionedButton themeName={ButtonThemeName.PRIMARY} onClick={onRefetchClick}>
+            <PositionedButton theme={{ mode: ButtonThemeMode.PRIMARY }} onClick={onRefetchClick}>
                 Refetch
             </PositionedButton>
-            <PositionedButton themeName={ButtonThemeName.PRIMARY} onClick={onRefetchWithErrorClick}>
+            <PositionedButton theme={{ mode: ButtonThemeMode.PRIMARY }} onClick={onRefetchWithErrorClick}>
                 Refetch with known error
             </PositionedButton>
-            <PositionedButton themeName={ButtonThemeName.PRIMARY} onClick={onRefetchWithUnknownErrorClick}>
+            <PositionedButton theme={{ mode: ButtonThemeMode.PRIMARY }} onClick={onRefetchWithUnknownErrorClick}>
                 Refetch with unknown error
             </PositionedButton>
         </Root>

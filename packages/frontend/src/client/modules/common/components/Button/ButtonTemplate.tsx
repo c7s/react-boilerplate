@@ -1,62 +1,47 @@
 import * as React from 'react';
-import styled, { css } from 'styled-components';
-import { withTheme } from '../../lib/withTheme';
-import { ToInnerCommonProps } from '../../lib/withTheme/withTheme';
-import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
+import styled, { css, ThemeProvider } from 'styled-components';
+import theme from 'styled-theming';
+import { CommonProps } from '../../types/CommonProps';
 import { Link, LinkProps } from '../Link';
 
-type Props = CommonProps<ThemeName, HTMLButtonElement | HTMLAnchorElement> &
+type Props = CommonProps<Theme> &
     (React.ButtonHTMLAttributes<HTMLButtonElement> | (Omit<LinkProps, keyof CommonProps>));
 
-enum ThemeName {
+interface Theme {
+    mode: ThemeMode;
+}
+
+enum ThemeMode {
     // Invisible, for wrapping blocks. Default, should be easy to override with custom styles.
     SEAMLESS = 'seamless',
     // Usual button
     PRIMARY = 'primary',
 }
 
-interface Theme {
-    border: string;
-}
-
-const THEME_DICT: EnumedDict<ThemeName, Theme> = {
-    [ThemeName.SEAMLESS]: {
-        border: 'none',
-    },
-    [ThemeName.PRIMARY]: {
-        border: '1px solid #000000',
-    },
-};
-
-interface RootProps extends CommonInnerProps<Theme, HTMLButtonElement | HTMLAnchorElement> {
+interface RootProps extends CommonProps<Theme> {
     disabled?: boolean;
 }
 
-const ButtonTemplate = withTheme<ThemeName, Theme, HTMLAnchorElement | HTMLButtonElement, Props>(THEME_DICT)(
-    React.forwardRef<
-        HTMLButtonElement | HTMLAnchorElement,
-        ToInnerCommonProps<ThemeName, Theme, HTMLAnchorElement | HTMLButtonElement, Props>
-    >((props, ref) =>
-        isButtonProps(props) ? (
-            <RootButton
-                ref={ref as React.RefObject<HTMLButtonElement>}
-                {...props as CommonInnerProps<Theme, HTMLButtonElement> & React.ButtonHTMLAttributes<HTMLButtonElement>}
-            />
-        ) : (
-            <RootLink
-                ref={ref as React.Ref<HTMLAnchorElement>}
-                {...props as CommonInnerProps<Theme, HTMLAnchorElement> & (Omit<LinkProps, keyof CommonProps>)}
-            />
-        ),
-    ),
-);
+const DEFAULT_THEME: Theme = { mode: ThemeMode.SEAMLESS };
 
-function isButtonProps(
-    props: CommonInnerProps<Theme> &
-        (React.ButtonHTMLAttributes<HTMLButtonElement> | (Omit<LinkProps, keyof CommonProps>)),
-): props is CommonInnerProps<Theme> & React.ButtonHTMLAttributes<HTMLButtonElement> {
+const ButtonTemplate = React.forwardRef((props: Props, ref: React.Ref<HTMLButtonElement | HTMLAnchorElement>) => (
+    <ThemeProvider theme={props.theme || DEFAULT_THEME}>
+        {isButtonProps(props) ? (
+            <RootButton ref={ref as React.RefObject<HTMLButtonElement>} {...props} />
+        ) : (
+            <RootLink ref={ref as React.Ref<HTMLAnchorElement>} {...props} />
+        )}
+    </ThemeProvider>
+));
+
+function isButtonProps(props: Props): props is CommonProps<Theme> & React.ButtonHTMLAttributes<HTMLButtonElement> {
     return (props as LinkProps).to === undefined;
 }
+
+const border = theme('mode', {
+    [ThemeMode.SEAMLESS]: 'none',
+    [ThemeMode.PRIMARY]: '1px solid #000000',
+});
 
 const rootCss = css`
     display: inline-block;
@@ -66,7 +51,7 @@ const rootCss = css`
     line-height: 18px;
     color: inherit;
     text-decoration: none;
-    border: ${({ theme }: RootProps) => theme!.border};
+    border: ${border};
     transition: opacity 0.2s ease-in-out;
 
     /* 'disabled' is not valid attribute for anchor tag, so this state is styled via prop */
@@ -91,4 +76,4 @@ const RootLink = styled(Link)`
     ${rootCss};
 `;
 
-export { ButtonTemplate, Props, ThemeName };
+export { ButtonTemplate, Props, Theme, ThemeMode };

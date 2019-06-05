@@ -1,63 +1,53 @@
 import React, { AnchorHTMLAttributes } from 'react';
 import { HashLink, HashLinkProps } from 'react-router-hash-link';
-import styled, { css } from 'styled-components';
+import styled, { css, ThemeProvider } from 'styled-components';
+import theme from 'styled-theming';
 import { extractProps } from '../../lib/attributes-list';
 import { anchorAttributesList } from '../../lib/attributes-list/attributes-list';
-import { withTheme } from '../../lib/withTheme';
-import { ToInnerCommonProps } from '../../lib/withTheme/withTheme';
-import { CommonInnerProps, CommonProps } from '../../types/CommonProps';
+import { CommonProps } from '../../types/CommonProps';
 
-type Props = CommonProps<ThemeName, HTMLAnchorElement> &
+type Props = CommonProps<Theme> &
     Omit<HashLinkProps, 'innerRef'> & {
         disabled?: boolean;
     };
 
-enum ThemeName {
+interface Theme {
+    mode: ThemeMode;
+}
+
+enum ThemeMode {
     // Invisible, for wrapping blocks. Button component relies on this to be default theme
     SEAMLESS = 'seamless',
     // Regular text link
     TEXT = 'text',
 }
 
-interface Theme {
-    textDecoration: string;
-    color: string;
-}
-
-const THEME_DICT: EnumedDict<ThemeName, Theme> = {
-    [ThemeName.SEAMLESS]: {
-        textDecoration: 'none',
-        color: 'inherit',
-    },
-    [ThemeName.TEXT]: {
-        textDecoration: 'underline',
-        color: '#808080',
-    },
-};
-
-interface StyledLinkProps extends CommonInnerProps<Theme> {
+interface StyledLinkProps extends CommonProps<Theme> {
     disabled?: boolean;
 }
 
-const LinkTemplate = withTheme<ThemeName, Theme, HTMLAnchorElement, Props>(THEME_DICT)(
-    React.forwardRef<HTMLAnchorElement, ToInnerCommonProps<ThemeName, Theme, HTMLAnchorElement, Props>>(
-        ({ className, smooth, scroll, to, replace, disabled, tabIndex, ...props }, ref) => {
-            if (typeof to === 'string' && (to.startsWith('http') || to.startsWith('//'))) {
-                return (
-                    <Anchor
-                        ref={ref}
-                        className={className}
-                        href={to}
-                        target="_blank"
-                        rel="noopener noreferrer" // See https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
-                        disabled={disabled}
-                        tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
-                        {...props}
-                    />
-                );
-            }
+const DEFAULT_THEME: Theme = {
+    mode: ThemeMode.SEAMLESS,
+};
 
-            return (
+const LinkTemplate = React.forwardRef(
+    (
+        { className, smooth, scroll, to, replace, disabled, tabIndex, ...props }: Props,
+        ref: React.Ref<HTMLAnchorElement>,
+    ) => (
+        <ThemeProvider theme={props.theme || DEFAULT_THEME}>
+            {typeof to === 'string' && (to.startsWith('http') || to.startsWith('//')) ? (
+                <Anchor
+                    ref={ref}
+                    className={className}
+                    href={to}
+                    target="_blank"
+                    rel="noopener noreferrer" // See https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
+                    disabled={disabled}
+                    tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
+                    {...props}
+                />
+            ) : (
                 <StyledLink
                     className={className}
                     scroll={
@@ -74,14 +64,24 @@ const LinkTemplate = withTheme<ThemeName, Theme, HTMLAnchorElement, Props>(THEME
                         anchorAttributesList,
                     )}
                 />
-            );
-        },
+            )}
+        </ThemeProvider>
     ),
 );
 
+const textDecoration = theme('mode', {
+    [ThemeMode.SEAMLESS]: 'none',
+    [ThemeMode.TEXT]: 'underline',
+});
+
+const color = theme('mode', {
+    [ThemeMode.SEAMLESS]: 'inherit',
+    [ThemeMode.TEXT]: '#808080',
+});
+
 const linkCss = css`
-    text-decoration: ${({ theme }: StyledLinkProps) => theme!.textDecoration};
-    color: ${({ theme }: StyledLinkProps) => theme!.color};
+    text-decoration: ${textDecoration};
+    color: ${color};
     transition: opacity 0.2s ease-in-out;
 
     ${({ disabled }: StyledLinkProps) =>
@@ -106,4 +106,4 @@ const StyledLink = styled(HashLink)`
     ${linkCss};
 `;
 
-export { LinkTemplate, Props, ThemeName };
+export { LinkTemplate, Props, ThemeMode };

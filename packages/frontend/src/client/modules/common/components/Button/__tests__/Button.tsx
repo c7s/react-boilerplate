@@ -1,6 +1,6 @@
 import { cleanup, render } from '@testing-library/react';
 import * as React from 'react';
-import { Button, ButtonThemeName } from '../index';
+import { Button, ButtonThemeMode } from '../index';
 
 const BUTTON_LABEL = 'Test text';
 
@@ -59,7 +59,7 @@ it("has 'seamless' as default theme (styles are easily overridable by default)",
         <React.Fragment>
             <Button>{BUTTON_LABEL}</Button>
             {/* Intentional refactor-proof name */}
-            <Button themeName={'seamless' as ButtonThemeName}>{BUTTON_LABEL}</Button>
+            <Button theme={{ mode: 'seamless' as ButtonThemeMode }}>{BUTTON_LABEL}</Button>
         </React.Fragment>,
     );
     const buttons = getAllByText(BUTTON_LABEL);

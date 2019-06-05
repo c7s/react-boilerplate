@@ -3,23 +3,20 @@ import { QueryResult } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
 import { useAppState } from '../../../common/components/AppStateProvider';
-import { Button, ButtonThemeName } from '../../../common/components/Button';
+import { Button, ButtonThemeMode } from '../../../common/components/Button';
 import { Modal } from '../../../common/components/Modal';
 import { Page } from '../../../common/components/Page';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { useApolloErrorReporter } from '../../../common/lib/react-hooks/useApolloErrorReporter';
 import { routes } from '../../../common/lib/routes';
-import { withTheme } from '../../../common/lib/withTheme';
-import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
+import { CommonProps } from '../../../common/types/CommonProps';
 import { Books } from './ApolloTypes/Books';
 import C7sIcon from './C7sIcon.svg';
 import c7sImage from './c7sImage.png';
 
 /** Props to render component template. Don't forget to extend CurrentCommonProps */
 
-interface Props
-    extends CurrentCommonProps,
-        RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>> {
+interface Props extends CommonProps, RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>> {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     counter: number;
     isModalOpen: boolean;
@@ -28,117 +25,74 @@ interface Props
     onModalRequestClose(): void;
 }
 
-/** Shortcuts for current common (inner) props (could also be just Common(Inner)Props without generic part) */
+const DevelopmentPageTemplate: React.FC<Props> = ({
+    className,
+    counter,
+    isModalOpen,
+    onClick,
+    onModalRequestClose,
+    onOpenModalClick,
+    booksQueryResult,
+    match,
+}) => {
+    /** Universal graphql error handler */
+    useApolloErrorReporter(booksQueryResult);
 
-type CurrentCommonProps = CommonProps<ThemeName>;
-type CurrentInnerCommonProps = CommonInnerProps<Theme>;
+    const buttonRef = React.useRef<HTMLButtonElement>(null);
+    const anchorRef = React.useRef<HTMLAnchorElement>(null);
 
-/** Interfaces for inner styled components. Inner styled components could be moved to separate file */
+    React.useEffect(() => {
+        // eslint-disable-next-line no-console
+        console.log(buttonRef.current);
+        // eslint-disable-next-line no-console
+        console.log(anchorRef.current);
+    }, []);
 
-interface GreetingProps extends CurrentInnerCommonProps {}
+    const { data: booksQueryResultData = {} } = booksQueryResult;
 
-/** In case of theme */
+    const { loadedFontStatus } = useAppState();
 
-enum ThemeName {
-    DEFAULT = 'default',
-    ALTER = 'alter',
-}
-
-/** In case of theme, theme object type */
-
-interface Theme {
-    greetingColor: string;
-}
-
-/** In case of theme, mapping between theme name and theme object */
-
-const THEME_DICT: EnumedDict<ThemeName, Theme> = {
-    [ThemeName.DEFAULT]: {
-        greetingColor: '#aaff00',
-    },
-    [ThemeName.ALTER]: {
-        greetingColor: '#ffaa00',
-    },
+    return (
+        /** It's mandatory to pass className to root element */
+        <Root
+            className={className}
+            documentTitle={`${counter} Development page`}
+            ogTitle="Development page"
+            bodyBackground="#008080"
+        >
+            <Greeting>Greetings, {match.params.name || 'Unknown'}</Greeting>
+            <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
+            <UrlData>{JSON.stringify(match.params)}</UrlData>
+            <StateCounter>State counter: {counter}</StateCounter>
+            <StyledButton onClick={onClick} ref={buttonRef}>
+                Drop Counter (Button)
+            </StyledButton>
+            <LicensesDisplay>
+                Book authors:{' '}
+                {booksQueryResultData.development
+                    ? booksQueryResultData.development.books.map(book => `${book.author}, `)
+                    : 'No data'}
+                {booksQueryResult.loading ? ' - Loading' : ''}
+            </LicensesDisplay>
+            <Button theme={{ mode: ButtonThemeMode.PRIMARY }}>Root (Button-Link)</Button>
+            <StyledButton disabled to={routes.ROOT.path} theme={{ mode: ButtonThemeMode.PRIMARY }} ref={anchorRef}>
+                Disabled State (Button-Link)
+            </StyledButton>
+            <Button theme={{ mode: ButtonThemeMode.PRIMARY }} onClick={onOpenModalClick}>
+                Modal (Button)
+            </Button>
+            <Image src={c7sImage} />
+            <PositionedC7sIcon />
+            <Modal open={isModalOpen} onClose={onModalRequestClose}>
+                <ModalContent>Modal {'\n\n\n\n\n\n\n\n'} Modal</ModalContent>
+            </Modal>
+        </Root>
+    );
 };
-
-/** In case of theme, withTheme is added, ensuring that outer 'themeName' converts to inner 'theme' (types included) */
-
-const DevelopmentPageTemplate: React.FC<Props> = withTheme<ThemeName, Theme, HTMLElement, Props>(THEME_DICT)(
-    ({
-        className,
-        counter,
-        isModalOpen,
-        onClick,
-        onModalRequestClose,
-        onOpenModalClick,
-        booksQueryResult,
-        match,
-        theme /** Can't get 'themeName' here */,
-    }) => {
-        /** Universal graphql error handler */
-        useApolloErrorReporter(booksQueryResult);
-
-        const buttonRef = React.useRef<HTMLButtonElement>(null);
-        const anchorRef = React.useRef<HTMLAnchorElement>(null);
-
-        React.useEffect(() => {
-            // eslint-disable-next-line no-console
-            console.log(buttonRef.current);
-            // eslint-disable-next-line no-console
-            console.log(anchorRef.current);
-        }, []);
-
-        const { data: booksQueryResultData = {} } = booksQueryResult;
-
-        const { loadedFontStatus } = useAppState();
-
-        return (
-            /** It's mandatory to pass className to root element */
-            <Root
-                className={className}
-                documentTitle={`${counter} Development page`}
-                ogTitle="Development page"
-                bodyBackground="#008080"
-            >
-                <Greeting>Greetings, {match.params.name || 'Unknown'}</Greeting>
-                <ThemeDisplay>Theme: {JSON.stringify(theme)}</ThemeDisplay>
-                <LoadedFontStatusDisplay>
-                    Loaded font status: {JSON.stringify(loadedFontStatus)}
-                </LoadedFontStatusDisplay>
-                <UrlData>{JSON.stringify(match.params)}</UrlData>
-                <StateCounter>State counter: {counter}</StateCounter>
-                <StyledButton themeName={ButtonThemeName.PRIMARY} onClick={onClick} ref={buttonRef}>
-                    Drop Counter (Button)
-                </StyledButton>
-                <LicensesDisplay>
-                    Book authors:{' '}
-                    {booksQueryResultData.development
-                        ? booksQueryResultData.development.books.map(book => `${book.author}, `)
-                        : 'No data'}
-                    {booksQueryResult.loading ? ' - Loading' : ''}
-                </LicensesDisplay>
-                <Button themeName={ButtonThemeName.PRIMARY} to={routes.ROOT.path}>
-                    Root (Button-Link)
-                </Button>
-                <StyledButton disabled to={routes.ROOT.path} themeName={ButtonThemeName.SEAMLESS} ref={anchorRef}>
-                    Disabled State (Button-Link)
-                </StyledButton>
-                <Button onClick={onOpenModalClick}>Modal (Button)</Button>
-                <Image src={c7sImage} />
-                <PositionedC7sIcon />
-                <Modal open={isModalOpen} onClose={onModalRequestClose}>
-                    <ModalContent>Modal {'\n\n\n\n\n\n\n\n'} Modal</ModalContent>
-                </Modal>
-            </Root>
-        );
-    },
-);
 
 /** Styled components */
 
 const Root = styled(Page)``;
-
-const ThemeDisplay = styled.div``;
 
 const LoadedFontStatusDisplay = styled.div`
     word-break: break-all;
@@ -153,7 +107,7 @@ const LicensesDisplay = styled.div``;
 /** Responsive styling example */
 
 const Greeting = styled.div`
-    color: ${({ theme }: GreetingProps) => theme!.greetingColor};
+    color: #ff8800;
     font-weight: bold;
 
     ${mediaWidth.m} {
@@ -186,4 +140,4 @@ const StyledButton = styled(Button)`
 
 /** Single export is mandatory */
 
-export { DevelopmentPageTemplate, Props, CurrentCommonProps, CurrentInnerCommonProps, ThemeName };
+export { DevelopmentPageTemplate, Props };

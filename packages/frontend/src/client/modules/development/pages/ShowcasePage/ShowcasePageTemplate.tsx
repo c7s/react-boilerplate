@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Accordion } from '../../../common/components/Accordion';
-import { Button, ButtonThemeName } from '../../../common/components/Button';
+import { Button, ButtonThemeMode } from '../../../common/components/Button';
 import { ComponentShowcase } from '../../../common/components/ComponentShowcase';
-import { Link, LinkThemeName } from '../../../common/components/Link';
+import { Link, LinkThemeMode } from '../../../common/components/Link';
 import { Modal } from '../../../common/components/Modal';
 import { Page } from '../../../common/components/Page';
 import { SocialShare } from '../../../common/components/SocialShare';
@@ -22,7 +22,7 @@ interface Props extends CommonProps {
 const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModalClose, onModalOpen }) => (
     <Root className={className} documentTitle="Component Showcase">
         <Header>Component Showcase</Header>
-        <BackLink to={routes.ROOT.path} themeName={LinkThemeName.TEXT}>
+        <BackLink to={routes.ROOT.path} theme={{ mode: LinkThemeMode.TEXT }}>
             Back to Root
         </BackLink>
         <ShowcaseGroup>
@@ -49,13 +49,12 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                         to: 'https://google.com',
                         children: 'Button with link to google',
                         disabled: false,
-                        themeName: ButtonThemeName.PRIMARY,
+                        theme: { mode: ButtonThemeMode.PRIMARY },
                     } as any
                 }
                 componentPropsValidators={{
                     to: isString(),
                     disabled: isBoolean(),
-                    themeName: isOneOf({ items: Object.values(ButtonThemeName) }),
                 }}
                 component={Button}
             />
@@ -67,13 +66,12 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                         to: 'https://google.com',
                         children: 'Link to google',
                         disabled: true,
-                        themeName: LinkThemeName.TEXT,
+                        theme: { mode: LinkThemeMode.TEXT },
                     } as any
                 }
                 componentPropsValidators={{
                     to: isString(),
                     disabled: isBoolean(),
-                    themeName: isOneOf({ items: Object.values(LinkThemeName) }),
                 }}
                 component={Link}
             />

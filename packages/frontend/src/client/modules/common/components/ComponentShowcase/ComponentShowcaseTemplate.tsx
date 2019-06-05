@@ -5,10 +5,11 @@ import { anchorForStickyHeader } from '../../lib/styles/anchorForStickyHeader';
 import { Validator } from '../../lib/validators';
 import { CommonProps } from '../../types/CommonProps';
 import { Button } from '../Button';
-import { Link, LinkThemeName } from '../Link';
+import { Link, LinkThemeMode } from '../Link';
 import { ErrorBoundary } from './ErrorBoundary';
 
 interface Props<D extends {}, F extends {}> extends CommonProps {
+    children?: React.ReactNode;
     component: React.ComponentType<D & F>;
     onTextAreaChange: React.ChangeEventHandler<HTMLTextAreaElement>;
     onTextAreaReset: React.MouseEventHandler<HTMLButtonElement>;
@@ -37,7 +38,7 @@ const ComponentShowcaseTemplate = <D extends {}, F extends {}>({
 }: Props<D, F>): React.ReactElement<any> | null => (
     <Root className={className}>
         <Header id={name}>
-            <ComponentLink themeName={LinkThemeName.TEXT} to={linkTo}>
+            <ComponentLink theme={{ mode: LinkThemeMode.TEXT }} to={linkTo}>
                 {name}
             </ComponentLink>
             <AnchorLink to={routes.SHOWCASE.pathWithParams({ hash: name })} smooth>

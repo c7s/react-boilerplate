@@ -3,14 +3,13 @@ import * as React from 'react';
 import { QueryResult } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
 import { routes } from '../../../common/lib/routes';
+import { CommonProps } from '../../../common/types/CommonProps';
 import { Books } from './ApolloTypes/Books';
-import { CurrentCommonProps, DevelopmentPageTemplate } from './DevelopmentPageTemplate';
+import { DevelopmentPageTemplate } from './DevelopmentPageTemplate';
 
 /** Props to render component behaviour. Don't forget to extend CurrentCommonProps */
 
-interface Props
-    extends CurrentCommonProps,
-        RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>> {
+interface Props extends CommonProps, RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>> {
     booksQueryResult: QueryResult<Partial<Books>>;
 }
 

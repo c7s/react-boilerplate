@@ -1,1 +1,6 @@
-export { ButtonTemplate as Button, Props as ButtonProps, ThemeName as ButtonThemeName } from './ButtonTemplate';
+export {
+    ButtonTemplate as Button,
+    Props as ButtonProps,
+    Theme as ButtonTheme,
+    ThemeMode as ButtonThemeMode,
+} from './ButtonTemplate';

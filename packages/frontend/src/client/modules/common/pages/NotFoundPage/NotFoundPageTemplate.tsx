@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Link, LinkThemeName } from '../../components/Link';
+import { Link, LinkThemeMode } from '../../components/Link';
 import { Page } from '../../components/Page';
 import { routes } from '../../lib/routes';
 import { CommonProps } from '../../types/CommonProps';
@@ -14,7 +14,7 @@ const NotFoundPageTemplate: React.FC<Props> = ({ className }) => (
             Данная страница не существует.
             {'\n'}
             Попробуйте{' '}
-            <Link to={routes.ROOT.path} themeName={LinkThemeName.TEXT}>
+            <Link to={routes.ROOT.path} theme={{ mode: LinkThemeMode.TEXT }}>
                 вернуться на главную
             </Link>
             .

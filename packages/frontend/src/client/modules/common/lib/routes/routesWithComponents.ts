@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import * as React from 'react';
 import { ApolloDemoPage } from '../../../development/pages/ApolloDemoPage';
-import { DevelopmentPage, DevelopmentPageThemeName } from '../../../development/pages/DevelopmentPage';
+import { DevelopmentPage } from '../../../development/pages/DevelopmentPage';
 import { ShowcasePage } from '../../../development/pages/ShowcasePage';
 import { RootPage } from '../../../root/pages/RootPage';
 import { NotFoundPage } from '../../pages/NotFoundPage';
@@ -14,8 +14,7 @@ export const routesWithComponents = merge<{ [P in keyof typeof routes]: Partial<
             component: RootPage,
         },
         DEVELOPMENT: {
-            render: () =>
-                React.createElement(DevelopmentPage, { name: 'User', themeName: DevelopmentPageThemeName.ALTER }),
+            render: () => React.createElement(DevelopmentPage, { name: 'User' }),
         },
         SHOWCASE: {
             component: ShowcasePage,

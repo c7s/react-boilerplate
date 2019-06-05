@@ -1,29 +1,26 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Link, LinkThemeName } from '../../../common/components/Link';
+import { Link, LinkThemeMode } from '../../../common/components/Link';
 import { Page } from '../../../common/components/Page';
 import { routes } from '../../../common/lib/routes';
-import { CommonInnerProps, CommonProps } from '../../../common/types/CommonProps';
+import { CommonProps } from '../../../common/types/CommonProps';
 
-interface Props extends CurrentCommonProps {}
-
-type CurrentCommonProps = CommonProps;
-type CurrentInnerCommonProps = CommonInnerProps;
+interface Props extends CommonProps {}
 
 const RootPageTemplate: React.FC<Props> = ({ className }) => (
     <Root className={className} documentTitle={APP_NAME}>
         <Header>{APP_NAME}</Header>
-        <PositionedLink themeName={LinkThemeName.TEXT} to={routes.SHOWCASE.pathWithParams({})}>
+        <PositionedLink theme={{ mode: LinkThemeMode.TEXT }} to={routes.SHOWCASE.pathWithParams({})}>
             Component Showcase
         </PositionedLink>
-        <PositionedLink themeName={LinkThemeName.TEXT} to={routes.APOLLO_DEMO.path}>
+        <PositionedLink theme={{ mode: LinkThemeMode.TEXT }} to={routes.APOLLO_DEMO.path}>
             Apollo Demo
         </PositionedLink>
-        <PositionedLink themeName={LinkThemeName.TEXT} to="/broken-link">
+        <PositionedLink theme={{ mode: LinkThemeMode.TEXT }} to="/broken-link">
             Broken Link
         </PositionedLink>
         <PositionedLink
-            themeName={LinkThemeName.TEXT}
+            theme={{ mode: LinkThemeMode.TEXT }}
             to={routes.DEVELOPMENT.pathWithParams({
                 name: 'Sir',
                 id: '1',
@@ -51,4 +48,4 @@ const PositionedLink = styled(Link)`
     margin: 20px;
 `;
 
-export { RootPageTemplate, Props, CurrentCommonProps, CurrentInnerCommonProps };
+export { RootPageTemplate, Props };

@@ -4,13 +4,13 @@ import { Query } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
 import { routes } from '../../../common/lib/routes';
 import { withRouter } from '../../../common/lib/withRouter';
+import { CommonProps } from '../../../common/types/CommonProps';
 import { Books } from './ApolloTypes/Books';
 import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
-import { CurrentCommonProps } from './DevelopmentPageTemplate';
 
 /** Props to render component connect. Don't forget to extend CurrentCommonProps */
 
-interface Props extends CurrentCommonProps {
+interface Props extends CommonProps {
     name?: string;
 }
 
