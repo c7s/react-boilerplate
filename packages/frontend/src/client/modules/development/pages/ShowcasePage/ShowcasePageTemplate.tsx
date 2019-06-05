@@ -9,7 +9,7 @@ import { Page } from '../../../common/components/Page';
 import { SocialShare } from '../../../common/components/SocialShare';
 import { Mode } from '../../../common/lib/react-hooks/useViewportSize';
 import { routes } from '../../../common/lib/routes';
-import { isBoolean, isNumber, isOneOf, isString } from '../../../common/lib/validators';
+import { isBoolean, isCompositionOf, isNumber, isOneOf, isString } from '../../../common/lib/validators';
 import { CommonProps } from '../../../common/types/CommonProps';
 import { ViewportDisplay } from './ViewportDisplay';
 
@@ -55,6 +55,11 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 componentPropsValidators={{
                     to: isString(),
                     disabled: isBoolean(),
+                    theme: isCompositionOf({
+                        items: {
+                            mode: isOneOf({ items: Object.values(ButtonThemeMode) }),
+                        },
+                    }),
                 }}
                 component={Button}
             />
@@ -72,6 +77,11 @@ const ShowcasePageTemplate: React.FC<Props> = ({ className, isModalOpen, onModal
                 componentPropsValidators={{
                     to: isString(),
                     disabled: isBoolean(),
+                    theme: isCompositionOf({
+                        items: {
+                            mode: isOneOf({ items: Object.values(LinkThemeMode) }),
+                        },
+                    }),
                 }}
                 component={Link}
             />
