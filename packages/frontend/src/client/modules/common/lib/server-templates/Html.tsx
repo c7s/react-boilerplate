@@ -45,7 +45,11 @@ export const Html: React.FC<HtmlProps> = ({
                 dangerouslySetInnerHTML={{
                     __html: `${spriteContent || ''}${renderToString(
                         <React.Fragment>
-                            {ssrError ? <noscript>{castError(ssrError).userDisplayedMessage}</noscript> : null}
+                            {!content ? (
+                                <noscript>
+                                    {ssrError ? castError(ssrError).userDisplayedMessage : 'Enable JS in your browser'}
+                                </noscript>
+                            ) : null}
                             <div id="root" dangerouslySetInnerHTML={{ __html: content || '' }} />
                             <script
                                 dangerouslySetInnerHTML={{

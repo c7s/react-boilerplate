@@ -50,6 +50,15 @@ export const publicFiles = {
     [ROBOTS_PATH]: { path: ROBOTS_PATH, content: robots, contentType: 'text/plain' },
 };
 
+/** Allows frontend-server to generate static HTML file and opt-out of SSR */
+export function getStaticHtml(stats: FrontendServerStats) {
+    return `<!doctype html>\n${renderToStaticMarkup(
+        React.createElement(Html, {
+            bundles: getAllBundles(stats.reactLoadableStats),
+        }),
+    )}`;
+}
+
 // eslint-disable-next-line import/no-default-export
 export default function serverRenderer(
     stats: WebpackHotServerMiddlewareStats | FrontendServerStats,
