@@ -24,12 +24,12 @@ export const InitialHelmet: React.FC = ({ children }) => (
             <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon} />
             <link rel="icon" type="image/png" sizes="32x32" href={favicon32x32} />
             <link rel="icon" type="image/png" sizes="16x16" href={favicon16x16} />
-            <link rel="mask-icon" href={safariPinnedTab} color="#5bbad5" />
+            <link rel="mask-icon" href={safariPinnedTab} color="#31373d" />
             <link rel="shortcut icon" href={favicon} />
             <meta name="apple-mobile-web-app-title" content={APP_NAME} />
             <meta name="application-name" content={APP_NAME} />
-            <meta name="msapplication-TileColor" content="#da532c" />
-            <meta name="theme-color" content="#ffffff" />
+            <meta name="msapplication-TileColor" content="#ebede8" />
+            <meta name="theme-color" content="#ebede8" />
 
             <link rel="manifest" href={`${WEB_MANIFEST_PATH}?${BUILD_TIMESTAMP}`} />
             <meta name="msapplication-config" content={`${BROWSER_CONFIG_PATH}?${BUILD_TIMESTAMP}`} />

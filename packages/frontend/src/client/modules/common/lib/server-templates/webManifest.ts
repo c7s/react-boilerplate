@@ -1,5 +1,5 @@
 import androidChrome192x192 from '../../favicon/android-chrome-192x192.png';
-import androidChrome256x256 from '../../favicon/android-chrome-256x256.png';
+import androidChrome512x512 from '../../favicon/android-chrome-512x512.png';
 
 export const webManifest = JSON.stringify({
     name: APP_NAME,
@@ -12,14 +12,14 @@ export const webManifest = JSON.stringify({
             type: 'image/png',
         },
         {
-            src: androidChrome256x256,
-            sizes: '256x256',
+            src: androidChrome512x512,
+            sizes: '512x512',
             type: 'image/png',
         },
     ],
     // eslint-disable-next-line @typescript-eslint/camelcase
-    theme_color: '#ffffff',
+    theme_color: '#ebede8',
     // eslint-disable-next-line @typescript-eslint/camelcase
-    background_color: '#ffffff',
+    background_color: '#ebede8',
     display: 'standalone',
 });
