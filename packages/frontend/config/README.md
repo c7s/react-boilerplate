@@ -1,9 +1,13 @@
-In development create `local.js` to play around with config:
+In development create `local.js` to play around with config.
+
+Example for gh-pages:
 
 ```
 module.exports = {
-    api: {
-        graphqlEndpoint: 'endpoint-url',
+    root: {
+        publicPath: '/react-boilerplate/static/',
+        basename: '/react-boilerplate',
+        canonicalRobotsHost: 'https://c7s.github.io',
     },
 };
 ```
