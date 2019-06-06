@@ -8,49 +8,32 @@ import { Modal } from '../../../common/components/Modal';
 import { Page } from '../../../common/components/Page';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { useApolloErrorReporter } from '../../../common/lib/react-hooks/useApolloErrorReporter';
+import { useModalOpenState } from '../../../common/lib/react-hooks/useModalOpenState';
 import { routes } from '../../../common/lib/routes';
 import { CommonProps } from '../../../common/types/CommonProps';
 import { Books } from './ApolloTypes/Books';
 import C7sIcon from './C7sIcon.svg';
 import c7sImage from './c7sImage.png';
+import { useCounter } from './hooks';
 
-/** Props to render component template. Don't forget to extend CurrentCommonProps */
+/** Props to render component template. Don't forget to extend CommonProps */
 
 interface Props extends CommonProps, RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>> {
-    onClick: React.MouseEventHandler<HTMLButtonElement>;
-    counter: number;
-    isModalOpen: boolean;
+    name?: string;
     booksQueryResult: QueryResult<Partial<Books>>;
-    onOpenModalClick(): void;
-    onModalRequestClose(): void;
 }
 
-const DevelopmentPageTemplate: React.FC<Props> = ({
-    className,
-    counter,
-    isModalOpen,
-    onClick,
-    onModalRequestClose,
-    onOpenModalClick,
-    booksQueryResult,
-    match,
-}) => {
+const DevelopmentPage: React.FC<Props> = ({ className, booksQueryResult, match, name }) => {
     /** Universal graphql error handler */
     useApolloErrorReporter(booksQueryResult);
-
-    const buttonRef = React.useRef<HTMLButtonElement>(null);
-    const anchorRef = React.useRef<HTMLAnchorElement>(null);
-
-    React.useEffect(() => {
-        // eslint-disable-next-line no-console
-        console.log(buttonRef.current);
-        // eslint-disable-next-line no-console
-        console.log(anchorRef.current);
-    }, []);
 
     const { data: booksQueryResultData = {} } = booksQueryResult;
 
     const { loadedFontStatus } = useAppState();
+
+    const { onModalOpen, onModalClose, isModalOpen } = useModalOpenState();
+
+    const { counter, onDropCounterClick } = useCounter();
 
     return (
         /** It's mandatory to pass className to root element */
@@ -61,12 +44,11 @@ const DevelopmentPageTemplate: React.FC<Props> = ({
             bodyBackground="#008080"
         >
             <Greeting>Greetings, {match.params.name || 'Unknown'}</Greeting>
+            <Greeting>Greetings, {name || 'Unknown'}</Greeting>
             <LoadedFontStatusDisplay>Loaded font status: {JSON.stringify(loadedFontStatus)}</LoadedFontStatusDisplay>
             <UrlData>{JSON.stringify(match.params)}</UrlData>
             <StateCounter>State counter: {counter}</StateCounter>
-            <StyledButton onClick={onClick} ref={buttonRef}>
-                Drop Counter (Button)
-            </StyledButton>
+            <StyledButton onClick={onDropCounterClick}>Drop Counter (Button)</StyledButton>
             <LicensesDisplay>
                 Book authors:{' '}
                 {booksQueryResultData.development
@@ -75,15 +57,15 @@ const DevelopmentPageTemplate: React.FC<Props> = ({
                 {booksQueryResult.loading ? ' - Loading' : ''}
             </LicensesDisplay>
             <Button theme={{ mode: ButtonThemeMode.PRIMARY }}>Root (Button-Link)</Button>
-            <StyledButton disabled to={routes.ROOT.path} theme={{ mode: ButtonThemeMode.PRIMARY }} ref={anchorRef}>
+            <StyledButton disabled to={routes.ROOT.path} theme={{ mode: ButtonThemeMode.PRIMARY }}>
                 Disabled State (Button-Link)
             </StyledButton>
-            <Button theme={{ mode: ButtonThemeMode.PRIMARY }} onClick={onOpenModalClick}>
+            <Button theme={{ mode: ButtonThemeMode.PRIMARY }} onClick={onModalOpen}>
                 Modal (Button)
             </Button>
             <Image src={c7sImage} />
             <PositionedC7sIcon />
-            <Modal open={isModalOpen} onClose={onModalRequestClose}>
+            <Modal open={isModalOpen} onClose={onModalClose}>
                 <ModalContent>Modal {'\n\n\n\n\n\n\n\n'} Modal</ModalContent>
             </Modal>
         </Root>
@@ -140,4 +122,4 @@ const StyledButton = styled(Button)`
 
 /** Single export is mandatory */
 
-export { DevelopmentPageTemplate, Props };
+export { DevelopmentPage, Props };

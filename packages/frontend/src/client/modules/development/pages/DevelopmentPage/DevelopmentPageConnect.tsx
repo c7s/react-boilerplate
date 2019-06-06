@@ -6,7 +6,7 @@ import { routes } from '../../../common/lib/routes';
 import { withRouter } from '../../../common/lib/withRouter';
 import { CommonProps } from '../../../common/types/CommonProps';
 import { Books } from './ApolloTypes/Books';
-import { DevelopmentPageBehaviour } from './DevelopmentPageBehaviour';
+import { DevelopmentPage } from './DevelopmentPage';
 
 /** Props to render component connect. Don't forget to extend CurrentCommonProps */
 
@@ -47,7 +47,7 @@ const BOOKS_QUERY = gql`
 const DevelopmentPageConnect = withRouter((props: ApolloProps) => (
     <Query<Partial<Books>> query={BOOKS_QUERY}>
         {booksQueryResult => {
-            return <DevelopmentPageBehaviour {...props} booksQueryResult={booksQueryResult} />;
+            return <DevelopmentPage {...props} booksQueryResult={booksQueryResult} />;
         }}
     </Query>
 ));
