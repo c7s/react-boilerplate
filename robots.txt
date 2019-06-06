@@ -1,0 +1,6 @@
+User-agent: *
+Disallow:
+
+User-agent: YandexBot
+Disallow:
+Host: react-boilerplate.com
