@@ -1,1 +1,1 @@
-export { ShowcasePageBehaviour as ShowcasePage, Props as ShowcasePageProps } from './ShowcasePageBehaviour';
+export { ShowcasePage, Props as ShowcasePageProps } from './ShowcasePage';
