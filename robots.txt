@@ -3,4 +3,4 @@ Disallow:
 
 User-agent: YandexBot
 Disallow:
-Host: react-boilerplate.com
+Host: https://c7s.github.io
