@@ -34,7 +34,7 @@ interface MainProps {
     hideFooter?: boolean;
 }
 
-const PageTemplate: React.FC<Props> = ({
+const Page: React.FC<Props> = ({
     className,
     hideHeader,
     hideFooter,
@@ -100,4 +100,4 @@ const Main = styled.main`
     }
 `;
 
-export { PageTemplate, Props };
+export { Page, Props };

@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import { ServerError } from '../../../../common/graphql/ApolloTypes/globalTypes';
 import { CommonProps } from '../../../../common/types/CommonProps';
 import { CurrentTimestamp, CurrentTimestampVariables } from './ApolloTypes/CurrentTimestamp';
-import { CurrentTimestampDisplayTemplate } from './CurrentTimestampDisplayTemplate';
+import { CurrentTimestampDisplay } from './CurrentTimestampDisplay';
 
 interface Props extends CommonProps {}
 
@@ -23,7 +23,7 @@ const CurrentTimestampDisplayConnect = (props: Props) => (
         variables={{ loadingTime: 1000, returnError: ServerError.TEST_ERROR }}
     >
         {currentTimestampQueryResult => (
-            <CurrentTimestampDisplayTemplate currentTimestampQueryResult={currentTimestampQueryResult} {...props} />
+            <CurrentTimestampDisplay currentTimestampQueryResult={currentTimestampQueryResult} {...props} />
         )}
     </Query>
 );

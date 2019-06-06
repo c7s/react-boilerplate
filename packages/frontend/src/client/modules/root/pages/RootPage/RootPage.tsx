@@ -7,7 +7,7 @@ import { CommonProps } from '../../../common/types/CommonProps';
 
 interface Props extends CommonProps {}
 
-const RootPageTemplate: React.FC<Props> = ({ className }) => (
+const RootPage: React.FC<Props> = ({ className }) => (
     <Root className={className} documentTitle={APP_NAME}>
         <Header>{APP_NAME}</Header>
         <PositionedLink theme={{ mode: LinkThemeMode.TEXT }} to={routes.SHOWCASE.pathWithParams({})}>
@@ -48,4 +48,4 @@ const PositionedLink = styled(Link)`
     margin: 20px;
 `;
 
-export { RootPageTemplate, Props };
+export { RootPage, Props };

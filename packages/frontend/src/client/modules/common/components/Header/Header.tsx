@@ -4,23 +4,23 @@ import { CommonProps } from '../../types/CommonProps';
 
 interface Props extends CommonProps {}
 
-const FOOTER_HEIGHT = 25;
+const HEADER_HEIGHT = 50;
 
-const FooterTemplate: React.FC<Props> = ({ className }) => <Root className={className}>{APP_NAME}</Root>;
+const Header: React.FC<Props> = ({ className }) => <Root className={className}>{APP_NAME}</Root>;
 
-const Root = styled.footer`
+const Root = styled.header`
     width: 100%;
-    height: ${`${FOOTER_HEIGHT}px`};
-    position: absolute;
-    bottom: 0;
+    height: ${`${HEADER_HEIGHT}px`};
+    position: fixed;
+    top: 0;
 
     /* Temporal */
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid #000000;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.08);
     font-weight: bold;
     background: #ffffff;
 `;
 
-export { FooterTemplate, Props, FOOTER_HEIGHT };
+export { Header, Props, HEADER_HEIGHT };

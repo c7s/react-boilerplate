@@ -1,1 +1,1 @@
-export { ApolloDemoPageTemplate as ApolloDemoPage, Props as ApolloDemoPageProps } from './ApolloDemoPageTemplate';
+export { ApolloDemoPage, Props as ApolloDemoPageProps } from './ApolloDemoPage';

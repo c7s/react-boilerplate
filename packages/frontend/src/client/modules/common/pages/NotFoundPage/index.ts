@@ -1,1 +1,1 @@
-export { NotFoundPageTemplate as NotFoundPage, Props as NotFoundPageProps } from './NotFoundPageTemplate';
+export { NotFoundPage, Props as NotFoundPageProps } from './NotFoundPage';

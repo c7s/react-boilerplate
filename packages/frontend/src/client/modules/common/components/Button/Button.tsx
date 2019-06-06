@@ -24,7 +24,7 @@ interface RootProps extends CommonProps<Theme> {
 
 const DEFAULT_THEME: Theme = { mode: ThemeMode.SEAMLESS };
 
-const ButtonTemplate = React.forwardRef((props: Props, ref: React.Ref<HTMLButtonElement | HTMLAnchorElement>) => (
+const Button = React.forwardRef((props: Props, ref: React.Ref<HTMLButtonElement | HTMLAnchorElement>) => (
     <ThemeProvider theme={props.theme || DEFAULT_THEME}>
         {isButtonProps(props) ? (
             <RootButton ref={ref as React.RefObject<HTMLButtonElement>} {...props} />
@@ -76,4 +76,4 @@ const RootLink = styled(Link)`
     ${rootCss};
 `;
 
-export { ButtonTemplate, Props, Theme, ThemeMode };
+export { Button, Props, Theme, ThemeMode };

@@ -9,7 +9,7 @@ import { CurrentTimestampDisplay } from './CurrentTimestampDisplay';
 
 interface Props extends CommonProps {}
 
-const ApolloDemoPageTemplate: React.FC<Props> = ({ className }) => (
+const ApolloDemoPage: React.FC<Props> = ({ className }) => (
     <Root className={className}>
         <Card header="Debatched query, known/unknown error example">
             <CurrentTimestampDisplay />
@@ -23,4 +23,4 @@ const ApolloDemoPageTemplate: React.FC<Props> = ({ className }) => (
 
 const Root = styled(Page)``;
 
-export { ApolloDemoPageTemplate, Props };
+export { ApolloDemoPage, Props };

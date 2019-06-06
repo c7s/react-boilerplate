@@ -18,7 +18,7 @@ interface Props extends RouteComponentProps<{}> {
     locale?: string;
 }
 
-const OpenGraphTemplate: React.FC<Props> = ({
+const OpenGraph: React.FC<Props> = ({
     title = APP_NAME,
     url,
     location,
@@ -41,4 +41,4 @@ const OpenGraphTemplate: React.FC<Props> = ({
     </Helmet>
 );
 
-export { OpenGraphTemplate, Props };
+export { OpenGraph, Props };

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Query } from 'react-apollo';
 import { CommonProps } from '../../../../common/types/CommonProps';
 import { BooksTitle } from './ApolloTypes/BooksTitle';
-import { BookTitleDisplayTemplate } from './BookTitleDisplayTemplate';
+import { BookTitleDisplay } from './BookTitleDisplay';
 
 interface Props extends CommonProps {}
 
@@ -19,9 +19,7 @@ const BOOKS_TITLE_QUERY = gql`
 
 const BookTitleDisplayConnect = (props: Props) => (
     <Query<Partial<BooksTitle>> query={BOOKS_TITLE_QUERY}>
-        {booksDisplayQueryResult => (
-            <BookTitleDisplayTemplate booksDisplayQueryResult={booksDisplayQueryResult} {...props} />
-        )}
+        {booksDisplayQueryResult => <BookTitleDisplay booksDisplayQueryResult={booksDisplayQueryResult} {...props} />}
     </Query>
 );
 

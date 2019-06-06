@@ -8,7 +8,7 @@ interface Props extends CommonProps {
     includeVerticalScrollbar: boolean;
 }
 
-const ViewportDisplayTemplate: React.FC<Props> = ({ className, mode, includeVerticalScrollbar }) => {
+const ViewportDisplay: React.FC<Props> = ({ className, mode, includeVerticalScrollbar }) => {
     const { width, height } = useViewportSize({ mode, includeVerticalScrollbar });
 
     return (
@@ -20,4 +20,4 @@ const ViewportDisplayTemplate: React.FC<Props> = ({ className, mode, includeVert
 
 const Root = styled.div``;
 
-export { ViewportDisplayTemplate, Props };
+export { ViewportDisplay, Props };

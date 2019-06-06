@@ -1,1 +1,1 @@
-export { PageTemplate as Page, Props as PageProps } from './PageTemplate';
+export { Page, Props as PageProps } from './Page';

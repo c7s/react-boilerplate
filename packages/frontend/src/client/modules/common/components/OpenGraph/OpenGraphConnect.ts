@@ -1,5 +1,5 @@
 import { withRouter } from 'react-router';
-import { OpenGraphTemplate } from './OpenGraphTemplate';
+import { OpenGraph } from './OpenGraph';
 
 interface Props {
     title: string;
@@ -10,6 +10,6 @@ interface Props {
     locale?: string;
 }
 
-const OpenGraphConnect = withRouter(OpenGraphTemplate);
+const OpenGraphConnect = withRouter(OpenGraph);
 
 export { OpenGraphConnect, Props };

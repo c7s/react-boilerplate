@@ -1,1 +1,1 @@
-export { ViewportDisplayTemplate as ViewportDisplay, Props as ViewportDisplayProps } from './ViewportDisplayTemplate';
+export { ViewportDisplay, Props as ViewportDisplayProps } from './ViewportDisplay';

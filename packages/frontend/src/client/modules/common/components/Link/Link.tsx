@@ -30,7 +30,7 @@ const DEFAULT_THEME: Theme = {
     mode: ThemeMode.SEAMLESS,
 };
 
-const LinkTemplate = React.forwardRef(
+const Link = React.forwardRef(
     (
         { className, smooth, scroll, to, replace, disabled, tabIndex, ...props }: Props,
         ref: React.Ref<HTMLAnchorElement>,
@@ -105,4 +105,4 @@ const StyledLink = styled(HashLink)`
     ${linkCss};
 `;
 
-export { LinkTemplate, Props, ThemeMode };
+export { Link, Props, ThemeMode };

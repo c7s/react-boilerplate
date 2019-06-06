@@ -1,1 +1,1 @@
-export { StatusTemplate as Status, Props as StatusProps } from './StatusTemplate';
+export { Status, Props as StatusProps } from './Status';

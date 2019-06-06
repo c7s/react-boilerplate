@@ -24,7 +24,7 @@ interface Props extends CommonProps, RouteComponentProps<{}> {
     fb?: FbShareQuery;
 }
 
-const SocialShareTemplate: React.FC<Props> = ({ className, location, url, title, image, vk, ok, tw, fb }) => {
+const SocialShare: React.FC<Props> = ({ className, location, url, title, image, vk, ok, tw, fb }) => {
     const urlOrDefaultUrl = url || `${global.CANONICAL_ROBOTS_HOST}${global.BASENAME}${location.pathname}`;
 
     return (
@@ -85,4 +85,4 @@ const SocialButton = styled(Button)`
     }
 `;
 
-export { SocialShareTemplate, Props };
+export { SocialShare, Props };

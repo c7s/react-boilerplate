@@ -5,7 +5,7 @@ import { CommonProps } from '../../types/CommonProps';
 
 interface Props extends ExtractProps<typeof ResponsiveModal>, CommonProps {}
 
-const ModalTemplate: React.FC<Props> = props => (
+const Modal: React.FC<Props> = props => (
     <React.Fragment>
         <ResponsiveModalGlobalStyle />
         <ResponsiveModal {...props} classNames={{ overlay: 'responsive-modal-overlay' }} />
@@ -18,4 +18,4 @@ const ResponsiveModalGlobalStyle = createGlobalStyle`
     }
 `;
 
-export { ModalTemplate, Props };
+export { Modal, Props };

@@ -3,13 +3,13 @@ import { QueryResult } from 'react-apollo';
 import styled from 'styled-components';
 import { useApolloErrorReporter } from '../../../../common/lib/react-hooks/useApolloErrorReporter';
 import { CommonProps } from '../../../../common/types/CommonProps';
-import { BooksAuthor } from './ApolloTypes/BooksAuthor';
+import { BooksTitle } from './ApolloTypes/BooksTitle';
 
 interface Props extends CommonProps {
-    booksDisplayQueryResult: QueryResult<Partial<BooksAuthor>>;
+    booksDisplayQueryResult: QueryResult<Partial<BooksTitle>>;
 }
 
-const BookAuthorDisplayTemplate: React.FC<Props> = ({ className, booksDisplayQueryResult }) => {
+const BookTitleDisplay: React.FC<Props> = ({ className, booksDisplayQueryResult }) => {
     useApolloErrorReporter(booksDisplayQueryResult);
 
     const { data: booksDisplayData = {} } = booksDisplayQueryResult;
@@ -17,7 +17,7 @@ const BookAuthorDisplayTemplate: React.FC<Props> = ({ className, booksDisplayQue
     return (
         <Root className={className}>
             {booksDisplayData.development
-                ? booksDisplayData.development.books.map(book => book.author).join(', ')
+                ? booksDisplayData.development.books.map(book => book.title).join(', ')
                 : 'No data'}
             {booksDisplayQueryResult.loading ? ' - Loading' : ''}
         </Root>
@@ -26,4 +26,4 @@ const BookAuthorDisplayTemplate: React.FC<Props> = ({ className, booksDisplayQue
 
 const Root = styled.div``;
 
-export { BookAuthorDisplayTemplate, Props };
+export { BookTitleDisplay, Props };

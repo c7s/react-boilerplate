@@ -6,7 +6,7 @@ interface Props extends CommonProps {
     header: string;
 }
 
-const CardTemplate: React.FC<Props> = ({ className, header, children }) => (
+const Card: React.FC<Props> = ({ className, header, children }) => (
     <Root className={className}>
         <Header>{header}</Header>
         {children}
@@ -24,4 +24,4 @@ const Header = styled.h2`
     font-weight: bold;
 `;
 
-export { CardTemplate, Props };
+export { Card, Props };

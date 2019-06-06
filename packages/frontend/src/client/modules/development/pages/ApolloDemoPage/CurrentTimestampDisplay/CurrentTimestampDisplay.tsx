@@ -14,7 +14,7 @@ interface Props extends CommonProps {
 
 const KNOWN_ERROR_LIST = [ServerError.TEST_ERROR];
 
-const CurrentTimestampDisplayTemplate: React.FC<Props> = ({ className, currentTimestampQueryResult }) => {
+const CurrentTimestampDisplay: React.FC<Props> = ({ className, currentTimestampQueryResult }) => {
     useApolloErrorReporter(currentTimestampQueryResult, { ignore: KNOWN_ERROR_LIST });
 
     const onRefetchClick = React.useCallback(() => {
@@ -77,4 +77,4 @@ const PositionedButton = styled(Button)`
     margin-right: 20px;
 `;
 
-export { CurrentTimestampDisplayTemplate, Props };
+export { CurrentTimestampDisplay, Props };
