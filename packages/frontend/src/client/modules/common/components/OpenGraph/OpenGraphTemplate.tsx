@@ -32,7 +32,10 @@ const OpenGraphTemplate: React.FC<Props> = ({
         <meta property="og:title" content={title} />
         <meta property="og:type" content={type} />
         <meta property="og:image" content={/^http/.test(image) ? image : `${global.CANONICAL_ROBOTS_HOST}${image}`} />
-        <meta property="og:url" content={url || `${global.CANONICAL_ROBOTS_HOST}${location.pathname}`} />
+        <meta
+            property="og:url"
+            content={url || `${global.CANONICAL_ROBOTS_HOST}${global.BASENAME}${location.pathname}`}
+        />
         <meta property="og:description" content={description} />
         <meta property="og:locale" content={locale} />
     </Helmet>
