@@ -14,6 +14,7 @@
         "build:final": "yarn build && node ./tools/build/remove-dev-files",
         "build:no-install": "webpack --env.build",
         "build:final:no-install": "yarn build:no-install && node ./tools/build/remove-dev-files",
+        "build:regenerate": "node ./tools/build/generate-dynamic-files",
         "test": "jest",
         "test:watch": "jest --watch",
         "analyze": "yarn i && webpack --env.build --env.analyze",
