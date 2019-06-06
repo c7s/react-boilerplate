@@ -1,1 +1,1 @@
-export { AccordionBehaviour as Accordion, Props as AccordionProps } from './AccordionBehaviour';
+export { Accordion, Props as AccordionProps } from './Accordion';
