@@ -13,7 +13,7 @@ interface State {
     error: Error | null;
 }
 
-class ErrorBoundaryBehaviour<T extends object> extends React.Component<Props<T>, State> {
+class ErrorBoundary<T extends object> extends React.Component<Props<T>, State> {
     public constructor(props: Props<T>) {
         super(props);
 
@@ -68,4 +68,4 @@ class ErrorBoundaryBehaviour<T extends object> extends React.Component<Props<T>,
     }
 }
 
-export { ErrorBoundaryBehaviour, Props };
+export { ErrorBoundary, Props };
