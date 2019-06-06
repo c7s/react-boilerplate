@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { useReactRouter } from '../../lib/routes';
 import {
     FbShareQuery,
     fbUrl,
@@ -10,7 +11,6 @@ import {
     VkShareQuery,
     vkUrl,
 } from '../../lib/social-share-urls';
-import { useReactRouter } from '../../lib/withRouter';
 import { CommonProps } from '../../types/CommonProps';
 import { Button } from '../Button';
 

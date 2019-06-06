@@ -1,28 +1,10 @@
 import { LocationState } from 'history';
 import { merge, mapValues } from 'lodash';
 import queryString from 'query-string';
-import * as React from 'react';
-import { Omit, RouteComponentProps, StaticContext, withRouter as withRouterOriginal } from 'react-router';
-import compose from 'compose-function';
+import { RouteComponentProps, StaticContext } from 'react-router';
 import useReactRouterLib from 'use-react-router';
 
-/** 'any' is used due to withRouter type definition */
-
-/**
- * @deprecated Use useReactRouter hook instead.
- */
-type WithRouter = <P extends RouteComponentProps>(
-    Component: React.ComponentType<P>,
-) => React.ComponentType<Omit<P, keyof RouteComponentProps>>;
-
-/**
- * @deprecated Use useReactRouter hook instead.
- */
-function withRouterParams<P extends RouteComponentProps>(Component: React.ComponentType<P>) {
-    return (props: P) => <Component {...transformRouterComponentProps(props) as any} />;
-}
-
-export function useReactRouter<
+function useReactRouter<
     P extends { [K in keyof P]?: string } = {},
     C extends StaticContext = StaticContext,
     S = LocationState
@@ -72,12 +54,4 @@ function smartParse(value: string | undefined | null) {
     }
 }
 
-/**
- * @deprecated Use useReactRouter hook instead.
- */
-const withRouter: WithRouter = compose(
-    withRouterOriginal,
-    withRouterParams,
-) as any;
-
-export { withRouter };
+export { useReactRouter };
