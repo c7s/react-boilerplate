@@ -1,4 +1,1 @@
-export {
-    ComponentShowcaseBehaviour as ComponentShowcase,
-    Props as ComponentShowcaseProps,
-} from './ComponentShowcaseBehaviour';
+export { ComponentShowcase, Props as ComponentShowcaseProps } from './ComponentShowcase';
