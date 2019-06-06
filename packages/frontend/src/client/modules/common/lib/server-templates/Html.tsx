@@ -57,6 +57,7 @@ export const Html: React.FC<HtmlProps> = ({
                                         /** Config part */
                                         GRAPHQL_ENDPOINT: JSON.stringify(global.GRAPHQL_ENDPOINT),
                                         PUBLIC_PATH: JSON.stringify(global.PUBLIC_PATH),
+                                        BASENAME: JSON.stringify(global.BASENAME),
                                         CANONICAL_ROBOTS_HOST: JSON.stringify(global.CANONICAL_ROBOTS_HOST),
                                         IS_OUTPUT_APP_INFO: JSON.stringify(global.IS_OUTPUT_APP_INFO),
                                         IS_SHOW_DEV_PAGES: JSON.stringify(global.IS_SHOW_DEV_PAGES),

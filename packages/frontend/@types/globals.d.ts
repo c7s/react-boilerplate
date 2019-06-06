@@ -14,6 +14,7 @@ declare namespace NodeJS {
         /** Config part */
         GRAPHQL_ENDPOINT: string;
         PUBLIC_PATH: string;
+        BASENAME: string;
         CANONICAL_ROBOTS_HOST: string;
         IS_OUTPUT_APP_INFO: boolean;
         IS_SHOW_DEV_PAGES: boolean;

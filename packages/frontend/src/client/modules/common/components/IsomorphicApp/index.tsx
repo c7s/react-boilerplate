@@ -36,7 +36,7 @@ export const IsomorphicApp = hot(({ client, modules, location, context }: Isomor
                         <React.Fragment>
                             <GlobalFontsStyle />
                             <ExternalAndGlobalStyles />
-                            <IsomorphicRouter location={location} context={context}>
+                            <IsomorphicRouter location={location} context={context} basename={global.BASENAME}>
                                 <InitialHelmet>
                                     <ScrollToTop>
                                         <Switch>

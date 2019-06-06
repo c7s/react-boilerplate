@@ -19,6 +19,8 @@ module.exports = {
     root: {
         /** Note trailing slash. May also be absolute */
         publicPath: process.env.REACT_BOILERPLATE_PUBLIC_PATH || '/static/',
+        /** In case the app is being served from non-root path, like '/react-boilerplate' */
+        basename: process.env.REACT_BOILERPLATE_BASENAME || '',
         /** Always with protocol. Is used in robots.txt and OG tags */
         canonicalRobotsHost: process.env.REACT_BOILERPLATE_CANONICAL_ROBOTS_HOST || 'http://react-boilerplate.com',
         devServerPort: 3000,

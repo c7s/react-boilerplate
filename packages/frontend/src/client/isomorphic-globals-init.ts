@@ -10,6 +10,7 @@ if (SSR_MODE) {
     /** If server-side, initialize all globals */
     global.GRAPHQL_ENDPOINT = config.api.graphqlEndpoint;
     global.PUBLIC_PATH = config.root.publicPath;
+    global.BASENAME = config.root.basename;
     global.CANONICAL_ROBOTS_HOST = config.root.canonicalRobotsHost;
     global.IS_OUTPUT_APP_INFO = config.root.isOutputAppInfo;
     global.IS_SHOW_DEV_PAGES = config.root.isShowDevPages;

@@ -31,8 +31,8 @@ export const InitialHelmet: React.FC = ({ children }) => (
             <meta name="msapplication-TileColor" content="#ebede8" />
             <meta name="theme-color" content="#ebede8" />
 
-            <link rel="manifest" href={`${WEB_MANIFEST_PATH}?${BUILD_TIMESTAMP}`} />
-            <meta name="msapplication-config" content={`${BROWSER_CONFIG_PATH}?${BUILD_TIMESTAMP}`} />
+            <link rel="manifest" href={`${global.BASENAME}${WEB_MANIFEST_PATH}?${BUILD_TIMESTAMP}`} />
+            <meta name="msapplication-config" content={`${global.BASENAME}${BROWSER_CONFIG_PATH}?${BUILD_TIMESTAMP}`} />
 
             <title>{APP_NAME}</title>
             <meta name="description" content={APP_DESCRIPTION} />
