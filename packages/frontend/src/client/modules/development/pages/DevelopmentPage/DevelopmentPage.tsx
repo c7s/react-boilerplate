@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
-import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
 import { useAppState } from '../../../common/components/AppStateProvider';
 import { Button, ButtonThemeMode } from '../../../common/components/Button';
@@ -10,6 +9,7 @@ import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
 import { useApolloErrorReporter } from '../../../common/lib/react-hooks/useApolloErrorReporter';
 import { useModalOpenState } from '../../../common/lib/react-hooks/useModalOpenState';
 import { routes } from '../../../common/lib/routes';
+import { useReactRouter } from '../../../common/lib/withRouter';
 import { CommonProps } from '../../../common/types/CommonProps';
 import { Books } from './ApolloTypes/Books';
 import C7sIcon from './C7sIcon.svg';
@@ -18,12 +18,14 @@ import { useCounter } from './hooks';
 
 /** Props to render component template. Don't forget to extend CommonProps */
 
-interface Props extends CommonProps, RouteComponentProps<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>> {
+interface Props extends CommonProps {
     name?: string;
     booksQueryResult: QueryResult<Partial<Books>>;
 }
 
-const DevelopmentPage: React.FC<Props> = ({ className, booksQueryResult, match, name }) => {
+const DevelopmentPage: React.FC<Props> = ({ className, booksQueryResult, name }) => {
+    const { match } = useReactRouter<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>>();
+
     /** Universal graphql error handler */
     useApolloErrorReporter(booksQueryResult);
 

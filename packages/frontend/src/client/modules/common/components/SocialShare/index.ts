@@ -1,1 +1,1 @@
-export { SocialShareConnect as SocialShare, Props as SocialShareProps } from './SocialShareConnect';
+export { SocialShare, Props as SocialShareProps } from './SocialShare';

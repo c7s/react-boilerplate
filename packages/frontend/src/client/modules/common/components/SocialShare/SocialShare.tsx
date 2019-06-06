@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
 import {
     FbShareQuery,
@@ -11,10 +10,11 @@ import {
     VkShareQuery,
     vkUrl,
 } from '../../lib/social-share-urls';
+import { useReactRouter } from '../../lib/withRouter';
 import { CommonProps } from '../../types/CommonProps';
 import { Button } from '../Button';
 
-interface Props extends CommonProps, RouteComponentProps<{}> {
+interface Props extends CommonProps {
     url?: string;
     title?: string;
     image?: string;
@@ -24,7 +24,9 @@ interface Props extends CommonProps, RouteComponentProps<{}> {
     fb?: FbShareQuery;
 }
 
-const SocialShare: React.FC<Props> = ({ className, location, url, title, image, vk, ok, tw, fb }) => {
+const SocialShare: React.FC<Props> = ({ className, url, title, image, vk, ok, tw, fb }) => {
+    const { location } = useReactRouter();
+
     const urlOrDefaultUrl = url || `${global.CANONICAL_ROBOTS_HOST}${global.BASENAME}${location.pathname}`;
 
     return (
