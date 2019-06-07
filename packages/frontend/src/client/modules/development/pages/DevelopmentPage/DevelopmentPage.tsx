@@ -23,7 +23,7 @@ interface Props extends CommonProps {
 }
 
 const DevelopmentPage: React.FC<Props> = ({ className, booksQueryResult, name }) => {
-    const { match } = useReactRouter<FirstArgument<typeof routes.DEVELOPMENT.pathWithParams>>();
+    const { match } = useReactRouter<'DEVELOPMENT'>();
 
     /** Universal graphql error handler */
     useApolloErrorReporter(booksQueryResult);

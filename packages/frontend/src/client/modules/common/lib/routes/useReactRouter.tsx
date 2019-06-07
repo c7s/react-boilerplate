@@ -3,13 +3,14 @@ import { merge, mapValues } from 'lodash';
 import queryString from 'query-string';
 import { RouteComponentProps, StaticContext } from 'react-router';
 import useReactRouterLib from 'use-react-router';
+import { routes } from './routes';
 
 function useReactRouter<
-    P extends { [K in keyof P]?: string } = {},
+    RouteKey extends keyof typeof routes,
     C extends StaticContext = StaticContext,
     S = LocationState
->(): RouteComponentProps<P, C, S> {
-    const routeData = useReactRouterLib<P, C, S>();
+>(): RouteComponentProps<FirstArgument<typeof routes[RouteKey]['pathWithParams']>, C, S> {
+    const routeData = useReactRouterLib<FirstArgument<typeof routes[RouteKey]['pathWithParams']>, C, S>();
 
     return transformRouterComponentProps(routeData);
 }

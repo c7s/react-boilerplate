@@ -49,4 +49,4 @@ function route<Path extends PathBase = {}, Query extends QueryBase = {}, Hash ex
     };
 }
 
-export { route };
+export { route, PathWithParams };
