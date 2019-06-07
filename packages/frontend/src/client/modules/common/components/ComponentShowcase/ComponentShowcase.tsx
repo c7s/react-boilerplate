@@ -29,13 +29,13 @@ const ComponentShowcase = <D extends {}, F extends {}>({
     initialComponentDataProps,
     initialComponentFuncProps,
 }: Props<D, F>): React.ReactElement<any> | null => {
-    const textAreaRef = React.createRef<HTMLTextAreaElement>();
+    const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
 
     const [rawComponentDataProps, setRawComponentDataProps] = React.useState(
         JSON.stringify(initialComponentDataProps || {}, null, 4),
     );
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         const currentTextArea = textAreaRef.current;
 
         if (currentTextArea) {
@@ -47,13 +47,13 @@ const ComponentShowcase = <D extends {}, F extends {}>({
                 destroy(currentTextArea);
             }
         };
-    }, [textAreaRef]);
+    }, []);
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         if (textAreaRef.current) {
             update(textAreaRef.current);
         }
-    });
+    }, [rawComponentDataProps]);
 
     const onTextAreaChange = React.useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
         try {
