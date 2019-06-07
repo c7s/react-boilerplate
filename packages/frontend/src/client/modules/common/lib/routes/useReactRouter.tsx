@@ -1,6 +1,7 @@
 import { LocationState } from 'history';
 import { merge, mapValues } from 'lodash';
 import queryString from 'query-string';
+import * as React from 'react';
 import { RouteComponentProps, StaticContext } from 'react-router';
 import useReactRouterLib from 'use-react-router';
 import { routes } from './routes';
@@ -12,7 +13,7 @@ function useReactRouter<
 >(): RouteComponentProps<FirstArgument<typeof routes[RouteKey]['pathWithParams']>, C, S> {
     const routeData = useReactRouterLib<FirstArgument<typeof routes[RouteKey]['pathWithParams']>, C, S>();
 
-    return transformRouterComponentProps(routeData);
+    return React.useMemo(() => transformRouterComponentProps(routeData), [routeData]);
 }
 
 function transformRouterComponentProps<
