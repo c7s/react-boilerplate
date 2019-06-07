@@ -1,4 +1,4 @@
-# React Typescript Apollo Boilerplate
+# 🖤 React-Typescript-Apollo Boilerplate
 
 > **NOTE**: Please read our [GitHub wiki](https://github.com/c7s/react-boilerplate/wiki).
 
