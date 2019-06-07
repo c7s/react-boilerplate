@@ -1,7 +1,7 @@
 import { ApolloError } from 'apollo-client';
-import * as React from 'react';
 import { useAppDispatch } from '../../components/AppStateProvider';
 import { ServerError } from '../../graphql/ApolloTypes/globalTypes';
+import { usePrevious } from './usePrevious';
 
 interface Options {
     disabled?: boolean;
@@ -13,24 +13,17 @@ export function useApolloErrorReporter(result: { error?: ApolloError; loading: b
     const disabled = Boolean(opt.disabled);
     const ignore = opt.ignore || [];
 
-    const prevLoadingRef = React.useRef<undefined | boolean>();
-
     const appDispatch = useAppDispatch();
+    const prevLoading = usePrevious(result.loading);
 
-    React.useEffect(() => {
-        if (
-            !disabled &&
-            (prevLoadingRef.current !== false && !result.loading) &&
-            result.error &&
-            !includesOnly(result.error, ignore)
-        ) {
-            appDispatch({ type: 'MESSAGE/ADD', value: result.error });
-        }
-    }, [appDispatch, disabled, ignore, result.error, result.loading]);
-
-    React.useEffect(() => {
-        prevLoadingRef.current = result.loading;
-    });
+    if (
+        !disabled &&
+        (prevLoading !== false && !result.loading) &&
+        result.error &&
+        !includesOnly(result.error, ignore)
+    ) {
+        appDispatch({ type: 'MESSAGE/ADD', value: result.error });
+    }
 }
 
 export function includesOnly(apolloError: ApolloError, codeList: ServerError[]) {
