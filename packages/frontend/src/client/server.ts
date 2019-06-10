@@ -176,7 +176,7 @@ function getDirtyBundles(reactLoadableStats: ReactLoadableStats) {
 }
 
 function stripReactLoadableBundles(bundles: ReturnType<typeof getBundles>) {
-    return filter(bundles, bundle => !/^\d+\./.test(bundle.file));
+    return filter(bundles, bundle => /^(main|vendors)\./.test(bundle.file));
 }
 
 function stripHotUpdateBundles(bundles: ReturnType<typeof getBundles>) {
