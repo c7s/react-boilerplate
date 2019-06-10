@@ -22,6 +22,10 @@ export const routes = {
         path: '/apollo-demo',
         isDev: true,
     }),
+    ADMIN: route({
+        path: '/admin',
+        isDev: true,
+    }),
     NOT_FOUND: route({
         path: '/',
     }),

@@ -16,6 +16,9 @@ const RootPage: React.FC<Props> = ({ className }) => (
         <PositionedLink theme={{ mode: LinkThemeMode.TEXT }} to={routes.APOLLO_DEMO.path}>
             Apollo Demo
         </PositionedLink>
+        <PositionedLink theme={{ mode: LinkThemeMode.TEXT }} to={routes.ADMIN.path}>
+            Admin Demo
+        </PositionedLink>
         <PositionedLink theme={{ mode: LinkThemeMode.TEXT }} to="/broken-link">
             Broken Link
         </PositionedLink>

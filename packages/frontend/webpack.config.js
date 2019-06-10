@@ -128,7 +128,7 @@ const commonConfig = env => ({
     ].filter(Boolean),
     resolve: {
         modules: ['node_modules', path.resolve(`./src/client`)],
-        extensions: ['.js', '.ts', '.tsx', '.d.ts'],
+        extensions: ['.js', '.ts', '.tsx'],
         alias: {
             'node-fetch$': 'node-fetch/lib/index.js',
             'unfetch/polyfill$': 'unfetch/polyfill/index.js',
@@ -229,6 +229,7 @@ const clientConfig = env => ({
     output: {
         // https://webpack.js.org/guides/caching/
         filename: env.build ? '[name].[contenthash].js' : '[name].js',
+        chunkFilename: env.build ? '[name].[contenthash].js' : '[name].js',
         path: path.resolve(__dirname, 'dist', 'static'),
     },
     // https://webpack.js.org/guides/caching/

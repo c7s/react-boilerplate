@@ -1,5 +1,6 @@
 import { merge } from 'lodash';
 import * as React from 'react';
+import { AdminPage } from '../../../admin/pages/AdminPage';
 import { ApolloDemoPage } from '../../../development/pages/ApolloDemoPage';
 import { DevelopmentPage } from '../../../development/pages/DevelopmentPage';
 import { ShowcasePage } from '../../../development/pages/ShowcasePage';
@@ -22,7 +23,9 @@ export const routesWithComponents = merge<{ [P in keyof typeof routes]: Partial<
         APOLLO_DEMO: {
             component: ApolloDemoPage,
         },
-
+        ADMIN: {
+            component: AdminPage,
+        },
         NOT_FOUND: {
             component: NotFoundPage,
         },
