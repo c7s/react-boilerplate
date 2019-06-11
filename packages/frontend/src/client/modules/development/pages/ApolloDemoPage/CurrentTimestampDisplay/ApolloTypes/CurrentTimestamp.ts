@@ -10,6 +10,9 @@ import { ServerError } from "./../../../../../common/graphql/ApolloTypes/globalT
 
 export interface CurrentTimestamp_development {
   __typename: "Development";
+  /**
+   * Test error throwing and loading time
+   */
   currentTimestamp: number;
 }
 
