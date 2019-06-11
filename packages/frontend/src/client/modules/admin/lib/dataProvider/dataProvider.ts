@@ -1,12 +1,18 @@
 import { DocumentNode } from 'graphql';
-import { GET_LIST, GET_ONE, GET_MANY } from 'react-admin';
+import { GET_LIST, GET_ONE, GET_MANY, CREATE } from 'react-admin';
 import { IsomorphicApolloClient } from '../../../common/lib/IsomorphicApolloClient';
-import { getListResourceGraphql, getManyResourceGraphql, getOneResourceGraphql } from './Operations';
+import {
+    createResourceGraphql,
+    getListResourceGraphql,
+    getManyResourceGraphql,
+    getOneResourceGraphql,
+} from './Operations';
 import { ResourceName } from './ResourceName';
 
 interface Params {
     id: number;
     ids: number[];
+    data: object;
     sort: Sort;
     pagination: Pagination;
 }
@@ -24,15 +30,19 @@ interface Pagination {
 type Variables =
     | { id: number }
     | { ids: number[] }
-    | { pagination: { offset: number; limit: number }; sort: null | { fields: { type: string; field: string }[] } };
+    | { pagination: { offset: number; limit: number }; sort: null | { fields: { type: string; field: string }[] } }
+    | { data: object };
 
-type Response = EnumedDict<ResourceName, { one: object; many: { items: object[]; pagination: { findCount: number } } }>;
+type Response = EnumedDict<
+    ResourceName,
+    { one: object; many: { items: object[]; pagination: { findCount: number } }; create: { one: object } }
+>;
 
 export const dataProvider = () => {
     const convertRequest = (type: string, resource: ResourceName, params: Params) => {
         let gqlDocument: DocumentNode;
         let variables: Variables;
-        const isQuery = true;
+        let isQuery = true;
 
         switch (type) {
             case GET_ONE: {
@@ -56,7 +66,12 @@ export const dataProvider = () => {
                 };
                 break;
             }
-
+            case CREATE: {
+                gqlDocument = createResourceGraphql[resource];
+                variables = { data: params.data };
+                isQuery = false;
+                break;
+            }
             default:
                 throw new Error(`Unsupported fetch action type ${type}`);
         }
@@ -82,6 +97,9 @@ export const dataProvider = () => {
                 };
                 break;
             }
+            case CREATE:
+                result = { data: response[resource].create.one };
+                break;
             default: {
                 throw new Error(`Unsupported response type ${type}`);
             }

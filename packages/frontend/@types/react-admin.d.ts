@@ -34,7 +34,7 @@ declare module 'react-admin' {
     export const List: React.ComponentType<ListProps>;
 
     export interface EditProps extends ReactAdminComponentPropsWithId {
-        title: React.ReactNode;
+        title?: React.ReactNode;
     }
     export const Edit: React.ComponentType<EditProps>;
 
@@ -110,4 +110,5 @@ declare module 'react-admin' {
     export const GET_LIST: string;
     export const GET_ONE: string;
     export const GET_MANY: string;
+    export const CREATE: string;
 }
