@@ -1,18 +1,19 @@
 import { DocumentNode } from 'graphql';
-import { GET_LIST, GET_ONE, GET_MANY, CREATE } from 'react-admin';
+import { GET_LIST, GET_ONE, GET_MANY, CREATE, UPDATE } from 'react-admin';
 import { IsomorphicApolloClient } from '../../../common/lib/IsomorphicApolloClient';
 import {
     createResourceGraphql,
     getListResourceGraphql,
     getManyResourceGraphql,
     getOneResourceGraphql,
+    updateResourceGraphql,
 } from './Operations';
 import { ResourceName } from './ResourceName';
 
 interface Params {
     id: number;
     ids: number[];
-    data: object;
+    data: DataWithTypename;
     sort: Sort;
     pagination: Pagination;
 }
@@ -35,7 +36,12 @@ type Variables =
 
 type Response = EnumedDict<
     ResourceName,
-    { one: object; many: { items: object[]; pagination: { findCount: number } }; create: { one: object } }
+    {
+        one: object;
+        many: { items: object[]; pagination: { findCount: number } };
+        create: { one: object };
+        update: { one: object };
+    }
 >;
 
 export const dataProvider = () => {
@@ -72,6 +78,15 @@ export const dataProvider = () => {
                 isQuery = false;
                 break;
             }
+            case UPDATE: {
+                gqlDocument = updateResourceGraphql[resource];
+
+                const { id, ...restData } = params.data;
+                variables = { id, data: omitTypename(restData) };
+
+                isQuery = false;
+                break;
+            }
             default:
                 throw new Error(`Unsupported fetch action type ${type}`);
         }
@@ -99,6 +114,9 @@ export const dataProvider = () => {
             }
             case CREATE:
                 result = { data: response[resource].create.one };
+                break;
+            case UPDATE:
+                result = { data: response[resource].update.one };
                 break;
             default: {
                 throw new Error(`Unsupported response type ${type}`);
@@ -133,4 +151,21 @@ function convertSortParamsToGQL(sortParams: Sort) {
     }
 
     return sortParamsGQL;
+}
+
+interface DataWithTypename {
+    [key: string]: string | number | boolean | null | undefined | DataWithTypename;
+    __typename: string;
+}
+
+function omitTypename(data: DataWithTypename): Record<string, any> {
+    /* eslint-disable no-underscore-dangle,no-param-reassign */
+    delete data.__typename;
+
+    Object.values(data).forEach(value => {
+        if (typeof value === 'object' && value !== null) {
+            omitTypename(value);
+        }
+    });
+    return data;
 }

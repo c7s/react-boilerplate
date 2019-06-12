@@ -31,6 +31,10 @@ export enum SortType {
   DESC = "DESC",
 }
 
+export interface AuthorCreateData {
+  name: string;
+}
+
 export interface AuthorFieldSort {
   type?: SortType | null;
   field: AuthorSortField;
@@ -48,6 +52,19 @@ export interface AuthorSort {
   fields?: AuthorFieldSort[] | null;
 }
 
+export interface AuthorUpdateData {
+  name?: string | null;
+}
+
+export interface BookCreateData {
+  title: string;
+  relations: BookCreateDataRelations;
+}
+
+export interface BookCreateDataRelations {
+  author: IdentifiableEntity;
+}
+
 export interface BookFieldSort {
   type?: SortType | null;
   field: BookSortField;
@@ -63,6 +80,19 @@ export interface BookFilter {
 
 export interface BookSort {
   fields?: BookFieldSort[] | null;
+}
+
+export interface BookUpdateData {
+  title?: string | null;
+  relations?: BookUpdateDataRelations | null;
+}
+
+export interface BookUpdateDataRelations {
+  author?: IdentifiableEntity | null;
+}
+
+export interface IdentifiableEntity {
+  id: string;
 }
 
 export interface IntegerFilter {

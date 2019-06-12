@@ -111,4 +111,7 @@ declare module 'react-admin' {
     export const GET_ONE: string;
     export const GET_MANY: string;
     export const CREATE: string;
+    export const UPDATE: string;
+    export const DELETE: string;
+    export const DELETE_MANY: string;
 }
