@@ -7,7 +7,7 @@ export const BookList = (props: ListProps) => (
         <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
-            <ReferenceField source="relations.author.id" reference={ResourceName.AUTHOR}>
+            <ReferenceField source="relations.author.id" reference={ResourceName.AUTHOR} sortable={false}>
                 <TextField source="name" />
             </ReferenceField>
             <EditButton />

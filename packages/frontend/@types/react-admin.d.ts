@@ -64,6 +64,7 @@ declare module 'react-admin' {
     export interface ReferenceFieldProps {
         source: string;
         reference: string;
+        sortable?: boolean;
     }
     export const ReferenceField: React.ComponentType<ReferenceFieldProps>;
 
