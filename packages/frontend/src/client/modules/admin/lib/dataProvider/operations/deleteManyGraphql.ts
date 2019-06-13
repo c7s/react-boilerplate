@@ -3,11 +3,11 @@ import gql from 'graphql-tag';
 import { ResourceName } from '../ResourceName';
 import { AUTHOR_FULL_ADMIN_FRAGMENT, BOOK_FULL_ADMIN_FRAGMENT } from './fragmentsGraphql';
 
-const AUTHOR_CREATE_MUTATION = gql`
-    mutation AuthorCreate($data: AuthorCreateData!) {
+const AUTHOR_DELETE_MANY_MUTATION = gql`
+    mutation AuthorDeleteMany($ids: [ID!]!) {
         author {
-            create {
-                one(data: $data) {
+            delete {
+                many(ids: $ids) {
                     ...AuthorFullAdmin
                 }
             }
@@ -16,11 +16,11 @@ const AUTHOR_CREATE_MUTATION = gql`
     ${AUTHOR_FULL_ADMIN_FRAGMENT}
 `;
 
-const BOOK_CREATE_MUTATION = gql`
-    mutation BookCreate($data: BookCreateData!) {
+const BOOK_DELETE_MANY_MUTATION = gql`
+    mutation BookDeleteMany($ids: [ID!]!) {
         book {
-            create {
-                one(data: $data) {
+            delete {
+                many(ids: $ids) {
                     ...BookFullAdmin
                 }
             }
@@ -29,7 +29,7 @@ const BOOK_CREATE_MUTATION = gql`
     ${BOOK_FULL_ADMIN_FRAGMENT}
 `;
 
-export const createResourceGraphql: EnumedDict<ResourceName, DocumentNode> = {
-    author: AUTHOR_CREATE_MUTATION,
-    book: BOOK_CREATE_MUTATION,
+export const deleteManyGraphql: EnumedDict<ResourceName, DocumentNode> = {
+    author: AUTHOR_DELETE_MANY_MUTATION,
+    book: BOOK_DELETE_MANY_MUTATION,
 };

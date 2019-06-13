@@ -2,14 +2,14 @@ import { DocumentNode } from 'graphql';
 import { GET_LIST, GET_ONE, GET_MANY, CREATE, UPDATE, DELETE, DELETE_MANY } from 'react-admin';
 import { IsomorphicApolloClient } from '../../../common/lib/IsomorphicApolloClient';
 import {
-    createResourceGraphql,
-    deleteManyResourceGraphql,
-    deleteResourceGraphql,
-    getListResourceGraphql,
-    getManyResourceGraphql,
-    getOneResourceGraphql,
-    updateResourceGraphql,
-} from './Operations';
+    createGraphql,
+    deleteManyGraphql,
+    deleteGraphql,
+    getListGraphql,
+    getManyGraphql,
+    getOneGraphql,
+    updateGraphql,
+} from './operations';
 import { ResourceName } from './ResourceName';
 
 interface Params {
@@ -54,18 +54,16 @@ export const dataProvider = () => {
         let isQuery = true;
 
         switch (type) {
-            case GET_ONE: {
-                gqlDocument = getOneResourceGraphql[resource];
+            case GET_ONE:
+                gqlDocument = getOneGraphql[resource];
                 variables = { id: params.id };
                 break;
-            }
-            case GET_MANY: {
-                gqlDocument = getManyResourceGraphql[resource];
+            case GET_MANY:
+                gqlDocument = getManyGraphql[resource];
                 variables = { ids: params.ids };
                 break;
-            }
-            case GET_LIST: {
-                gqlDocument = getListResourceGraphql[resource];
+            case GET_LIST:
+                gqlDocument = getListGraphql[resource];
                 variables = {
                     pagination: {
                         offset: params.pagination.perPage * (params.pagination.page - 1),
@@ -74,29 +72,25 @@ export const dataProvider = () => {
                     sort: convertSortParamsToGQL(params.sort),
                 };
                 break;
-            }
-            case CREATE: {
-                gqlDocument = createResourceGraphql[resource];
+            case CREATE:
+                gqlDocument = createGraphql[resource];
                 variables = { data: params.data };
                 isQuery = false;
                 break;
-            }
             case UPDATE: {
-                gqlDocument = updateResourceGraphql[resource];
-
+                gqlDocument = updateGraphql[resource];
                 const { id, ...restData } = params.data;
                 variables = { id, data: omitTypename(restData) };
-
                 isQuery = false;
                 break;
             }
             case DELETE:
-                gqlDocument = deleteResourceGraphql[resource];
+                gqlDocument = deleteGraphql[resource];
                 variables = { id: params.id };
                 isQuery = false;
                 break;
             case DELETE_MANY: {
-                gqlDocument = deleteManyResourceGraphql[resource];
+                gqlDocument = deleteManyGraphql[resource];
                 variables = { ids: params.ids };
                 isQuery = false;
                 break;
@@ -111,21 +105,18 @@ export const dataProvider = () => {
     const convertResponse = (response: Response, type: string, resource: ResourceName) => {
         let result = {};
         switch (type) {
-            case GET_ONE: {
+            case GET_ONE:
                 result = { data: response[resource].one };
                 break;
-            }
-            case GET_MANY: {
+            case GET_MANY:
                 result = { data: response[resource].many.items };
                 break;
-            }
-            case GET_LIST: {
+            case GET_LIST:
                 result = {
                     data: response[resource].many.items,
                     total: response[resource].many.pagination.findCount,
                 };
                 break;
-            }
             case CREATE:
                 result = { data: response[resource].create.one };
                 break;
