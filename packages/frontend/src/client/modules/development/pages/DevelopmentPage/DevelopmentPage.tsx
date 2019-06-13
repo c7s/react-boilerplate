@@ -15,8 +15,7 @@ import C7sIcon from './C7sIcon.svg';
 import c7sImage from './c7sImage.png';
 import { useCounter } from './hooks';
 
-/** Props to render component template. Don't forget to extend CommonProps */
-
+/** Don't forget to extend CommonProps */
 interface Props extends CommonProps {
     name?: string;
     booksQueryResult: QueryResult<Partial<Books>>;
@@ -122,5 +121,4 @@ const StyledButton = styled(Button)`
 `;
 
 /** Single export is mandatory */
-
 export { DevelopmentPage, Props };

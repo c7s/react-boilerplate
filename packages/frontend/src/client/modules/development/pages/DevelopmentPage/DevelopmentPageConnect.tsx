@@ -5,14 +5,13 @@ import { CommonProps } from '../../../common/types/CommonProps';
 import { Books } from './ApolloTypes/Books';
 import { DevelopmentPage } from './DevelopmentPage';
 
-/** Props to render component connect. Don't forget to extend CurrentCommonProps */
+/** Don't forget to extend CommonProps and duplicate inner component Props (excluding apollo-specific parts) */
 
 interface Props extends CommonProps {
     name?: string;
 }
 
-/** Graphql code could be in 'DevelopmentPageGraphql.ts' */
-
+/** Graphql code could be in 'Graphql.ts' */
 const BOOK_FULL_FRAGMENT = gql`
     fragment BookFull on Book {
         author
@@ -31,8 +30,7 @@ const BOOKS_QUERY = gql`
     ${BOOK_FULL_FRAGMENT}
 `;
 
-/** HOC order is mandatory. Don't forget to make query result Partial<> (like Query<Partial<Licenses>>) */
-
+/** Don't forget to make query result Partial<> (like Query<Partial<Books>>) */
 const DevelopmentPageConnect = (props: Props) => (
     <Query<Partial<Books>> query={BOOKS_QUERY}>
         {booksQueryResult => {
@@ -42,5 +40,4 @@ const DevelopmentPageConnect = (props: Props) => (
 );
 
 /** Single export is mandatory */
-
 export { DevelopmentPageConnect, Props };
