@@ -165,7 +165,7 @@ const typeDefs = gql`
 
     type AuthorDelete {
         one(id: ID!): Author!
-        many(ids: [ID!]!): Author!
+        many(ids: [ID!]!): [Author!]!
     }
 
     type AuthorCreate {
@@ -184,7 +184,7 @@ const typeDefs = gql`
 
     type BookDelete {
         one(id: ID!): Book!
-        many(ids: [ID!]!): Book!
+        many(ids: [ID!]!): [Book!]!
     }
 
     type BookUpdate {
@@ -420,12 +420,12 @@ const resolvers = {
         many: (_, { ids }) =>
             new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    const isHasRelatedBooks = books.some(book => ids.includes(book.relations.author.id));
+                    const isHasRelatedBooks = books.some(book => ids.map(Number).includes(book.relations.author.id));
 
                     if (!isHasRelatedBooks) {
-                        const deletingAuthors = authors.filter(author => ids.includes(author.id));
+                        const deletingAuthors = authors.filter(author => ids.map(Number).includes(author.id));
 
-                        authors = authors.filter(author => !ids.includes(author.id));
+                        authors = authors.filter(author => !ids.map(Number).includes(author.id));
 
                         resolve(deletingAuthors);
                     } else {
@@ -480,9 +480,9 @@ const resolvers = {
         many: (_, { ids }) =>
             new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    const deletingBooks = books.filter(book => ids.includes(book.id));
+                    const deletingBooks = books.filter(book => ids.map(Number).includes(book.id));
 
-                    books = books.filter(book => !ids.includes(book.id));
+                    books = books.filter(book => !ids.map(Number).includes(book.id));
 
                     resolve(deletingBooks);
                 }, 30);
