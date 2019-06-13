@@ -115,8 +115,9 @@ const commonConfig = env => ({
         }),
         new CleanWebpackPlugin(),
         // https://github.com/babel/babel/issues/8361
+        // Circular dependencies by react-admin
         new FilterWarningsPlugin({
-            exclude: /export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+'/,
+            exclude: /(?:export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+)|(?:Circular dependency[^]+ra-core)/,
         }),
         env.build &&
             new LodashModuleReplacementPlugin({
