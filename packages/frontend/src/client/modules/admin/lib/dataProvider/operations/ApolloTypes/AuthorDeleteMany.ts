@@ -14,7 +14,7 @@ export interface AuthorDeleteMany_author_delete_many {
 
 export interface AuthorDeleteMany_author_delete {
   __typename: "AuthorDelete";
-  many: AuthorDeleteMany_author_delete_many;
+  many: AuthorDeleteMany_author_delete_many[];
 }
 
 export interface AuthorDeleteMany_author {

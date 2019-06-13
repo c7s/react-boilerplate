@@ -25,7 +25,7 @@ export interface BookDeleteMany_book_delete_many {
 
 export interface BookDeleteMany_book_delete {
   __typename: "BookDelete";
-  many: BookDeleteMany_book_delete_many;
+  many: BookDeleteMany_book_delete_many[];
 }
 
 export interface BookDeleteMany_book {
