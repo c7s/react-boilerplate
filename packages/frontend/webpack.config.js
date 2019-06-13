@@ -118,7 +118,11 @@ const commonConfig = env => ({
         new FilterWarningsPlugin({
             exclude: /export '[^']+' (\(reexported as '[^']+'\) )?was not found in '[^']+'/,
         }),
-        env.build && new LodashModuleReplacementPlugin(),
+        env.build &&
+            new LodashModuleReplacementPlugin({
+                // Required by react-admin
+                paths: true,
+            }),
         new MomentLocalesPlugin({
             localesToKeep: ['ru'],
         }),
