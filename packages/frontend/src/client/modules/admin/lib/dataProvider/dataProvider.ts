@@ -1,8 +1,10 @@
 import { DocumentNode } from 'graphql';
-import { GET_LIST, GET_ONE, GET_MANY, CREATE, UPDATE } from 'react-admin';
+import { GET_LIST, GET_ONE, GET_MANY, CREATE, UPDATE, DELETE, DELETE_MANY } from 'react-admin';
 import { IsomorphicApolloClient } from '../../../common/lib/IsomorphicApolloClient';
 import {
     createResourceGraphql,
+    deleteManyResourceGraphql,
+    deleteResourceGraphql,
     getListResourceGraphql,
     getManyResourceGraphql,
     getOneResourceGraphql,
@@ -41,6 +43,7 @@ type Response = EnumedDict<
         many: { items: object[]; pagination: { findCount: number } };
         create: { one: object };
         update: { one: object };
+        delete: { one: object; many: object[] };
     }
 >;
 
@@ -87,6 +90,17 @@ export const dataProvider = () => {
                 isQuery = false;
                 break;
             }
+            case DELETE:
+                gqlDocument = deleteResourceGraphql[resource];
+                variables = { id: params.id };
+                isQuery = false;
+                break;
+            case DELETE_MANY: {
+                gqlDocument = deleteManyResourceGraphql[resource];
+                variables = { ids: params.ids };
+                isQuery = false;
+                break;
+            }
             default:
                 throw new Error(`Unsupported fetch action type ${type}`);
         }
@@ -118,6 +132,14 @@ export const dataProvider = () => {
             case UPDATE:
                 result = { data: response[resource].update.one };
                 break;
+            case DELETE: {
+                result = { data: response[resource].delete.one };
+                break;
+            }
+            case DELETE_MANY: {
+                result = { data: response[resource].delete.many };
+                break;
+            }
             default: {
                 throw new Error(`Unsupported response type ${type}`);
             }
