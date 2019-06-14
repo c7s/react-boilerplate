@@ -1,6 +1,6 @@
 import { pickBy } from 'lodash';
 
-export function extractProps<All extends object, Extracting extends object>(
+export function extractProps<All extends object, Extracting extends {}>(
     props: All & Extracting,
     validKeyList: string[],
 ): Extracting {

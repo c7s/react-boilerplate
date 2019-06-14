@@ -4,24 +4,42 @@ import queryString from 'query-string';
 import * as React from 'react';
 import { RouteComponentProps, StaticContext } from 'react-router';
 import useReactRouterLib from 'use-react-router';
+import { PathData } from './route';
 import { routes } from './routes';
+
+interface AppMatch<Params extends PathData = {}> {
+    params: Params;
+    isExact: boolean;
+    path: string;
+    url: string;
+}
+
+type AppRouteComponentProps<P extends PathData = {}, C extends StaticContext = StaticContext, S = LocationState> = Omit<
+    RouteComponentProps<{}, C, S>,
+    'match'
+> & {
+    match: AppMatch<P>;
+};
 
 function useReactRouter<
     RouteKey extends keyof typeof routes,
     C extends StaticContext = StaticContext,
     S = LocationState
->(): RouteComponentProps<FirstArgument<typeof routes[RouteKey]['pathWithParams']>, C, S> {
-    const routeData = useReactRouterLib<FirstArgument<typeof routes[RouteKey]['pathWithParams']>, C, S>();
+>(): AppRouteComponentProps<FirstArgument<typeof routes[RouteKey]['pathWithParams']>, C, S> {
+    const routeData = useReactRouterLib<{}, C, S>();
 
-    return React.useMemo(() => transformRouterComponentProps(routeData), [routeData]);
+    return React.useMemo(
+        () => transformRouterComponentProps<FirstArgument<typeof routes[RouteKey]['pathWithParams']>, C, S>(routeData),
+        [routeData],
+    );
 }
 
 function transformRouterComponentProps<
-    P extends { [K in keyof P]?: string } = {},
+    P extends PathData = {},
     C extends StaticContext = StaticContext,
     S = LocationState
->(props: RouteComponentProps<P, C, S>): RouteComponentProps<P, C, S> {
-    return props.location.search || props.location.hash
+>(props: RouteComponentProps<{}, C, S>): AppRouteComponentProps<P, C, S> {
+    return (props.location.search || props.location.hash
         ? merge({}, props, {
               match: {
                   params: merge(
@@ -44,12 +62,12 @@ function transformRouterComponentProps<
                   ),
               },
           })
-        : props;
+        : props) as AppRouteComponentProps<P, C, S>;
 }
 
-function smartParse(value: string | undefined | null) {
+function smartParse(value: string | number | undefined | null | (string | number)[]) {
     try {
-        return value ? JSON.parse(value) : value;
+        return value && typeof value === 'string' ? JSON.parse(value) : value;
     } catch {
         console.warn("URL inconsistency detected. Don't change it manually");
         return value;

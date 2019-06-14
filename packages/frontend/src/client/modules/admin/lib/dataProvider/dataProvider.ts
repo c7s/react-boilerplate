@@ -15,7 +15,7 @@ import { ResourceName } from './ResourceName';
 interface Params {
     id: number;
     ids: number[];
-    data: DataWithTypename;
+    data: DataWithTypename & DataWithId;
     sort: Sort;
     pagination: Pagination;
 }
@@ -46,6 +46,15 @@ type Response = EnumedDict<
         delete: { one: object; many: object[] };
     }
 >;
+
+interface DataWithTypename {
+    [key: string]: string | number | boolean | null | undefined | DataWithTypename;
+    __typename: string;
+}
+
+interface DataWithId {
+    id?: number;
+}
 
 export const dataProvider = () => {
     const convertRequest = (type: string, resource: ResourceName, params: Params) => {
@@ -166,12 +175,7 @@ function convertSortParamsToGQL(sortParams: Sort) {
     return sortParamsGQL;
 }
 
-interface DataWithTypename {
-    [key: string]: string | number | boolean | null | undefined | DataWithTypename;
-    __typename: string;
-}
-
-function omitTypename(data: DataWithTypename): Record<string, any> {
+function omitTypename(data: DataWithTypename): Record<string, unknown> {
     /* eslint-disable no-underscore-dangle,no-param-reassign */
     delete data.__typename;
 

@@ -11,9 +11,6 @@ type ExtractProps<TComponentOrTProps> = TComponentOrTProps extends React.Compone
     ? TProps
     : TComponentOrTProps;
 
-/** https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html */
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
 type Nullable<T> = { [P in keyof T]: T[P] | null };
 type OfType<T, TYPE> = { [P in keyof T]: TYPE };
 type DiscriminateUnion<T, K extends keyof T, V extends T[K]> = T extends Record<K, V> ? T : never;

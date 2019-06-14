@@ -5,6 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import { hot } from 'react-hot-loader/root';
 import { Route, Switch } from 'react-router';
 import { GlobalFontsStyle } from '../../lib/fonts';
+import { RouteData } from '../../lib/routes';
 import { routesWithComponents } from '../../lib/routes/routesWithComponents';
 import './console-enhancers';
 import { AppStateProvider } from '../AppStateProvider';
@@ -40,10 +41,11 @@ export const IsomorphicApp = hot(({ client, modules, location, context }: Isomor
                                 <InitialHelmet>
                                     <ScrollToTop>
                                         <Switch>
-                                            {Object.entries(routesWithComponents).map(([name, route]) =>
-                                                global.IS_SHOW_DEV_PAGES || !(route as { isDev: boolean }).isDev ? (
-                                                    <Route key={name} {...route} />
-                                                ) : null,
+                                            {Object.entries<RouteData<any, {}, string>>(routesWithComponents).map(
+                                                ([name, route]) =>
+                                                    global.IS_SHOW_DEV_PAGES || !route.isDev ? (
+                                                        <Route key={name} {...route} />
+                                                    ) : null,
                                             )}
                                         </Switch>
                                     </ScrollToTop>
