@@ -144,7 +144,7 @@ let authors = [
     },
 ];
 
-const typeDefs = gql`
+const typeDefs = `
     type Query {
         book: BookQueryModule!
         author: AuthorQueryModule!
