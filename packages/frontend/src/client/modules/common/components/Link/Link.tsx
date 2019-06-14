@@ -55,8 +55,7 @@ const Link = React.forwardRef(
                     }
                     to={to}
                     replace={replace}
-                    // TODO: Remove any (types are broken)
-                    innerRef={ref as any}
+                    innerRef={ref}
                     disabled={disabled}
                     tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
                     {...extractProps<AnchorHTMLAttributes<HTMLAnchorElement>, AnchorHTMLAttributes<HTMLAnchorElement>>(
