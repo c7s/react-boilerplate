@@ -7,7 +7,7 @@ import { getDataFromTree } from 'react-apollo';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
 import Loadable from 'react-loadable';
-import { getBundles } from 'react-loadable/webpack';
+import { getBundles, Manifest, Bundle } from 'react-loadable/webpack';
 import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import './isomorphic-globals-init';
@@ -32,10 +32,8 @@ interface WebpackHotServerMiddlewareStats {
     };
 }
 
-type ReactLoadableStats = FirstArgument<typeof getBundles>;
-
 interface FrontendServerStats {
-    reactLoadableStats: ReactLoadableStats;
+    reactLoadableStats: Manifest;
 }
 
 interface RouterContext {
@@ -75,12 +73,7 @@ export default function serverRenderer(
     };
 }
 
-async function sendHtmlOrRedirect(
-    req: Request,
-    res: Response,
-    reactLoadableStats: ReactLoadableStats,
-    link?: ApolloLink,
-) {
+async function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStats: Manifest, link?: ApolloLink) {
     const context: RouterContext = {};
     const client = IsomorphicApolloClient.getClient({ fetch, link, context });
     const sheet = new ServerStyleSheet();
@@ -150,7 +143,7 @@ function sendRedirect(res: Response, context: RouterContext) {
         .send();
 }
 
-function getUsedBundles(reactLoadableStats: ReactLoadableStats, modules: string[]) {
+function getUsedBundles(reactLoadableStats: Manifest, modules: string[]) {
     return stripSourceMaps(
         stripHotUpdateBundles([
             ...getBundles(reactLoadableStats, uniq(modules)),
@@ -159,7 +152,7 @@ function getUsedBundles(reactLoadableStats: ReactLoadableStats, modules: string[
     );
 }
 
-function getAllBundles(reactLoadableStats: ReactLoadableStats) {
+function getAllBundles(reactLoadableStats: Manifest) {
     return stripSourceMaps(stripHotUpdateBundles(getDirtyBundles(reactLoadableStats)));
 }
 
@@ -171,24 +164,24 @@ function getAllBundles(reactLoadableStats: ReactLoadableStats) {
  *     * react-loadable
  *     * HMR results
  */
-function getDirtyBundles(reactLoadableStats: ReactLoadableStats) {
+function getDirtyBundles(reactLoadableStats: Manifest) {
     return uniqBy(flatten(Object.values(reactLoadableStats)), bundle => bundle.file);
 }
 
-function stripReactLoadableBundles(bundles: ReturnType<typeof getBundles>) {
+function stripReactLoadableBundles(bundles: Bundle[]) {
     return filter(bundles, bundle => /^(main|vendors)\./.test(bundle.file));
 }
 
-function stripHotUpdateBundles(bundles: ReturnType<typeof getBundles>) {
+function stripHotUpdateBundles(bundles: Bundle[]) {
     return filter(bundles, bundle => !bundle.file.includes('.hot-update.js'));
 }
 
-function stripSourceMaps(bundles: ReturnType<typeof getBundles>) {
+function stripSourceMaps(bundles: Bundle[]) {
     return filter(bundles, bundle => !bundle.file.includes('.js.map'));
 }
 
-function getReactLoadableStats(stats: WebpackHotServerMiddlewareStats | FrontendServerStats): ReactLoadableStats {
-    let reactLoadableStats: ReactLoadableStats;
+function getReactLoadableStats(stats: WebpackHotServerMiddlewareStats | FrontendServerStats): Manifest {
+    let reactLoadableStats: Manifest;
     if (!isWebpackHotServerMiddlewareStats(stats)) {
         ({ reactLoadableStats } = stats);
     } else {
@@ -204,10 +197,8 @@ function isWebpackHotServerMiddlewareStats(
     return (stats as WebpackHotServerMiddlewareStats).clientStats !== undefined;
 }
 
-function convertWebpackHotServerMiddlewareStatsToReactLoadableStats(
-    stats: WebpackHotServerMiddlewareStats,
-): ReactLoadableStats {
-    const manifest: ReactLoadableStats = {};
+function convertWebpackHotServerMiddlewareStatsToReactLoadableStats(stats: WebpackHotServerMiddlewareStats): Manifest {
+    const manifest: Manifest = {};
 
     stats.clientStats.chunks.forEach(chunk => {
         chunk.files.forEach(file => {
