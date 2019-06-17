@@ -40,6 +40,7 @@ const ComponentShowcase = <D extends {}, F extends {}>({
         const currentTextArea = textAreaRef.current;
 
         if (currentTextArea) {
+            currentTextArea.style.padding = '20px';
             autosize(currentTextArea);
         }
 
@@ -123,6 +124,7 @@ const ErrorMessage = styled.div`
 const TextAreaContainer = styled.div`
     position: relative;
     width: 100%;
+    line-height: 0;
 `;
 
 // Similar issue: https://github.com/styled-components/styled-components/issues/1803
@@ -136,7 +138,9 @@ const TextArea = styled.textarea`
     width: 100%;
     resize: vertical;
     vertical-align: bottom;
-    padding: 20px;
+    height: 0;
+    padding: 0;
+    border: none;
 `;
 
 const Header = styled.h2`
