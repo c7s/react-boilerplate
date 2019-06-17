@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Admin, DataProvider, Resource } from 'react-admin';
+import { Page } from '../../../common/components/Page';
 import { useIsClientSide } from '../../../common/lib/react-hooks/useIsClientSide';
 import { CommonProps } from '../../../common/types/CommonProps';
 import { AuthorCreate } from '../../components/author/AuthorCreate';
@@ -17,10 +18,12 @@ const AdminPage: React.FC<Props> = () => {
     const isClientSide = useIsClientSide();
 
     return isClientSide ? (
-        <Admin dataProvider={dataProvider() as DataProvider}>
-            <Resource name={ResourceName.BOOK} list={BookList} create={BookCreate} edit={BookEdit} />
-            <Resource name={ResourceName.AUTHOR} list={AuthorList} create={AuthorCreate} edit={AuthorEdit} />
-        </Admin>
+        <Page hideHeader hideFooter documentTitle="Admin Panel">
+            <Admin dataProvider={dataProvider() as DataProvider}>
+                <Resource name={ResourceName.BOOK} list={BookList} create={BookCreate} edit={BookEdit} />
+                <Resource name={ResourceName.AUTHOR} list={AuthorList} create={AuthorCreate} edit={AuthorEdit} />
+            </Admin>
+        </Page>
     ) : null;
 };
 
