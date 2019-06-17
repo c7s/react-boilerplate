@@ -1,6 +1,7 @@
 import autosize, { destroy, update } from 'autosize';
 import * as React from 'react';
 import styled from 'styled-components';
+import { useLayoutEffectWithoutSsrWarning } from '../../lib/react-hooks/useLayoutEffectWithoutSsrWarning';
 import { routes } from '../../lib/routes';
 import { anchorForStickyHeader } from '../../lib/styles/anchorForStickyHeader';
 import { Validator } from '../../lib/validators';
@@ -35,7 +36,7 @@ const ComponentShowcase = <D extends {}, F extends {}>({
         JSON.stringify(initialComponentDataProps || {}, null, 4),
     );
 
-    React.useLayoutEffect(() => {
+    useLayoutEffectWithoutSsrWarning(() => {
         const currentTextArea = textAreaRef.current;
 
         if (currentTextArea) {
@@ -49,7 +50,7 @@ const ComponentShowcase = <D extends {}, F extends {}>({
         };
     }, []);
 
-    React.useLayoutEffect(() => {
+    useLayoutEffectWithoutSsrWarning(() => {
         if (textAreaRef.current) {
             update(textAreaRef.current);
         }
