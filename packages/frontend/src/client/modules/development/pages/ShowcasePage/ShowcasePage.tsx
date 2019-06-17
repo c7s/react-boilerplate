@@ -194,6 +194,9 @@ const Header = styled.h1`
 
 const BackLink = styled(Link)`
     margin: 0 20px 20px;
+
+    /* Fix hash link overlap */
+    position: relative;
 `;
 
 const ShowcaseGroup = styled.div`
