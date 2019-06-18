@@ -1,7 +1,6 @@
 import pathToRegexp from 'path-to-regexp';
-import queryString from 'query-string';
 import { RouteProps } from 'react-router';
-import { mapValues } from 'lodash';
+import { stringifyHash, stringifyQuery } from './transformations';
 
 interface PathBase {
     [key: string]: string | undefined;
@@ -43,20 +42,7 @@ function getPathWithParams<
     Hash extends string = string
 >(path: string): PathWithParams<Path, Query, Hash> {
     return params => {
-        return `${pathToRegexp.compile(path)(params)}${
-            params.query && Object.values(params.query).length
-                ? `?${queryString.stringify(
-                      mapValues(params.query, value => {
-                          if (Array.isArray(value)) {
-                              return value.map(valueItem => JSON.stringify(valueItem));
-                          }
-                          return JSON.stringify(value);
-                      }),
-                      { arrayFormat: 'bracket' },
-                  )}`
-                : ''
-            // eslint-disable-next-line no-nested-ternary
-        }${params.hash ? (params.hash[0] === '#' ? params.hash : `#${params.hash}`) : ''}`;
+        return `${pathToRegexp.compile(path)(params)}${stringifyQuery(params.query)}${stringifyHash(params.hash)}`;
     };
 }
 

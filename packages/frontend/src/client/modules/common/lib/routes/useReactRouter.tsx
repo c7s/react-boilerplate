@@ -1,11 +1,11 @@
 import { LocationState } from 'history';
-import { merge, mapValues } from 'lodash';
-import queryString from 'query-string';
+import { merge } from 'lodash';
 import * as React from 'react';
 import { RouteComponentProps, StaticContext } from 'react-router';
 import useReactRouterLib from 'use-react-router';
 import { PathData } from './route';
 import { routes } from './routes';
+import { parseHash, parseQuery } from './transformations';
 
 interface AppMatch<Params extends PathData = {}> {
     params: Params;
@@ -42,36 +42,10 @@ function transformRouterComponentProps<
     return (props.location.search || props.location.hash
         ? merge({}, props, {
               match: {
-                  params: merge(
-                      {},
-                      props.location.search
-                          ? {
-                                query: mapValues(
-                                    queryString.parse(props.location.search, { arrayFormat: 'bracket' }),
-                                    value => {
-                                        if (Array.isArray(value)) {
-                                            return value.map(smartParse);
-                                        }
-
-                                        return smartParse(value);
-                                    },
-                                ),
-                            }
-                          : {},
-                      props.location.hash ? { hash: props.location.hash } : {},
-                  ),
+                  params: merge({}, parseQuery(props.location.search), parseHash(props.location.hash)),
               },
           })
         : props) as AppRouteComponentProps<P, C, S>;
-}
-
-function smartParse(value: string | number | undefined | null | (string | number)[]) {
-    try {
-        return value && typeof value === 'string' ? JSON.parse(value) : value;
-    } catch {
-        console.warn("URL inconsistency detected. Don't change it manually");
-        return value;
-    }
 }
 
 export { useReactRouter };
