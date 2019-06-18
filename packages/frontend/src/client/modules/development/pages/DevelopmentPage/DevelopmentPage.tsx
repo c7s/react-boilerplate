@@ -56,7 +56,9 @@ const DevelopmentPage: React.FC<Props> = ({ className, booksQueryResult, name })
                     : 'No data'}
                 {booksQueryResult.loading ? ' - Loading' : ''}
             </LicensesDisplay>
-            <Button theme={{ mode: ButtonThemeMode.PRIMARY }}>Root (Button-Link)</Button>
+            <Button to={routes.ROOT.pathWithParams({})} theme={{ mode: ButtonThemeMode.PRIMARY }}>
+                Root (Button-Link)
+            </Button>
             <StyledButton disabled to={routes.ROOT.path} theme={{ mode: ButtonThemeMode.PRIMARY }}>
                 Disabled State (Button-Link)
             </StyledButton>

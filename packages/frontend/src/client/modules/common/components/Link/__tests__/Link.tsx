@@ -8,13 +8,21 @@ const LINK_LABEL = 'Test text';
 afterEach(cleanup);
 
 it('renders <a>', () => {
-    const { getByText } = render(<Link to="https://google.com">{LINK_LABEL}</Link>);
+    const { getByText } = render(
+        <IsomorphicRouter>
+            <Link to="https://google.com">{LINK_LABEL}</Link>
+        </IsomorphicRouter>,
+    );
 
     expect(getByText(LINK_LABEL)).toBeInstanceOf(HTMLAnchorElement);
 });
 
 it('handles absolute URLs', () => {
-    const { getByText } = render(<Link to="https://google.com">{LINK_LABEL}</Link>);
+    const { getByText } = render(
+        <IsomorphicRouter>
+            <Link to="https://google.com">{LINK_LABEL}</Link>
+        </IsomorphicRouter>,
+    );
 
     expect(getByText(LINK_LABEL).getAttribute('href')).toBe('https://google.com');
 });
@@ -40,7 +48,11 @@ it('autofixes relative URLs', () => {
 });
 
 it('opens absolute URLs in new tab', () => {
-    const { getByText } = render(<Link to="https://google.com">{LINK_LABEL}</Link>);
+    const { getByText } = render(
+        <IsomorphicRouter>
+            <Link to="https://google.com">{LINK_LABEL}</Link>
+        </IsomorphicRouter>,
+    );
 
     expect(getByText(LINK_LABEL).getAttribute('target')).toBe('_blank');
 });
@@ -56,7 +68,11 @@ it('opens relative URLs according to default preference', () => {
 });
 
 it("is immune to 'target=_blank' vulnerability", () => {
-    const { getByText } = render(<Link to="https://google.com">{LINK_LABEL}</Link>);
+    const { getByText } = render(
+        <IsomorphicRouter>
+            <Link to="https://google.com">{LINK_LABEL}</Link>
+        </IsomorphicRouter>,
+    );
 
     expect(getByText(LINK_LABEL).getAttribute('rel')).toBe('noopener noreferrer');
 });
@@ -75,9 +91,11 @@ it('accepts ref for absolute URLs', () => {
     const refObject = React.createRef<HTMLAnchorElement>();
 
     const { getByText } = render(
-        <Link ref={refObject} to="https://google.com">
-            {LINK_LABEL}
-        </Link>,
+        <IsomorphicRouter>
+            <Link ref={refObject} to="https://google.com">
+                {LINK_LABEL}
+            </Link>
+        </IsomorphicRouter>,
     );
 
     expect(getByText(LINK_LABEL)).toBe(refObject.current);
@@ -99,9 +117,11 @@ it('accepts ref for relative URLs', () => {
 
 it('passes usual <a> attributes to DOM', () => {
     const { getByText } = render(
-        <Link to="https://google.com" download>
-            {LINK_LABEL}
-        </Link>,
+        <IsomorphicRouter>
+            <Link to="https://google.com" download>
+                {LINK_LABEL}
+            </Link>
+        </IsomorphicRouter>,
     );
 
     expect(getByText(LINK_LABEL).getAttributeNames()).toContain('download');
@@ -109,9 +129,11 @@ it('passes usual <a> attributes to DOM', () => {
 
 it('can be disabled', () => {
     const { getByText } = render(
-        <Link to="https://google.com" disabled>
-            {LINK_LABEL}
-        </Link>,
+        <IsomorphicRouter>
+            <Link to="https://google.com" disabled>
+                {LINK_LABEL}
+            </Link>
+        </IsomorphicRouter>,
     );
 
     // Testing implementation detail due to lack of reliable way to test it from user's perspective

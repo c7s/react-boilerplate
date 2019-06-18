@@ -4,6 +4,7 @@ import styled, { css, ThemeProvider } from 'styled-components';
 import theme from 'styled-theming';
 import { extractProps } from '../../lib/attributes-list';
 import { anchorAttributesList } from '../../lib/attributes-list/attributes-list';
+import { useReactRouter } from '../../lib/routes';
 import { CommonProps } from '../../types/CommonProps';
 
 type Props = CommonProps<Theme> &
@@ -34,38 +35,44 @@ const Link = React.forwardRef(
     (
         { className, smooth, scroll, to, replace, disabled, tabIndex, ...props }: Props,
         ref: React.Ref<HTMLAnchorElement>,
-    ) => (
-        <ThemeProvider theme={props.theme || DEFAULT_THEME}>
-            {typeof to === 'string' && (to.startsWith('http') || to.startsWith('//')) ? (
-                <Anchor
-                    ref={ref}
-                    className={className}
-                    href={to}
-                    target="_blank"
-                    rel="noopener noreferrer" // See https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
-                    disabled={disabled}
-                    tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
-                    {...props}
-                />
-            ) : (
-                <StyledLink
-                    className={className}
-                    scroll={
-                        scroll || (el => el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' }))
-                    }
-                    to={to}
-                    replace={replace}
-                    innerRef={ref}
-                    disabled={disabled}
-                    tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
-                    {...extractProps<AnchorHTMLAttributes<HTMLAnchorElement>, AnchorHTMLAttributes<HTMLAnchorElement>>(
-                        props,
-                        anchorAttributesList,
-                    )}
-                />
-            )}
-        </ThemeProvider>
-    ),
+    ) => {
+        const { location } = useReactRouter();
+        const isSameLocation = to === (location.pathname || '') + (location.search || '') + (location.hash || '');
+
+        return (
+            <ThemeProvider theme={props.theme || DEFAULT_THEME}>
+                {typeof to === 'string' && (to.startsWith('http') || to.startsWith('//')) ? (
+                    <Anchor
+                        ref={ref}
+                        className={className}
+                        href={to}
+                        target="_blank"
+                        rel="noopener noreferrer" // See https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
+                        disabled={disabled}
+                        tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
+                        {...props}
+                    />
+                ) : (
+                    <StyledLink
+                        className={className}
+                        scroll={
+                            scroll ||
+                            (el => el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' }))
+                        }
+                        to={to}
+                        replace={replace !== undefined ? replace : isSameLocation}
+                        innerRef={ref}
+                        disabled={disabled}
+                        tabIndex={disabled ? -1 : tabIndex} // Prevents disabled link from focusing and possible 'clicking'
+                        {...extractProps<
+                            AnchorHTMLAttributes<HTMLAnchorElement>,
+                            AnchorHTMLAttributes<HTMLAnchorElement>
+                        >(props, anchorAttributesList)}
+                    />
+                )}
+            </ThemeProvider>
+        );
+    },
 );
 
 const linkCss = css`

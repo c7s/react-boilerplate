@@ -1,5 +1,6 @@
 import { cleanup, render } from '@testing-library/react';
 import * as React from 'react';
+import { IsomorphicRouter } from '../../IsomorphicApp/IsomorphicRouter';
 import { Button, ButtonThemeMode } from '../index';
 
 const BUTTON_LABEL = 'Test text';
@@ -13,7 +14,11 @@ it('renders <button> by default', () => {
 });
 
 it("renders <a> when 'to' is passed", () => {
-    const { getByText } = render(<Button to="https://google.com">{BUTTON_LABEL}</Button>);
+    const { getByText } = render(
+        <IsomorphicRouter>
+            <Button to="https://google.com">{BUTTON_LABEL}</Button>
+        </IsomorphicRouter>,
+    );
 
     expect(getByText(BUTTON_LABEL)).toBeInstanceOf(HTMLAnchorElement);
 });
@@ -30,9 +35,11 @@ it('accepts ref in <a> form', () => {
     const refObject = React.createRef<HTMLAnchorElement>();
 
     const { getByText } = render(
-        <Button to="https://google.com" ref={refObject}>
-            {BUTTON_LABEL}
-        </Button>,
+        <IsomorphicRouter>
+            <Button to="https://google.com" ref={refObject}>
+                {BUTTON_LABEL}
+            </Button>
+        </IsomorphicRouter>,
     );
 
     expect(getByText(BUTTON_LABEL)).toBe(refObject.current);
@@ -46,9 +53,11 @@ it('passes usual <button> attributes to DOM', () => {
 
 it('passes usual <a> attributes to DOM', () => {
     const { getByText } = render(
-        <Button to="https://google.com" download>
-            {BUTTON_LABEL}
-        </Button>,
+        <IsomorphicRouter>
+            <Button to="https://google.com" download>
+                {BUTTON_LABEL}
+            </Button>
+        </IsomorphicRouter>,
     );
 
     expect(getByText(BUTTON_LABEL).getAttributeNames()).toContain('download');
