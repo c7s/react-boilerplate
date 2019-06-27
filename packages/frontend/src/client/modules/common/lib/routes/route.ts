@@ -3,16 +3,12 @@ import pathToRegexp from 'path-to-regexp';
 import { RouteProps } from 'react-router';
 import { stringifyHash, stringifyQuery } from './transformations';
 
-interface PathBase {
-    [key: string]: string | undefined;
-}
-interface QueryBase {
-    [key: string]: unknown | unknown[];
-}
+type PathValue = string | undefined;
+type QueryValue = unknown | unknown[];
 
 type PathData<
-    Path extends PathBase = PathBase,
-    Query extends QueryBase = QueryBase,
+    Path extends { [key in keyof Path]: PathValue } = {},
+    Query extends { [key in keyof Query]: QueryValue } = {},
     Hash extends string = string
 > = Path & {
     query?: Partial<Query>;
@@ -20,16 +16,16 @@ type PathData<
 };
 
 interface PathWithParams<
-    Path extends PathBase = PathBase,
-    Query extends QueryBase = QueryBase,
+    Path extends { [key in keyof Path]: PathValue } = {},
+    Query extends { [key in keyof Query]: QueryValue } = {},
     Hash extends string = string
 > {
     (params: PathData<Path, Query, Hash>): string;
 }
 
 interface LocationWithParams<
-    Path extends PathBase = PathBase,
-    Query extends QueryBase = QueryBase,
+    Path extends { [key in keyof Path]: PathValue } = {},
+    Query extends { [key in keyof Query]: QueryValue } = {},
     Hash extends string = string,
     State = never
 > {
@@ -37,8 +33,8 @@ interface LocationWithParams<
 }
 
 interface RouteData<
-    Path extends PathBase = PathBase,
-    Query extends QueryBase = QueryBase,
+    Path extends { [key in keyof Path]: PathValue } = {},
+    Query extends { [key in keyof Query]: QueryValue } = {},
     Hash extends string = string,
     State = never
 > extends RouteProps {
@@ -49,8 +45,8 @@ interface RouteData<
 }
 
 function getPathWithParams<
-    Path extends PathBase = PathBase,
-    Query extends QueryBase = QueryBase,
+    Path extends { [key in keyof Path]: PathValue } = {},
+    Query extends { [key in keyof Query]: QueryValue } = {},
     Hash extends string = string
 >(path: string): PathWithParams<Path, Query, Hash> {
     return params =>
@@ -58,8 +54,8 @@ function getPathWithParams<
 }
 
 function getLocationWithParams<
-    Path extends PathBase = PathBase,
-    Query extends QueryBase = QueryBase,
+    Path extends { [key in keyof Path]: PathValue } = {},
+    Query extends { [key in keyof Query]: QueryValue } = {},
     Hash extends string = string,
     State = never
 >(path: string): LocationWithParams<Path, Query, Hash, State> {
@@ -72,8 +68,8 @@ function getLocationWithParams<
 }
 
 function route<
-    Path extends PathBase = PathBase,
-    Query extends QueryBase = QueryBase,
+    Path extends { [key in keyof Path]: PathValue } = {},
+    Query extends { [key in keyof Query]: QueryValue } = {},
     Hash extends string = string,
     State = never
 >(routeData: RouteProps & { path: string; isDev?: boolean }): RouteData<Path, Query, Hash, State> {
