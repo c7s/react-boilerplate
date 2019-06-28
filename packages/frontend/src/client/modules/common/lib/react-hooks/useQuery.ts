@@ -6,7 +6,9 @@ import { Options, useApolloErrorReporter } from './useApolloErrorReporter';
 
 function useAppQuery<TData, TVariables = OperationVariables>(
     query: DocumentNode,
-    options?: QueryHookOptions<Partial<TData>, TVariables> & { reporterOptions?: Options },
+    options?: QueryHookOptions<Partial<TData>, TVariables> & { context?: { debatch?: boolean } } & {
+        reporterOptions?: Options;
+    },
 ): QueryResult<Partial<TData>, TVariables> & { data: Partial<TData> } {
     const queryResultOriginal = useQuery(query, options);
 
