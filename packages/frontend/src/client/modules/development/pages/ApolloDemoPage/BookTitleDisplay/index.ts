@@ -1,1 +1,1 @@
-export { BookTitleDisplayConnect as BookTitleDisplay, Props as BookDisplayProps } from './BookTitleDisplayConnect';
+export { BookTitleDisplay, Props as BookDisplayProps } from './BookTitleDisplay';
