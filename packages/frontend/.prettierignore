@@ -3,3 +3,4 @@ dist/
 .yarnrc
 /**/ApolloTypes/*.ts
 graphql.schema.json
+/src/client/modules/common/graphql/fragmentTypes.json
