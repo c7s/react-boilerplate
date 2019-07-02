@@ -12,7 +12,8 @@
         "allowSyntheticDefaultImports": true,
         "module": "esnext",
         "forceConsistentCasingInFileNames": true,
-        "noImplicitReturns": true
+        "noImplicitReturns": true,
+        "resolveJsonModule": true
     },
     "include": ["src", "@types", "config"]
 }

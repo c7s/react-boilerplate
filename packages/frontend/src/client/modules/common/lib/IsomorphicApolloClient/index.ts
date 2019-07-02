@@ -1,10 +1,11 @@
-import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { InMemoryCache, IntrospectionFragmentMatcher, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink, split } from 'apollo-link';
 import { BatchHttpLink } from 'apollo-link-batch-http';
 import { ErrorResponse, onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
 import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
+import introspectionQueryResultData from '../../graphql/fragmentTypes.json';
 
 /**
  * The idea is to replace either fetch (in case we need network to fetch on backend) or the whole link
@@ -51,10 +52,7 @@ class IsomorphicApolloClient {
     private static createClient(config: ClientConfig) {
         return new ApolloClient({
             link: onError(IsomorphicApolloClient.onError).concat(IsomorphicApolloClient.createLink(config)),
-            cache:
-                !SSR_MODE && global.APOLLO_STATE
-                    ? new InMemoryCache().restore(global.APOLLO_STATE)
-                    : new InMemoryCache(),
+            cache: IsomorphicApolloClient.createCache(),
             defaultOptions: {
                 /**
                  * In case you want to set errorPolicy: all for mutations, see:
@@ -93,6 +91,16 @@ class IsomorphicApolloClient {
                 ),
             )
         );
+    }
+
+    private static createCache() {
+        const fragmentMatcher = new IntrospectionFragmentMatcher({
+            introspectionQueryResultData,
+        });
+
+        const cache = new InMemoryCache({ fragmentMatcher });
+
+        return !SSR_MODE && global.APOLLO_STATE ? cache.restore(global.APOLLO_STATE) : cache;
     }
 
     private static onError(error: ErrorResponse) {

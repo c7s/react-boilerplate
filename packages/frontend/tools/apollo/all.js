@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
-const { generateConfig } = require('./config');
 const { generateSchema } = require('./schema');
+const { generateFragmentTypes } = require('./fragment-types');
+const { generateConfig } = require('./config');
 const { generateTypes } = require('./types');
 
 generateSchema()
     .then(() => {
+        generateFragmentTypes();
         generateConfig();
         generateTypes();
     })
