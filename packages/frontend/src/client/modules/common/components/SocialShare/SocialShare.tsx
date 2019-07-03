@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { useIsClientSide } from '../../lib/react-hooks/useIsClientSide';
 import { useReactRouter } from '../../lib/routes';
 import {
     FbShareQuery,
@@ -22,12 +23,24 @@ interface Props extends CommonProps {
     ok?: OkShareQuery;
     tw?: TwShareQuery;
     fb?: FbShareQuery;
+    native?: NavigatorShareData;
 }
 
-const SocialShare: React.FC<Props> = ({ className, url, title, image, vk, ok, tw, fb }) => {
+const SocialShare: React.FC<Props> = ({ className, url, title, image, vk, ok, tw, fb, native }) => {
     const { location } = useReactRouter();
+    const isClientSide = useIsClientSide();
 
     const urlOrDefaultUrl = url || `${global.CANONICAL_ROBOTS_HOST}${global.BASENAME}${location.pathname}`;
+
+    const onNativeShareClick = React.useCallback(() => {
+        if (navigator.share) {
+            navigator.share({
+                url: (native && native.url) || urlOrDefaultUrl,
+                title: (native && native.title) || title,
+                text: native && native.text,
+            });
+        }
+    }, [native, title, urlOrDefaultUrl]);
 
     return (
         <Root className={className}>
@@ -69,6 +82,7 @@ const SocialShare: React.FC<Props> = ({ className, url, title, image, vk, ok, tw
             >
                 FB
             </SocialButton>
+            {isClientSide && navigator.share ? <SocialButton onClick={onNativeShareClick}>Native</SocialButton> : null}
         </Root>
     );
 };

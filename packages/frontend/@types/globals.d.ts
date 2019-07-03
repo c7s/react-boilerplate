@@ -23,3 +23,13 @@ declare namespace NodeJS {
         SSR_ERROR: Error | undefined;
     }
 }
+
+/** At least one field is required */
+type NavigatorShareData =
+    | { url: string; text?: string; title?: string }
+    | { url?: string; text: string; title?: string }
+    | { url?: string; text?: string; title: string };
+
+interface Navigator {
+    share?(data: NavigatorShareData): Promise<void>;
+}
