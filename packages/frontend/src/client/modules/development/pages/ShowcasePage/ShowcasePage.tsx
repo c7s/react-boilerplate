@@ -167,12 +167,54 @@ const ShowcasePage: React.FC<Props> = ({ className }) => {
                             fb: {
                                 u: 'https://google.com',
                             },
+                            native: {
+                                url: 'https://google.com',
+                                title: 'Share showcase',
+                                text: 'Share showcase text',
+                            },
                         } as any
                     }
                     componentPropsValidators={{
                         url: isString(),
                         title: isString(),
                         image: isString(),
+                        vk: isCompositionOf({
+                            items: {
+                                url: isString(),
+                                title: isString(),
+                                image: isString(),
+                                noparse: isBoolean(),
+                                // eslint-disable-next-line @typescript-eslint/camelcase
+                                no_vk_links: isNumber(),
+                            },
+                        }),
+                        ok: isCompositionOf({
+                            items: {
+                                url: isString(),
+                                title: isString(),
+                                imageUrl: isString(),
+                            },
+                        }),
+                        tw: isCompositionOf({
+                            items: {
+                                url: isString(),
+                                text: isString(),
+                                hashtags: isString(),
+                                via: isString(),
+                            },
+                        }),
+                        fb: isCompositionOf({
+                            items: {
+                                u: isString(),
+                            },
+                        }),
+                        native: isCompositionOf({
+                            items: {
+                                url: isString(),
+                                title: isString(),
+                                text: isString(),
+                            },
+                        }),
                     }}
                     component={SocialShare}
                 />
