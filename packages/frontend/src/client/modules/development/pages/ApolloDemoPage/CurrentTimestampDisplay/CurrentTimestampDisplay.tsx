@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Button, ButtonThemeMode } from '../../../../common/components/Button';
 import { ServerError } from '../../../../common/graphql/ApolloTypes/globalTypes';
 import { castError } from '../../../../common/lib/castError';
-import { includesOnly, useApolloErrorReporter } from '../../../../common/lib/react-hooks/useApolloErrorReporter';
+import { includesOnly, useApolloErrorProcessor } from '../../../../common/lib/react-hooks/useApolloErrorProcessor';
 import { CommonProps } from '../../../../common/types/CommonProps';
 import { CurrentTimestamp, CurrentTimestampVariables } from './ApolloTypes/CurrentTimestamp';
 
@@ -15,7 +15,7 @@ interface Props extends CommonProps {
 const KNOWN_ERROR_LIST = [ServerError.TEST_ERROR];
 
 const CurrentTimestampDisplay: React.FC<Props> = ({ className, currentTimestampQueryResult }) => {
-    useApolloErrorReporter(currentTimestampQueryResult, { ignore: KNOWN_ERROR_LIST });
+    useApolloErrorProcessor(currentTimestampQueryResult, { ignore: KNOWN_ERROR_LIST });
 
     const onRefetchClick = React.useCallback(() => {
         currentTimestampQueryResult.refetch({ ...currentTimestampQueryResult.variables, returnError: undefined });

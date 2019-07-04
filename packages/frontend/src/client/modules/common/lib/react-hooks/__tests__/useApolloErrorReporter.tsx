@@ -4,7 +4,7 @@ import * as React from 'react';
 import { renderHook } from 'react-hooks-testing-library';
 import { AppDispatchContext } from '../../../components/AppStateProvider/AppStateProvider';
 import { ServerError } from '../../../graphql/ApolloTypes/globalTypes';
-import { useApolloErrorReporter } from '../useApolloErrorReporter';
+import { useApolloErrorProcessor } from '../useApolloErrorProcessor';
 
 enum ServerErrorMock {
     KNOWN_ERROR = 'KNOWN_ERROR',
@@ -55,7 +55,7 @@ it("doesn't dispatch on success", async () => {
         <AppDispatchContext.Provider value={dispatchMock}>{children}</AppDispatchContext.Provider>
     );
 
-    renderHook(() => useApolloErrorReporter({ loading: false }), { wrapper });
+    renderHook(() => useApolloErrorProcessor({ loading: false }), { wrapper });
 
     expect(dispatchMock).not.toBeCalled();
 });
@@ -67,7 +67,7 @@ it('dispatches on network error', async () => {
         <AppDispatchContext.Provider value={dispatchMock}>{children}</AppDispatchContext.Provider>
     );
 
-    renderHook(() => useApolloErrorReporter({ loading: false, error: NETWORK_ERROR }), { wrapper });
+    renderHook(() => useApolloErrorProcessor({ loading: false, error: NETWORK_ERROR }), { wrapper });
 
     expect(dispatchMock).toBeCalled();
 });
@@ -79,7 +79,7 @@ it('dispatches on known graphql error', async () => {
         <AppDispatchContext.Provider value={dispatchMock}>{children}</AppDispatchContext.Provider>
     );
 
-    renderHook(() => useApolloErrorReporter({ loading: false, error: GRAPHQL_KNOWN_ERROR }), { wrapper });
+    renderHook(() => useApolloErrorProcessor({ loading: false, error: GRAPHQL_KNOWN_ERROR }), { wrapper });
 
     expect(dispatchMock).toBeCalled();
 });
@@ -91,7 +91,7 @@ it('dispatches on unknown graphql error', async () => {
         <AppDispatchContext.Provider value={dispatchMock}>{children}</AppDispatchContext.Provider>
     );
 
-    renderHook(() => useApolloErrorReporter({ loading: false, error: GRAPHQL_UNKNOWN_ERROR }), { wrapper });
+    renderHook(() => useApolloErrorProcessor({ loading: false, error: GRAPHQL_UNKNOWN_ERROR }), { wrapper });
 
     expect(dispatchMock).toBeCalled();
 });
@@ -105,7 +105,7 @@ it("doesn't dispatch if all errors are ignored", async () => {
 
     renderHook(
         () =>
-            useApolloErrorReporter(
+            useApolloErrorProcessor(
                 { loading: false, error: GRAPHQL_KNOWN_GROUP_ERROR },
                 { ignore: ([ServerErrorMock.KNOWN_ERROR, ServerErrorMock.ANOTHER_ERROR] as unknown) as ServerError[] },
             ),
@@ -124,7 +124,7 @@ it('dispatches if not all errors are ignored', async () => {
 
     renderHook(
         () =>
-            useApolloErrorReporter(
+            useApolloErrorProcessor(
                 { loading: false, error: GRAPHQL_KNOWN_GROUP_ERROR },
                 { ignore: ([ServerErrorMock.KNOWN_ERROR] as unknown) as ServerError[] },
             ),
@@ -143,7 +143,7 @@ it('dispatches on unknown error in any case', async () => {
 
     renderHook(
         () =>
-            useApolloErrorReporter(
+            useApolloErrorProcessor(
                 { loading: false, error: GRAPHQL_KNOWN_AND_UNKNOWN_GROUP_ERROR },
                 { ignore: ([ServerErrorMock.KNOWN_ERROR, ServerErrorMock.ANOTHER_ERROR] as unknown) as ServerError[] },
             ),
@@ -162,7 +162,7 @@ it('can be disabled', async () => {
 
     renderHook(
         () =>
-            useApolloErrorReporter(
+            useApolloErrorProcessor(
                 { loading: false, error: GRAPHQL_KNOWN_AND_UNKNOWN_GROUP_ERROR },
                 { disabled: true },
             ),
@@ -179,7 +179,7 @@ it('behaves correctly on rerenders', async () => {
         <AppDispatchContext.Provider value={dispatchMock}>{children}</AppDispatchContext.Provider>
     );
 
-    const { rerender } = renderHook(({ result }) => useApolloErrorReporter(result), {
+    const { rerender } = renderHook(({ result }) => useApolloErrorProcessor(result), {
         wrapper,
         initialProps: {
             result: { loading: true, error: new ApolloError({ networkError: new Error('Network error') }) },

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { QueryResult } from 'react-apollo';
 import styled from 'styled-components';
-import { useApolloErrorReporter } from '../../../../common/lib/react-hooks/useApolloErrorReporter';
+import { useApolloErrorProcessor } from '../../../../common/lib/react-hooks/useApolloErrorProcessor';
 import { CommonProps } from '../../../../common/types/CommonProps';
 import { BooksTitle } from './ApolloTypes/BooksTitle';
 
@@ -10,7 +10,7 @@ interface Props extends CommonProps {
 }
 
 const BookTitleDisplay: React.FC<Props> = ({ className, booksDisplayQueryResult }) => {
-    useApolloErrorReporter(booksDisplayQueryResult);
+    useApolloErrorProcessor(booksDisplayQueryResult);
 
     const { data: booksDisplayData = {} } = booksDisplayQueryResult;
 

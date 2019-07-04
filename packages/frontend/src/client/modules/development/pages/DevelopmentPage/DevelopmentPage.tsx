@@ -6,7 +6,7 @@ import { Button, ButtonThemeMode } from '../../../common/components/Button';
 import { Modal } from '../../../common/components/Modal';
 import { Page } from '../../../common/components/Page';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
-import { useApolloErrorReporter } from '../../../common/lib/react-hooks/useApolloErrorReporter';
+import { useApolloErrorProcessor } from '../../../common/lib/react-hooks/useApolloErrorProcessor';
 import { useModalOpenState } from '../../../common/lib/react-hooks/useModalOpenState';
 import { routes, useReactRouter } from '../../../common/lib/routes';
 import { CommonProps } from '../../../common/types/CommonProps';
@@ -25,7 +25,7 @@ const DevelopmentPage: React.FC<Props> = ({ className, booksQueryResult, name })
     const { match } = useReactRouter<'DEVELOPMENT'>();
 
     /** Universal graphql error handler */
-    useApolloErrorReporter(booksQueryResult);
+    useApolloErrorProcessor(booksQueryResult);
 
     const { data: booksQueryResultData = {} } = booksQueryResult;
 

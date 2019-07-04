@@ -9,7 +9,7 @@ interface Options {
 }
 
 /** Report apollo errors via Notificator */
-export function useApolloErrorReporter(result: { error?: ApolloError; loading: boolean }, opt: Options = {}) {
+export function useApolloErrorProcessor(result: { error?: ApolloError; loading: boolean }, opt: Options = {}) {
     const disabled = Boolean(opt.disabled);
     const ignore = opt.ignore || [];
 
