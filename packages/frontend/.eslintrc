@@ -36,6 +36,11 @@
                     {
                         "name": "react-responsive-modal",
                         "message": "Use common/Modal."
+                    },
+                    {
+                        "name": "react-apollo",
+                        "importNames": ["useQuery", "useMutation"],
+                        "message": "Use common/lib/react-hooks versions."
                     }
                 ]
             }

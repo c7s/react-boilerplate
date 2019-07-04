@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../components/AppStateProvider';
 import { ServerError } from '../../graphql/ApolloTypes/globalTypes';
 import { usePrevious } from './usePrevious';
 
-interface Options {
+export interface Options {
     disabled?: boolean;
     ignore?: ServerError[];
 }
