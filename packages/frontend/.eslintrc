@@ -39,7 +39,7 @@
                     },
                     {
                         "name": "react-apollo",
-                        "importNames": ["useQuery", "useMutation"],
+                        "importNames": ["useQuery", "useMutation", "Query", "Mutation"],
                         "message": "Use common/lib/react-hooks versions."
                     }
                 ]
