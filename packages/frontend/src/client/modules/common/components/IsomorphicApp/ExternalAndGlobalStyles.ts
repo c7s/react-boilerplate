@@ -15,6 +15,9 @@ const globalCss = css`
         display: flex;
         flex-direction: column;
         align-items: stretch;
+
+        /* Fixes delay before click event on touch devices */
+        touch-action: manipulation;
     }
 
     body {

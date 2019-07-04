@@ -17,6 +17,7 @@ export const InitialHelmet: React.FC = ({ children }) => (
             <meta charSet="utf-8" />
             {/* Use content="width=device-width" to break everything for screens less than MIN_WIDTH */}
             {/* This will fix necessity to zoom-out though */}
+            {/* Note: delay before click event is fixed by 'touch-action: manipulation;' */}
             <meta name="viewport" content={`width=${MIN_WIDTH}, initial-scale=1, maximum-scale=1`} />
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-capable" content="yes" />
