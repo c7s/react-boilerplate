@@ -1,1 +1,1 @@
-export { BookAuthorDisplayConnect as BookAuthorDisplay, Props as BookDisplayProps } from './BookAuthorDisplayConnect';
+export { BookAuthorDisplay, Props as BookDisplayProps } from './BookAuthorDisplay';

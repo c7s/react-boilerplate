@@ -1,4 +1,1 @@
-export {
-    CurrentTimestampDisplayConnect as CurrentTimestampDisplay,
-    Props as BookDisplayProps,
-} from './CurrentTimestampDisplayConnect';
+export { CurrentTimestampDisplay, Props as BookDisplayProps } from './CurrentTimestampDisplay';

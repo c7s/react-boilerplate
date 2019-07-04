@@ -1,25 +1,19 @@
 import * as React from 'react';
-import { QueryResult } from 'react-apollo';
 import styled from 'styled-components';
-import { useApolloErrorProcessor } from '../../../../common/lib/react-hooks/useApolloErrorProcessor';
+import { useQuery } from '../../../../common/lib/react-hooks/useQuery';
 import { CommonProps } from '../../../../common/types/CommonProps';
 import { BooksTitle } from './ApolloTypes/BooksTitle';
+import { BOOKS_TITLE_QUERY } from './Graphql';
 
-interface Props extends CommonProps {
-    booksDisplayQueryResult: QueryResult<Partial<BooksTitle>>;
-}
+interface Props extends CommonProps {}
 
-const BookTitleDisplay: React.FC<Props> = ({ className, booksDisplayQueryResult }) => {
-    useApolloErrorProcessor(booksDisplayQueryResult);
-
-    const { data: booksDisplayData = {} } = booksDisplayQueryResult;
+const BookTitleDisplay: React.FC<Props> = ({ className }) => {
+    const { data, loading } = useQuery<BooksTitle>(BOOKS_TITLE_QUERY);
 
     return (
         <Root className={className}>
-            {booksDisplayData.development
-                ? booksDisplayData.development.books.map(book => book.title).join(', ')
-                : 'No data'}
-            {booksDisplayQueryResult.loading ? ' - Loading' : ''}
+            {data.development ? data.development.books.map(book => book.title).join(', ') : 'No data'}
+            {loading ? ' - Loading' : ''}
         </Root>
     );
 };
