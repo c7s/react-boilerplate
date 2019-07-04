@@ -84,13 +84,13 @@
         "@types/webpack-env": "1.13.9",
         "@typescript-eslint/eslint-plugin": "1.10.2",
         "@typescript-eslint/parser": "1.10.2",
-        "apollo": "2.13.1",
-        "apollo-cache-inmemory": "1.6.0",
-        "apollo-client": "2.6.0",
-        "apollo-link": "1.2.11",
-        "apollo-link-batch-http": "1.2.11",
-        "apollo-link-error": "1.1.10",
-        "apollo-link-http": "1.5.14",
+        "apollo": "2.15.0",
+        "apollo-cache-inmemory": "1.6.2",
+        "apollo-client": "2.6.3",
+        "apollo-link": "1.2.12",
+        "apollo-link-batch-http": "1.2.12",
+        "apollo-link-error": "1.1.11",
+        "apollo-link-http": "1.5.15",
         "apollo-link-persisted-queries": "0.2.2",
         "autobind-decorator": "2.4.0",
         "autosize": "4.0.2",
@@ -178,7 +178,7 @@
         "webpack-merge": "4.2.1"
     },
     "resolutions": {
-        "graphql": "14.2.1",
+        "graphql": "14.3.1",
         "@types/react": "16.8.19",
         "@types/react-dom": "16.8.4"
     }
