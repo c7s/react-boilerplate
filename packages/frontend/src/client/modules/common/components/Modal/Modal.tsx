@@ -1,4 +1,5 @@
 import * as React from 'react';
+// eslint-disable-next-line no-restricted-imports
 import ResponsiveModal from 'react-responsive-modal';
 import { createGlobalStyle } from 'styled-components';
 import { CommonProps } from '../../types/CommonProps';

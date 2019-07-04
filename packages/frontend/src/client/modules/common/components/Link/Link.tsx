@@ -1,5 +1,6 @@
 import React, { AnchorHTMLAttributes } from 'react';
 import { Location, LocationDescriptor, LocationDescriptorObject } from 'history';
+// eslint-disable-next-line no-restricted-imports
 import { HashLink, HashLinkProps } from 'react-router-hash-link';
 import styled, { css, ThemeProvider } from 'styled-components';
 import theme from 'styled-theming';

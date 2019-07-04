@@ -2,6 +2,7 @@ import { LocationState } from 'history';
 import { merge } from 'lodash';
 import * as React from 'react';
 import { RouteComponentProps, StaticContext } from 'react-router';
+// eslint-disable-next-line no-restricted-imports
 import useReactRouterLib from 'use-react-router';
 import { PathData } from './route';
 import { routes } from './routes';

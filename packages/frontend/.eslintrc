@@ -20,7 +20,26 @@
         "no-use-before-define": ["error", "nofunc"],
         "@typescript-eslint/no-use-before-define": ["error", "nofunc"],
         "no-console": ["error", { "allow": ["warn", "error", "info", "groupCollapsed", "groupEnd"] }],
-        "capitalized-comments": ["error", "always", { "ignorePattern": "tslint|webpackChunkName" }]
+        "capitalized-comments": ["error", "always", { "ignorePattern": "tslint|webpackChunkName" }],
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": [
+                    {
+                        "name": "react-router-hash-link",
+                        "message": "Use common/Link."
+                    },
+                    {
+                        "name": "use-react-router",
+                        "message": "Use common/lib/routes/useReactRouter."
+                    },
+                    {
+                        "name": "react-responsive-modal",
+                        "message": "Use common/Modal."
+                    }
+                ]
+            }
+        ]
     },
     "overrides": [
         {
