@@ -1,33 +1,29 @@
 import * as React from 'react';
-import { QueryResult } from 'react-apollo';
 import styled from 'styled-components';
 import { useAppState } from '../../../common/components/AppStateProvider';
 import { Button, ButtonThemeMode } from '../../../common/components/Button';
 import { Modal } from '../../../common/components/Modal';
 import { Page } from '../../../common/components/Page';
 import { displayAt, mediaWidth, Width } from '../../../common/lib/media';
-import { useApolloErrorProcessor } from '../../../common/lib/react-hooks/useApolloErrorProcessor';
 import { useModalOpenState } from '../../../common/lib/react-hooks/useModalOpenState';
+import { useQuery } from '../../../common/lib/react-hooks/useQuery';
 import { routes, useReactRouter } from '../../../common/lib/routes';
 import { CommonProps } from '../../../common/types/CommonProps';
 import { Books } from './ApolloTypes/Books';
 import C7sIcon from './C7sIcon.svg';
 import c7sImage from './c7sImage.png';
+import { BOOKS_QUERY } from './Graphql';
 import { useCounter } from './hooks';
 
 /** Don't forget to extend CommonProps */
 interface Props extends CommonProps {
     name?: string;
-    booksQueryResult: QueryResult<Partial<Books>>;
 }
 
-const DevelopmentPage: React.FC<Props> = ({ className, booksQueryResult, name }) => {
+const DevelopmentPage: React.FC<Props> = ({ className, name }) => {
     const { match } = useReactRouter<'DEVELOPMENT'>();
 
-    /** Universal graphql error handler */
-    useApolloErrorProcessor(booksQueryResult);
-
-    const { data: booksQueryResultData = {} } = booksQueryResult;
+    const { data, loading } = useQuery<Books>(BOOKS_QUERY);
 
     const { loadedFontStatus } = useAppState();
 
@@ -50,11 +46,8 @@ const DevelopmentPage: React.FC<Props> = ({ className, booksQueryResult, name })
             <StateCounter>State counter: {counter}</StateCounter>
             <StyledButton onClick={onDropCounterClick}>Drop Counter (Button)</StyledButton>
             <LicensesDisplay>
-                Book authors:{' '}
-                {booksQueryResultData.development
-                    ? booksQueryResultData.development.books.map(book => `${book.author}, `)
-                    : 'No data'}
-                {booksQueryResult.loading ? ' - Loading' : ''}
+                Book authors: {data.development ? data.development.books.map(book => `${book.author}, `) : 'No data'}
+                {loading ? ' - Loading' : ''}
             </LicensesDisplay>
             <Button to={routes.ROOT.pathWithParams({})} theme={{ mode: ButtonThemeMode.PRIMARY }}>
                 Root (Button-Link)
