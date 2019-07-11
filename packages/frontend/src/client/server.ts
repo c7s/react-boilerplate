@@ -12,6 +12,7 @@ import { ServerStyleSheet } from 'styled-components';
 import sprite from 'svg-sprite-loader/runtime/sprite.build';
 import './isomorphic-globals-init';
 import { IsomorphicApp } from './modules/common/components/IsomorphicApp';
+import { StaticHelmet } from './modules/common/components/StaticHelmet';
 import { IsomorphicApolloClient } from './modules/common/lib/IsomorphicApolloClient';
 import { browserConfig, Html, HtmlProps, robots, webManifest } from './modules/common/lib/server-templates';
 
@@ -50,11 +51,7 @@ export const publicFiles = {
 
 /** Allows frontend-server to generate static HTML file and opt-out of SSR */
 export function getStaticHtml(stats: FrontendServerStats) {
-    return `<!doctype html>\n${renderToStaticMarkup(
-        React.createElement(Html, {
-            bundles: getAllBundles(stats.reactLoadableStats),
-        }),
-    )}`;
+    return getHtmlString(getFallbackHtml(stats.reactLoadableStats));
 }
 
 // eslint-disable-next-line import/no-default-export
@@ -107,12 +104,26 @@ async function sendHtmlOrRedirect(req: Request, res: Response, reactLoadableStat
             throw new Error('SSR was disabled by query parameter');
         }
     } catch (error) {
-        const html = React.createElement(Html, {
-            ssrError: error,
-            bundles: getAllBundles(reactLoadableStats),
-        });
+        const html = getFallbackHtml(reactLoadableStats, error);
 
         sendHtml(res, html, context.statusCode, true);
+    }
+}
+
+function getFallbackHtml(reactLoadableStats: Manifest, error?: Error) {
+    try {
+        renderToString(React.createElement(StaticHelmet));
+
+        return React.createElement(Html, {
+            helmet: Helmet.renderStatic(),
+            bundles: getAllBundles(reactLoadableStats),
+            ssrError: error,
+        });
+    } catch (innerError) {
+        return React.createElement(Html, {
+            bundles: getAllBundles(reactLoadableStats),
+            ssrError: innerError,
+        });
     }
 }
 
@@ -128,7 +139,11 @@ function sendHtml(res: Response, html: React.ReactElement<HtmlProps>, appStatus?
         statusCode = 500;
     }
 
-    res.status(statusCode).send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
+    res.status(statusCode).send(getHtmlString(html));
+}
+
+function getHtmlString(html: React.ReactElement<HtmlProps>) {
+    return `<!doctype html>\n${renderToStaticMarkup(html)}`;
 }
 
 function sendPublicFile(res: Response, content: string, contentType: string) {

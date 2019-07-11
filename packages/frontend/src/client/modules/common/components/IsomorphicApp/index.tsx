@@ -9,9 +9,10 @@ import { RouteData } from '../../lib/routes';
 import { routesWithComponents } from '../../lib/routes/routesWithComponents';
 import './console-enhancers';
 import { AppStateProvider } from '../AppStateProvider';
+import { OpenGraph } from '../OpenGraph';
+import { StaticHelmet } from '../StaticHelmet';
 import { ExternalAndGlobalStyles } from './ExternalAndGlobalStyles';
 import { FontFamiliesObserver } from './FontFamiliesObserver';
-import { InitialHelmet } from './InitialHelmet';
 import { IsomorphicLoadableCapture } from './IsomorphicLoadableCapture';
 import { IsomorphicRouter } from './IsomorphicRouter';
 import { Notificator } from './Notificator';
@@ -34,11 +35,13 @@ export const IsomorphicApp = hot(({ client, modules, location, context }: Isomor
             <ApolloProvider client={client}>
                 <RootErrorBoundary>
                     <AppStateProvider>
-                        <React.Fragment>
+                        <>
+                            <StaticHelmet />
                             <GlobalFontsStyle />
                             <ExternalAndGlobalStyles />
                             <IsomorphicRouter location={location} context={context} basename={global.BASENAME}>
-                                <InitialHelmet>
+                                <>
+                                    <OpenGraph />
                                     <ScrollToTop>
                                         <Switch>
                                             {Object.entries<RouteData<any, {}, string>>(routesWithComponents).map(
@@ -49,12 +52,12 @@ export const IsomorphicApp = hot(({ client, modules, location, context }: Isomor
                                             )}
                                         </Switch>
                                     </ScrollToTop>
-                                </InitialHelmet>
+                                </>
                             </IsomorphicRouter>
                             <FontFamiliesObserver />
                             <SsrErrorReporter />
                             <Notificator />
-                        </React.Fragment>
+                        </>
                     </AppStateProvider>
                 </RootErrorBoundary>
             </ApolloProvider>

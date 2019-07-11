@@ -5,13 +5,12 @@ import favicon16x16 from '../../favicon/favicon-16x16.png';
 import favicon32x32 from '../../favicon/favicon-32x32.png';
 import favicon from '../../favicon/favicon.ico';
 import safariPinnedTab from '../../favicon/safari-pinned-tab.svg';
+import { MIN_WIDTH } from '../../lib/media';
 /** Generate files for manifest and msapplication-config favicon */
 import '../../lib/server-templates/index';
-import { MIN_WIDTH } from '../../lib/media';
-import { OpenGraph } from '../OpenGraph';
 
-export const InitialHelmet: React.FC = ({ children }) => (
-    <React.Fragment>
+const StaticHelmet: React.FC = () => {
+    return (
         <Helmet>
             <html lang="ru" />
             <meta charSet="utf-8" />
@@ -38,7 +37,7 @@ export const InitialHelmet: React.FC = ({ children }) => (
             <title>{APP_NAME}</title>
             <meta name="description" content={APP_DESCRIPTION} />
         </Helmet>
-        <OpenGraph />
-        {children}
-    </React.Fragment>
-);
+    );
+};
+
+export { StaticHelmet };
