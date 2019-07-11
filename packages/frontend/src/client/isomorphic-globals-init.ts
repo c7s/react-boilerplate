@@ -14,6 +14,7 @@ if (SSR_MODE) {
     global.CANONICAL_ROBOTS_HOST = config.root.canonicalRobotsHost;
     global.IS_OUTPUT_APP_INFO = config.root.isOutputAppInfo;
     global.IS_SHOW_DEV_PAGES = config.root.isShowDevPages;
+    global.IS_DISABLE_SSR = config.root.isDisableSsr;
 }
 
 /** https://webpack.js.org/guides/public-path/#on-the-fly */

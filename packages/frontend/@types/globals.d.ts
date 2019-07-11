@@ -18,6 +18,7 @@ declare namespace NodeJS {
         CANONICAL_ROBOTS_HOST: string;
         IS_OUTPUT_APP_INFO: boolean;
         IS_SHOW_DEV_PAGES: boolean;
+        IS_DISABLE_SSR: boolean;
         /** Dynamic server data part */
         APOLLO_STATE: { [key: string]: { [key: string]: object } } | undefined;
         SSR_ERROR: Error | undefined;

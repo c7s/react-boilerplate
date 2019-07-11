@@ -26,6 +26,7 @@ module.exports = {
         devServerPort: 3000,
         isOutputAppInfo: process.env.REACT_BOILERPLATE_ENV !== Env.PROD,
         isShowDevPages: process.env.REACT_BOILERPLATE_ENV === Env.DEV,
+        isDisableSsr: process.env.REACT_BOILERPLATE_IS_DISABLE_SSR || false,
     },
     api: {
         graphqlEndpoint: process.env.REACT_BOILERPLATE_GRAPHQL_ENDPOINT || 'https://react-boilerplate-demo.glitch.me',

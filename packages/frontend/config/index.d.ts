@@ -14,6 +14,7 @@ declare namespace ConfigNamespace {
         devServerPort: number;
         isOutputAppInfo: boolean;
         isShowDevPages: boolean;
+        isDisableSsr: boolean;
     }
 
     interface ApiConfig {

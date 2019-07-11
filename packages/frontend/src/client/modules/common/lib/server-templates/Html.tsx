@@ -61,6 +61,7 @@ export const Html: React.FC<HtmlProps> = ({
                                         CANONICAL_ROBOTS_HOST: JSON.stringify(global.CANONICAL_ROBOTS_HOST),
                                         IS_OUTPUT_APP_INFO: JSON.stringify(global.IS_OUTPUT_APP_INFO),
                                         IS_SHOW_DEV_PAGES: JSON.stringify(global.IS_SHOW_DEV_PAGES),
+                                        IS_DISABLE_SSR: JSON.stringify(global.IS_DISABLE_SSR),
                                         /** Dynamic server data part */
                                         APOLLO_STATE: JSON.stringify(apolloState),
                                         SSR_ERROR: JSON.stringify(ssrError, [

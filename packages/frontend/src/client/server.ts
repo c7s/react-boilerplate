@@ -50,8 +50,8 @@ export const publicFiles = {
 };
 
 /** Allows frontend-server to generate static HTML file and opt-out of SSR */
-export function getStaticHtml(stats: FrontendServerStats) {
-    return getHtmlString(getFallbackHtml(stats.reactLoadableStats));
+export function getStaticHtml(stats: WebpackHotServerMiddlewareStats | FrontendServerStats) {
+    return getHtmlString(getFallbackHtml(getReactLoadableStats(stats)));
 }
 
 // eslint-disable-next-line import/no-default-export
@@ -64,6 +64,8 @@ export default function serverRenderer(
 
         if (publicFile) {
             sendPublicFile(res, publicFile.content, publicFile.contentType);
+        } else if (global.IS_DISABLE_SSR) {
+            sendPublicFile(res, getStaticHtml(stats), 'text/html');
         } else {
             sendHtmlOrRedirect(req, res, getReactLoadableStats(stats), link);
         }
