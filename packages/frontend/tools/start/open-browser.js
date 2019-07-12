@@ -1,4 +1,4 @@
 const open = require('open');
-const { config } = require('../../config');
+const { config } = require('../../config/dev-server');
 
-open(`http://localhost:${config.root.devServerPort}`);
+open(`http://localhost:${config.port}`);

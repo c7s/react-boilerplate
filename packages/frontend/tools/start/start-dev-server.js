@@ -8,11 +8,9 @@ function start() {
          *  Restarting dev server on configs change is irrational because it causes full build,
          *  while configs change itself causes incremental build.
          *
-         *  The only issue is devServerPort. Change it and touch dev-server/index.js to cause dev server restart.
-         *
-         *  TL;DR: Do not add 'config' here.
+         *  TL;DR: Do not add 'config/app' here.
          */
-        watch: ['src/dev-server', 'webpack.config.js', 'babel.config.js'],
+        watch: ['src/dev-server', 'webpack.config.js', 'babel.config.js', 'config/dev-server'],
     });
     nodemon
         .on('crash', () => {

@@ -11,7 +11,6 @@ declare namespace ConfigNamespace {
         publicPath: string;
         basename: string;
         canonicalRobotsHost: string;
-        devServerPort: number;
         isOutputAppInfo: boolean;
         isShowDevPages: boolean;
         isDisableSsr: boolean;

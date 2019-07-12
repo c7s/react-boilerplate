@@ -2,7 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const { config } = require('../../config/index');
+const { config } = require('../../config/app');
 
 const IS_CALLED_FROM_SHELL = module.parent === null;
 

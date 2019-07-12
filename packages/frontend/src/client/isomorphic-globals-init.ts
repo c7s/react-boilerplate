@@ -1,11 +1,11 @@
-import * as Config from '../../config';
+import * as Config from '../../config/app';
 
 /** If client-side, all globals are initialized via 'window' */
 
 let config: typeof Config.config | null = null;
 if (SSR_MODE) {
     // eslint-disable-next-line global-require
-    config = require('../../config').config as typeof Config.config;
+    config = require('../../config/app').config as typeof Config.config;
 
     /** If server-side, initialize all globals */
     global.GRAPHQL_ENDPOINT = config.api.graphqlEndpoint;

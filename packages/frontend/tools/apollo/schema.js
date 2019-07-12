@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { run } = require('apollo');
-const { config } = require('../../config');
+const { config } = require('../../config/app');
 
 const IS_CALLED_FROM_SHELL = module.parent === null;
 

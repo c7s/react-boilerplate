@@ -1,7 +1,10 @@
 # Project-specific (define your stuff here!)
 
-# Local config
-config/local.js
+# Local app config
+config/app/local.js
+
+# Local dev-server config
+config/dev-server/local.js
 
 # Webpack output
 dist/

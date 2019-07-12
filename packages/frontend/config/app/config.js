@@ -23,7 +23,6 @@ module.exports = {
         basename: process.env.REACT_BOILERPLATE_BASENAME || '',
         /** Always with protocol. Is used in robots.txt and OG tags */
         canonicalRobotsHost: process.env.REACT_BOILERPLATE_CANONICAL_ROBOTS_HOST || 'http://react-boilerplate.com',
-        devServerPort: 3000,
         isOutputAppInfo: process.env.REACT_BOILERPLATE_ENV !== Env.PROD,
         isShowDevPages: process.env.REACT_BOILERPLATE_ENV === Env.DEV,
         isDisableSsr: process.env.REACT_BOILERPLATE_IS_DISABLE_SSR || false,

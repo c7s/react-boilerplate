@@ -4,7 +4,7 @@ const nodemon = require('nodemon');
 function start() {
     nodemon({
         script: './tools/apollo/all',
-        watch: ['config'],
+        watch: ['config/app'],
         args: ['--watch'],
     });
     nodemon

@@ -1,3 +1,5 @@
+Application-specific config. Changes cause incremental build.
+
 In development create `local.js` to play around with config.
 
 Example for gh-pages:
