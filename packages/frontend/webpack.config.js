@@ -227,6 +227,8 @@ const clientConfig = env => ({
                     '__tests__',
                     // TODO: Temporal, remove once common/graphql/Graphql.ts becomes used
                     'Graphql.ts',
+                    // TODO: Temporal, remove once common/lib/react-hooks/useMutation.ts becomes used
+                    'useMutation.ts',
                 ],
                 root: path.resolve(`./src/client`),
             }),
