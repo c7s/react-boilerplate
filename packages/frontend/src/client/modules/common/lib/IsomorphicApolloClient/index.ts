@@ -53,6 +53,7 @@ class IsomorphicApolloClient {
         return new ApolloClient({
             link: onError(IsomorphicApolloClient.onError).concat(IsomorphicApolloClient.createLink(config)),
             cache: IsomorphicApolloClient.createCache(),
+            ssrMode: SSR_MODE,
             defaultOptions: {
                 /**
                  * In case you want to set errorPolicy: all for mutations, see:
