@@ -1,8 +1,8 @@
-import { OperationVariables, QueryResult } from '@apollo/react-common';
+import { OperationVariables } from 'apollo-client';
 import { DocumentNode } from 'graphql';
 import * as React from 'react';
 // eslint-disable-next-line no-restricted-imports
-import { QueryHookOptions, useQuery as useQueryOriginal } from 'react-apollo';
+import { QueryHookOptions, useQuery as useQueryOriginal, QueryResult } from 'react-apollo';
 import { Options, useApolloErrorProcessor } from './useApolloErrorProcessor';
 
 function useQuery<TData, TVariables = OperationVariables>(

@@ -1,8 +1,7 @@
-import { OperationVariables } from '@apollo/react-common';
-import { MutationTuple } from '@apollo/react-hooks';
+import { OperationVariables } from 'apollo-client';
 import { DocumentNode } from 'graphql';
 // eslint-disable-next-line no-restricted-imports
-import { MutationHookOptions, useMutation as useMutationOriginal } from 'react-apollo';
+import { MutationHookOptions, MutationTuple, useMutation as useMutationOriginal } from 'react-apollo';
 import { Options, useApolloErrorProcessor } from './useApolloErrorProcessor';
 
 function useMutation<TData, TVariables = OperationVariables>(
