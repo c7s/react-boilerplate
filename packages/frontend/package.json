@@ -134,7 +134,7 @@
         "moment": "2.24.0",
         "moment-locales-webpack-plugin": "1.0.7",
         "no-scroll": "2.1.1",
-        "node-fetch": "2.6.0",
+        "node-fetch": "2.6.7",
         "node-noop": "1.0.0",
         "nodemon": "1.19.1",
         "normalize.css": "8.0.1",
