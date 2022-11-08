@@ -126,7 +126,7 @@
         "image-webpack-loader": "4.6.0",
         "jest": "24.8.0",
         "lint-staged": "8.1.7",
-        "loader-utils": "1.2.3",
+        "loader-utils": "1.4.1",
         "lodash": "4.17.11",
         "lodash-webpack-plugin": "0.11.5",
         "minireset.css": "0.0.5",
